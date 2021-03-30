@@ -4,7 +4,7 @@
     "ignore": []
   },
   "setting": {
-    "urlCheck": true,
+    "urlCheck": false,
     "es6": true,
     "enhance": false,
     "postcss": true,
@@ -40,9 +40,9 @@
     "minifyWXSS": true
   },
   "compileType": "miniprogram",
-  "libVersion": "2.16.0",
+  "libVersion": "2.15.0",
   "appid": "wx9d369033cfdd3cfd",
-  "projectname": "HeyCommunity-wxapp",
+  "projectname": "HeyCommunity",
   "debugOptions": {
     "hidedInDevtools": []
   },
