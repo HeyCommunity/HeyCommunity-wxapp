@@ -1,5 +1,7 @@
 {
   "pages":[
+    "pages/timelines/index/index",
+
     "pages/index/index",
     "pages/logs/logs"
   ],
