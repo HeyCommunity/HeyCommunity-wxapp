@@ -1,0 +1,24 @@
+{
+  "setting": {},
+  "condition": {
+    "plugin": {
+      "list": []
+    },
+    "game": {
+      "list": []
+    },
+    "gamePlugin": {
+      "list": []
+    },
+    "miniprogram": {
+      "list": [
+        {
+          "name": "动态首页",
+          "pathName": "pages/timelines/index/index",
+          "query": "",
+          "scene": null
+        }
+      ]
+    }
+  }
+}

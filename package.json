@@ -6,7 +6,16 @@
   "dependencies": {
     "@vant/weapp": "^1.6.8"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "gulp": "^4.0.2",
+    "gulp-clean": "^0.4.0",
+    "gulp-rename": "^2.0.0",
+    "gulp-replace": "^1.0.0",
+    "gulp-sass": "^4.1.0",
+    "gulp-tap": "^2.0.0",
+    "gulp-util": "^3.0.8",
+    "gulp-watch-sass": "^1.4.1"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
