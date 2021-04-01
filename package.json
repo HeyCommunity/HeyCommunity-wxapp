@@ -1,0 +1,19 @@
+{
+  "name": "heycommunity-wxapp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "dependencies": {
+    "@vant/weapp": "^1.6.8"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@e.coding.net:protobia/heycommunity/wxapp.git"
+  },
+  "author": "",
+  "license": "ISC"
+}
