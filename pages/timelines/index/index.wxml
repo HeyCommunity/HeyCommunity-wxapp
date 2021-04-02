@@ -1,5 +1,4 @@
 <view class="container-full" id="page-timeline-index">
-
   <view class="item-timeline cu-card dynamic no-card" wx:for="{{ [1,2,3,4,5,6] }}" wx:key="*this">
     <view class="cu-item shadow">
       <view class="cu-list menu-avatar">

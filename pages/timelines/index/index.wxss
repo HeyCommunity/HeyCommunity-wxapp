@@ -1,4 +1,6 @@
 #page-timeline-index {
-  margin: 20rpx 0; }
+  margin: 10px 0; }
   #page-timeline-index .item-timeline {
-    margin-top: 20px; }
+    margin-top: 15px; }
+    #page-timeline-index .item-timeline:first-of-type {
+      margin-top: 0px; }

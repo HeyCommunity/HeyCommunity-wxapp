@@ -1,7 +1,7 @@
 {
   "navigationBarBackgroundColor": "#ffffff",
   "navigationBarTextStyle": "black",
-  "navigationBarTitleText": "HeyCommunity",
+  "navigationBarTitleText": "我的",
   "backgroundColor": "#eeeeee",
   "backgroundTextStyle": "light",
   "usingComponents": {

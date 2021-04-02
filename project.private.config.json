@@ -17,6 +17,18 @@
           "pathName": "pages/timelines/index/index",
           "query": "",
           "scene": null
+        },
+        {
+          "name": "消息首页",
+          "pathName": "pages/messages/index/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "我的首页",
+          "pathName": "pages/users/index/index",
+          "query": "",
+          "scene": null
         }
       ]
     }
