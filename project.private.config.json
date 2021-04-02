@@ -29,6 +29,12 @@
           "pathName": "pages/users/index/index",
           "query": "",
           "scene": null
+        },
+        {
+          "name": "聊天页面",
+          "pathName": "pages/messages/detail/index",
+          "query": "",
+          "scene": null
         }
       ]
     }

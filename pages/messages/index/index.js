@@ -7,4 +7,11 @@ Page({
    */
   onLoad() {
   },
+
+  /**
+   * goto Detail Page
+   */
+  gotoDetailPage() {
+    wx.navigateTo({url: '/pages/messages/detail/index'});
+  },
 });

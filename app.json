@@ -3,6 +3,8 @@
     "pages/timelines/index/index",
 
     "pages/messages/index/index",
+    "pages/messages/detail/index",
+
     "pages/users/index/index",
 
     "pages/web-page/index",
