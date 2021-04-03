@@ -35,6 +35,11 @@
           "pathName": "pages/messages/detail/index",
           "query": "",
           "scene": null
+        },
+        {
+          "name": "动态发布页",
+          "pathName": "pages/timelines/create/index",
+          "scene": null
         }
       ]
     }

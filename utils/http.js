@@ -22,12 +22,12 @@ const httpRequest = function(type, path, params, successCallback, failCallback, 
     },
     url: makeApiPath(path),
     data: params,
-    success: function (res) {
+    success: function(res) {
       if (httpSuccessful(res)) {
         console.debug('[HTTP-' + type + '] ' + path + ' successful', res);
         successCallback(res.data.data, res);
       } else {
-        console.debug('[HTTP-' + type + '] ' + path + ' fail', res);
+        console.error('[HTTP-' + type + '] ' + path + ' fail', res);
         failCallback(res);
       }
     },
@@ -46,6 +46,40 @@ const httpGet = function(path, params, successCallback, failCallback, requestFai
 const httpPost = function(path, params, successCallback, failCallback, requestFailCallback) {
   httpRequest('POST', path, params, successCallback, failCallback, requestFailCallback);
 };
+
+/**
+ * 上传文件
+ */
+const uploadFile = function(path, filePath, params, successCallback, failCallback, requestFailCallback) {
+  // API 返回失败回调
+  if (!failCallback) failCallback = function(res) {};
+
+  // 请求异常回调
+  if (!requestFailCallback) {
+    requestFailCallback = function(res) {
+      console.error('UploadFile fail', filePath, res);
+    };
+  }
+
+  wx.uploadFile({
+    url: makeApiPath(path),
+    filePath: filePath,
+    name: 'file',
+    formData: params,
+    success: function(res) {
+      if (httpSuccessful(res)) {
+        res.data = JSON.parse(res.data);
+
+        console.debug('[UploadFile] ' + filePath + ' successful', res);
+        successCallback(res.data.data, res);
+      } else {
+        console.error('[UploadFile] ' + filePath + ' fail', res);
+        failCallback(res);
+      }
+    },
+    fail: requestFailCallback,
+  });
+}
 
 //
 // 生成 Api URL
@@ -72,4 +106,5 @@ const httpSuccessful = function(res) {
 module.exports = {
   makeApiPath, makeWebPagePath, httpSuccessful,
   httpGet, httpPost, httpRequest,
+  uploadFile,
 };
