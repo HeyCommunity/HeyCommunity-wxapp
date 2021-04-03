@@ -7,7 +7,7 @@
   <!-- 图片 -->
   <view class="cu-form-group" style="border:none;">
     <view class="grid col-4 grid-square flex-sub">
-      <view class="bg-img" wx:for="{{ images }}" wx:key="{{ index }}" bind:tap="previewImage" data-url="{{ images[index].tempFilePath }}">
+      <view class="bg-img" wx:for="{{ images }}" wx:key="index" bind:tap="previewImage" data-url="{{ images[index].tempFilePath }}">
         <image src="{{ images[index].tempFilePath }}" mode="aspectFill"></image>
         <view class="cu-tag bg-red" catchtap="deleteImage" data-index="{{ index }}">
           <text class="cuIcon-close"></text>
