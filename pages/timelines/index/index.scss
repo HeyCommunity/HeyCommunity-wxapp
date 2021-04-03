@@ -8,4 +8,19 @@
       margin-top: 0px;
     }
   }
+
+  .btn-create {
+    position: fixed;
+    bottom: 60rpx;
+    right: 40rpx;
+    z-index: 9999;
+    width: 50px;
+    height: 50px;
+    border-bottom: 50%;
+
+    .icon {
+      font-size: 20px;
+      font-weight: bold;
+    }
+  }
 }

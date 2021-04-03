@@ -1,4 +1,6 @@
 <view class="container-full" id="page-timeline-index">
+  <button bind:tap="gotoCreatePage" class="btn-create cu-btn bg-blue round"><view class="icon cuIcon-add"></view></button>
+
   <view class="item-timeline cu-card dynamic no-card" wx:for="{{ timelines }}" wx:key="id" wx:for-item="timeline">
     <view class="cu-item shadow">
       <view class="cu-list menu-avatar">
