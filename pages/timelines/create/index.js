@@ -10,6 +10,7 @@ Page({
    * onLoad
    */
   onLoad() {
+    if (getApp().needAuth()) return;
   },
 
   /**

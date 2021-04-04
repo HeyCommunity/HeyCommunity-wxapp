@@ -1,0 +1,14 @@
+.userinfo {
+  display: flex;
+  margin-top: 200rpx;
+  flex-direction: column;
+  align-items: center;
+  color: #aaa;
+
+  .avatar {
+    overflow: hidden;
+    width: 200rpx;
+    height: 200rpx;
+    border-radius: 50%;
+  }
+}

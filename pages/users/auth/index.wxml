@@ -1,0 +1,16 @@
+<!--index.wxml-->
+<view class="container">
+  <view class="userinfo">
+    <block wx:if="{{ canUseUserOpenData }}">
+      <view class="avatar">
+        <open-data type="userAvatarUrl"></open-data>
+      </view>
+      <open-data type="userNickName"></open-data>
+    </block>
+  </view>
+
+  <view style="margin-top:60rpx">
+    <button class="cu-btn lg bg-blue block"
+            open-type="getUserInfo" bind:getuserinfo="userLoginHandler">立即登录</button>
+  </view>
+</view>

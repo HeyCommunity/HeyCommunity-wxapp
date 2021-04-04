@@ -7,11 +7,9 @@
     "pages/messages/detail/index",
 
     "pages/users/index/index",
+    "pages/users/users/index",
 
-    "pages/web-page/index",
-
-    "pages/index/index",
-    "pages/logs/logs"
+    "pages/web-page/index"
   ],
   "tabBar": {
     "color": "#AAAAAA",
