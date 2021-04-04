@@ -51,6 +51,8 @@ const httpPost = function(path, params, successCallback, failCallback, requestFa
  * 上传文件
  */
 const uploadFile = function(path, filePath, params, successCallback, failCallback, requestFailCallback) {
+  let APP = getApp();
+
   // API 返回失败回调
   if (!failCallback) failCallback = function(res) {};
 
@@ -62,6 +64,9 @@ const uploadFile = function(path, filePath, params, successCallback, failCallbac
   }
 
   wx.uploadFile({
+    header: {
+      'Authorization': 'Bearer ' + APP.globalData.apiToken
+    },
     url: makeApiPath(path),
     filePath: filePath,
     name: 'file',

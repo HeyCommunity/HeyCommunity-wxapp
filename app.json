@@ -20,11 +20,6 @@
       "iconPath": "/assets/images/tabbar/newspaper.png",
       "selectedIconPath": "/assets/images/tabbar/newspaper-active.png"
     }, {
-      "text": "消息",
-      "pagePath": "pages/messages/index/index",
-      "iconPath": "/assets/images/tabbar/comments.png",
-      "selectedIconPath": "/assets/images/tabbar/comments-active.png"
-    }, {
       "text": "我的",
       "pagePath": "pages/users/index/index",
       "iconPath": "/assets/images/tabbar/user.png",

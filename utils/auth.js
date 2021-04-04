@@ -12,15 +12,16 @@ const userLogin = function(code, successCallback) {
   // 获取 token
   HTTP.httpGet('users/mine-token', {code: code}, function(data) {
     getApp().globalData.apiToken = data.token;
+
+    // 写入 LocalStorage
+    wx.setStorage({
+      key: 'apiToken',
+      data: getApp().globalData.apiToken,
+    });
+    
     console.info('got and set apiToken => ' + data.token);
 
     if (successCallback) successCallback();
-  });
-
-  // 写入 LocalStorage
-  wx.setStorage({
-    key: 'apiToken',
-    data: getApp().globalData.apiToken,
   });
 
   return true;
