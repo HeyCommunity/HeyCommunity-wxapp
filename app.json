@@ -7,7 +7,7 @@
     "pages/messages/detail/index",
 
     "pages/users/index/index",
-    "pages/users/users/index",
+    "pages/users/auth/index",
 
     "pages/web-page/index"
   ],

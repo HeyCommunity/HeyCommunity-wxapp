@@ -18,13 +18,6 @@ Page({
   },
 
   /**
-   * onShow
-   */
-  onShow() {
-    this.onPullDownRefresh();
-  },
-
-  /**
    * goto 发布动态页面
    */
   gotoCreatePage() {

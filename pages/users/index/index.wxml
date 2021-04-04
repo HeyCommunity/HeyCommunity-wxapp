@@ -1,14 +1,17 @@
 <view class="container-full">
   <scroll-view scroll-y class="scrollPage">
-    <view class="UCenter-bg">
-      <image src="/assets/images/users/rod-avatar.jpg" class="png" mode="widthFix" style="border-radius:50%;"></image>
-      <view class="text-xl">supeRodv2</view>
-      <view class="margin-top-sm">
-        <text>just for fun ~</text>
+    <view class="UCenter-bg" bind:tap="needAuth">
+      <image wx:if="{{ userInfo.avatar }}" src="{{ userInfo.avatar }}" class="png" mode="widthFix" style="border-radius:50%;"></image>
+      <image wx:else src="/assets/images/users/default-avatar.jpg" class="png" mode="widthFix" style="border-radius:50%;"></image>
+      <view wx:if="{{ userInfo.nickname }}" class="text-xl margin-top-sm">{{ userInfo.nickname }}</view>
+      <view wx:else class="text-xl margin-top-sm">请登录</view>
+      <view class="margin-top-sm" wx:if="{{ userInfo.bio }}">
+        <text>{{ userInfo.bio }}</text>
       </view>
       <image src="/assets/images/wave.gif"
              mode="scaleToFill" class="gif-wave"></image>
     </view>
+
     <view class="padding flex text-center text-grey bg-white shadow-warp">
       <view class="flex flex-sub flex-direction solid-right">
         <view class="text-xxl text-orange">{{visitTotal?visitTotal:'2.4W'}}</view>
