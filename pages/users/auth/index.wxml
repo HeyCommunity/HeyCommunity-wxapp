@@ -10,7 +10,6 @@
   </view>
 
   <view style="margin-top:60rpx">
-    <button class="cu-btn lg bg-blue block"
-            open-type="getUserInfo" bind:getuserinfo="userLoginHandler">立即登录</button>
+    <button class="cu-btn lg bg-blue block" bind:tap="userLoginHandler">立即登录</button>
   </view>
 </view>

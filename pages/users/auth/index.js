@@ -20,25 +20,25 @@ Page({
   /**
    * 用户登录处理
    */
-  userLoginHandler(event) {
-    getApp().globalData.wechatUserInfo = event.detail.userInfo;
+  userLoginHandler() {
+    wx.getUserProfile({
+      desc: '登录小程序',
+      success: (res) => {
+        let wechatUserInfo = res.userInfo;
+        getApp().globalData.wechatUserInfo = wechatUserInfo;
 
-    // 通过 wx.login res.code 到后台, 从而完成用户的注册和登录
-    wx.login({
-      success: res => {
-        // 获取 token
-        HTTP.httpGet('users/mine-token', {code: res.code}, function(data) {
-          getApp().globalData.apiToken = data.token;
-          console.info('got and set apiToken => ' + data.token);
-
-          // 更新用户资料
-          HTTP.httpPost('users/mine', event.detail.userInfo, function(data) {
-            if (AUTH.userLogin(data)) {
-              wx.navigateBack();
-            }
-          });
+        wx.login({
+          success: res => {
+            // 通过 wx.login res.code 发送到后台, 从而完成用户的注册和登录
+            AUTH.userLogin(res.code, function() {
+              // 登录成功后更新用户资料；TODO: 不要自动更新用户资料，而是在我的页面让用户手动触发
+              AUTH.userUpdateInfo(wechatUserInfo, function() {
+                wx.navigateBack();
+              });
+            });
+          },
         });
-      },
+      }
     });
   },
 })

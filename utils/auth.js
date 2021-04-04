@@ -2,14 +2,20 @@
  * Variable
  */
 const httpUtilPath = './http.js';
-const userLoginApiPath = 'users/mine';
 
 /**
  * 用户登录
   */
-const userLogin = function(userInfo) {
-  getApp().globalData.isAuth = true;
-  getApp().globalData.userInfo = userInfo;
+const userLogin = function(code, successCallback) {
+  let HTTP = require(httpUtilPath);
+
+  // 获取 token
+  HTTP.httpGet('users/mine-token', {code: code}, function(data) {
+    getApp().globalData.apiToken = data.token;
+    console.info('got and set apiToken => ' + data.token);
+
+    if (successCallback) successCallback();
+  });
 
   // 写入 LocalStorage
   wx.setStorage({
@@ -21,6 +27,20 @@ const userLogin = function(userInfo) {
 };
 
 /**
+ * 更新用户资料
+ */
+const userUpdateInfo = function(wechatUserInfo, successCallback) {
+  let HTTP = require(httpUtilPath);
+
+  HTTP.httpPost('users/mine', wechatUserInfo, function(data) {
+    console.info('updated user info => ', data);
+    getApp().globalData.userInfo = data;
+
+    if (successCallback) successCallback();
+  });
+};
+
+/**
  * 恢复登录
  */
 const restoreLogin = function(APP, successCallback) {
@@ -28,20 +48,21 @@ const restoreLogin = function(APP, successCallback) {
 
   // 从 LocalStorage 恢复 apiToken
   let apiToken = wx.getStorageSync('apiToken');
+
   if (apiToken) {
     wx.request({
       method: 'GET',
       header: {
         'Authorization': 'Bearer ' + apiToken
       },
-      url: HTTP.makeApiPath(userLoginApiPath),
+      url: HTTP.makeApiPath('users/mine'),
       data: {},
       success: function (res) {
         if (HTTP.httpSuccessful(res)) {
           APP.globalData.apiToken = apiToken;
           APP.globalData.isAuth = true;
           APP.globalData.userInfo = res.data.data;
-          
+
           if (successCallback) successCallback();
 
           console.debug('恢复登录状态: isAuth => ' + APP.globalData.isAuth);
@@ -50,9 +71,11 @@ const restoreLogin = function(APP, successCallback) {
         }
       },
     });
+  } else {
+    console.debug('恢复登录状态失败: Storage.apiToken does not exist');
   }
 };
 
 module.exports = {
-  userLogin, restoreLogin,
+  userLogin, restoreLogin, userUpdateInfo,
 };
