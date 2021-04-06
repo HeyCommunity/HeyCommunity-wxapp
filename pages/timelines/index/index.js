@@ -39,7 +39,6 @@ Page({
    */
   onPullDownRefresh() {
     let _this = this;
-    _this.setData({timelines: []});
 
     // 获取动态
     HTTP.httpGet('timelines', {}, function(data) {
