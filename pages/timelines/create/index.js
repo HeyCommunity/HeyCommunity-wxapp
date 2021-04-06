@@ -56,7 +56,7 @@ Page({
    */
   previewImage(event) {
     wx.previewImage({
-      urls: this.data.images,
+      urls: this.data.images.map(image => image.tempFilePath),
       current: event.currentTarget.dataset.url
     });
   },
