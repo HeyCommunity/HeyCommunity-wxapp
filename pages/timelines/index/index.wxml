@@ -19,6 +19,7 @@
         <view class="grid flex-sub padding-lr {{ timeline.images.length > 1 ? 'col-3 grid-square' : 'col-1' }}">
           <view class="bg-img {{ timeline.images.length > 1 ? '' : 'only-img' }}"
                 style="background-image:url('{{ image.file_path }}');"
+                bind:tap="previewImage" data-url="{{ image.file_path }}" data-urls="{{ timeline.images }}"
                 wx:for="{{ timeline.images }}" wx:for-item="image" wx:key="*this">
           </view>
         </view>

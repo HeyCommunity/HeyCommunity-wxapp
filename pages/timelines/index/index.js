@@ -25,6 +25,16 @@ Page({
   },
 
   /**
+   * 预览图片
+   */
+  previewImage(event) {
+    wx.previewImage({
+      urls: event.currentTarget.dataset.urls.map(image => image.file_path),
+      current: event.currentTarget.dataset.url,
+    });
+  },
+
+  /**
    * 下拉刷新
    */
   onPullDownRefresh() {
