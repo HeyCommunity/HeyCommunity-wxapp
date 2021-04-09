@@ -10,7 +10,7 @@ const userLogin = function(code, successCallback) {
   let HTTP = require(httpUtilPath);
 
   // 获取 token
-  HTTP.httpGet('users/mine-token', {code: code}, function(data) {
+  HTTP.httpGet('users/login', {code: code}, function(data) {
     getApp().globalData.apiToken = data.token;
     getApp().globalData.isAuth = true;
     getApp().globalData.userInfo = data;
