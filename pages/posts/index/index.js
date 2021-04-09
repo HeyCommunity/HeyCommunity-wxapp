@@ -2,7 +2,7 @@ const HTTP = require('../../../utils/http.js');
 
 Page({
   data: {
-    timelines: [],
+    posts: [],
   },
 
   /**
@@ -12,8 +12,8 @@ Page({
     let _this = this;
 
     // 获取动态
-    HTTP.httpGet('timelines', {}, function(data) {
-      _this.setData({timelines: data});
+    HTTP.httpGet('posts', {}, function(data) {
+      _this.setData({posts: data});
     });
   },
 
@@ -21,7 +21,7 @@ Page({
    * goto 发布动态页面
    */
   gotoCreatePage() {
-    wx.navigateTo({url: '/pages/timelines/create/index'});
+    wx.navigateTo({url: '/pages/posts/create/index'});
   },
 
   /**
@@ -41,8 +41,8 @@ Page({
     let _this = this;
 
     // 获取动态
-    HTTP.httpGet('timelines', {}, function(data) {
-      _this.setData({timelines: data});
+    HTTP.httpGet('posts', {}, function(data) {
+      _this.setData({posts: data});
       wx.stopPullDownRefresh();
     });
   },

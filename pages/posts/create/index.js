@@ -103,7 +103,7 @@ Page({
       params.image_ids.push(image.imageId);
     });
 
-    HTTP.httpPost('timelines', params, function(data) {
+    HTTP.httpPost('posts', params, function(data) {
       wx.hideLoading();
       wx.navigateBack();
     });

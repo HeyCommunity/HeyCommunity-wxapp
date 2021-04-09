@@ -1,7 +1,7 @@
 {
   "pages":[
-    "pages/timelines/index/index",
-    "pages/timelines/create/index",
+    "pages/posts/index/index",
+    "pages/posts/create/index",
 
     "pages/discussions/index/index",
     "pages/discussions/detail/index",
@@ -16,7 +16,7 @@
     "selectedColor": "#0081ff",
     "list": [{
       "text": "动态",
-      "pagePath": "pages/timelines/index/index",
+      "pagePath": "pages/posts/index/index",
       "iconPath": "/assets/images/tabbar/post.png",
       "selectedIconPath": "/assets/images/tabbar/post-active.png"
     }, {

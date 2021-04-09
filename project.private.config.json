@@ -14,13 +14,13 @@
       "list": [
         {
           "name": "动态首页",
-          "pathName": "pages/timelines/index/index",
+          "pathName": "pages/posts/index/index",
           "query": "",
           "scene": null
         },
         {
           "name": "动态发布页",
-          "pathName": "pages/timelines/create/index",
+          "pathName": "pages/posts/create/index",
           "scene": null
         },
         {

@@ -1,11 +1,11 @@
 <view class="container-full" id="page-timeline-index">
   <button bind:tap="gotoCreatePage" class="btn-create cu-btn bg-blue round"><view class="icon cuIcon-post"></view></button>
 
-  <view wx:if="{{ timelines.length === 0 }}" style="padding-top:100px;">
+  <view wx:if="{{ posts.length === 0 }}" style="padding-top:100px;">
     <van-empty description="暂无动态"></van-empty>
   </view>
   <view wx:else>
-    <view class="item-timeline cu-card dynamic no-card" wx:for="{{ timelines }}" wx:key="id" wx:for-item="timeline">
+    <view class="item-timeline cu-card dynamic no-card" wx:for="{{ posts }}" wx:key="id" wx:for-item="timeline">
       <view class="cu-item shadow">
         <view class="cu-list menu-avatar">
           <view class="cu-item">
