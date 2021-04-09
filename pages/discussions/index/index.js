@@ -12,6 +12,6 @@ Page({
    * goto Detail Page
    */
   gotoDetailPage() {
-    wx.navigateTo({url: '/pages/messages/detail/index'});
+    wx.navigateTo({url: '/pages/discussions/detail/index'});
   },
 });

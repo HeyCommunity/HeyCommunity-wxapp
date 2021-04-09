@@ -19,8 +19,19 @@
           "scene": null
         },
         {
+          "name": "动态发布页",
+          "pathName": "pages/timelines/create/index",
+          "scene": null
+        },
+        {
           "name": "消息首页",
-          "pathName": "pages/messages/index/index",
+          "pathName": "pages/discussions/index/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "聊天页面",
+          "pathName": "pages/discussions/detail/index",
           "query": "",
           "scene": null
         },
@@ -28,17 +39,6 @@
           "name": "我的首页",
           "pathName": "pages/users/index/index",
           "query": "",
-          "scene": null
-        },
-        {
-          "name": "聊天页面",
-          "pathName": "pages/messages/detail/index",
-          "query": "",
-          "scene": null
-        },
-        {
-          "name": "动态发布页",
-          "pathName": "pages/timelines/create/index",
           "scene": null
         }
       ]

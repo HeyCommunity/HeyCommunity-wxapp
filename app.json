@@ -3,8 +3,8 @@
     "pages/timelines/index/index",
     "pages/timelines/create/index",
 
-    "pages/messages/index/index",
-    "pages/messages/detail/index",
+    "pages/discussions/index/index",
+    "pages/discussions/detail/index",
 
     "pages/users/index/index",
     "pages/users/auth/index",
@@ -19,6 +19,11 @@
       "pagePath": "pages/timelines/index/index",
       "iconPath": "/assets/images/tabbar/post.png",
       "selectedIconPath": "/assets/images/tabbar/post-active.png"
+    }, {
+      "text": "消息",
+      "pagePath": "pages/discussions/index/index",
+      "iconPath": "/assets/images/tabbar/discussion.png",
+      "selectedIconPath": "/assets/images/tabbar/discussion-active.png"
     }, {
       "text": "我的",
       "pagePath": "pages/users/index/index",
