@@ -27,8 +27,8 @@
     }, {
       "text": "我的",
       "pagePath": "pages/users/index/index",
-      "iconPath": "/assets/images/tabbar/toker.png",
-      "selectedIconPath": "/assets/images/tabbar/toker-active.png"
+      "iconPath": "/assets/images/tabbar/user.png",
+      "selectedIconPath": "/assets/images/tabbar/user-active.png"
     }]
   },
   "window": {
