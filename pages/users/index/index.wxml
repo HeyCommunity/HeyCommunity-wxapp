@@ -13,75 +13,117 @@
 
     <view class="padding flex text-center text-grey bg-white shadow-warp">
       <view class="flex flex-sub flex-direction solid-right">
-        <view class="text-xxl text-orange">{{visitTotal?visitTotal:'2.4W'}}</view>
+        <view class="text-xxl text-orange">{{ userInfo ? userInfo.post_num : 0}}</view>
         <view class="margin-top-sm">
-          <text class="cuIcon-attentionfill"></text> View</view>
+          <text class="cuIcon-newsfill"></text> 动态
+        </view>
       </view>
       <view class="flex flex-sub flex-direction solid-right">
-        <view class="text-xxl text-blue">{{starCount?starCount:'3.0K'}}</view>
+        <view class="text-xxl text-green">{{ userInfo ? userInfo.got_post_comment_num : 0 }}</view>
         <view class="margin-top-sm">
-          <text class="cuIcon-favorfill"></text> Star</view>
+          <text class="cuIcon-commentfill"></text> 评论
+        </view>
       </view>
       <view class="flex flex-sub flex-direction">
-        <view class="text-xxl text-green">{{forksCount?forksCount:'484'}}</view>
+        <view class="text-xxl text-blue">{{ userInfo ? userInfo.got_post_thumb_up_num : 0 }}</view>
         <view class="margin-top-sm">
-          <text class="cuIcon-fork"></text> Fork</view>
-      </view>
-    </view>
-
-    <view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg radius">
-      <view class="cu-item arrow">
-        <view class="content" bind:tap="gotoWebPage" data-link="http://rodsship.hey-community.com/timeline">
-          <text class="cuIcon-likefill text-red"></text>
-          <text class="text-grey">Rod's Ship</text>
-        </view>
-      </view>
-      <view class="cu-item arrow">
-        <view class="content" bind:tap="gotoWebPage" data-link="http://the.hey-community.com/timeline">
-          <text class="cuIcon-likefill text-red"></text>
-          <text class="text-grey">HEY社区大本营</text>
-        </view>
-      </view>
-      <view class="cu-item arrow">
-        <view class="content" bind:tap="gotoWebPage" data-link="https://www.hey-ganzhou.com/timeline">
-          <text class="cuIcon-likefill text-red"></text>
-          <text class="text-grey">HEY赣州</text>
+          <text class="cuIcon-appreciatefill"></text> 被赞
         </view>
       </view>
     </view>
 
     <view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg radius">
+      <view class="cu-item">
+        <view class="content">
+          <text class="cuIcon-notice text-green"></text>
+          <text class="text-grey">通知</text>
+        </view>
+        <view class="action">
+          <text class="text-grey text-sm">无通知</text>
+        </view>
+      </view>
       <view class="cu-item arrow">
-        <view class="content" bindtap="CopyLink" data-link="https://github.com/weilanwl/ColorUI">
+        <view class="content">
+          <text class="cuIcon-notice text-red"></text>
+          <text class="text-grey">通知</text>
+        </view>
+        <view class="action">
+          <view class="cu-avatar-group">
+            <view class="cu-avatar round sm" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big10004.jpg);"></view>
+            <view class="cu-avatar round sm" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big10003.jpg);"></view>
+            <view class="cu-avatar round sm" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big10002.jpg);"></view>
+            <view class="cu-avatar round sm" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big10001.jpg);"></view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg radius">
+      <view class="cu-item arrow">
+        <view class="content">
+          <text class="cuIcon-profile text-blue"></text>
+          <text class="text-grey">我的资料</text>
+        </view>
+      </view>
+      <view class="cu-item arrow">
+        <view class="content">
+          <text class="cuIcon-news text-blue"></text>
+          <text class="text-grey">我的动态</text>
+        </view>
+      </view>
+      <view class="cu-item arrow">
+        <view class="content">
+          <text class="cuIcon-comment text-blue"></text>
+          <text class="text-grey">我的评论</text>
+        </view>
+      </view>
+      <view class="cu-item arrow">
+        <view class="content">
+          <text class="cuIcon-appreciate text-blue"></text>
+          <text class="text-grey">我的点赞</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg radius">
+      <view class="cu-item arrow">
+        <view class="content">
           <text class="cuIcon-github text-grey"></text>
-          <text class="text-grey">GitHub</text>
+          <text class="text-grey">HEY社区</text>
+        </view>
+        <view class="action">
+          <text class="text-gray text-sm">免费开源软件</text>
         </view>
       </view>
       <view class="cu-item arrow">
-        <navigator class="content" url="/pages/about/log/log" hover-class="none">
-          <text class="cuIcon-formfill text-green"></text>
-          <text class="text-grey">日志</text>
-        </navigator>
-      </view>
-      <view class="cu-item arrow">
-        <view class="content" bindtap="showQrcode">
-          <text class="cuIcon-appreciatefill text-red"></text>
-          <text class="text-grey">赞赏支持</text>
+        <view class="content">
+          <text class="cuIcon-phone text-orange"></text>
+          <text class="text-grey">联系我们</text>
         </view>
       </view>
       <view class="cu-item arrow">
-        <button class="cu-btn content" open-type="feedback">
+        <button class="cu-btn content" open-type="feedback" style="font-weight:normal; font-size:30rpx; height:46rpx; line-height:1.6em;">
           <text class="cuIcon-writefill text-cyan"></text>
           <text class="text-grey">意见反馈</text>
         </button>
       </view>
-      <view class="cu-item arrow">
-        <navigator class="content" url="/pages/about/test/list" hover-class="none">
-          <text class="cuIcon-creativefill text-orange"></text>
-          <text class="text-grey">Bug测试</text>
-        </navigator>
+    </view>
+
+    <view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg radius">
+      <view class="cu-item arrow" style="display:none;">
+        <view class="content">
+          <text class="cuIcon-evaluate text-blue"></text>
+          <text class="text-grey">用户协议</text>
+        </view>
+      </view>
+      <view class="cu-item text-center">
+        <view class="content">
+          <text class="cuIcon-exit text-red"></text>
+          <text class="text-red">退出登录</text>
+        </view>
       </view>
     </view>
+
     <view class="cu-tabbar-height"></view>
   </scroll-view>
 </view>
