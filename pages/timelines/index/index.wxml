@@ -1,7 +1,9 @@
 <view class="container-full" id="page-timeline-index">
-  <button bind:tap="gotoCreatePage" class="btn-create cu-btn bg-blue round"><view class="icon cuIcon-add"></view></button>
+  <button bind:tap="gotoCreatePage" class="btn-create cu-btn bg-blue round"><view class="icon cuIcon-post"></view></button>
 
-  <van-empty wx:if="{{ timelines.length === 0 }}" description="暂无动态"></van-empty>
+  <view wx:if="{{ timelines.length === 0 }}" style="padding-top:100px;">
+    <van-empty description="暂无动态"></van-empty>
+  </view>
   <view wx:else>
     <view class="item-timeline cu-card dynamic no-card" wx:for="{{ timelines }}" wx:key="id" wx:for-item="timeline">
       <view class="cu-item shadow">

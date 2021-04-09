@@ -1,9 +1,10 @@
 #page-timeline-index {
-  margin: 10px 0; }
+  padding-top: 20rpx;
+  padding-bottom: 30rpx; }
   #page-timeline-index .item-timeline {
-    margin-top: 15px; }
+    margin-top: 30rpx; }
     #page-timeline-index .item-timeline:first-of-type {
-      margin-top: 0px; }
+      margin-top: 0rpx; }
   #page-timeline-index .btn-create {
     position: fixed;
     bottom: 60rpx;
