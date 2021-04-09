@@ -12,16 +12,17 @@ const userLogin = function(code, successCallback) {
   // 获取 token
   HTTP.httpGet('users/mine-token', {code: code}, function(data) {
     getApp().globalData.apiToken = data.token;
+    getApp().globalData.isAuth = true;
+    getApp().globalData.userInfo = data;
 
     // 写入 LocalStorage
     wx.setStorage({
       key: 'apiToken',
       data: getApp().globalData.apiToken,
     });
-    
-    console.info('got and set apiToken => ' + data.token);
 
     if (successCallback) successCallback();
+    console.info('got and set apiToken => ' + data.token);
   });
 
   return true;
@@ -34,10 +35,10 @@ const userUpdateInfo = function(wechatUserInfo, successCallback) {
   let HTTP = require(httpUtilPath);
 
   HTTP.httpPost('users/mine', wechatUserInfo, function(data) {
-    console.info('updated user info => ', data);
     getApp().globalData.userInfo = data;
 
     if (successCallback) successCallback();
+    console.info('updated user info => ', data);
   });
 };
 
@@ -65,7 +66,6 @@ const restoreLogin = function(APP, successCallback) {
           APP.globalData.userInfo = res.data.data;
 
           if (successCallback) successCallback();
-
           console.debug('恢复登录状态: isAuth => ' + APP.globalData.isAuth);
         } else {
           console.debug('恢复登录状态失败: isAuth => false');

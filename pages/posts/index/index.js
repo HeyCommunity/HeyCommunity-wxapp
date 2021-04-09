@@ -21,6 +21,8 @@ Page({
    * goto 发布动态页面
    */
   gotoCreatePage() {
+    if (getApp().needAuth()) return;
+
     wx.navigateTo({url: '/pages/posts/create/index'});
   },
 

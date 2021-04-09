@@ -46,10 +46,10 @@ App({
    */
   needAuth() {
     if (this.globalData.isAuth) {
-      return true;
+      return false;
     } else {
       wx.navigateTo({url: '/pages/users/auth/index'});
-      return false;
+      return true;
     }
   },
 })
