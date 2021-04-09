@@ -1,11 +1,8 @@
-<view class="container-full" id="page-timeline-index">
+<view class="container-full" id="page-posts-index">
   <button bind:tap="gotoCreatePage" class="btn-create cu-btn bg-blue round"><view class="icon cuIcon-post"></view></button>
 
-  <view wx:if="{{ posts.length === 0 }}" style="padding-top:100px;">
-    <van-empty description="暂无动态"></van-empty>
-  </view>
-  <view wx:else>
-    <view class="item-timeline cu-card dynamic no-card" wx:for="{{ posts }}" wx:key="id" wx:for-item="timeline">
+  <view class="items-post" wx:if="{{ posts.length > 0 }}">
+    <view class="item-post cu-card dynamic no-card solid-top solid-bottom" wx:for="{{ posts }}" wx:key="id" wx:for-item="timeline">
       <view class="cu-item shadow">
         <view class="cu-list menu-avatar">
           <view class="cu-item">
@@ -17,8 +14,10 @@
           </view>
         </view>
 
+        <!-- 内容与图片 -->
         <view class="text-content">{{ timeline.content }}</view>
-        <view class="grid flex-sub padding-lr {{ timeline.images.length > 1 ? 'col-3 grid-square' : 'col-1' }}">
+        <view wx:if="{{ timeline.images.length > 0 }}"
+              class="grid flex-sub padding-lr {{ timeline.images.length > 1 ? 'col-3 grid-square' : 'col-1' }}">
           <view class="bg-img {{ timeline.images.length > 1 ? '' : 'only-img' }}"
                 style="background-image:url('{{ image.file_path }}');"
                 bind:tap="previewImage" data-url="{{ image.file_path }}" data-urls="{{ timeline.images }}"
@@ -26,13 +25,21 @@
           </view>
         </view>
 
-        <view class="text-gray text-sm text-right padding">
-          <text class="cuIcon-attentionfill margin-lr-xs"></text> {{ timeline.read_num }}
-          <text class="cuIcon-appreciatefill margin-lr-xs"></text> {{ timeline.thumb_up_num }}
-          <text class="cuIcon-messagefill margin-lr-xs"></text> {{ timeline.comment_num }}
+        <!-- 操作栏 -->
+        <view class="cu-list flex margin-top-sm" style="background-color:#f7f7f7;">
+          <view class="cu-item flex-sub padding-tb-sm margin-left-sm text-grey text-center">
+            <text class="cuIcon-attentionfill margin-lr-xs"></text> {{ timeline.read_num }} 阅读
+          </view>
+          <view class="cu-item flex-sub padding-tb-sm margin-lr-sm text-grey text-center">
+            <text class="cuIcon-appreciatefill margin-lr-xs"></text> {{ timeline.thumb_up_num }} 点赞
+          </view>
+          <view class="cu-item flex-sub padding-tb-sm margin-right-sm text-grey text-center">
+            <text class="cuIcon-messagefill margin-lr-xs"></text> {{ timeline.comment_num }} 评论
+          </view>
         </view>
 
-        <view class="cu-list menu-avatar comment solids-top">
+        <!-- 评论列表 -->
+        <view class="cu-list menu-avatar comment" style="margin-top:0;">
           <view class="cu-item" wx:for="{{ timeline.comments }}" wx:key="id" wx:for-item="comment">
             <view class="cu-avatar round" style="background-image:url('{{ comment.user_avatar }}');"></view>
             <view class="content">
@@ -52,4 +59,7 @@
     </view>
   </view>
 
+  <view wx:else style="padding-top:100px;">
+    <van-empty description="暂无动态"></van-empty>
+  </view>
 </view>

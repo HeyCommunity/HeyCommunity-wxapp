@@ -1,11 +1,11 @@
-#page-timeline-index {
+#page-posts-index {
   padding-top: 20rpx;
   padding-bottom: 30rpx; }
-  #page-timeline-index .item-timeline {
+  #page-posts-index .item-post {
     margin-top: 30rpx; }
-    #page-timeline-index .item-timeline:first-of-type {
+    #page-posts-index .item-post:first-of-type {
       margin-top: 0rpx; }
-  #page-timeline-index .btn-create {
+  #page-posts-index .btn-create {
     position: fixed;
     bottom: 60rpx;
     right: 40rpx;
@@ -13,6 +13,6 @@
     width: 50px;
     height: 50px;
     border-bottom: 50%; }
-    #page-timeline-index .btn-create .icon {
+    #page-posts-index .btn-create .icon {
       font-size: 20px;
       font-weight: bold; }
