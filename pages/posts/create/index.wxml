@@ -21,7 +21,7 @@
   </view>
 
   <view class="container">
-    <button role="button" aria-disabled="true" bind:tap="createTimeline"
+    <button role="button" aria-disabled="true" bind:tap="createPost"
             class="cu-btn block bg-blue lg round margin-top-sm">发布</button>
   </view>
 </view>

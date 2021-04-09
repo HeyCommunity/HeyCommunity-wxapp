@@ -32,12 +32,12 @@ Page({
             }]),
           });
 
-          HTTP.uploadFile('timeline-images', tempFilePath, {}, function(data) {
-            let timelineImageId = data.id;
+          HTTP.uploadFile('post-images', tempFilePath, {}, function(data) {
+            let postImageId = data.id;
 
             _this.data.images.forEach(function(image, index) {
               if (image.tempFilePath === tempFilePath) {
-                _this.data.images[index].imageId = timelineImageId;
+                _this.data.images[index].imageId = postImageId;
 
                 _this.setData({
                   images: _this.data.images,
@@ -81,7 +81,7 @@ Page({
   /**
    * 发布动态
    */
-  createTimeline() {
+  createPost() {
     if (!this.data.content) {
       wx.showModal({
         content: '请说点什么',
