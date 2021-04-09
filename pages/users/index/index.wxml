@@ -1,6 +1,6 @@
 <view class="container-full">
   <scroll-view scroll-y class="scrollPage">
-    <view class="UCenter-bg" bind:tap="needAuth">
+    <view class="UCenter-bg" bind:tap="needAuth" style="background-image: url(/assets/images/users/profile-bg.jpg)">
       <image wx:if="{{ userInfo.avatar }}" src="{{ userInfo.avatar }}" class="png" mode="widthFix" style="border-radius:50%;"></image>
       <image wx:else src="/assets/images/users/default-avatar.jpg" class="png" mode="widthFix" style="border-radius:50%;"></image>
       <view wx:if="{{ userInfo.nickname }}" class="text-xl margin-top-sm">{{ userInfo.nickname }}</view>
@@ -8,8 +8,7 @@
       <view class="margin-top-sm" wx:if="{{ userInfo.bio }}">
         <text>{{ userInfo.bio }}</text>
       </view>
-      <image src="/assets/images/wave.gif"
-             mode="scaleToFill" class="gif-wave"></image>
+      <image src="/assets/images/users/profile-wave.gif" mode="scaleToFill" class="gif-wave"></image>
     </view>
 
     <view class="padding flex text-center text-grey bg-white shadow-warp">
