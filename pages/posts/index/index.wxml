@@ -26,7 +26,7 @@
         </view>
 
         <!-- 操作栏 -->
-        <view class="cu-list flex margin-top-sm" style="background-color:#f7f7f7;">
+        <view class="cu-list flex margin-top-sm" style="background-color:#f1f1f1;">
           <view class="cu-item flex-sub padding-tb-sm margin-left-sm text-grey text-center">
             <text class="cuIcon-attentionfill margin-lr-xs"></text> {{ post.read_num }} 阅读
           </view>
@@ -39,7 +39,7 @@
         </view>
 
         <!-- 评论列表 -->
-        <view class="cu-list menu-avatar comment" style="margin-top:0;">
+        <view wx:if="{{ post.comments.length > 0 }}" class="cu-list menu-avatar comment" style="margin-top:0;">
           <view class="cu-item" wx:for="{{ post.comments }}" wx:key="id" wx:for-item="comment">
             <view class="cu-avatar round" style="background-image:url('{{ comment.user_avatar }}');"></view>
             <view class="content">
