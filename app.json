@@ -12,18 +12,18 @@
     "pages/web-page/index"
   ],
   "tabBar": {
-    "color": "#AAAAAA",
-    "selectedColor": "#1296db",
+    "color": "#999999",
+    "selectedColor": "#0081ff",
     "list": [{
       "text": "动态",
       "pagePath": "pages/timelines/index/index",
-      "iconPath": "/assets/images/tabbar/newspaper.png",
-      "selectedIconPath": "/assets/images/tabbar/newspaper-active.png"
+      "iconPath": "/assets/images/tabbar/post.png",
+      "selectedIconPath": "/assets/images/tabbar/post-active.png"
     }, {
       "text": "我的",
       "pagePath": "pages/users/index/index",
-      "iconPath": "/assets/images/tabbar/user.png",
-      "selectedIconPath": "/assets/images/tabbar/user-active.png"
+      "iconPath": "/assets/images/tabbar/toker.png",
+      "selectedIconPath": "/assets/images/tabbar/toker-active.png"
     }]
   },
   "window": {
