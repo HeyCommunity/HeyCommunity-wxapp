@@ -1,10 +1,10 @@
 <view class="container-full">
   <scroll-view scroll-y class="scrollPage">
-    <view class="UCenter-bg" bind:tap="needAuth" style="background-image: url(/assets/images/users/profile-bg.jpg)">
+    <view class="UCenter-bg">
       <image wx:if="{{ userInfo.avatar }}" src="{{ userInfo.avatar }}" class="png" mode="widthFix" style="border-radius:50%;"></image>
-      <image wx:else src="/assets/images/users/default-avatar.jpg" class="png" mode="widthFix" style="border-radius:50%;"></image>
+      <image bind:tap="needAuth" wx:else src="/assets/images/users/default-avatar.jpg" class="png" mode="widthFix" style="border-radius:50%;"></image>
       <view wx:if="{{ userInfo.nickname }}" class="text-xl margin-top-sm">{{ userInfo.nickname }}</view>
-      <view wx:else class="text-xl margin-top-sm">请登录</view>
+      <view bind:tap="needAuth" wx:else class="text-xl margin-top-sm">请登录</view>
       <view class="margin-top-sm" wx:if="{{ userInfo.bio }}">
         <text>{{ userInfo.bio }}</text>
       </view>
