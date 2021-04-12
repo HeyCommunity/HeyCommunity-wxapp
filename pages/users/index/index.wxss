@@ -1,5 +1,5 @@
 .UCenter-bg {
-  background-image: url(https://raw.githubusercontent.com/HeyCommunity/HeyCommunity-wxapp/dev-master/assets/images/users/profile-bg.jpg);
+  background-image: url(https://raw.githubusercontent.com/HeyCommunity/HeyCommunity-wxapp/dev-master/assets/images/users/default-cover.jpg);
   background-size: cover;
   height: 550rpx;
   display: flex;

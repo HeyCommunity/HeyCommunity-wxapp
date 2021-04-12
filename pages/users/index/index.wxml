@@ -1,6 +1,6 @@
 <view class="container-full">
   <scroll-view scroll-y class="scrollPage">
-    <view class="UCenter-bg">
+    <view class="UCenter-bg" style="background-image:url({{ userCoverImagePath }})">
       <image wx:if="{{ userInfo.avatar }}" src="{{ userInfo.avatar }}" class="png" mode="widthFix" style="border-radius:50%;"></image>
       <image bind:tap="needAuth" wx:else src="/assets/images/users/default-avatar.jpg" class="png" mode="widthFix" style="border-radius:50%;"></image>
       <view wx:if="{{ userInfo.nickname }}" class="text-xl margin-top-sm">{{ userInfo.nickname }}</view>
@@ -42,7 +42,8 @@
           <text class="text-grey text-sm">无通知</text>
         </view>
       </view>
-      <view class="cu-item arrow">
+
+      <view wx:if="{{ false }}" class="cu-item arrow">
         <view class="content">
           <text class="cuIcon-notice text-red"></text>
           <text class="text-grey">通知</text>
@@ -58,7 +59,7 @@
       </view>
     </view>
 
-    <view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg radius">
+    <view wx:if="{{ false }}" class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg radius">
       <view class="cu-item arrow">
         <view class="content">
           <text class="cuIcon-profile text-blue"></text>

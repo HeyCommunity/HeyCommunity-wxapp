@@ -1,7 +1,9 @@
 const HTTP = require('../../../utils/http.js');
+const {apiDomain} = require('../../../utils/env.js');
 
 Page({
   data: {
+    userCoverImagePath: apiDomain + '/images/users/default-cover.jpg',
     userInfo: null,
   },
 
