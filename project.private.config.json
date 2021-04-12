@@ -21,6 +21,7 @@
         {
           "name": "动态发布页",
           "pathName": "pages/posts/create/index",
+          "query": "",
           "scene": null
         },
         {
@@ -39,6 +40,11 @@
           "name": "我的首页",
           "pathName": "pages/users/index/index",
           "query": "",
+          "scene": null
+        },
+        {
+          "name": "登录",
+          "pathName": "pages/users/auth/index",
           "scene": null
         }
       ]
