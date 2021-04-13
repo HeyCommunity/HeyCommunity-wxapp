@@ -88,7 +88,7 @@ Page({
         showCancal: false,
       });
 
-      throw 'Timline content can\'t be null';
+      throw 'Post content can\'t be null';
     }
 
     wx.showLoading({});
@@ -104,7 +104,24 @@ Page({
 
     HTTP.httpPost('posts', params, function(data) {
       wx.hideLoading();
-      wx.navigateBack();
+
+      if (getApp().globalData.wxAppSettings.postAudit) {
+        wx.showModal({
+          title: '动态创建成功',
+          content: '管理员审核后将发布',
+          showCancel: false,
+          success(res) {
+            wx.navigateBack();
+          },
+        });
+      } else {
+        wx.navigateBack();
+        wx.showToast({
+          title: '动态发布成功',
+          icon: 'none',
+          duration: 2000,
+        });
+      }
     });
   },
 });

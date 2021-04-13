@@ -4,6 +4,7 @@ const {apiDomain, apiProHost} = require('./env');
 // HTTP 请求
 const httpRequest = function(type, path, params, successCallback, failCallback, requestFailCallback) {
   let APP = getApp();
+  let apiToken = APP ? APP.globalData.apiToken : '';
 
   // API 返回失败回调
   if (!failCallback) failCallback = function(res) {};
@@ -18,7 +19,7 @@ const httpRequest = function(type, path, params, successCallback, failCallback, 
   wx.request({
     method: type,
     header: {
-      'Authorization': 'Bearer ' + APP.globalData.apiToken
+      'Authorization': 'Bearer ' + apiToken,
     },
     url: makeApiPath(path),
     data: params,
