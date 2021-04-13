@@ -9,7 +9,7 @@
             <view class="cu-avatar round lg" style="background-image:url('{{ post.user_avatar }}');"></view>
             <view class="content flex-sub">
               <view>{{ post.user_nickname }}</view>
-              <view class="text-gray text-sm flex justify-between">{{ post.created_at }}</view>
+              <view class="text-gray text-sm flex justify-between">{{ post.created_at_for_humans }}</view>
             </view>
           </view>
         </view>
@@ -46,7 +46,7 @@
               <view class="text-grey">{{ comment.user_nickname }}</view>
               <view class="text-gray text-content text-df">{{ comment.content }}</view>
               <view class="margin-top-sm flex justify-between">
-                <view class="text-gray text-df">{{ comment.created_at }}</view>
+                <view class="text-gray text-df">{{ comment.created_at_for_humans }}</view>
                 <view>
                   <text class="cuIcon-appreciatefill text-red"></text>
                   <text class="cuIcon-messagefill text-gray margin-left-sm"></text>
