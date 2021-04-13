@@ -15,7 +15,7 @@
         </view>
 
         <!-- 内容与图片 -->
-        <view class="text-content">{{ post.content }}</view>
+        <view class="text-content"><text>{{ post.content }}</text></view>
         <view wx:if="{{ post.images.length > 0 }}"
               class="grid flex-sub padding-lr {{ post.images.length > 1 ? 'col-3 grid-square' : 'col-1' }}">
           <view class="bg-img {{ post.images.length > 1 ? '' : 'only-img' }}"
