@@ -91,7 +91,7 @@ Page({
       throw 'Post content can\'t be null';
     }
 
-    wx.showLoading({});
+    wx.showLoading({title: '发布中'});
 
     let params = {
       content: this.data.content,
@@ -110,16 +110,22 @@ Page({
           title: '动态创建成功',
           content: '管理员审核后将发布',
           showCancel: false,
-          success(res) {
+          success() {
             wx.navigateBack();
           },
         });
       } else {
-        wx.navigateBack();
+        let duration = 1000;
+
         wx.showToast({
           title: '动态发布成功',
           icon: 'none',
-          duration: 2000,
+          duration: duration,
+          success() {
+            setTimeout(function() {
+              wx.navigateBack();
+            }, duration);
+          }
         });
       }
     });
