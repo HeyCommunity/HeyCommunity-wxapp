@@ -76,7 +76,14 @@
           bind:close="closeCommentPopup">
     <view class="form">
       <view class="caption">评论动态</view>
-      <textarea class="textarea-content" placeholder="说说你的看法 ..."></textarea>
+      <view class="flex flex-wrap">
+        <view class="basis-xl">
+          <textarea model:value="{{ commentPopupContent }}" class="textarea-content bg-gray" placeholder="说说你的看法 ..." auto-focus="true"></textarea>
+        </view>
+        <view class="basis-xs">
+          <view class="cu-btn btn-send block text-white bg-olive" bind:tap="commentHandler">发布</view>
+        </view>
+      </view>
     </view>
   </van-popup>
 </view>

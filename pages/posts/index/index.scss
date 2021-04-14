@@ -34,14 +34,18 @@
         font-size: 36rpx;
         color: #333;
         box-sizing: border-box;
+        margin-bottom: 16rpx;
       }
 
       .textarea-content {
         padding: 16rpx;
-        margin-top: 16rpx;
-        background-color: #EEE;
         width: 100%;
         line-height: 1.5em;
+        height: calc(4.5em + 32rpx);
+      }
+
+      .btn-send {
+        margin-left: 20rpx;
         height: calc(4.5em + 32rpx);
       }
     }

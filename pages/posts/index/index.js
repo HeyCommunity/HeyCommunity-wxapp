@@ -4,7 +4,10 @@ Page({
   data: {
     posts: [],
 
-    commentPopupVisible: true,
+    commentPopupVisible: false,
+    commentPopupPostIndex: null,
+    commentPopupPostId: null,
+    commentPopupContent: null,
   },
 
   /**
@@ -68,14 +71,26 @@ Page({
    * 打开评论弹出层
    */
   openCommentPopup(event) {
-    this.setData({commentPopupVisible: true});
+    let postIndex = event.currentTarget.dataset.postIndex;
+    let postId = event.currentTarget.dataset.postId;
+
+    this.setData({
+      commentPopupVisible: true,
+      commentPopupPostIndex: postIndex,
+      commentPopupPostId: postId,
+    });
   },
 
   /**
    * 关闭评论弹出层
    */
-  closeCommentPopup(event) {
-    this.setData({commentPopupVisible: false});
+  closeCommentPopup() {
+    this.setData({
+      commentPopupVisible: false,
+      commentPopupPostIndex: null,
+      commentPopupPostId: null,
+      commentPopupContent: null,
+    });
   },
 
   /**
@@ -83,18 +98,20 @@ Page({
    */
   commentHandler(event) {
     let _this = this;
-    let postIndex = event.currentTarget.dataset.postIndex;
-    let postId = event.currentTarget.dataset.postId;
+    let postIndex = this.data.commentPopupPostIndex;
+    let postId = this.data.commentPopupPostId;
+    let content = this.data.commentPopupContent;
 
     let params = {
       post_id: postId,
-      content: 'Hi ~',
+      content: content,
     };
 
     HTTP.httpPost('post-comments', params, function(data) {
       _this.data.posts[postIndex] = data;
       _this.setData({posts: _this.data.posts});
 
+      _this.closeCommentPopup();
       wx.showToast({title: '评论成功', icon: 'none'});
     }, function() {
       wx.showModal({
