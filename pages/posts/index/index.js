@@ -45,6 +45,8 @@ Page({
    * 点赞
    */
   thumbUpHandler(event) {
+    if (getApp().needAuth()) return;
+
     let _this = this;
     let postIndex = event.currentTarget.dataset.postIndex;
     let postId = event.currentTarget.dataset.postId;
@@ -71,6 +73,8 @@ Page({
    * 打开评论弹出层
    */
   openCommentPopup(event) {
+    if (getApp().needAuth()) return;
+
     let postIndex = event.currentTarget.dataset.postIndex;
     let postId = event.currentTarget.dataset.postId;
 
@@ -101,6 +105,15 @@ Page({
     let postIndex = this.data.commentPopupPostIndex;
     let postId = this.data.commentPopupPostId;
     let content = this.data.commentPopupContent;
+
+    if (!content) {
+      wx.showModal({
+        title: '请说点什么',
+        content: '评论内容不能为空',
+        showCancel: false,
+      });
+      throw '请说点什么，评论内容不能为空';
+    }
 
     let params = {
       post_id: postId,

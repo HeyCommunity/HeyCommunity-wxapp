@@ -62,7 +62,12 @@ App({
     if (this.globalData.isAuth) {
       return false;
     } else {
-      wx.navigateTo({url: '/pages/users/auth/index'});
+      wx.navigateTo({
+        url: '/pages/users/auth/index',
+        success(res) {
+          wx.showToast({icon: 'none', title: '请先登录'});
+        }
+      });
       return true;
     }
   },
