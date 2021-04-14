@@ -2,7 +2,8 @@
   <button bind:tap="gotoCreatePage" class="btn-create cu-btn bg-blue round"><view class="icon cuIcon-post"></view></button>
 
   <view class="items-post" wx:if="{{ posts.length > 0 }}">
-    <view class="item-post cu-card dynamic no-card solid-top solid-bottom" wx:for="{{ posts }}" wx:key="id" wx:for-item="post">
+    <view class="item-post cu-card dynamic no-card solid-top solid-bottom"
+          wx:for="{{ posts }}" wx:key="id" wx:for-item="post" wx:for-index="postIndex">
       <view class="cu-item shadow">
         <view class="cu-list menu-avatar">
           <view class="cu-item">
@@ -28,13 +29,17 @@
         <!-- 操作栏 -->
         <view class="cu-list flex margin-top-sm" style="background-color:#f1f1f1;">
           <view class="cu-item flex-sub padding-tb-sm margin-left-sm text-grey text-center">
-            <text class="cuIcon-attentionfill margin-lr-xs"></text> {{ post.read_num }} 阅读
+            <text class="cuIcon-attention margin-lr-xs"></text> {{ post.read_num }} 阅读
           </view>
-          <view class="cu-item flex-sub padding-tb-sm margin-lr-sm text-grey text-center">
-            <text class="cuIcon-appreciatefill margin-lr-xs"></text> {{ post.thumb_up_num }} 点赞
+          <view class="cu-item flex-sub padding-tb-sm margin-lr-sm text-grey text-center"
+                bind:tap="thumbUpHandler" data-post-id="{{ post.id }}" data-post-index="{{ postIndex }}"
+                data-type="{{ 'thumb_up' }}" data-value="{{ !post.i_have_thumb_up }}">
+            <text wx:if="{{ post.i_have_thumb_up }}" class="cuIcon-appreciatefill margin-lr-xs"></text>
+            <text wx:else class="cuIcon-appreciate margin-lr-xs"></text>
+            {{ post.thumb_up_num }} 点赞
           </view>
           <view class="cu-item flex-sub padding-tb-sm margin-right-sm text-grey text-center">
-            <text class="cuIcon-messagefill margin-lr-xs"></text> {{ post.comment_num }} 评论
+            <text class="cuIcon-community margin-lr-xs"></text> {{ post.comment_num }} 评论
           </view>
         </view>
 
