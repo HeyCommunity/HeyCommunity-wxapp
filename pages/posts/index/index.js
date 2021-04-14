@@ -3,6 +3,8 @@ const HTTP = require('../../../utils/http.js');
 Page({
   data: {
     posts: [],
+
+    commentPopupVisible: true,
   },
 
   /**
@@ -60,6 +62,20 @@ Page({
       if (! data.i_have_thumb_up) title = '取消点赞';
       wx.showToast({title: title, icon: 'none'});
     });
+  },
+
+  /**
+   * 打开评论弹出层
+   */
+  openCommentPopup(event) {
+    this.setData({commentPopupVisible: true});
+  },
+
+  /**
+   * 关闭评论弹出层
+   */
+  closeCommentPopup(event) {
+    this.setData({commentPopupVisible: false});
   },
 
   /**
