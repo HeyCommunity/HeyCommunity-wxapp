@@ -38,8 +38,11 @@
             <text wx:else class="cuIcon-appreciate margin-lr-xs"></text>
             {{ post.thumb_up_num }} 点赞
           </view>
-          <view class="cu-item flex-sub padding-tb-sm margin-right-sm text-grey text-center">
-            <text class="cuIcon-community margin-lr-xs"></text> {{ post.comment_num }} 评论
+          <view class="cu-item flex-sub padding-tb-sm margin-right-sm text-grey text-center"
+                bind:tap="commentHandler" data-post-id="{{ post.id }}" data-post-index="{{ postIndex }}">
+            <text wx:if="{{ post.i_have_comment }}" class="cuIcon-communityfill margin-lr-xs"></text>
+            <text wx:else class="cuIcon-community margin-lr-xs"></text>
+            {{ post.comment_num }} 评论
           </view>
         </view>
 

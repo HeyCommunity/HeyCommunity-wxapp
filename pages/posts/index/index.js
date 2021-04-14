@@ -63,6 +63,32 @@ Page({
   },
 
   /**
+   * 评论
+   */
+  commentHandler(event) {
+    let _this = this;
+    let postIndex = event.currentTarget.dataset.postIndex;
+    let postId = event.currentTarget.dataset.postId;
+
+    let params = {
+      post_id: postId,
+      content: 'Hi ~',
+    };
+
+    HTTP.httpPost('post-comments', params, function(data) {
+      _this.data.posts[postIndex] = data;
+      _this.setData({posts: _this.data.posts});
+
+      wx.showToast({title: '评论成功', icon: 'none'});
+    }, function() {
+      wx.showModal({
+        title: '评论失败',
+        showCancel: false,
+      });
+    });
+  },
+
+  /**
    * 下拉刷新
    */
   onPullDownRefresh() {
