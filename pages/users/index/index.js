@@ -37,9 +37,9 @@ Page({
   },
 
   /**
-   * logout
+   * logoutHandler
    */
-  logout() {
+  logoutHandler() {
     let _this = this;
 
     wx.showLoading();

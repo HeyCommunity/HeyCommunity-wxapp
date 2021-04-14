@@ -117,10 +117,17 @@
           <text class="text-grey">用户协议</text>
         </view>
       </view>
-      <view class="cu-item text-center" bind:tap="logout">
+
+      <view wx:if="{{ userInfo }}" class="cu-item text-center" bind:tap="logoutHandler">
         <view class="content">
           <text class="cuIcon-exit text-red"></text>
           <text class="text-red">退出登录</text>
+        </view>
+      </view>
+      <view wx:else class="cu-item text-center" bind:tap="needAuth">
+        <view class="content">
+          <text class="cuIcon-profile text-blue"></text>
+          <text class="text-blue">登录</text>
         </view>
       </view>
     </view>
