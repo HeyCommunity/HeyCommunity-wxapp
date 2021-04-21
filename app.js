@@ -7,11 +7,6 @@ App({
     apiToken: null,
     userInfo: null,
     wechatUserInfo: null,
-
-    wxAppSettings: {
-      appName: 'HEY社区',
-      postAudit: true,
-    },
   },
 
   /**
@@ -23,14 +18,6 @@ App({
     // 恢复用户及登录状态
     AUTH.restoreLogin(this, function() {
       if (_this.userLoginedCallback) _this.userLoginedCallback();
-    });
-
-    // 获取 WxAppSettings
-    HTTP.httpGet('wxapp-settings', {}, function(data) {
-      for (let dataItem in data) {
-        _this.globalData.wxAppSettings[dataItem] = data[dataItem];
-      }
-      console.debug('WxAppSettings => ', data);
     });
 
     // 获取用户信息

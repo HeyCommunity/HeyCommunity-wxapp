@@ -105,7 +105,13 @@ Page({
     HTTP.httpPost('posts', params, function(data) {
       wx.hideLoading();
 
-      if (getApp().globalData.wxAppSettings.postAudit) {
+      if (getApp().globalData.userInfo.ugc_safety_level) {
+        wx.navigateBack({
+          success() {
+            wx.showToast({title: '动态发布成功', icon: 'none'});
+          },
+        });
+      } else {
         wx.showModal({
           title: '动态创建成功',
           content: '管理员审核后将发布',
@@ -113,19 +119,6 @@ Page({
           success() {
             wx.navigateBack();
           },
-        });
-      } else {
-        let duration = 1000;
-
-        wx.showToast({
-          title: '动态发布成功',
-          icon: 'none',
-          duration: duration,
-          success() {
-            setTimeout(function() {
-              wx.navigateBack();
-            }, duration);
-          }
         });
       }
     });
