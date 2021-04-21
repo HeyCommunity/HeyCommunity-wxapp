@@ -8,6 +8,7 @@ const httpUtilPath = './http.js';
   */
 const userLogin = function(code, successCallback) {
   let HTTP = require(httpUtilPath);
+  let APP = getApp();
 
   // 获取 token
   HTTP.httpGet('users/login', {code: code}, function(data) {
@@ -22,7 +23,7 @@ const userLogin = function(code, successCallback) {
     });
 
     if (successCallback) successCallback();
-    console.info('got and set apiToken => ' + data.token);
+    console.debug('登录成功: ' + APP.globalData.userInfo.nickname + '(' + APP.globalData.userInfo.id + ')', APP.globalData.userInfo);
   });
 
   return true;
@@ -66,7 +67,7 @@ const restoreLogin = function(APP, successCallback) {
           APP.globalData.userInfo = res.data.data;
 
           if (successCallback) successCallback();
-          console.debug('恢复登录状态: isAuth => ' + APP.globalData.isAuth);
+          console.debug('恢复登录状态: ' + APP.globalData.userInfo.nickname + '(' + APP.globalData.userInfo.id + ')', APP.globalData.userInfo);
         } else {
           console.debug('恢复登录状态失败: isAuth => false');
         }
