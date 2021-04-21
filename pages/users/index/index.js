@@ -20,7 +20,9 @@ Page({
   onShow() {
     this.setData({userInfo: getApp().globalData.userInfo});
 
-    this.refreshUserInfo();
+    if (this.data.userInfo) {
+      this.refreshUserInfo();
+    }
   },
 
   /**
@@ -59,12 +61,12 @@ Page({
 
     wx.showLoading();
 
-    HTTP.httpPost('users/logout', {}, function() {
-      getApp().globalData.isAuth = false;
-      getApp().globalData.userInfo = null;
-      _this.setData({userInfo: null});
-      wx.removeStorage({key: 'apiToken'});
+    getApp().globalData.isAuth = false;
+    getApp().globalData.userInfo = null;
+    _this.setData({userInfo: null});
+    wx.removeStorage({key: 'apiToken'});
 
+    HTTP.httpPost('users/logout', {}, function() {
       wx.hideLoading();
       wx.showModal({
         title: '你已安全登出',
@@ -72,6 +74,10 @@ Page({
       });
     }, function() {
       wx.hideLoading();
+      wx.showModal({
+        title: '你已退出登录',
+        showCancel: false,
+      });
     });
   }
 });
