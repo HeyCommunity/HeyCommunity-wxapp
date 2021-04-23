@@ -6,7 +6,7 @@ const httpUtilPath = './http.js';
 /**
  * 用户登录
   */
-const userLogin = function(code, successCallback, failCallback) {
+const userLogin = function(code, successCallback, failCallback, requestFailCallback) {
   let HTTP = require(httpUtilPath);
   let APP = getApp();
 
@@ -23,10 +23,12 @@ const userLogin = function(code, successCallback, failCallback) {
     });
 
     console.debug('登录成功: ' + APP.globalData.userInfo.nickname + '(' + APP.globalData.userInfo.id + ')', APP.globalData.userInfo);
-    if (successCallback) successCallback();
+    if (successCallback) successCallback(data);
   }, function(res) {
     console.debug('登录失败', res);
     if (failCallback) failCallback(res);
+  }, function(res) {
+    if (requestFailCallback) requestFailCallback(res);
   });
 
   return true;

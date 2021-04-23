@@ -42,6 +42,13 @@ Page({
                 content: '发生未知错误，请稍后再试',
                 showCancel: false,
               })
+            }, function() {
+              wx.showModal({
+                icon: 'error',
+                title: '登录失败',
+                content: '网络请求失败，请稍后再试',
+                showCancel: false,
+              })
             });
           },
         });
