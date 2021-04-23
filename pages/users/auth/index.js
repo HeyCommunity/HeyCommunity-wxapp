@@ -35,6 +35,13 @@ Page({
               AUTH.userUpdateInfo(wechatUserInfo, function() {
                 wx.navigateBack();
               });
+            }, function() {
+              wx.showModal({
+                icon: 'error',
+                title: '登录失败',
+                content: '发生未知错误，请稍后再试',
+                showCancel: false,
+              })
             });
           },
         });

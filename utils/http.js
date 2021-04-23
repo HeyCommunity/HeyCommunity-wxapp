@@ -6,16 +6,6 @@ const httpRequest = function(type, path, params, successCallback, failCallback, 
   let APP = getApp();
   let apiToken = APP ? APP.globalData.apiToken : '';
 
-  // API 返回失败回调
-  if (!failCallback) failCallback = function(res) {};
-
-  // 请求异常回调
-  if (!requestFailCallback) {
-    requestFailCallback = function(res) {
-      console.error('http get fail', path, res);
-    };
-  }
-
   wx.request({
     method: type,
     header: {
@@ -26,13 +16,16 @@ const httpRequest = function(type, path, params, successCallback, failCallback, 
     success: function(res) {
       if (httpSuccessful(res)) {
         console.debug('[HTTP-' + type + '] ' + path + ' successful', res);
-        successCallback(res.data.data, res);
+        if (successCallback) successCallback(res.data.data, res);
       } else {
         console.error('[HTTP-' + type + '] ' + path + ' fail', res);
-        failCallback(res);
+        if (failCallback) failCallback(res);
       }
     },
-    fail: requestFailCallback,
+    fail: function(res) {
+      console.error('[HTTP-' + type + '] ' + path + ' wx.request fail', res);
+      if (requestFailCallback) requestFailCallback(res);
+    },
   });
 };
 
