@@ -132,6 +132,12 @@
       </view>
     </view>
 
-    <view class="cu-tabbar-height"></view>
+    <view id="section-copyright">
+      <view class="text-center text-gray padding-bottom-xl padding-top-lg">
+        <view wx:if="{{ wxAppAccountInfo.miniProgram.envVersion === 'release' }}">HeyCommunity V{{ wxAppAccountInfo.miniProgram.version }}</view>
+        <view wx:else >HeyCommunity {{ wxAppAccountInfo.miniProgram.envVersion }}</view>
+        <view>Created by supeRodv2 at ProtobiaTech</view>
+      </view>
+    </view>
   </scroll-view>
 </view>

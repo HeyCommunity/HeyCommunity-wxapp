@@ -6,12 +6,15 @@ Page({
   data: {
     userCoverImagePath: apiDomain + '/images/users/default-cover.jpg',
     userInfo: null,
+
+    wxAppAccountInfo: null,
   },
 
   /**
    * onLoad
    */
   onLoad() {
+    this.setData({wxAppAccountInfo: wx.getAccountInfoSync()});
   },
 
   /**
