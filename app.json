@@ -8,6 +8,7 @@
 
     "pages/users/index/index",
     "pages/users/auth/index",
+    "pages/users/hey-community/index",
 
     "pages/web-page/index"
   ],

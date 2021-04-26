@@ -45,6 +45,12 @@
         {
           "name": "登录",
           "pathName": "pages/users/auth/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "HEY社区",
+          "pathName": "pages/users/hey-community/index",
           "scene": null
         }
       ]

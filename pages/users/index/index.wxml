@@ -88,7 +88,7 @@
 
     <view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg radius">
       <view class="cu-item arrow">
-        <button class="cu-btn content">
+        <button class="cu-btn content" bind:tap="gotoHeyCommunityPage">
           <text class="cuIcon-github text-grey"></text>
           <text class="text-grey">HEY社区</text>
         </button>
@@ -132,8 +132,8 @@
       </view>
     </view>
 
-    <view id="section-copyright">
-      <view class="text-center text-gray padding-bottom-xl padding-top-lg">
+    <view id="section-copyright" class="padding-bottom-xl padding-top-lg">
+      <view class="text-center text-gray" bind:tap="gotoHeyCommunityPage">
         <view wx:if="{{ wxAppAccountInfo.miniProgram.envVersion === 'release' }}">HeyCommunity V{{ wxAppAccountInfo.miniProgram.version }}</view>
         <view wx:else >HeyCommunity {{ wxAppAccountInfo.miniProgram.envVersion }}</view>
         <view>Created by supeRodv2 at ProtobiaTech</view>

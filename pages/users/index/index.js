@@ -50,6 +50,13 @@ Page({
   },
 
   /**
+   * goto HeyCommunity 页面
+   */
+  gotoHeyCommunityPage() {
+    wx.navigateTo({url: '/pages/users/hey-community/index'});
+  },
+
+  /**
    * needAuth
    */
   needAuth() {

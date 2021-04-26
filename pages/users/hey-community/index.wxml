@@ -1,0 +1,14 @@
+<view class="container">
+  <view>
+    HEY社区（英文名: HeyCommunity）是一个开源的社交软件项目。
+    产品功能将包含动态分享、话题论坛、活动票务、IM 聊天等。
+    覆盖 WEB、微信小程序、iOS 和 Android APP 等终端平台。
+    当前正在主力研发微信小程序端。
+  </view>
+
+  <view class="margin-top-sm">
+    <view class="margin-bottom-xs">E-MAIL: hi@hey-community.com</view>
+    <view>官方网站: https://www.hey-community.com</view>
+    <view>Github 仓库: https://github.com/HeyCommunity</view>
+  </view>
+</view>
