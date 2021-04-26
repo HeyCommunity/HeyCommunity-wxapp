@@ -87,27 +87,27 @@
     </view>
 
     <view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg radius">
-      <view class="cu-item arrow">
-        <button class="cu-btn content" bind:tap="gotoHeyCommunityPage">
+      <button class="cu-item arrow" bind:tap="gotoHeyCommunityPage">
+        <view class="content">
           <text class="cuIcon-github text-grey"></text>
           <text class="text-grey">HEY社区</text>
-        </button>
-        <view class="action">
-          <text class="text-gray text-sm">免费开源软件</text>
         </view>
-      </view>
-      <view class="cu-item arrow">
-        <button class="cu-btn content" open-type="contact">
-          <text class="cuIcon-service text-blue"></text>
+        <view class="action">
+          <text class="text-gray text-sm">免费开源</text>
+        </view>
+      </button>
+      <button class="cu-item arrow" open-type="contact">
+        <view class="content">
+          <text class="cuIcon-servicefill text-green"></text>
           <text class="text-grey">联系客服</text>
-        </button>
-      </view>
-      <view class="cu-item arrow">
-        <button class="cu-btn content" open-type="feedback">
+        </view>
+      </button>
+      <button class="cu-item arrow" open-type="feedback">
+        <view class="content">
           <text class="cuIcon-writefill text-cyan"></text>
           <text class="text-grey">意见反馈</text>
-        </button>
-      </view>
+        </view>
+      </button>
     </view>
 
     <view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg radius">

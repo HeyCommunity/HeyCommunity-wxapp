@@ -26,7 +26,9 @@
     mix-blend-mode: screen;
     height: 100rpx; }
 
-.cu-list .cu-item .cu-btn {
+.cu-list button.cu-item {
+  text-align: left;
+  width: 100%;
   font-weight: normal;
   font-size: 30rpx;
   height: 46rpx;
