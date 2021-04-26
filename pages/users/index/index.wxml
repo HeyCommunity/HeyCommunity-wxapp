@@ -88,22 +88,22 @@
 
     <view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg radius">
       <view class="cu-item arrow">
-        <view class="content">
+        <button class="cu-btn content">
           <text class="cuIcon-github text-grey"></text>
           <text class="text-grey">HEY社区</text>
-        </view>
+        </button>
         <view class="action">
           <text class="text-gray text-sm">免费开源软件</text>
         </view>
       </view>
       <view class="cu-item arrow">
-        <view class="content">
-          <text class="cuIcon-phone text-orange"></text>
-          <text class="text-grey">联系我们</text>
-        </view>
+        <button class="cu-btn content" open-type="contact">
+          <text class="cuIcon-service text-blue"></text>
+          <text class="text-grey">联系客服</text>
+        </button>
       </view>
       <view class="cu-item arrow">
-        <button class="cu-btn content" open-type="feedback" style="font-weight:normal; font-size:30rpx; height:46rpx; line-height:1.6em;">
+        <button class="cu-btn content" open-type="feedback">
           <text class="cuIcon-writefill text-cyan"></text>
           <text class="text-grey">意见反馈</text>
         </button>
