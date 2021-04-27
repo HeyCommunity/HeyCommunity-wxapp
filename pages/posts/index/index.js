@@ -17,8 +17,8 @@ Page({
     let _this = this;
 
     // 获取动态
-    HTTP.httpGet('posts', {}, function(data) {
-      _this.setData({posts: data});
+    HTTP.GET('posts').then(function(result) {
+      _this.setData({posts: result.data});
     });
   },
 

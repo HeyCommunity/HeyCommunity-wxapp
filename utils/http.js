@@ -1,6 +1,67 @@
 const {apiDomain, apiProHost} = require('./env');
 
 //
+// GET 请求
+const GET = function(path, params, configs) {
+  return request('GET', path, params, configs);
+}
+
+//
+// POST 请求
+const POST = function(path, params, configs) {
+  return request('POST', path, params, configs);
+}
+
+//
+// HTTP 请求
+const request = function(type, path, params, configs) {
+  let APP = getApp();
+  let apiToken = APP ? APP.globalData.apiToken : '';
+
+  if (configs === undefined) {
+    configs = {};
+  }
+
+  return new Promise(function(resolve, reject) {
+    wx.request({
+      method: type,
+      header: {
+        'Authorization': 'Bearer ' + apiToken,
+      },
+      url: makeApiPath(path),
+      data: params,
+      success: function(res) {
+        if (wxRequestIsOk(res)) {
+          resolve(res.data, res);
+          console.debug('[HTTP-' + type + '] ' + path + ' successful', res);
+        } else {
+          reject(res.data, res);
+          console.error('[HTTP-' + type + '] ' + path + ' fail', res);
+        }
+      },
+      fail: function(res) {
+        if (configs.showRequestFailModal != false) {
+          wx.showModal({
+            title: '网络请求失败',
+            content: res.errMsg,
+            showCancel: false,
+          });
+        }
+
+        reject('WX.REQUEST FAIL', res);
+        console.error('[HTTP-' + type + '] ' + path + ' wx.request fail', res);
+      },
+    });
+  });
+};
+
+//
+// wx.request 请求是否成功
+const wxRequestIsOk = function(res) {
+  return res.statusCode.toString()[0] == 2;
+};
+
+//
 // HTTP 请求
 const httpRequest = function(type, path, params, successCallback, failCallback, requestFailCallback) {
   let APP = getApp();
@@ -105,5 +166,6 @@ const httpSuccessful = function(res) {
 module.exports = {
   makeApiPath, makeWebPagePath, httpSuccessful,
   httpGet, httpPost, httpRequest,
+  GET, POST,
   uploadFile,
 };
