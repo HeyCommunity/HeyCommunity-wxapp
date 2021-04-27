@@ -55,10 +55,12 @@
               <view class="text-gray text-content text-df">{{ comment.content }}</view>
               <view class="margin-top-sm flex justify-between">
                 <view class="text-gray text-df">{{ comment.created_at_for_humans }}</view>
+                <!--
                 <view>
                   <text class="cuIcon-appreciatefill text-red"></text>
                   <text class="cuIcon-messagefill text-gray margin-left-sm"></text>
                 </view>
+                -->
               </view>
             </view>
           </view>
