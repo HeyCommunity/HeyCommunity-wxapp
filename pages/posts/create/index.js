@@ -2,7 +2,6 @@ const HTTP = require('../../../utils/http.js');
 
 Page({
   data: {
-    content: '',
     images: [],
   },
 
@@ -81,8 +80,13 @@ Page({
   /**
    * 发布动态
    */
-  createPost() {
-    if (!this.data.content) {
+  createPost(event) {
+    wx.hideKeyboard();
+
+    let _this = this;
+    let formData = event.detail.value;
+
+    if (! formData.content) {
       wx.showModal({
         content: '请说点什么',
         showCancal: false,
@@ -91,10 +95,13 @@ Page({
       throw 'Post content can\'t be null';
     }
 
-    wx.showLoading({title: '发布中'});
+    wx.showLoading({
+      mask: true,
+      title: '发布中'
+    });
 
     let params = {
-      content: this.data.content,
+      content: formData.content,
       image_ids: [],
     };
 

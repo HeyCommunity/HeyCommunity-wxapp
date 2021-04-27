@@ -1,27 +1,28 @@
 <view class="container-full">
-  <!-- 文本 -->
-  <view class="cu-form-group">
-    <textarea model:value="{{ content }}" placeholder="有什么有趣的事物与大家分享 ..."></textarea>
-  </view>
+  <form bind:submit="createPost">
+    <!-- 文本 -->
+    <view class="cu-form-group">
+      <textarea name="content" model:value="{{ content }}" auto-focus="true" placeholder="有什么有趣的事物与大家分享 ..."></textarea>
+    </view>
 
-  <!-- 图片 -->
-  <view class="cu-form-group" style="border:none;">
-    <view class="grid col-4 grid-square flex-sub">
-      <view class="bg-img" wx:for="{{ images }}" wx:key="index" bind:tap="previewImage" data-url="{{ images[index].tempFilePath }}">
-        <image src="{{ images[index].tempFilePath }}" mode="aspectFill"></image>
-        <view class="cu-tag bg-red" catchtap="deleteImage" data-index="{{ index }}">
-          <text class="cuIcon-close"></text>
+    <!-- 图片 -->
+    <view class="cu-form-group" style="border:none;">
+      <view class="grid col-4 grid-square flex-sub">
+        <view class="bg-img" wx:for="{{ images }}" wx:key="index" bind:tap="previewImage" data-url="{{ images[index].tempFilePath }}">
+          <image src="{{ images[index].tempFilePath }}" mode="aspectFill"></image>
+          <view class="cu-tag bg-red" catchtap="deleteImage" data-index="{{ index }}">
+            <text class="cuIcon-close"></text>
+          </view>
+        </view>
+
+        <view class="solids" bind:tap="pickImages" wx:if="{{ images.length <= 9 }}">
+          <text class="cuIcon-cameraadd"></text>
         </view>
       </view>
-
-      <view class="solids" bind:tap="pickImages" wx:if="{{ images.length <= 9 }}">
-        <text class="cuIcon-cameraadd"></text>
-      </view>
     </view>
-  </view>
 
-  <view class="container">
-    <button role="button" aria-disabled="true" bind:tap="createPost"
-            class="cu-btn block bg-blue lg round margin-top-sm">发布</button>
-  </view>
+    <view class="container">
+      <button form-type="submit" class="cu-btn block bg-blue lg round margin-top-sm">发布</button>
+    </view>
+  </form>
 </view>
