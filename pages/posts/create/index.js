@@ -1,4 +1,5 @@
 const HTTP = require('../../../utils/http.js');
+const onFire = require('../../../utils/onfire.js');
 
 Page({
   data: {
@@ -109,10 +110,10 @@ Page({
       params.image_ids.push(image.imageId);
     });
 
-    HTTP.httpPost('posts', params, function(data) {
-      wx.hideLoading();
+    HTTP.POST('posts', params).then((result) => {
+      if (result.data.status) {
+        onFire.fire('newPost', result.data);
 
-      if (getApp().globalData.userInfo.ugc_safety_level) {
         wx.navigateBack({
           success() {
             wx.showToast({title: '动态发布成功', icon: 'none'});
@@ -128,6 +129,14 @@ Page({
           },
         });
       }
+    }).catch(function() {
+      wx.showModal({
+        title: '动态创建失败',
+        content: '请稍后再试',
+        showCancel: false,
+      });
+    }).finally(() => {
+      wx.hideLoading();
     });
   },
 });

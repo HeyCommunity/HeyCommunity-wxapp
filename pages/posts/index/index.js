@@ -1,4 +1,5 @@
 const HTTP = require('../../../utils/http.js');
+const onFire = require('../../../utils/onfire.js');
 
 Page({
   data: {
@@ -19,6 +20,11 @@ Page({
     // 获取动态
     HTTP.GET('posts').then(function(result) {
       _this.setData({posts: result.data});
+    });
+
+    onFire.on('newPost', function(post) {
+      _this.data.posts.unshift(post);
+      _this.setData({posts: _this.data.posts});
     });
   },
 
@@ -59,13 +65,19 @@ Page({
       value: value,
     };
 
-    HTTP.httpPost('post-thumbs', params, function(data) {
-      _this.data.posts[postIndex] = data;
+    // TODO: 请求返回 Thumb，而不是 Post
+    HTTP.POST('post-thumbs', params).then((result) => {
+      _this.data.posts[postIndex] = result.data;
       _this.setData({posts: _this.data.posts});
 
       let title = '点赞成功';
-      if (! data.i_have_thumb_up) title = '取消点赞';
+      if (! result.data.i_have_thumb_up) title = '取消点赞';
       wx.showToast({title: title, icon: 'none'});
+    }).catch(() => {
+      wx.showModal({
+        title: '点赞失败',
+        showCancel: false,
+      });
     });
   },
 
@@ -120,13 +132,18 @@ Page({
       content: content,
     };
 
-    HTTP.httpPost('post-comments', params, function(data) {
-      _this.data.posts[postIndex] = data;
-      _this.setData({posts: _this.data.posts});
-
+    HTTP.POST('post-comments', params).then((result) => {
       _this.closeCommentPopup();
-      wx.showToast({title: '评论成功', icon: 'none'});
-    }, function() {
+
+      if (result.data.status) {
+        wx.showToast({title: '评论成功', icon: 'none'});
+
+        _this.data.posts[postIndex].comments.unshift(result.data);
+        _this.setData({posts: _this.data.posts});
+      } else {
+        wx.showToast({title: '评论创建成功，管理员审核后将发布', icon: 'none'});
+      }
+    }).catch(() => {
       wx.showModal({
         title: '评论失败',
         showCancel: false,
@@ -141,8 +158,9 @@ Page({
     let _this = this;
 
     // 获取动态
-    HTTP.httpGet('posts', {}, function(data) {
-      _this.setData({posts: data});
+    HTTP.GET('posts').then((result) => {
+      _this.setData({posts: result.data});
+    }).finally(() => {
       wx.stopPullDownRefresh();
     });
   },
