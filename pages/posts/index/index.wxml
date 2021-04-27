@@ -26,9 +26,11 @@
 
         <!-- 操作栏 -->
         <view class="cu-list flex margin-top-sm" style="background-color:#f1f1f1;">
-          <view class="cu-item flex-sub padding-tb-sm margin-left-sm text-grey text-center">
-            <text class="cuIcon-attention margin-lr-xs"></text> {{ post.read_num }} 阅读
-          </view>
+          <!-- 隐藏阅读数
+            <view class="cu-item flex-sub padding-tb-sm margin-left-sm text-grey text-center">
+              <text class="cuIcon-attention margin-lr-xs"></text> {{ post.read_num }} 阅读
+            </view>
+          -->
           <view class="cu-item flex-sub padding-tb-sm margin-lr-sm text-grey text-center"
                 bind:tap="thumbUpHandler" data-post-id="{{ post.id }}" data-post-index="{{ postIndex }}"
                 data-type="{{ 'thumb_up' }}" data-value="{{ !post.i_have_thumb_up }}">
