@@ -28,6 +28,7 @@
   #popup-comment-create {
     z-index: 999;
     .form {
+      display: block;
       margin: 30rpx;
 
       .caption {
@@ -45,6 +46,8 @@
       }
 
       .btn-send {
+        width: auto;
+        border-radius: 0;
         margin-left: 20rpx;
         height: calc(4.5em + 32rpx);
       }

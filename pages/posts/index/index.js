@@ -115,9 +115,9 @@ Page({
     let _this = this;
     let postIndex = this.data.commentPopupPostIndex;
     let postId = this.data.commentPopupPostId;
-    let content = this.data.commentPopupContent;
+    let content = event.detail.value.content;
 
-    if (!content) {
+    if (! content) {
       wx.showModal({
         title: '请说点什么',
         content: '评论内容不能为空',
@@ -135,12 +135,12 @@ Page({
       _this.closeCommentPopup();
 
       if (result.data.status) {
-        wx.showToast({title: '评论成功', icon: 'none'});
-
         _this.data.posts[postIndex].comments.unshift(result.data);
         _this.setData({posts: _this.data.posts});
+
+        APP.Notify({type: 'success', message: '评论成功'});
       } else {
-        wx.showToast({title: '评论创建成功，管理员审核后将发布', icon: 'none'});
+        APP.Notify({type: 'warning', message: '评论创建成功 \n 管理员审核通过后将发布'});
       }
     }).catch(() => {
       wx.showModal({

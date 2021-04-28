@@ -19,6 +19,7 @@
   #page-posts-index #popup-comment-create {
     z-index: 999; }
     #page-posts-index #popup-comment-create .form {
+      display: block;
       margin: 30rpx; }
       #page-posts-index #popup-comment-create .form .caption {
         font-size: 36rpx;
@@ -31,5 +32,7 @@
         line-height: 1.5em;
         height: calc(4.5em + 32rpx); }
       #page-posts-index #popup-comment-create .form .btn-send {
+        width: auto;
+        border-radius: 0;
         margin-left: 20rpx;
         height: calc(4.5em + 32rpx); }
