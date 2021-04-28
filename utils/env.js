@@ -6,7 +6,8 @@ let apiDomain = 'http://192.168.31.111';
 
 // 如果是线上产品则使用 prodApiDomain
 let wxAccountInfo = wx.getAccountInfoSync();
-if (wxAccountInfo.miniProgram.envVersion === 'release') {
+if (wxAccountInfo.miniProgram.envVersion === 'release'
+  || wxAccountInfo.miniProgram.envVersion === 'trial') {
   apiDomain = prodApiDomain;
 }
 
