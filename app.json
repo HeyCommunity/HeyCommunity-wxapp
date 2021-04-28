@@ -12,6 +12,9 @@
 
     "pages/web-page/index"
   ],
+  "usingComponents": {
+    "van-notify": "@vant/weapp/notify/index"
+  },
   "tabBar": {
     "color": "#999999",
     "selectedColor": "#0081ff",

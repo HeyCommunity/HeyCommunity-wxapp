@@ -1,5 +1,5 @@
 const HTTP = require('../../../utils/http.js');
-const onFire = require('../../../utils/onfire.js');
+const APP = getApp();
 
 Page({
   data: {
@@ -111,24 +111,16 @@ Page({
     });
 
     HTTP.POST('posts', params).then((result) => {
-      if (result.data.status) {
-        onFire.fire('newPost', result.data);
-
-        wx.navigateBack({
-          success() {
-            wx.showToast({title: '动态发布成功', icon: 'none'});
-          },
-        });
-      } else {
-        wx.showModal({
-          title: '动态创建成功',
-          content: '管理员审核后将发布',
-          showCancel: false,
-          success() {
-            wx.navigateBack();
-          },
-        });
-      }
+      wx.navigateBack({
+        success() {
+          if (result.data.status) {
+            APP.OnFire.fire('newPost', result.data);
+            APP.OnFire.fire('notify', {type: 'success', message: '动态发布成功'});
+          } else {
+            APP.OnFire.fire('notify', {type: 'warning', message: '动态创建成功 \n 管理审核通过后将发布'});
+          }
+        }
+      });
     }).catch(function() {
       wx.showModal({
         title: '动态创建失败',

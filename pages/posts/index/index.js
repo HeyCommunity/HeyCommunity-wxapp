@@ -1,5 +1,5 @@
 const HTTP = require('../../../utils/http.js');
-const onFire = require('../../../utils/onfire.js');
+const APP = getApp();
 
 Page({
   data: {
@@ -22,7 +22,7 @@ Page({
       _this.setData({posts: result.data});
     });
 
-    onFire.on('newPost', function(post) {
+    APP.OnFire.on('newPost', function(post) {
       _this.data.posts.unshift(post);
       _this.setData({posts: _this.data.posts});
     });

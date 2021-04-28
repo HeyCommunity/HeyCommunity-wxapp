@@ -1,7 +1,11 @@
 const AUTH = require('./utils/auth.js');
 const HTTP = require('./utils/http.js');
+const OnFire = require('./utils/onfire.js');
+import Notify from './miniprogram_npm/@vant/weapp/notify/notify';
 
 App({
+  OnFire: OnFire,
+  Notify: Notify,
   globalData: {
     isAuth: false,
     apiToken: null,
@@ -20,25 +24,9 @@ App({
       if (_this.userLoginedCallback) _this.userLoginedCallback();
     });
 
-    // 获取用户信息
-    wx.getSetting({
-      success: res => {
-        if (res.authSetting['scope.userInfo']) {
-          // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
-          wx.getUserInfo({
-            success: res => {
-              // 可以将 res 发送给后台解码出 unionId
-              this.globalData.wechatUserInfo = res.userInfo
-
-              // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-              // 所以此处加入 callback 以防止这种情况
-              if (this.userInfoReadyCallback) {
-                this.userInfoReadyCallback(res)
-              }
-            }
-          })
-        }
-      }
+    // 订阅 Notify
+    this.OnFire.on('notify', function(options) {
+      _this.Notify(options);
     });
   },
 

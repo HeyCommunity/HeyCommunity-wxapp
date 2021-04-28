@@ -1,4 +1,5 @@
 <view class="container-full" id="page-posts-index">
+  <van-notify id="van-notify"></van-notify>
   <view class="items-post" wx:if="{{ posts.length > 0 }}">
     <view class="item-post cu-card dynamic no-card solid-top solid-bottom"
           wx:for="{{ posts }}" wx:key="id" wx:for-item="post" wx:for-index="postIndex">
