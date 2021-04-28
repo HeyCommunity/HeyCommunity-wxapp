@@ -1,8 +1,9 @@
 <view class="container-full">
-  <form bind:submit="createPost">
+  <form d-bind:submit="createPost">
     <!-- 文本 -->
     <view class="cu-form-group">
-      <textarea name="content" model:value="{{ content }}" auto-focus="true" placeholder="有什么有趣的事物与大家分享 ..."></textarea>
+      <textarea name="content" auto-focus="true" placeholder="有什么有趣的事物与大家分享 ..."
+                d-model:value="{{ content }}" bind:input="setInputValue" data-field="content"></textarea>
     </view>
 
     <!-- 图片 -->
@@ -22,7 +23,8 @@
     </view>
 
     <view class="container">
-      <button form-type="submit" class="cu-btn block bg-blue lg round margin-top-sm">发布</button>
+      <button class="cu-btn block bg-blue lg round margin-top-sm"
+              d-form-type="submit" bind:tap="createPost">发布</button>
     </view>
   </form>
 </view>

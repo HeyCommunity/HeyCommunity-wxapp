@@ -3,6 +3,7 @@ const APP = getApp();
 
 Page({
   data: {
+    content: null,
     images: [],
   },
 
@@ -79,15 +80,23 @@ Page({
   },
 
   /**
+   * setInputValue
+   */
+  setInputValue(event) {
+    let field = event.currentTarget.dataset.field;
+    this.data[field] = event.detail.value;
+  },
+
+  /**
    * 发布动态
    */
   createPost(event) {
     wx.hideKeyboard();
 
     let _this = this;
-    let formData = event.detail.value;
+    // let formData = event.detail.value;       // 获取表单数据
 
-    if (! formData.content) {
+    if (! this.data.content) {
       wx.showModal({
         content: '请说点什么',
         showCancal: false,
@@ -102,7 +111,7 @@ Page({
     });
 
     let params = {
-      content: formData.content,
+      content: this.data.content,
       image_ids: [],
     };
 
