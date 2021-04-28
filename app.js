@@ -4,6 +4,7 @@ const OnFire = require('./utils/onfire.js');
 import Notify from './miniprogram_npm/@vant/weapp/notify/notify';
 
 App({
+  HTTP: HTTP,
   OnFire: OnFire,
   Notify: Notify,
   globalData: {

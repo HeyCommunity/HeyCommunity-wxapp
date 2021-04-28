@@ -1,4 +1,3 @@
-const HTTP = require('../../../utils/http.js');
 const APP = getApp();
 
 Page({
@@ -18,7 +17,7 @@ Page({
     let _this = this;
 
     // 获取动态
-    HTTP.GET('posts').then(function(result) {
+    APP.HTTP.GET('posts').then(function(result) {
       _this.setData({posts: result.data});
     });
 
@@ -66,7 +65,7 @@ Page({
     };
 
     // TODO: 请求返回 Thumb，而不是 Post
-    HTTP.POST('post-thumbs', params).then((result) => {
+    APP.HTTP.POST('post-thumbs', params).then((result) => {
       _this.data.posts[postIndex] = result.data;
       _this.setData({posts: _this.data.posts});
 
@@ -132,7 +131,7 @@ Page({
       content: content,
     };
 
-    HTTP.POST('post-comments', params).then((result) => {
+    APP.HTTP.POST('post-comments', params).then((result) => {
       _this.closeCommentPopup();
 
       if (result.data.status) {
@@ -158,7 +157,7 @@ Page({
     let _this = this;
 
     // 获取动态
-    HTTP.GET('posts').then((result) => {
+    APP.HTTP.GET('posts').then((result) => {
       _this.setData({posts: result.data});
     }).finally(() => {
       wx.stopPullDownRefresh();
