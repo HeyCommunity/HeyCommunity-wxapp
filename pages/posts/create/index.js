@@ -96,7 +96,7 @@ Page({
     let _this = this;
     // let formData = event.detail.value;       // 获取表单数据
 
-    if (! this.data.content) {
+    if (! _this.data.content) {
       wx.showModal({
         content: '请说点什么',
         showCancal: false,
@@ -105,39 +105,45 @@ Page({
       throw 'Post content can\'t be null';
     }
 
-    wx.showLoading({
-      mask: true,
-      title: '发布中'
-    });
+    // 订阅消息
+    wx.requestSubscribeMessage({
+      tmplIds: ['LRonMBmk_ejm4aOqJG_cNLwVnzwYYZTYnzsf-1pOPoQ', 'nctxK4mtq5lA_HMxKPTFQXAy7TZV7r3uK6Y5ueVI8UM'],
+      complete() {
+        wx.showLoading({
+          mask: true,
+          title: '发布中'
+        });
 
-    let params = {
-      content: this.data.content,
-      image_ids: [],
-    };
+        let params = {
+          content: _this.data.content,
+          image_ids: [],
+        };
 
-    this.data.images.forEach(function(image) {
-      params.image_ids.push(image.imageId);
-    });
+        _this.data.images.forEach(function(image) {
+          params.image_ids.push(image.imageId);
+        });
 
-    HTTP.POST('posts', params).then((result) => {
-      wx.navigateBack({
-        success() {
-          if (result.data.status) {
-            APP.OnFire.fire('newPost', result.data);
-            APP.OnFire.fire('notify', {type: 'success', message: '动态发布成功'});
-          } else {
-            APP.OnFire.fire('notify', {type: 'warning', message: '动态创建成功 \n 管理审核通过后将发布'});
-          }
-        }
-      });
-    }).catch(function() {
-      wx.showModal({
-        title: '动态创建失败',
-        content: '请稍后再试',
-        showCancel: false,
-      });
-    }).finally(() => {
-      wx.hideLoading();
+        HTTP.POST('posts', params).then((result) => {
+          wx.navigateBack({
+            success() {
+              if (result.data.status) {
+                APP.OnFire.fire('newPost', result.data);
+                APP.OnFire.fire('notify', {type: 'success', message: '动态发布成功'});
+              } else {
+                APP.OnFire.fire('notify', {type: 'warning', message: '动态创建成功 \n 管理审核通过后将发布'});
+              }
+            }
+          });
+        }).catch(function() {
+          wx.showModal({
+            title: '动态创建失败',
+            content: '请稍后再试',
+            showCancel: false,
+          });
+        }).finally(() => {
+          wx.hideLoading();
+        });
+      },
     });
   },
 });
