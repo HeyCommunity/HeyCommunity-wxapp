@@ -1,4 +1,6 @@
 <view class="container-full">
+  <van-notify id="van-notify"></van-notify>
+
   <scroll-view scroll-y class="scrollPage">
     <view class="UCenter-bg" style="background-image:url({{ userCoverImagePath }})">
       <image wx:if="{{ userInfo.avatar }}" src="{{ userInfo.avatar }}" class="png" mode="widthFix" style="border-radius:50%;"></image>

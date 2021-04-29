@@ -10,7 +10,28 @@ const userLogin = function(code, successCallback, failCallback, requestFailCallb
   let HTTP = require(httpUtilPath);
   let APP = getApp();
 
-  // 获取 token
+  return new Promise(function(resolve, reject) {
+    // 获取 token
+    HTTP.GET('users/login', {code: code}).then(function(result) {
+      APP.globalData.apiToken = result.data.token;
+      APP.globalData.isAuth = true;
+      APP.globalData.userInfo = result.data;
+
+      // 写入 LocalStorage
+      wx.setStorage({
+        key: 'apiToken',
+        data: APP.globalData.apiToken,
+      });
+
+      console.debug('登录成功: ' + APP.globalData.userInfo.nickname + '(' + APP.globalData.userInfo.id + ')', APP.globalData.userInfo);
+      resolve(result);
+    }).catch(function(result, res) {
+      console.debug('登录失败', result, res);
+      reject(result, res);
+    });
+  });
+
+
   HTTP.httpGet('users/login', {code: code}, function(data) {
     getApp().globalData.apiToken = data.token;
     getApp().globalData.isAuth = true;
