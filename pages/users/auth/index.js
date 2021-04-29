@@ -1,5 +1,5 @@
-const HTTP = require('../../../utils/http.js');
 const AUTH = require('../../../utils/auth.js');
+const APP = getApp();
 
 Page({
   data: {
@@ -10,6 +10,8 @@ Page({
    * onLoad
    */
   onLoad() {
+    APP.Notify({type: 'primary', message: '请先登录'});
+
     if (wx.getUserProfile) {
       this.setData({
         canIUseGetUserProfile: true
@@ -33,7 +35,11 @@ Page({
             AUTH.userLogin(res.code, function() {
               // 登录成功后更新用户资料；TODO: 不要自动更新用户资料，而是在我的页面让用户手动触发
               AUTH.userUpdateInfo(wechatUserInfo, function() {
-                wx.navigateBack();
+              });
+              wx.navigateBack({
+                success(res) {
+                  getApp().Notify({type: 'success', message: '登录成功'});
+                }
               });
             }, function() {
               wx.showModal({
