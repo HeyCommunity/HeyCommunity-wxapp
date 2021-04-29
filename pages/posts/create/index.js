@@ -1,4 +1,3 @@
-const HTTP = require('../../../utils/http.js');
 const APP = getApp();
 
 Page({
@@ -25,26 +24,21 @@ Page({
       sourceType: ['camera', 'album'],
       success: (res) => {
         res.tempFilePaths.forEach(function(tempFilePath) {
-          _this.setData({
-            images: _this.data.images.concat([{
-              'tempFilePath': tempFilePath,
-              'imageId': null,
-              'imageFilePath': null,
-            }]),
-          });
+          APP.HTTP.uploadFile('post-images', tempFilePath).then(function(result) {
+            let postImageId = result.data.id;
 
-          HTTP.uploadFile('post-images', tempFilePath, {}, function(data) {
-            let postImageId = data.id;
-
-            _this.data.images.forEach(function(image, index) {
-              if (image.tempFilePath === tempFilePath) {
-                _this.data.images[index].imageId = postImageId;
-
-                _this.setData({
-                  images: _this.data.images,
-                });
-              }
+            _this.setData({
+              images: _this.data.images.concat([{
+                'tempFilePath': tempFilePath,
+                'imageId': postImageId,
+                'imageFilePath': null,
+              }]),
             });
+          }).catch(function() {
+            wx.showModal({
+              title: '图片上传失败',
+              showCancel: false,
+            })
           });
         });
       }
@@ -123,7 +117,7 @@ Page({
           params.image_ids.push(image.imageId);
         });
 
-        HTTP.POST('posts', params).then((result) => {
+        APP.HTTP.POST('posts', params).then((result) => {
           wx.navigateBack({
             success() {
               if (result.data.status) {

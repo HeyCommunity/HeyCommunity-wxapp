@@ -87,7 +87,7 @@ const restoreLogin = function(APP, successCallback) {
       url: HTTP.makeApiPath('users/mine'),
       data: {},
       success: function (res) {
-        if (HTTP.httpSuccessful(res)) {
+        if (HTTP.httpRequestIsOk(res)) {
           APP.globalData.apiToken = apiToken;
           APP.globalData.isAuth = true;
           APP.globalData.userInfo = res.data.data;

@@ -1,4 +1,3 @@
-const HTTP = require('../../../utils/http.js');
 const {apiDomain} = require('../../../utils/env.js');
 const APP = getApp();
 
@@ -34,9 +33,9 @@ Page({
   refreshUserInfo() {
     let _this = this;
 
-    HTTP.httpGet('users/mine', {}, function(data) {
-      APP.globalData.userInfo = data;
-      _this.setData({userInfo: data});
+    APP.HTTP.GET('users/mine').then(function(result) {
+      APP.globalData.userInfo = result.data;
+      _this.setData({userInfo: result.data});
     });
   },
 
