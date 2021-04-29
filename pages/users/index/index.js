@@ -71,23 +71,19 @@ Page({
 
     wx.showLoading();
 
-    getApp().globalData.isAuth = false;
-    getApp().globalData.userInfo = null;
-    _this.setData({userInfo: null});
-    wx.removeStorage({key: 'apiToken'});
-
-    HTTP.httpPost('users/logout', {}, function() {
-      wx.hideLoading();
+    APP.AUTH.userLogout().then(function() {
       wx.showModal({
         title: '你已安全登出',
         showCancel: false,
       });
-    }, function() {
-      wx.hideLoading();
+    }).catch(function() {
       wx.showModal({
         title: '你已退出登录',
         showCancel: false,
       });
+    }).finally(function() {
+      _this.setData({userInfo: null});
+      wx.hideLoading();
     });
   }
 });

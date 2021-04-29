@@ -6,13 +6,12 @@ const httpUtilPath = './http.js';
 /**
  * 用户登录
   */
-const userLogin = function(code, successCallback, failCallback, requestFailCallback) {
-  let HTTP = require(httpUtilPath);
+const userLogin = function(code) {
   let APP = getApp();
 
   return new Promise(function(resolve, reject) {
     // 获取 token
-    HTTP.GET('users/login', {code: code}).then(function(result) {
+    APP.HTTP.GET('users/login', {code: code}).then(function(result) {
       APP.globalData.apiToken = result.data.token;
       APP.globalData.isAuth = true;
       APP.globalData.userInfo = result.data;
@@ -30,42 +29,43 @@ const userLogin = function(code, successCallback, failCallback, requestFailCallb
       reject(result, res);
     });
   });
+};
 
+/**
+ * 用户登出
+ */
+const userLogout = function() {
+  let APP = getApp();
 
-  HTTP.httpGet('users/login', {code: code}, function(data) {
-    getApp().globalData.apiToken = data.token;
-    getApp().globalData.isAuth = true;
-    getApp().globalData.userInfo = data;
+  return new Promise(function(resolve, reject) {
+    APP.globalData.isAuth = false;
+    APP.globalData.userInfo = null;
+    wx.removeStorage({key: 'apiToken'});
 
-    // 写入 LocalStorage
-    wx.setStorage({
-      key: 'apiToken',
-      data: getApp().globalData.apiToken,
+    APP.HTTP.POST('users/logout').then(function(result, res) {
+      resolve(result, res);
+    }).catch(function(result, res) {
+      reject(result, res);
     });
-
-    console.debug('登录成功: ' + APP.globalData.userInfo.nickname + '(' + APP.globalData.userInfo.id + ')', APP.globalData.userInfo);
-    if (successCallback) successCallback(data);
-  }, function(res) {
-    console.debug('登录失败', res);
-    if (failCallback) failCallback(res);
-  }, function(res) {
-    if (requestFailCallback) requestFailCallback(res);
-  });
-
-  return true;
+  })
 };
 
 /**
  * 更新用户资料
  */
-const userUpdateInfo = function(wechatUserInfo, successCallback) {
-  let HTTP = require(httpUtilPath);
+const userUpdateInfo = function(wechatUserInfo) {
+  let APP = getApp();
 
-  HTTP.httpPost('users/mine', wechatUserInfo, function(data) {
-    getApp().globalData.userInfo = data;
+  return new Promise(function(resolve, reject) {
+    APP.HTTP.POST('users/mine', wechatUserInfo).then(function(result, res) {
+      APP.globalData.userInfo = result.data;
 
-    if (successCallback) successCallback();
-    console.info('updated user info => ', data);
+      console.debug('updated user info => ', result.data);
+      resolve(result, res);
+    }).catch(function(result, res) {
+      console.debug('update user info fail', result, res);
+      reject(result, res);
+    });
   });
 };
 
@@ -105,5 +105,6 @@ const restoreLogin = function(APP, successCallback) {
 };
 
 module.exports = {
-  userLogin, restoreLogin, userUpdateInfo,
+  userLogin, userLogout,
+  restoreLogin, userUpdateInfo,
 };
