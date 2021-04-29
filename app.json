@@ -3,8 +3,7 @@
     "pages/posts/index/index",
     "pages/posts/create/index",
 
-    "pages/discussions/index/index",
-    "pages/discussions/detail/index",
+    "pages/messages/index/index",
 
     "pages/users/index/index",
     "pages/users/auth/index",
@@ -23,6 +22,11 @@
       "pagePath": "pages/posts/index/index",
       "iconPath": "/assets/images/tabbar/post.png",
       "selectedIconPath": "/assets/images/tabbar/post-active.png"
+    }, {
+      "text": "消息",
+      "pagePath": "pages/messages/index/index",
+      "iconPath": "/assets/images/tabbar/message.png",
+      "selectedIconPath": "/assets/images/tabbar/message-active.png"
     }, {
       "text": "我的",
       "pagePath": "pages/users/index/index",

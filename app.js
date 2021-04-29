@@ -2,6 +2,7 @@ const AUTH = require('./utils/auth.js');
 const HTTP = require('./utils/http.js');
 const OnFire = require('./utils/onfire.js');
 import Notify from './miniprogram_npm/@vant/weapp/notify/notify';
+const tdweapp = require('./utils/talkingData/tdweapp.js');
 
 App({
   AUTH: AUTH,
