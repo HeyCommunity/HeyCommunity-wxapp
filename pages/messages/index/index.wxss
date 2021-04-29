@@ -1,0 +1,23 @@
+.page-messages-index {
+  padding-top: 20rpx; }
+  .page-messages-index .items-message .item-message {
+    padding-top: 22rpx;
+    padding-right: 20rpx;
+    align-items: unset !important; }
+    .page-messages-index .items-message .item-message .date {
+      position: absolute;
+      padding-top: 6rpxrpx;
+      line-height: 44rpx; }
+    .page-messages-index .items-message .item-message .content {
+      padding-top: 6rpx;
+      width: calc(100% - 146rpx - 20rpx); }
+      .page-messages-index .items-message .item-message .content .line-1, .page-messages-index .items-message .item-message .content line-2 {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis; }
+      .page-messages-index .items-message .item-message .content .line-1 {
+        max-width: calc(100% - 140rpx); }
+      .page-messages-index .items-message .item-message .content .line-2 .text-cut {
+        max-width: 100%; }
+      .page-messages-index .items-message .item-message .content .message-action {
+        font-size: 26rpx; }

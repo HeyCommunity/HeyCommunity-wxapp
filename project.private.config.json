@@ -51,6 +51,12 @@
         {
           "name": "HEY社区",
           "pathName": "pages/users/hey-community/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "消息列表页",
+          "pathName": "pages/messages/index/index",
           "scene": null
         }
       ]

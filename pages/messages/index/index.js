@@ -1,5 +1,6 @@
 Page({
   data: {
+    visibleMessage: false,
   },
 
   /**
@@ -9,9 +10,16 @@ Page({
   },
 
   /**
-   * goto Detail Page
+   * onShow
    */
-  gotoDetailPage() {
-    wx.navigateTo({url: '/pages/discussions/detail/index'});
+  onShow() {
+    this.setData({visibleMessage: false});
+  },
+
+  /**
+   * showFakeMessages
+   */
+  showFakeMessages() {
+    this.setData({visibleMessage: true});
   },
 });
