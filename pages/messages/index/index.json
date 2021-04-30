@@ -4,6 +4,7 @@
   "navigationBarTitleText": "消息",
   "backgroundColor": "#eeeeee",
   "backgroundTextStyle": "light",
+  "enablePullDownRefresh": true,
   "usingComponents": {
     "van-empty": "@vant/weapp/empty/index"
   }

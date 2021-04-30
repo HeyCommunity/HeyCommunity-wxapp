@@ -1,28 +1,16 @@
 <view class="container-full page-messages-index">
-  <view wx:if="{{ visibleMessage }}" class="items-message cu-list menu-avatar">
-    <view class="item-message cu-item">
-      <view class="date text-grey text-xs">22:20</view>
-      <view class="avatar cu-avatar round lg" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big10001.jpg);"></view>
+  <view wx:if="{{ notices.length }}" class="items-message cu-list menu-avatar">
+    <view wx:for="{{ notices }}" wx:for-item="notice" wx:key="id" class="item-message cu-item">
+      <view class="date text-grey text-xs">{{ notice.created_at_for_humans }}</view>
+      <view class="avatar cu-avatar round lg" style="background-image:url({{ notice.sender.avatar }});"></view>
       <view class="content padding-bottom-xs solid-bottom">
         <view class="text-grey">
-          <view class="nickname">凯尔</view>
-          <view class="message-action margin-left-xs text-gray">点赞你的动态</view>
+          <view class="nickname">{{ notice.sender.nickname }}</view>
+          <view wx:if="{{ notice.type === 'post_thumb_up' }}" class="message-action margin-left-xs text-gray">点赞你的动态</view>
+          <view wx:if="{{ notice.type === 'post_comment' }}" class="message-action margin-left-xs text-gray">评论你的动态</view>
         </view>
         <view class="text-gray text-sm flex">
-          <text class="text-cut">明月几时有，把酒问青天</text>
-        </view>
-      </view>
-    </view>
-    <view class="item-message cu-item">
-      <view class="date text-grey text-xs">2021/4/22</view>
-      <view class="cu-avatar round lg" style="background-image:url(https://ossweb-img.qq.com/images/lol/img/champion/Taric.png);"></view>
-      <view class="content padding-bottom-xs solid-bottom">
-        <view class="text-grey line-1">
-          <view class="nickname">瓦洛兰之盾-塔里克</view>
-          <view class="message-action margin-left-xs text-gray">评论你的动态</view>
-        </view>
-        <view class="text-gray text-sm flex line-2">
-          <text class="text-cut">说得好说得妙说得好说得妙说得好说得妙说得好说得妙说得好说得妙说得好说得妙说得好说得妙</text>
+          <text class="text-cut">{{ notice.content }}</text>
         </view>
       </view>
     </view>
