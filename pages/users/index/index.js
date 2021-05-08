@@ -68,7 +68,7 @@ Page({
   logoutHandler() {
     let _this = this;
 
-    wx.showLoading();
+    wx.showLoading({title: '正在退出'});
 
     APP.AUTH.userLogout().then(function() {
       wx.showModal({

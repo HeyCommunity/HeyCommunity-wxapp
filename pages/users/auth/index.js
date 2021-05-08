@@ -30,6 +30,8 @@ Page({
 
         wx.login({
           success: res => {
+            wx.showLoading({title: '登录中'});
+            
             // 通过 wx.login res.code 发送到后台, 从而完成用户的注册和登录
             APP.AUTH.userLogin(res.code).then(function() {
               // 登录成功后更新用户资料
@@ -48,6 +50,8 @@ Page({
                 content: '发生未知错误，请稍后再试',
                 showCancel: false,
               })
+            }).finally(function() {
+              wx.hideLoading();
             });
           },
         });
