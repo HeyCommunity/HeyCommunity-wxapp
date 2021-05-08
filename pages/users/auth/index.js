@@ -38,7 +38,7 @@ Page({
 
               wx.navigateBack({
                 success(res) {
-                  APP.Notify({type: 'success', message: '登录成功'});
+                  APP.makeNotify({type: 'success', message: '登录成功'});
                 }
               });
             }).catch(function() {

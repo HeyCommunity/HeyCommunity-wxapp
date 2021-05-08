@@ -34,6 +34,17 @@ App({
   },
 
   /**
+   * Make Notify
+   * 用于页面跳转显示 Notify
+   */
+  makeNotify(notify) {
+    let _this = this;
+    setTimeout(function() {
+      _this.Notify(notify);
+    }, 100);
+  },
+
+  /**
    * 如果 isAuth = false, 则打开登录页面
    */
   needAuth() {
