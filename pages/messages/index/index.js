@@ -2,31 +2,21 @@ const APP = getApp();
 
 Page({
   data: {
+    appGlobalData: null,
     notices: [],
-    visibleMessage: false,
-  },
-
-  /**
-   * onLoad
-   */
-  onLoad() {
-    let _this = this;
-
-    _this.onPullDownRefresh();
   },
 
   /**
    * onShow
    */
   onShow() {
-    this.setData({visibleMessage: false});
-  },
+    let _this = this;
 
-  /**
-   * showFakeMessages
-   */
-  showFakeMessages() {
-    this.setData({visibleMessage: true});
+    _this.setData({appGlobalData: APP.globalData});
+
+    if (APP.globalData.isAuth) {
+      wx.startPullDownRefresh();
+    }
   },
 
   /**
@@ -35,11 +25,25 @@ Page({
   onPullDownRefresh() {
     let _this = this;
 
-    // 获取动态
-    APP.HTTP.GET('notices').then(function(result) {
-      _this.setData({notices: result.data});
-    }).finally(() => {
-      wx.stopPullDownRefresh();
+    if (APP.globalData.isAuth) {
+      _this.getListData().then(function(result) {
+        _this.setData({notices: result.data});
+      }).finally(() => {
+        wx.stopPullDownRefresh();
+      });
+    }
+  },
+
+  /**
+   * 获取数据
+   */
+  getListData() {
+    return new Promise(function(resolve, reject) {
+      APP.HTTP.GET('notices').then(function(result, res) {
+        resolve(result, res);
+      }).catch(function(result, res) {
+        reject(result, res);
+      });
     });
   },
 });

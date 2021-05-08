@@ -16,7 +16,8 @@
     </view>
   </view>
 
-  <view wx:else style="padding-top:100px;" bind:longtap="showFakeMessages">
-    <van-empty description="没有消息"></van-empty>
+  <view wx:else style="padding-top:100px;">
+    <van-empty wx:if="{{ appGlobalData.isAuth }}" description="没有消息"></van-empty>
+    <van-empty wx:else description="登录后才能查看消息"></van-empty>
   </view>
 </view>
