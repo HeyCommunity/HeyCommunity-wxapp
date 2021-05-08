@@ -11,9 +11,6 @@
 
     "pages/web-page/index"
   ],
-  "usingComponents": {
-    "van-notify": "@vant/weapp/notify/index"
-  },
   "tabBar": {
     "color": "#999999",
     "selectedColor": "#0081ff",
@@ -34,12 +31,16 @@
       "selectedIconPath": "/assets/images/tabbar/user-active.png"
     }]
   },
+  "usingComponents": {
+    "van-button": "@vant/weapp/button/index",
+    "van-empty": "@vant/weapp/empty/index",
+    "van-notify": "@vant/weapp/notify/index"
+  },
   "window": {
     "backgroundTextStyle":"light",
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "HeyCommunity",
     "navigationBarTextStyle":"black"
   },
-  "style": "v2",
   "sitemapLocation": "sitemap.json"
 }

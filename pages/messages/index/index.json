@@ -6,6 +6,6 @@
   "backgroundTextStyle": "light",
   "enablePullDownRefresh": true,
   "usingComponents": {
-    "van-empty": "@vant/weapp/empty/index"
+    "van-swipe-cell": "@vant/weapp/swipe-cell/index"
   }
 }
