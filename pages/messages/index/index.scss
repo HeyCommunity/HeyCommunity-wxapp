@@ -7,6 +7,10 @@
       padding-right: 20rpx;
       align-items: unset !important;
 
+      &.unread {
+        background-color: #F3F3F3;
+      }
+
       .date {
         position: absolute;
         padding-top: 6rpxrpx;
