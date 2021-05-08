@@ -21,3 +21,5 @@
         max-width: 100%; }
       .page-messages-index .items-message .item-message .content .message-action {
         font-size: 26rpx; }
+    .page-messages-index .items-message .item-message .move {
+      top: 0; }

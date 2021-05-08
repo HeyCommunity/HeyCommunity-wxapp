@@ -46,4 +46,31 @@ Page({
       });
     });
   },
+
+  /**
+   * messageMove 开始
+   */
+  messageTouchStart(e) {
+    this.setData({MessageTouchStart: e.touches[0].pageX})
+  },
+
+  /**
+   * messageMove 计算方向
+   */
+  messageTouchMove(e) {
+    this.setData({MessageTouchDirection: e.touches[0].pageX - this.data.MessageTouchStart > 0 ? 'right' : 'left'})
+  },
+
+  /**
+   * messageMove 计算滚动
+   */
+  messageTouchEnd(e) {
+    if (this.data.MessageTouchDirection =='left'){
+      this.setData({messageTouchClass: e.currentTarget.dataset.target})
+    } else {
+      this.setData({messageTouchClass: null})
+    }
+
+    this.setData({MessageTouchDirection: null})
+  },
 });
