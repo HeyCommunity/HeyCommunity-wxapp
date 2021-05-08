@@ -5,7 +5,7 @@
           bind:touchstart="messageTouchStart" bind:touchmove="messageTouchMove" bind:touchend="messageTouchEnd">
       <view class="date text-grey text-xs">{{ notice.created_at_for_humans }}</view>
       <view class="avatar cu-avatar round lg" style="background-image:url({{ notice.sender.avatar }});">
-        <view class="cu-tag badge"></view>
+        <view wx:if="{{ ! notice.is_read }}" class="cu-tag badge"></view>
       </view>
       <view class="content padding-bottom-xs solid-bottom">
         <view class="text-grey">
@@ -18,8 +18,9 @@
         </view>
       </view>
       <view class="move">
-        <view class="bg-blue">标为已读</view>
-        <view class="bg-red">删除</view>
+        <view wx:if="{{ notice.is_read }}" bind:tap="messageSetUnRead" data-index="{{ index }}" class="bg-grey">标为未读</view>
+        <view wx:else bind:tap="messageSetIsRead" data-index="{{ index }}" class="bg-blue">标为已读</view>
+        <view bind:tap="messageDelete" data-index="{{ index }}" class="bg-red">删除</view>
       </view>
     </view>
   </view>

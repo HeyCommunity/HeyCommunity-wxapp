@@ -48,6 +48,36 @@ Page({
   },
 
   /**
+   * 删除消息
+   */
+  messageDelete(event) {
+    // TODO: 发送 API 请求
+
+    this.data.notices.splice(event.currentTarget.dataset.index, 1);
+    this.setData({notices: this.data.notices});
+  },
+
+  /**
+   * 消息设为已读
+   */
+  messageSetIsRead(event) {
+    // TODO: 发送 API 请求
+
+    this.data.notices[event.currentTarget.dataset.index]['is_read'] = true;
+    this.setData({notices: this.data.notices});
+  },
+
+  /**
+   * 消息设为未读
+   */
+  messageSetUnRead(event) {
+    // TODO: 发送 API 请求
+
+    this.data.notices[event.currentTarget.dataset.index]['is_read'] = false;
+    this.setData({notices: this.data.notices});
+  },
+
+  /**
    * messageMove 开始
    */
   messageTouchStart(e) {
