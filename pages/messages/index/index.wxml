@@ -18,9 +18,9 @@
         </view>
       </view>
       <view class="move">
-        <view wx:if="{{ notice.is_read }}" bind:tap="messageSetUnRead" data-index="{{ index }}" class="bg-grey">标为未读</view>
-        <view wx:else bind:tap="messageSetIsRead" data-index="{{ index }}" class="bg-blue">标为已读</view>
-        <view bind:tap="messageDelete" data-index="{{ index }}" class="bg-red">删除</view>
+        <view wx:if="{{ notice.is_read }}" bind:tap="noticeSetUnRead" data-id="{{ notice.id }}" data-index="{{ index }}" class="bg-grey">标为未读</view>
+        <view wx:else bind:tap="noticeSetIsRead" data-id="{{ notice.id }}" data-index="{{ index }}" class="bg-blue">标为已读</view>
+        <view bind:tap="noticeDelete" data-id="{{ notice.id }}" data-index="{{ index }}" class="bg-red">删除</view>
       </view>
     </view>
   </view>

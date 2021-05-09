@@ -48,33 +48,45 @@ Page({
   },
 
   /**
-   * 删除消息
+   * 删除通知
    */
-  messageDelete(event) {
-    // TODO: 发送 API 请求
+  noticeDelete(event) {
+    let _this = this;
+    let noticeId = event.currentTarget.dataset.id;
+    let noticeIndex = event.currentTarget.dataset.index;
 
-    this.data.notices.splice(event.currentTarget.dataset.index, 1);
-    this.setData({notices: this.data.notices});
+    APP.HTTP.POST('notices/delete', {id: noticeId}).then(function() {
+      _this.data.notices.splice(noticeIndex, 1);
+      _this.setData({notices: _this.data.notices});
+    });
   },
 
   /**
-   * 消息设为已读
+   * 通知设为已读
    */
-  messageSetIsRead(event) {
-    // TODO: 发送 API 请求
+  noticeSetIsRead(event) {
+    let _this = this;
+    let noticeId = event.currentTarget.dataset.id;
+    let noticeIndex = event.currentTarget.dataset.index;
 
-    this.data.notices[event.currentTarget.dataset.index]['is_read'] = true;
-    this.setData({notices: this.data.notices});
+    APP.HTTP.POST('notices/set-isread', {id: noticeId}).then(function(result) {
+      _this.data.notices[noticeIndex] = result.data;
+      _this.setData({notices: _this.data.notices});
+    });
   },
 
   /**
-   * 消息设为未读
+   * 通知设为未读
    */
-  messageSetUnRead(event) {
-    // TODO: 发送 API 请求
+  noticeSetUnRead(event) {
+    let _this = this;
+    let noticeId = event.currentTarget.dataset.id;
+    let noticeIndex = event.currentTarget.dataset.index;
 
-    this.data.notices[event.currentTarget.dataset.index]['is_read'] = false;
-    this.setData({notices: this.data.notices});
+    APP.HTTP.POST('notices/set-unread', {id: noticeId}).then(function(result) {
+      _this.data.notices[noticeIndex] = result.data;
+      _this.setData({notices: _this.data.notices});
+    });
   },
 
   /**
