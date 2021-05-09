@@ -23,6 +23,7 @@ Page({
    */
   userLoginHandler() {
     wx.getUserProfile({
+      lang: 'zh_CN',
       desc: '登录小程序',
       success: (res) => {
         let wechatUserInfo = res.userInfo;
