@@ -16,7 +16,7 @@
   </view>
 
   <view class="text-center footer">
-    <button wx:if="{{ false && canGetUserProfile }}" class="cu-btn btn-login lg bg-gradual-green" bind:tap="getUserProfileHandler">
+    <button wx:if="{{ canGetUserProfile }}" class="cu-btn btn-login lg bg-gradual-green" bind:tap="getUserProfileHandler">
       <text class="cuIcon-weixin margin-right-sm icon"></text> 登录
     </button>
     <button wx:else class="cu-btn btn-login lg bg-gradual-green" open-type="getUserInfo" lang="zh_CN" bind:getuserinfo="getUserInfoHandler">

@@ -84,6 +84,7 @@ Page({
       });
     }).finally(function() {
       _this.setData({userInfo: null});
+      _this.setData({appGlobalData: APP.globalData});
       wx.hideLoading();
     });
   }
