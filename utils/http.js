@@ -30,6 +30,7 @@ const request = function(type, path, params, configs) {
       method: type,
       header: {
         'Authorization': 'Bearer ' + apiToken,
+        'Accept': 'application/json',
       },
       url: makeApiPath(path),
       data: params,
