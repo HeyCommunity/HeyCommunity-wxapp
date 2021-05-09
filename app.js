@@ -22,15 +22,20 @@ App({
   onLaunch() {
     let _this = this;
 
-    // 恢复用户及登录状态
-    AUTH.restoreLogin(this, function() {
-      if (_this.userLoginedCallback) _this.userLoginedCallback();
-    });
-
     // 订阅 Notify
     this.OnFire.on('notify', function(options) {
       _this.Notify(options);
     });
+
+    // 恢复用户及登录状态
+    setTimeout(function () {
+      AUTH.restoreLogin(_this).then(function(result) {
+        _this.makeNotify({type: 'success', message: '欢迎回来, ' + result.data.nickname});
+      }).catch(function(res) {
+      }).finally(function() {
+        if (_this.authInitedCallback) _this.authInitedCallback();
+      });
+    }, 300)
   },
 
   /**

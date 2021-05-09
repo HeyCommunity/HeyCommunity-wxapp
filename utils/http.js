@@ -36,24 +36,24 @@ const request = function(type, path, params, configs) {
       data: params,
       success: function(res) {
         if (httpRequestIsOk(res)) {
-          resolve(res.data, res);
-          console.debug('[HTTP-' + type + '] ' + path + ' successful', res);
+          resolve(res.data);
+          console.debug('[HTTP-' + type + '][' + res.statusCode + ']: /' + path, res);
         } else {
-          reject(res.data, res);
-          console.error('[HTTP-' + type + '] ' + path + ' fail', res);
+          reject(res);
+          console.error('[HTTP-' + type + '][' + res.statusCode + ']: /' + path, res);
         }
       },
       fail: function(res) {
         if (configs.showRequestFailModal != false) {
           wx.showModal({
             title: '网络请求失败',
-            content: res.errMsg,
+            content: res.errMsg,          // TODO: 重定义，把 res.errMsg 转为本地语言
             showCancel: false,
           });
         }
 
-        reject('WX.REQUEST FAIL', res);
-        console.error('[HTTP-' + type + '] ' + path + ' wx.request fail', res);
+        reject(res);
+        console.error('[HTTP-' + type + '][WX.REQUEST-FAIL]: /' + path, res);
       },
     });
   });

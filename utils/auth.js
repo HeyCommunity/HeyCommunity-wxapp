@@ -72,36 +72,28 @@ const userUpdateInfo = function(wechatUserInfo) {
 /**
  * 恢复登录
  */
-const restoreLogin = function(APP, successCallback) {
-  let HTTP = require(httpUtilPath);
-
+const restoreLogin = function(APP) {
   // 从 LocalStorage 恢复 apiToken
   let apiToken = wx.getStorageSync('apiToken');
 
-  if (apiToken) {
-    wx.request({
-      method: 'GET',
-      header: {
-        'Authorization': 'Bearer ' + apiToken
-      },
-      url: HTTP.makeApiPath('users/mine'),
-      data: {},
-      success: function (res) {
-        if (HTTP.httpRequestIsOk(res)) {
-          APP.globalData.apiToken = apiToken;
-          APP.globalData.isAuth = true;
-          APP.globalData.userInfo = res.data.data;
+  return new Promise(function(resolve, reject) {
+    if (apiToken) {
+      APP.globalData.apiToken = apiToken;
+      APP.HTTP.GET('users/mine').then(function(result) {
+        APP.globalData.isAuth = true;
+        APP.globalData.userInfo = result.data;
 
-          if (successCallback) successCallback();
-          console.debug('恢复登录状态: ' + APP.globalData.userInfo.nickname + '(' + APP.globalData.userInfo.id + ')', APP.globalData.userInfo);
-        } else {
-          console.debug('恢复登录状态失败: isAuth => false');
-        }
-      },
-    });
-  } else {
-    console.debug('恢复登录状态失败: Storage.apiToken does not exist');
-  }
+        console.debug('恢复登录状态: ' + result.data.nickname + '(' + result.data.id + ')', APP.globalData.userInfo);
+        resolve(result);
+      }).catch(function(res) {
+        console.debug('恢复登录状态失败', res);
+        reject(res);
+      });
+    } else {
+      console.debug('恢复登录状态失败: apiToken does not exist in wx.storage');
+      reject({errMsg: 'apiToken does not exist in wx.storage'});
+    }
+  });
 };
 
 module.exports = {
