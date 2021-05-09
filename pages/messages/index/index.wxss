@@ -1,6 +1,7 @@
 .page-messages-index {
   padding-top: 20rpx; }
   .page-messages-index .items-message .item-message {
+    transition: all .3s ease-in-out 0s;
     padding-top: 22rpx;
     padding-right: 20rpx;
     align-items: unset !important; }

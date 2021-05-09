@@ -88,17 +88,21 @@ Page({
    * messageMove 计算方向
    */
   messageTouchMove(e) {
-    this.setData({MessageTouchDirection: e.touches[0].pageX - this.data.MessageTouchStart > 0 ? 'right' : 'left'})
+    if (e.touches[0].pageX - this.data.MessageTouchStart > 60) this.setData({MessageTouchDirection: 'right'});
+    if (e.touches[0].pageX - this.data.MessageTouchStart < -60) this.setData({MessageTouchDirection: 'left'});
+
+    // console.debug('touchmove', e.touches[0].pageX - this.data.MessageTouchStart, this.data.MessageTouchDirection);
+    // console.debug('touchmove', e.touches[0].pageX, this.data.MessageTouchStart);
   },
 
   /**
    * messageMove 计算滚动
    */
   messageTouchEnd(e) {
-    if (this.data.MessageTouchDirection =='left'){
-      this.setData({messageTouchClass: e.currentTarget.dataset.target})
+    if (this.data.MessageTouchDirection == 'left')  {
+      this.setData({messageTouchClass: e.currentTarget.dataset.target});
     } else {
-      this.setData({messageTouchClass: null})
+      this.setData({messageTouchClass: null});
     }
 
     this.setData({MessageTouchDirection: null})
