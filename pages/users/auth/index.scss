@@ -33,15 +33,18 @@
   }
 }
 
-.btn-login {
+.footer {
   margin-top: 100rpx;
-  min-width: 340rpx;
-  position: relative;
-  overflow: hidden;
 
-  .icon {
-    position: absolute;
-    font-size: 160rpx;
-    left: -40rpx;
-  }
+  .btn-login {
+    min-width: 340rpx;
+    position: relative;
+    overflow: hidden;
+
+    .icon {
+      position: absolute;
+      font-size: 160rpx;
+      left: -40rpx;
+    }
+}
 }

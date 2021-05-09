@@ -5,7 +5,7 @@
   <view class="text-center subtitle">微信授权快速登录</view>
 
   <view class="userinfo">
-    <block wx:if="{{ canUseUserOpenData }}">
+    <block wx:if="{{ canUseOpenData }}">
       <view class="avatar">
         <open-data type="userAvatarUrl"></open-data>
       </view>
@@ -15,8 +15,11 @@
     </block>
   </view>
 
-  <view class="text-center">
-    <button class="cu-btn btn-login lg bg-gradual-green" bind:tap="userLoginHandler">
+  <view class="text-center footer">
+    <button wx:if="{{ false && canGetUserProfile }}" class="cu-btn btn-login lg bg-gradual-green" bind:tap="getUserProfileHandler">
+      <text class="cuIcon-weixin margin-right-sm icon"></text> 登录
+    </button>
+    <button wx:else class="cu-btn btn-login lg bg-gradual-green" open-type="getUserInfo" lang="zh_CN" bind:getuserinfo="getUserInfoHandler">
       <text class="cuIcon-weixin margin-right-sm icon"></text> 登录
     </button>
   </view>
