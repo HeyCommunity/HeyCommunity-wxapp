@@ -15,8 +15,9 @@
     </block>
   </view>
 
-  <button class="cu-btn btn-login lg bg-gradual-green block" bind:tap="userLoginHandler">
-    <text class="cuIcon-weixin margin-right-sm icon"></text>
-    登录
-  </button>
+  <view class="text-center">
+    <button class="cu-btn btn-login lg bg-gradual-green" bind:tap="userLoginHandler">
+      <text class="cuIcon-weixin margin-right-sm icon"></text> 登录
+    </button>
+  </view>
 </view>
