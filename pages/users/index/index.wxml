@@ -3,11 +3,11 @@
 
   <scroll-view scroll-y class="scrollPage">
     <view class="UCenter-bg" style="background-image:url({{ userCoverImagePath }})">
-      <image wx:if="{{ userInfo.avatar }}" src="{{ userInfo.avatar }}" class="png" mode="widthFix" style="border-radius:50%;"></image>
+      <image wx:if="{{ appGlobalData.isAuth }}" src="{{ userInfo.avatar }}" class="png" mode="widthFix" style="border-radius:50%;"></image>
       <image bind:tap="needAuth" wx:else src="/assets/images/users/default-avatar.jpg" class="png" mode="widthFix" style="border-radius:50%;"></image>
-      <view wx:if="{{ userInfo.nickname }}" class="text-xl margin-top-sm">{{ userInfo.nickname }}</view>
+      <view wx:if="{{ appGlobalData.isAuth }}" class="text-xl margin-top-sm">{{ userInfo.nickname }}</view>
       <view bind:tap="needAuth" wx:else class="text-xl margin-top-sm">请登录</view>
-      <view class="margin-top-sm" wx:if="{{ userInfo.bio }}">
+      <view class="margin-top-sm" wx:if="{{ appGlobalData.isAuth && userInfo.bio }}">
         <text>{{ userInfo.bio }}</text>
       </view>
       <image src="/assets/images/users/profile-wave.gif" mode="scaleToFill" class="gif-wave"></image>
@@ -15,19 +15,19 @@
 
     <view class="padding flex text-center text-grey bg-white shadow-warp">
       <view class="flex flex-sub flex-direction solid-right">
-        <view class="text-xxl text-orange">{{ userInfo ? userInfo.post_num : 0}}</view>
+        <view class="text-xxl text-orange">{{ appGlobalData.isAuth && userInfo ? userInfo.post_num : 0}}</view>
         <view class="margin-top-sm">
           <text class="cuIcon-newsfill"></text> 动态
         </view>
       </view>
       <view class="flex flex-sub flex-direction solid-right">
-        <view class="text-xxl text-green">{{ userInfo ? userInfo.got_post_comment_num : 0 }}</view>
+        <view class="text-xxl text-green">{{ appGlobalData.isAuth && userInfo ? userInfo.got_post_comment_num : 0 }}</view>
         <view class="margin-top-sm">
           <text class="cuIcon-commentfill"></text> 评论
         </view>
       </view>
       <view class="flex flex-sub flex-direction">
-        <view class="text-xxl text-blue">{{ userInfo ? userInfo.got_post_thumb_up_num : 0 }}</view>
+        <view class="text-xxl text-blue">{{ appGlobalData.isAuth && userInfo ? userInfo.got_post_thumb_up_num : 0 }}</view>
         <view class="margin-top-sm">
           <text class="cuIcon-appreciatefill"></text> 被赞
         </view>
@@ -120,7 +120,7 @@
         </view>
       </view>
 
-      <view wx:if="{{ userInfo }}" class="cu-item text-center" bind:tap="logoutHandler">
+      <view wx:if="{{ appGlobalData.isAuth }}" class="cu-item text-center" bind:tap="logoutHandler">
         <view class="content">
           <text class="cuIcon-exit text-red"></text>
           <text class="text-red">退出登录</text>

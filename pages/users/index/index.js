@@ -3,8 +3,9 @@ const APP = getApp();
 
 Page({
   data: {
-    userCoverImagePath: apiDomain + '/images/users/default-cover.jpg',
+    appGlobalData: null,
     userInfo: null,
+    userCoverImagePath: apiDomain + '/images/users/default-cover.jpg',
 
     wxAppAccountInfo: null,
   },
@@ -20,7 +21,8 @@ Page({
    * onShow
    */
   onShow() {
-    this.setData({userInfo: getApp().globalData.userInfo});
+    this.setData({appGlobalData: APP.globalData});
+    this.setData({userInfo: APP.globalData.userInfo});
 
     if (this.data.userInfo) {
       this.refreshUserInfo();
@@ -59,7 +61,7 @@ Page({
    * needAuth
    */
   needAuth() {
-    getApp().needAuth();
+    APP.needAuth();
   },
 
   /**

@@ -32,10 +32,24 @@ App({
       AUTH.restoreLogin(_this).then(function(result) {
         _this.makeNotify({type: 'success', message: '欢迎回来, ' + result.data.nickname});
       }).catch(function(res) {
+        wx.login({
+          success: function(res) {
+            _this.HTTP.GET('users/login', {code: res.code}).then(function(result) {
+              console.debug('未登录用户在后台进行注册，获取 apiToken => ' + result.data.token);
+              _this.globalData.apiToken = result.data.token;
+            });
+          },
+        });
       }).finally(function() {
         if (_this.authInitedCallback) _this.authInitedCallback();
       });
     }, 300)
+
+    // TODO: 心跳连接
+    // 每隔 1 分钟发起一次请求，以记录用户最后活跃时间，以及获取未读通知数
+    setInterval(function() {
+      _this.HTTP.GET('users/ping');
+    }, 1000 * 60);
   },
 
   /**
