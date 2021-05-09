@@ -23,7 +23,7 @@
     </view>
 
     <view class="container">
-      <button class="cu-btn block bg-blue lg round margin-top-sm"
+      <button class="cu-btn block bg-blue lg round margin-top-sm" style="width:100%"
               d-form-type="submit" bind:tap="createPost">发布</button>
     </view>
   </form>
