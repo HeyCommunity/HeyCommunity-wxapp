@@ -35,7 +35,8 @@
     </view>
 
     <view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg radius">
-      <view wx:if="{{ appGlobalData.isAuth && appGlobalData.userInfo.unread_notice_num }}" class="cu-item arrow">
+      <navigator wx:if="{{ appGlobalData.isAuth && appGlobalData.userInfo.unread_notice_num }}"
+                 open-type="switchTab" url="/pages/messages/index/index" class="cu-item arrow">
         <view class="content">
           <text class="cuIcon-notice text-red"></text>
           <text class="text-grey">通知</text>
@@ -51,9 +52,9 @@
             </view>
           -->
         </view>
-      </view>
+      </navigator>
 
-      <view wx:else class="cu-item">
+      <navigator wx:else open-type="navigate" url="/pages/users/auth/index" class="cu-item arrow">
         <view class="content">
           <text class="cuIcon-notice text-green"></text>
           <text class="text-grey">通知</text>
@@ -61,7 +62,7 @@
         <view class="action">
           <text class="text-grey text-sm">无通知</text>
         </view>
-      </view>
+      </navigator>
     </view>
 
     <view wx:if="{{ false }}" class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg radius">
