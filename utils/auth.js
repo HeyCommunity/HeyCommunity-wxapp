@@ -107,7 +107,7 @@ const restoreLogin = function(APP) {
  */
 const userPingRun = function() {
   let APP = getApp();
-  let timeout = 1000 * 3;
+  let timeout = 1000 * 30;
 
   APP.userPingInterval = setInterval(function() {
     APP.HTTP.GET('users/ping').then(function(result) {
