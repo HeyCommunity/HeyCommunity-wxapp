@@ -4,7 +4,6 @@ const APP = getApp();
 Page({
   data: {
     appGlobalData: null,
-    userInfo: null,
     userCoverImagePath: apiDomain + '/images/users/default-cover.jpg',
 
     wxAppAccountInfo: null,
@@ -22,11 +21,7 @@ Page({
    */
   onShow() {
     this.setData({appGlobalData: APP.globalData});
-    this.setData({userInfo: APP.globalData.userInfo});
-
-    if (this.data.userInfo) {
-      this.refreshUserInfo();
-    }
+    this.refreshUserInfo();
   },
 
   /**
@@ -35,10 +30,14 @@ Page({
   refreshUserInfo() {
     let _this = this;
 
-    APP.HTTP.GET('users/mine').then(function(result) {
-      APP.globalData.userInfo = result.data;
-      _this.setData({userInfo: result.data});
-    });
+    if (APP.globalData.isAuth) {
+      APP.HTTP.GET('users/mine').then(function(result) {
+        APP.globalData.userInfo = result.data;
+        _this.setData({appGlobalData: APP.globalData});
+
+        APP.resetTabBarBadge();
+      });
+    }
   },
 
   /**
@@ -83,7 +82,6 @@ Page({
         showCancel: false,
       });
     }).finally(function() {
-      _this.setData({userInfo: null});
       _this.setData({appGlobalData: APP.globalData});
       wx.hideLoading();
     });

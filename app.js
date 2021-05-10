@@ -30,7 +30,7 @@ App({
     // 恢复用户及登录状态
     setTimeout(function () {
       AUTH.restoreLogin(_this).then(function(result) {
-        _this.makeNotify({type: 'success', message: '欢迎回来, ' + result.data.nickname});
+        _this.makeNotify({type: 'success', message: result.data.nickname + ', 欢迎回来'});
       }).catch(function(res) {
         wx.login({
           success: function(res) {
@@ -44,12 +44,6 @@ App({
         if (_this.authInitedCallback) _this.authInitedCallback();
       });
     }, 300)
-
-    // TODO: 心跳连接
-    // 每隔 1 分钟发起一次请求，以记录用户最后活跃时间，以及获取未读通知数
-    setInterval(function() {
-      _this.HTTP.GET('users/ping');
-    }, 1000 * 60);
   },
 
   /**
@@ -72,6 +66,38 @@ App({
     } else {
       wx.navigateTo({url: '/pages/users/auth/index'});
       return true;
+    }
+  },
+
+  /**
+   * UserPingHandler
+   */
+  userPingHandler(result) {
+    console.debug('GotuserPingData', result);
+
+    if (result.data && result.data.unread_notice_num) {
+      this.globalData.userInfo.unread_notice_num = result.data.unread_notice_num;
+    }
+
+    this.resetTabBarBadge();
+  },
+
+  /**
+   * Reset TabBar Badge
+   */
+  resetTabBarBadge() {
+    // 设置通知 TabBarBadge
+    if (this.globalData.isAuth && this.globalData.userInfo.unread_notice_num) {
+      let noticeTabBadgeText = String(this.globalData.userInfo.unread_notice_num);
+
+      wx.setTabBarBadge({
+        index: 1,
+        text: noticeTabBadgeText,
+      })
+    } else {
+      wx.removeTabBarBadge({
+        index: 1,
+      });
     }
   },
 })

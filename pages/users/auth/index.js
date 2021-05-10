@@ -78,6 +78,7 @@ Page({
           wx.navigateBack({
             success(res) {
               APP.makeNotify({type: 'success', message: '登录成功'});
+              APP.resetTabBarBadge();
             }
           });
         }).catch(function() {

@@ -22,6 +22,7 @@ const userLogin = function(code) {
         data: APP.globalData.apiToken,
       });
 
+      userPingRun();
       console.debug('登录成功: ' + APP.globalData.userInfo.nickname + '(' + APP.globalData.userInfo.id + ')', APP.globalData.userInfo);
       resolve(result);
     }).catch(function(result, res) {
@@ -41,6 +42,9 @@ const userLogout = function() {
     APP.globalData.isAuth = false;
     APP.globalData.userInfo = null;
     wx.removeStorage({key: 'apiToken'});
+
+    userPingStop();
+    APP.resetTabBarBadge();
 
     APP.HTTP.POST('users/logout').then(function(result, res) {
       resolve(result, res);
@@ -83,6 +87,8 @@ const restoreLogin = function(APP) {
         APP.globalData.isAuth = true;
         APP.globalData.userInfo = result.data;
 
+        userPingRun();
+        APP.resetTabBarBadge();
         console.debug('恢复登录状态: ' + result.data.nickname + '(' + result.data.id + ')', APP.globalData.userInfo);
         resolve(result);
       }).catch(function(res) {
@@ -95,6 +101,36 @@ const restoreLogin = function(APP) {
     }
   });
 };
+
+/**
+ * UserPing Run
+ */
+const userPingRun = function() {
+  let APP = getApp();
+  let timeout = 1000 * 3;
+
+  APP.userPingInterval = setInterval(function() {
+    APP.HTTP.GET('users/ping').then(function(result) {
+      APP.userPingHandler(result);
+    }).catch(function() {
+    });
+  }, timeout);
+
+  console.debug('UserPing Run');
+}
+
+/**
+ * UserPing Stop
+ */
+const userPingStop = function() {
+  let APP = getApp();
+
+  if (APP.userPingInterval) {
+    clearInterval(APP.userPingInterval);
+  }
+
+  console.debug('UserPing Stop');
+}
 
 module.exports = {
   userLogin, userLogout,

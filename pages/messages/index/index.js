@@ -16,6 +16,8 @@ Page({
 
     if (APP.globalData.isAuth) {
       wx.startPullDownRefresh();
+    } else {
+      _this.setData({notices: []});
     }
   },
 
