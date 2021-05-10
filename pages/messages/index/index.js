@@ -28,9 +28,7 @@ Page({
     let _this = this;
 
     if (APP.globalData.isAuth) {
-      _this.getListData().then(function(result) {
-        _this.setData({notices: result.data});
-      }).finally(() => {
+      _this.getListData().finally(function() {
         wx.stopPullDownRefresh();
       });
     }
@@ -40,8 +38,15 @@ Page({
    * 获取数据
    */
   getListData() {
+    let _this = this;
+
     return new Promise(function(resolve, reject) {
       APP.HTTP.GET('notices').then(function(result, res) {
+        _this.setData({notices: result.data});
+
+        APP.globalData.userInfo.unread_notice_num = result.meta.unread_notice_num;
+        APP.resetTabBarBadge();
+
         resolve(result, res);
       }).catch(function(result, res) {
         reject(result, res);
@@ -50,44 +55,40 @@ Page({
   },
 
   /**
-   * 删除通知
+   * 通知操作处理
+   *
+   * delete
+   * set-isread
+   * set-unread
    */
-  noticeDelete(event) {
+  noticeActionHandler(event) {
     let _this = this;
+
+    let action = event.currentTarget.dataset.action;
     let noticeId = event.currentTarget.dataset.id;
     let noticeIndex = event.currentTarget.dataset.index;
+    let notice = _this.data.notices[noticeIndex];
 
-    APP.HTTP.POST('notices/delete', {id: noticeId}).then(function() {
-      _this.data.notices.splice(noticeIndex, 1);
-      _this.setData({notices: _this.data.notices});
-    });
-  },
+    APP.HTTP.POST('notices/' + action, {id: noticeId}).then(function(result) {
+      if (action === 'delete') {
+        _this.data.notices.splice(noticeIndex, 1);
+        _this.setData({notices: _this.data.notices});
+      } else {
+        _this.data.notices[noticeIndex] = result.data;
+        _this.setData({notices: _this.data.notices});
+      }
 
-  /**
-   * 通知设为已读
-   */
-  noticeSetIsRead(event) {
-    let _this = this;
-    let noticeId = event.currentTarget.dataset.id;
-    let noticeIndex = event.currentTarget.dataset.index;
+      if (notice.is_read) {
+        if (action === 'set-unread') {
+          APP.globalData.userInfo.unread_notice_num += 1;
+        }
+      } else {
+        if (action === 'delete' || action === 'set-isread') {
+          APP.globalData.userInfo.unread_notice_num -= 1;
+        }
+      }
 
-    APP.HTTP.POST('notices/set-isread', {id: noticeId}).then(function(result) {
-      _this.data.notices[noticeIndex] = result.data;
-      _this.setData({notices: _this.data.notices});
-    });
-  },
-
-  /**
-   * 通知设为未读
-   */
-  noticeSetUnRead(event) {
-    let _this = this;
-    let noticeId = event.currentTarget.dataset.id;
-    let noticeIndex = event.currentTarget.dataset.index;
-
-    APP.HTTP.POST('notices/set-unread', {id: noticeId}).then(function(result) {
-      _this.data.notices[noticeIndex] = result.data;
-      _this.setData({notices: _this.data.notices});
+      APP.resetTabBarBadge();
     });
   },
 
