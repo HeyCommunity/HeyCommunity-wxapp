@@ -58,7 +58,6 @@ Page({
     let _this = this;
     let postIndex = event.currentTarget.dataset.postIndex;
     let postId = event.currentTarget.dataset.postId;
-    let post = _this.data.posts[postIndex];
     let type = event.currentTarget.dataset.type;
     let value = event.currentTarget.dataset.value;
 
@@ -68,19 +67,26 @@ Page({
       value: value,
     };
 
-    // TODO: 请求返回 Thumb，而不是 Post
     APP.HTTP.POST('post-thumbs', params).then((result) => {
-      _this.data.posts[postIndex] = result.data;
-      _this.setData({posts: _this.data.posts});
+      let message = null;
 
-      if (value) {
-        APP.showNotify('点赞成功');
-      } else {
-        APP.showNotify('取消点赞');
+      if (result.statusCode === 201) {
+        message = '点赞成功';
+        _this.data.posts[postIndex]['i_have_thumb_up'] = true;
+        _this.data.posts[postIndex]['thumb_up_num'] += 1;
+      } else if (result.statusCode === 202) {
+        message = '取消点赞成功';
+        _this.data.posts[postIndex]['i_have_thumb_up'] = false;
+        _this.data.posts[postIndex]['thumb_up_num'] -= 1;
+      }
+
+      if (message) {
+        _this.setData({posts: _this.data.posts});
+        APP.showNotify(message);
       }
     }).catch(() => {
       wx.showModal({
-        title: '点赞失败',
+        title: value ? '点赞失败' : '取消点赞失败',
         showCancel: false,
       });
     });
@@ -142,11 +148,12 @@ Page({
 
       if (result.data.status) {
         _this.data.posts[postIndex].comments.unshift(result.data);
+        _this.data.posts[postIndex].comment_num += 1;
         _this.setData({posts: _this.data.posts});
 
-        APP.Notify({type: 'success', message: '评论成功'});
+        APP.showNotify('评论成功');
       } else {
-        APP.Notify({type: 'warning', message: '评论创建成功 \n 管理员审核通过后将发布'});
+        APP.showNotify('评论创建成功 \n 管理员审核通过后将发布', 'warning');
       }
     }).catch(() => {
       wx.showModal({

@@ -36,6 +36,8 @@ const request = function(type, path, params, configs) {
       data: params,
       success: function(res) {
         if (httpRequestIsOk(res)) {
+          res.data.statusCode = res.statusCode;
+
           resolve(res.data);
           console.debug('[HTTP-' + type + '][' + res.statusCode + ']: /' + path, res);
         } else {
