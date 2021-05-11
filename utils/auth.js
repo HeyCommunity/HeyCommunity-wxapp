@@ -110,7 +110,7 @@ const userPingRun = function() {
   let timeout = 1000 * 30;
 
   APP.userPingInterval = setInterval(function() {
-    APP.HTTP.GET('users/ping').then(function(result) {
+    APP.HTTP.GET('users/ping', {}, {showRequestFailModal: false}).then(function(result) {
       APP.userPingHandler(result);
     }).catch(function() {
     });
