@@ -11,8 +11,7 @@
         <view class="content padding-bottom-xs solid-bottom">
           <view class="text-grey">
             <view class="nickname">{{ notice.sender.nickname }}</view>
-            <view wx:if="{{ notice.type === 'post_thumb_up' }}" class="message-action margin-left-xs text-gray">点赞你的动态</view>
-            <view wx:if="{{ notice.type === 'post_comment' }}" class="message-action margin-left-xs text-gray">评论你的动态</view>
+            <view class="message-action margin-left-xs text-gray">{{ notice.type }}</view>
           </view>
           <view class="text-gray text-sm flex">
             <text class="text-cut">{{ notice.content }}</text>
