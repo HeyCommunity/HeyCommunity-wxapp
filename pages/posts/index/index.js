@@ -262,8 +262,10 @@ Page({
       _this.closeCommentPopup();
 
       if (result.data.status) {
+        if (type === 'replyComment') _this.data.posts[postIndex].comments[commentIndex].i_have_comment = true;
         _this.data.posts[postIndex].comments.unshift(result.data);
         _this.data.posts[postIndex].comment_num += 1;
+        _this.data.posts[postIndex].i_have_comment = true;
         _this.setData({posts: _this.data.posts});
 
         APP.showNotify('评论成功');

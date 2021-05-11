@@ -88,7 +88,8 @@
                   <button class="item-btn text-gray cu-btn sm bg-white"
                           bind:tap="openCommentPopup" data-comment-id="{{ comment.id }}" data-type="replyComment"
                           data-post-index="{{ postIndex }}" data-comment-index="{{ commentIndex }}">
-                    <text class="cuIcon-community"></text>
+                    <text wx:if="{{ comment.i_have_comment }}" class="cuIcon-communityfill"></text>
+                    <text wx:else class="cuIcon-community"></text>
                     <text class="margin-left-xs" wx:if="{{ comment.comment_num }}">{{ comment.comment_num }}</text>
                   </button>
                   <button class="item-btn text-gray cu-btn sm bg-white"><text class="cuIcon-moreandroid"></text></button>
