@@ -13,7 +13,7 @@
               <view>{{ post.user_nickname }}</view>
               <view class="text-gray text-sm flex justify-between">{{ post.created_at_for_humans }}</view>
             </view>
-            <view>
+            <view style="display:none;">
               <button class="btn-more cu-btn bg-white icon">
                 <text class="cuIcon-unfold"></text>
               </button>
@@ -92,7 +92,7 @@
                     <text wx:else class="cuIcon-community"></text>
                     <text class="margin-left-xs" wx:if="{{ comment.comment_num }}">{{ comment.comment_num }}</text>
                   </button>
-                  <button class="item-btn text-gray cu-btn sm bg-white"><text class="cuIcon-moreandroid"></text></button>
+                  <button style="display:none;" class="item-btn text-gray cu-btn sm bg-white"><text class="cuIcon-moreandroid"></text></button>
                 </view>
               </view>
             </view>
