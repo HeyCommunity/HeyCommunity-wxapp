@@ -122,9 +122,9 @@ Page({
             success() {
               if (result.data.status) {
                 APP.OnFire.fire('newPost', result.data);
-                APP.makeNotify({type: 'success', message: '动态发布成功'});
+                APP.showNotify('动态发布成功');
               } else {
-                APP.makeNotify({type: 'warning', message: '动态创建成功 \n 管理审核通过后将发布'});
+                APP.showNotify('动态创建成功 \n 管理审核通过后将发布', 'warning');
               }
             }
           });

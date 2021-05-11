@@ -30,7 +30,7 @@ App({
     // 恢复用户及登录状态
     setTimeout(function () {
       AUTH.restoreLogin(_this).then(function(result) {
-        _this.makeNotify({type: 'success', message: result.data.nickname + ', 欢迎回来'});
+        _this.showNotify(result.data.nickname + ', 欢迎回来', 'primary');
       }).catch(function(res) {
         wx.login({
           success: function(res) {
@@ -47,13 +47,17 @@ App({
   },
 
   /**
-   * Make Notify
-   * 用于页面跳转显示 Notify
+   * ShowNotify
    */
-  makeNotify(notify) {
+  showNotify(message, type) {
     let _this = this;
+    if (type === undefined) type = 'success';
+
     setTimeout(function() {
-      _this.Notify(notify);
+      _this.Notify({
+        message: message,
+        type: type,
+      });
     }, 100);
   },
 

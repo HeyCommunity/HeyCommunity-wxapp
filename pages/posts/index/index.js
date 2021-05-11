@@ -58,6 +58,7 @@ Page({
     let _this = this;
     let postIndex = event.currentTarget.dataset.postIndex;
     let postId = event.currentTarget.dataset.postId;
+    let post = _this.data.posts[postIndex];
     let type = event.currentTarget.dataset.type;
     let value = event.currentTarget.dataset.value;
 
@@ -72,9 +73,11 @@ Page({
       _this.data.posts[postIndex] = result.data;
       _this.setData({posts: _this.data.posts});
 
-      let title = '点赞成功';
-      if (! result.data.i_have_thumb_up) title = '取消点赞';
-      wx.showToast({title: title, icon: 'none'});
+      if (value) {
+        APP.showNotify('点赞成功');
+      } else {
+        APP.showNotify('取消点赞');
+      }
     }).catch(() => {
       wx.showModal({
         title: '点赞失败',
