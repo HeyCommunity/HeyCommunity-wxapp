@@ -67,19 +67,19 @@
               <view class="text-grey">{{ comment.user_nickname }}</view>
               <view class="text-grey text-content text-df">{{ comment.content }}</view>
 
-              <view class="bg-gray padding-tb-xs padding-lr-sm radius margin-top-sm text-sm">
+              <view wx:if="{{ comment.parent }}" class="bg-gray padding-tb-xs padding-lr-sm radius margin-top-sm text-sm">
                 <view class="flex">
-                  <view>凯尔：</view>
-                  <view class="flex-sub">妹妹，你在帮他们给黑暗找借口吗?</view>
+                  <view>{{ comment.parent.user.nickname }}：</view>
+                  <view class="flex-sub">{{ comment.parent.content }}</view>
                 </view>
               </view>
 
               <view class="footer margin-top-sm flex justify-between">
                 <view class="text-gray text-df">{{ comment.created_at_for_humans }}</view>
                 <view class="items-btn">
-                  <button class="item-btn cu-btn sm bg-white"><text class="cuIcon-appreciate"></text></button>
-                  <button class="item-btn cu-btn sm bg-white"><text class="cuIcon-community"></text></button>
-                  <button class="item-btn cu-btn sm bg-white"><text class="cuIcon-moreandroid"></text></button>
+                  <button class="item-btn text-gray cu-btn sm bg-white"><text class="cuIcon-appreciate"></text></button>
+                  <button class="item-btn text-gray cu-btn sm bg-white"><text class="cuIcon-community"></text></button>
+                  <button class="item-btn text-gray cu-btn sm bg-white"><text class="cuIcon-moreandroid"></text></button>
                 </view>
               </view>
             </view>

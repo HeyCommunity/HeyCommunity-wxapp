@@ -66,10 +66,10 @@
               <view class="text-grey">{{ comment.user_nickname }}</view>
               <view class="text-grey text-content text-df">{{ comment.content }}</view>
 
-              <view class="bg-gray padding-tb-xs padding-lr-sm radius margin-top-sm text-sm">
+              <view wx:if="{{ comment.parent }}" class="bg-gray padding-tb-xs padding-lr-sm radius margin-top-sm text-sm">
                 <view class="flex">
-                  <view>凯尔：</view>
-                  <view class="flex-sub">妹妹，你在帮他们给黑暗找借口吗?</view>
+                  <view>{{ comment.parent.user.nickname }}：</view>
+                  <view class="flex-sub">{{ comment.parent.content }}</view>
                 </view>
               </view>
 
