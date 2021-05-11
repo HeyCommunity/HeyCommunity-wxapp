@@ -2,6 +2,7 @@ const APP = getApp();
 
 Page({
   data: {
+    appGlobalData: null,
     posts: [],
 
     commentPopupVisible: false,
@@ -30,12 +31,12 @@ Page({
   },
 
   /**
-   * goto 发布动态页面
+   * onShow
    */
-  gotoCreatePage() {
-    if (getApp().needAuth()) return;
+  onShow() {
+    let _this = this;
 
-    wx.navigateTo({url: '/pages/posts/create/index'});
+    _this.setData({appGlobalData: APP.globalData});
   },
 
   /**

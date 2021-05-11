@@ -93,7 +93,8 @@
     <van-empty description="暂无动态"></van-empty>
   </view>
 
-  <button bind:tap="gotoCreatePage" class="btn-create cu-btn bg-blue round"><view class="icon cuIcon-post"></view></button>
+  <navigator wx:if="{{ appGlobalData.isAuth }}" url="/pages/posts/create/index" class="btn-create cu-btn bg-blue round"><view class="icon cuIcon-post"></view></navigator>
+  <navigator wx:else url="/pages/users/auth/index" class="btn-create cu-btn bg-blue round"><view class="icon cuIcon-post"></view></navigator>
 
   <van-popup id="popup-comment-create" show="{{ commentPopupVisible }}" round closeable
           close-icon-position="top-right" position="bottom" custom-style="height:280rpx; overflow:hidden;"
