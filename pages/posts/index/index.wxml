@@ -45,7 +45,7 @@
           </view>
           <view class="item-action cu-item flex-sub padding-tb-sm margin-right-sm text-grey text-center">
             <button class="item-action-btn cu-btn bg-white padding-lr-xl"
-                    bind:tap="openCommentPopup" data-post-id="{{ post.id }}" data-post-index="{{ postIndex }}">
+                    bind:tap="openCommentPopup" data-type="comment" data-post-id="{{ post.id }}" data-post-index="{{ postIndex }}">
               <text wx:if="{{ post.i_have_comment }}" class="cuIcon-communityfill margin-lr-xs"></text>
               <text wx:else class="cuIcon-community margin-lr-xs"></text>
               <text class="text-value">{{ post.comment_num }}</text>
@@ -85,7 +85,9 @@
                     <text wx:else class="cuIcon-appreciate"></text>
                     <text class="margin-left-xs" wx:if="{{ comment.thumb_up_num }}">{{ comment.thumb_up_num }}</text>
                   </button>
-                  <button class="item-btn text-gray cu-btn sm bg-white">
+                  <button class="item-btn text-gray cu-btn sm bg-white"
+                          bind:tap="openCommentPopup" data-comment-id="{{ comment.id }}" data-type="replyComment"
+                          data-post-index="{{ postIndex }}" data-comment-index="{{ commentIndex }}">
                     <text class="cuIcon-community"></text>
                     <text class="margin-left-xs" wx:if="{{ comment.comment_num }}">{{ comment.comment_num }}</text>
                   </button>
@@ -110,7 +112,8 @@
           close-icon-position="top-right" position="bottom" custom-style="height:280rpx; overflow:hidden;"
           bind:close="closeCommentPopup">
     <form class="form" bind:submit="commentHandler">
-      <view class="caption">评论动态</view>
+      <view class="caption" wx:if="{{ commentPopupType === 'comment'}}">评论动态</view>
+      <view class="caption" wx:if="{{ commentPopupType === 'replyComment' }}">参与讨论</view>
       <view class="flex flex-wrap">
         <view class="basis-xl">
           <textarea name="content" model:value="{{ commentPopupContent }}"

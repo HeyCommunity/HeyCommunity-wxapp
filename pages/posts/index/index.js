@@ -6,9 +6,12 @@ Page({
     posts: [],
 
     commentPopupVisible: false,
+    commentPopupContent: null,
+    commentPopupType: null,
     commentPopupPostIndex: null,
     commentPopupPostId: null,
-    commentPopupContent: null,
+    commentPopupCommentIndex: null,
+    commentPopupCommentId: null,
   },
 
   /**
@@ -197,13 +200,19 @@ Page({
   openCommentPopup(event) {
     if (getApp().needAuth()) return;
 
+    let type = event.currentTarget.dataset.type;
     let postIndex = event.currentTarget.dataset.postIndex;
     let postId = event.currentTarget.dataset.postId;
+    let commentIndex = event.currentTarget.dataset.commentIndex;
+    let commentId = event.currentTarget.dataset.commentId;
 
     this.setData({
       commentPopupVisible: true,
+      commentPopupType: type,
       commentPopupPostIndex: postIndex,
       commentPopupPostId: postId,
+      commentPopupCommentIndex: commentIndex,
+      commentPopupCommentId: commentId,
     });
   },
 
@@ -213,9 +222,12 @@ Page({
   closeCommentPopup() {
     this.setData({
       commentPopupVisible: false,
+      commentPopupContent: null,
+      commentPopupType: null,
       commentPopupPostIndex: null,
       commentPopupPostId: null,
-      commentPopupContent: null,
+      commentPopupCommentIndex: null,
+      commentPopupCommentId: null,
     });
   },
 
@@ -224,23 +236,27 @@ Page({
    */
   commentHandler(event) {
     let _this = this;
+
+    let type = this.data.commentPopupType;
     let postIndex = this.data.commentPopupPostIndex;
     let postId = this.data.commentPopupPostId;
+    let commentIndex = this.data.commentPopupCommentIndex;
+    let commentId = this.data.commentPopupCommentId;
     let content = event.detail.value.content;
 
     if (! content) {
       wx.showModal({
         title: '请说点什么',
-        content: '评论内容不能为空',
+        content: '内容不能为空',
         showCancel: false,
       });
-      throw '请说点什么，评论内容不能为空';
+      throw '请说点什么，内容不能为空';
     }
 
-    let params = {
-      post_id: postId,
-      content: content,
-    };
+    // 请求参数
+    let params = {content: content};
+    if (type === 'comment') params.post_id = postId;
+    if (type === 'replyComment') params.comment_id = commentId;
 
     APP.HTTP.POST('post-comments', params).then((result) => {
       _this.closeCommentPopup();
