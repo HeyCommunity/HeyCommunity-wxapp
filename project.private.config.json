@@ -57,6 +57,13 @@
         {
           "name": "消息列表页",
           "pathName": "pages/messages/index/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "动态详情页",
+          "pathName": "pages/posts/detail/index",
+          "query": "id=1",
           "scene": null
         }
       ]

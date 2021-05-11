@@ -1,9 +1,8 @@
-<view class="container-full" id="page-posts-index">
+<view class="container-full" id="page-posts-detail">
   <van-notify id="van-notify"></van-notify>
 
-  <view class="items-post" wx:if="{{ posts.length > 0 }}">
-    <view class="item-post cu-card dynamic no-card"
-          wx:for="{{ posts }}" wx:key="id" wx:for-item="post" wx:for-index="postIndex">
+  <view wx:if="{{ post }}" class="ites-post">
+    <view class="item-post cu-card dynamic no-card">
       <view class="cu-item shadow">
         <!-- Header -->
         <view id="section-header" class="cu-list menu-avatar">
@@ -52,10 +51,10 @@
             </button>
           </view>
           <view class="item-action cu-item flex-sub padding-tb-sm margin-right-sm text-grey text-center">
-            <navigator open-type="navigate" url="/pages/posts/detail/index?id={{ post.id }}" class="item-action-btn cu-btn bg-white padding-lr-xl" style="width:auto;">
+            <button class="item-action-btn cu-btn bg-white padding-lr-xl" style="width:auto;">
               <text class="cuIcon-newsfill margin-lr-xs"></text>
               <text class="text-value text-sm">详情</text>
-            </navigator>
+            </button>
           </view>
         </view>
 
@@ -88,12 +87,6 @@
       </view>
     </view>
   </view>
-
-  <view wx:else style="padding-top:100px;">
-    <van-empty description="暂无动态"></van-empty>
-  </view>
-
-  <button bind:tap="gotoCreatePage" class="btn-create cu-btn bg-blue round"><view class="icon cuIcon-post"></view></button>
 
   <van-popup id="popup-comment-create" show="{{ commentPopupVisible }}" round closeable
           close-icon-position="top-right" position="bottom" custom-style="height:280rpx; overflow:hidden;"

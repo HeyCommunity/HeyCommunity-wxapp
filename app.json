@@ -1,6 +1,7 @@
 {
   "pages":[
     "pages/posts/index/index",
+    "pages/posts/detail/index",
     "pages/posts/create/index",
 
     "pages/messages/index/index",

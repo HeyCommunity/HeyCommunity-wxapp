@@ -1,0 +1,53 @@
+#page-posts-detail {
+  padding-bottom: 30rpx; }
+  #page-posts-detail .item-post {
+    margin-top: 30rpx; }
+    #page-posts-detail .item-post:first-of-type {
+      margin-top: 0rpx; }
+    #page-posts-detail .item-post #section-header .content {
+      width: calc(100% - 96rpx - 60rpx - 20rpx - 60rpx); }
+    #page-posts-detail .item-post #section-header .btn-more {
+      right: 20rpx;
+      font-size: 32rpx;
+      font-weight: bold; }
+    #page-posts-detail .item-post #section-actions .item-action .item-action-btn {
+      width: auto; }
+      #page-posts-detail .item-post #section-actions .item-action .item-action-btn .text-value {
+        font-weight: normal; }
+    #page-posts-detail .item-post #section-comments .footer .items-btn .item-btn {
+      padding: 10rpx;
+      margin-left: 20rpx;
+      width: auto;
+      height: 44rpx;
+      font-size: 28rpx; }
+  #page-posts-detail .btn-create {
+    z-index: 99;
+    position: fixed;
+    bottom: 60rpx;
+    right: 40rpx;
+    width: 50px;
+    height: 50px;
+    border-bottom: 50%; }
+    #page-posts-detail .btn-create .icon {
+      font-size: 20px;
+      font-weight: bold; }
+  #page-posts-detail #popup-comment-create {
+    z-index: 999; }
+    #page-posts-detail #popup-comment-create .form {
+      display: block;
+      margin: 30rpx; }
+      #page-posts-detail #popup-comment-create .form .caption {
+        font-size: 36rpx;
+        color: #333;
+        box-sizing: border-box;
+        margin-bottom: 16rpx; }
+      #page-posts-detail #popup-comment-create .form .textarea-content {
+        padding: 16rpx;
+        width: 100%;
+        line-height: 1.5em;
+        height: calc(4.5em + 32rpx); }
+      #page-posts-detail #popup-comment-create .form .btn-send {
+        width: auto;
+        border-radius: 0;
+        margin-left: 20rpx;
+        height: calc(4.5em + 32rpx); }
