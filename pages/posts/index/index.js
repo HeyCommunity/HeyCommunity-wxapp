@@ -55,49 +55,6 @@ Page({
   },
 
   /**
-   * 点赞
-   */
-  thumbUpHandler(event) {
-    if (getApp().needAuth()) return;
-
-    let _this = this;
-    let postIndex = event.currentTarget.dataset.postIndex;
-    let postId = event.currentTarget.dataset.postId;
-    let type = event.currentTarget.dataset.type;
-    let value = event.currentTarget.dataset.value;
-
-    let params = {
-      post_id: postId,
-      type: type,
-      value: value,
-    };
-
-    APP.HTTP.POST('post-thumbs', params).then((result) => {
-      let message = null;
-
-      if (result.statusCode === 201) {
-        message = '点赞成功';
-        _this.data.posts[postIndex]['i_have_thumb_up'] = true;
-        _this.data.posts[postIndex]['thumb_up_num'] += 1;
-      } else if (result.statusCode === 202) {
-        message = '取消点赞成功';
-        _this.data.posts[postIndex]['i_have_thumb_up'] = false;
-        _this.data.posts[postIndex]['thumb_up_num'] -= 1;
-      }
-
-      if (message) {
-        _this.setData({posts: _this.data.posts});
-        APP.showNotify(message);
-      }
-    }).catch(() => {
-      wx.showModal({
-        title: value ? '点赞失败' : '取消点赞失败',
-        showCancel: false,
-      });
-    });
-  },
-
-  /**
    * BaseThumbUpHandler
    */
   baseThumbUpHandler(apiPath, params) {
