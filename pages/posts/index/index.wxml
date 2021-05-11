@@ -36,7 +36,7 @@
         <view id="section-actions" class="cu-list flex margin-top-sm solids-bottom">
           <view class="item-action cu-item flex-sub padding-tb-sm margin-lr-sm text-grey text-center">
             <button class="item-action-btn cu-btn bg-white padding-lr-xl"
-                    bind:tap="thumbUpHandler" data-post-id="{{ post.id }}" data-post-index="{{ postIndex }}"
+                    bind:tap="postThumbUpHandler" data-post-id="{{ post.id }}" data-post-index="{{ postIndex }}"
                     data-type="{{ 'thumb_up' }}" data-value="{{ !post.i_have_thumb_up }}">
               <text wx:if="{{ post.i_have_thumb_up }}" class="cuIcon-appreciatefill margin-lr-xs"></text>
               <text wx:else class="cuIcon-appreciate margin-lr-xs"></text>
@@ -61,7 +61,7 @@
 
         <!-- 评论列表 -->
         <view id="section-comments" wx:if="{{ post.comments.length > 0 }}" class="cu-list menu-avatar comment" style="margin-top:0;">
-          <view class="cu-item" wx:for="{{ post.comments }}" wx:key="id" wx:for-item="comment">
+          <view class="cu-item" wx:for="{{ post.comments }}" wx:key="id" wx:for-item="comment" wx:for-index="commentIndex">
             <view class="cu-avatar round" style="background-image:url('{{ comment.user_avatar }}');"></view>
             <view class="content">
               <view class="text-grey">{{ comment.user_nickname }}</view>
@@ -77,8 +77,18 @@
               <view class="footer margin-top-sm flex justify-between">
                 <view class="text-gray text-df">{{ comment.created_at_for_humans }}</view>
                 <view class="items-btn">
-                  <button class="item-btn text-gray cu-btn sm bg-white"><text class="cuIcon-appreciate"></text></button>
-                  <button class="item-btn text-gray cu-btn sm bg-white"><text class="cuIcon-community"></text></button>
+                  <button class="item-btn text-gray cu-btn sm bg-white"
+                          bind:tap="postCommentThumbUpHandler" data-comment-id="{{ comment.id }}"
+                          data-post-index="{{ postIndex }}" data-comment-index="{{ commentIndex }}"
+                          data-type="{{ 'thumb_up' }}" data-value="{{ !comment.i_have_thumb_up }}">
+                    <text wx:if="{{ comment.i_have_thumb_up }}" class="cuIcon-appreciatefill"></text>
+                    <text wx:else class="cuIcon-appreciate"></text>
+                    <text class="margin-left-xs" wx:if="{{ comment.thumb_up_num }}">{{ comment.thumb_up_num }}</text>
+                  </button>
+                  <button class="item-btn text-gray cu-btn sm bg-white">
+                    <text class="cuIcon-community"></text>
+                    <text class="margin-left-xs" wx:if="{{ comment.comment_num }}">{{ comment.comment_num }}</text>
+                  </button>
                   <button class="item-btn text-gray cu-btn sm bg-white"><text class="cuIcon-moreandroid"></text></button>
                 </view>
               </view>
