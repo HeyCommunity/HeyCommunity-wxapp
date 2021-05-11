@@ -177,7 +177,7 @@ Page({
     this.baseThumbUpHandler('post-thumbs', params).then(function(result) {
       let message = null;
 
-      if (result.statusCode === 201) {
+      if (result.statusCode === 201 || result.statusCode === 200) {
         message = '点赞成功';
         _this.data.posts[postIndex]['i_have_thumb_up'] = true;
         _this.data.posts[postIndex]['thumb_up_num'] += 1;
