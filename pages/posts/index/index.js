@@ -19,6 +19,8 @@ Page({
 
     // 获取动态
     APP.authInitedCallback = function() {
+      _this.setData({appGlobalData: APP.globalData});
+      
       APP.HTTP.GET('posts').then(function(result) {
         _this.setData({posts: result.data});
       });
