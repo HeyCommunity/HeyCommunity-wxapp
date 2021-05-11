@@ -8,6 +8,44 @@
     &:first-of-type {
       margin-top: 0rpx;
     }
+
+    #section-header {
+      .content {
+        width: calc(100% - 96rpx - 60rpx - 20rpx - 60rpx);
+      }
+
+      .btn-more {
+        right: 20rpx;
+        font-size: 32rpx;
+        font-weight: bold;
+      }
+    }
+
+    #section-actions {
+      .item-action {
+        .item-action-btn {
+          width: auto;
+
+          .text-value {
+            font-weight: normal;
+          }
+        }
+      }
+    }
+
+    #section-comments {
+      .footer {
+        .items-btn {
+          .item-btn {
+            padding: 10rpx;
+            margin-left: 20rpx;
+            width: auto;
+            height: 44rpx;
+            font-size: 28rpx;
+          }
+        }
+      }
+    }
   }
 
   .btn-create {

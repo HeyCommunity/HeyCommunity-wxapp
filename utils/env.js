@@ -11,7 +11,7 @@ if (wxAccountInfo.miniProgram.envVersion === 'develop') {
 }
 
 // FOR DEV: 强制使用 prodApiDomain
-// apiDomain = prodApiDomain;
+apiDomain = prodApiDomain;
 
 const apiProHost =  apiDomain + '/api';
 module.exports = {

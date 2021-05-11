@@ -2,15 +2,21 @@
   <van-notify id="van-notify"></van-notify>
 
   <view class="items-post" wx:if="{{ posts.length > 0 }}">
-    <view class="item-post cu-card dynamic no-card solid-top solid-bottom"
+    <view class="item-post cu-card dynamic no-card"
           wx:for="{{ posts }}" wx:key="id" wx:for-item="post" wx:for-index="postIndex">
       <view class="cu-item shadow">
-        <view class="cu-list menu-avatar">
+        <!-- Header -->
+        <view id="section-header" class="cu-list menu-avatar">
           <view class="cu-item">
             <view class="cu-avatar round lg" style="background-image:url('{{ post.user_avatar }}');"></view>
             <view class="content flex-sub">
               <view>{{ post.user_nickname }}</view>
               <view class="text-gray text-sm flex justify-between">{{ post.created_at_for_humans }}</view>
+            </view>
+            <view>
+              <button class="btn-more cu-btn bg-white icon">
+                <text class="cuIcon-unfold"></text>
+              </button>
             </view>
           </view>
         </view>
@@ -27,42 +33,54 @@
         </view>
 
         <!-- 操作栏 -->
-        <view class="cu-list flex margin-top-sm" style="background-color:#f1f1f1;">
-          <!-- 隐藏阅读数
-            <view class="cu-item flex-sub padding-tb-sm margin-left-sm text-grey text-center">
-              <text class="cuIcon-attention margin-lr-xs"></text> {{ post.read_num }} 阅读
-            </view>
-          -->
-          <view class="cu-item flex-sub padding-tb-sm margin-lr-sm text-grey text-center"
-                bind:tap="thumbUpHandler" data-post-id="{{ post.id }}" data-post-index="{{ postIndex }}"
-                data-type="{{ 'thumb_up' }}" data-value="{{ !post.i_have_thumb_up }}">
-            <text wx:if="{{ post.i_have_thumb_up }}" class="cuIcon-appreciatefill margin-lr-xs"></text>
-            <text wx:else class="cuIcon-appreciate margin-lr-xs"></text>
-            {{ post.thumb_up_num }} 点赞
+        <view id="section-actions" class="cu-list flex margin-top-sm solids-bottom">
+          <view class="item-action cu-item flex-sub padding-tb-sm margin-lr-sm text-grey text-center">
+            <button class="item-action-btn cu-btn bg-white padding-lr-xl"
+                    bind:tap="thumbUpHandler" data-post-id="{{ post.id }}" data-post-index="{{ postIndex }}"
+                    data-type="{{ 'thumb_up' }}" data-value="{{ !post.i_have_thumb_up }}">
+              <text wx:if="{{ post.i_have_thumb_up }}" class="cuIcon-appreciatefill margin-lr-xs"></text>
+              <text wx:else class="cuIcon-appreciate margin-lr-xs"></text>
+              <text class="text-value">{{ post.thumb_up_num }}</text>
+            </button>
           </view>
-          <view class="cu-item flex-sub padding-tb-sm margin-right-sm text-grey text-center"
-                bind:tap="openCommentPopup" data-post-id="{{ post.id }}" data-post-index="{{ postIndex }}">
-            <text wx:if="{{ post.i_have_comment }}" class="cuIcon-communityfill margin-lr-xs"></text>
-            <text wx:else class="cuIcon-community margin-lr-xs"></text>
-            {{ post.comment_num }} 评论
+          <view class="item-action cu-item flex-sub padding-tb-sm margin-right-sm text-grey text-center">
+            <button class="item-action-btn cu-btn bg-white padding-lr-xl"
+                    bind:tap="openCommentPopup" data-post-id="{{ post.id }}" data-post-index="{{ postIndex }}">
+              <text wx:if="{{ post.i_have_comment }}" class="cuIcon-communityfill margin-lr-xs"></text>
+              <text wx:else class="cuIcon-community margin-lr-xs"></text>
+              <text class="text-value">{{ post.comment_num }}</text>
+            </button>
+          </view>
+          <view class="item-action cu-item flex-sub padding-tb-sm margin-right-sm text-grey text-center">
+            <button class="item-action-btn cu-btn bg-white padding-lr-xl" style="width:auto;">
+              <text class="cuIcon-newsfill margin-lr-xs"></text>
+              <text class="text-value text-sm">详情</text>
+            </button>
           </view>
         </view>
 
         <!-- 评论列表 -->
-        <view wx:if="{{ post.comments.length > 0 }}" class="cu-list menu-avatar comment" style="margin-top:0;">
+        <view id="section-comments" wx:if="{{ post.comments.length > 0 }}" class="cu-list menu-avatar comment" style="margin-top:0;">
           <view class="cu-item" wx:for="{{ post.comments }}" wx:key="id" wx:for-item="comment">
             <view class="cu-avatar round" style="background-image:url('{{ comment.user_avatar }}');"></view>
             <view class="content">
               <view class="text-grey">{{ comment.user_nickname }}</view>
-              <view class="text-gray text-content text-df">{{ comment.content }}</view>
-              <view class="margin-top-sm flex justify-between">
-                <view class="text-gray text-df">{{ comment.created_at_for_humans }}</view>
-                <!--
-                <view>
-                  <text class="cuIcon-appreciatefill text-red"></text>
-                  <text class="cuIcon-messagefill text-gray margin-left-sm"></text>
+              <view class="text-grey text-content text-df">{{ comment.content }}</view>
+
+              <view class="bg-gray padding-tb-xs padding-lr-sm radius margin-top-sm text-sm">
+                <view class="flex">
+                  <view>凯尔：</view>
+                  <view class="flex-sub">妹妹，你在帮他们给黑暗找借口吗?</view>
                 </view>
-                -->
+              </view>
+
+              <view class="footer margin-top-sm flex justify-between">
+                <view class="text-gray text-df">{{ comment.created_at_for_humans }}</view>
+                <view class="items-btn">
+                  <button class="item-btn cu-btn sm bg-white"><text class="cuIcon-appreciate"></text></button>
+                  <button class="item-btn cu-btn sm bg-white"><text class="cuIcon-community"></text></button>
+                  <button class="item-btn cu-btn sm bg-white"><text class="cuIcon-moreandroid"></text></button>
+                </view>
               </view>
             </view>
           </view>
