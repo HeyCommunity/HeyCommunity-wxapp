@@ -89,6 +89,7 @@ Page({
       }
 
       APP.resetTabBarBadge();
+      _this.messageMoveReset();
     });
   },
 
@@ -103,7 +104,7 @@ Page({
    * messageMove 计算方向
    */
   messageTouchMove(e) {
-    if (e.touches[0].pageX - this.data.MessageTouchStart > 60) this.setData({MessageTouchDirection: 'right'});
+    if (e.touches[0].pageX - this.data.MessageTouchStart > 20) this.setData({MessageTouchDirection: 'right'});
     if (e.touches[0].pageX - this.data.MessageTouchStart < -60) this.setData({MessageTouchDirection: 'left'});
 
     // console.debug('touchmove', e.touches[0].pageX - this.data.MessageTouchStart, this.data.MessageTouchDirection);
@@ -116,10 +117,18 @@ Page({
   messageTouchEnd(e) {
     if (this.data.MessageTouchDirection == 'left')  {
       this.setData({messageTouchClass: e.currentTarget.dataset.target});
-    } else {
+    } else if (this.data.MessageTouchDirection == 'right')  {
       this.setData({messageTouchClass: null});
     }
 
     this.setData({MessageTouchDirection: null})
   },
+
+  /**
+   * messageMove 重置成初始状态
+   */
+  messageMoveReset() {
+    this.setData({messageTouchClass: null});
+    this.setData({MessageTouchDirection: null})
+  }
 });
