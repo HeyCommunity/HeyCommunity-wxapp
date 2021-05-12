@@ -3,6 +3,7 @@
     <view wx:if="{{ notices.length }}" class="items-message cu-list menu-avatar">
       <view class="item-message cu-item {{ notice.is_read ? 'read' : 'unread' }} {{ messageTouchClass == 'item-message-' + index ? 'move-cur' : '' }}" data-target="item-message-{{ index }}"
             wx:for="{{ notices }}" wx:for-item="notice" wx:key="id"
+            bind:tap="gotoEntityPage" data-notice="{{ notice }}"
             bind:touchstart="messageTouchStart" bind:touchmove="messageTouchMove" bind:touchend="messageTouchEnd">
         <view class="date text-grey text-xs">{{ notice.created_at_for_humans }}</view>
         <view class="avatar cu-avatar round lg" style="background-image:url({{ notice.sender.avatar }});">
@@ -11,7 +12,7 @@
         <view class="content padding-bottom-xs solid-bottom">
           <view class="text-grey">
             <view class="nickname">{{ notice.sender.nickname }}</view>
-            <view class="message-action margin-left-xs text-gray">{{ notice.type }}</view>
+            <view class="message-action margin-left-xs text-gray">{{ notice.type_name }}</view>
           </view>
           <view class="text-gray text-sm flex">
             <text class="text-cut">{{ notice.content }}</text>

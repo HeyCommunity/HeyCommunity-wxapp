@@ -22,6 +22,17 @@ Page({
   },
 
   /**
+   * goto Entity Page
+   */
+  gotoEntityPage(event) {
+    let notice = event.currentTarget.dataset.notice;
+
+    if (notice.wxapp_redirect_url) {
+      wx.navigateTo({url: notice.wxapp_redirect_url});
+    }
+  },
+
+  /**
    * 下拉刷新
    */
   onPullDownRefresh() {
@@ -39,6 +50,8 @@ Page({
    */
   getListData() {
     let _this = this;
+
+    _this.messageMoveReset();
 
     return new Promise(function(resolve, reject) {
       APP.HTTP.GET('notices').then(function(result, res) {
