@@ -49,6 +49,17 @@ Page({
     // 获取动态
     APP.HTTP.GET('posts/' + _this.data.postId).then(function(result) {
       _this.setData({post: result.data});
+    }).catch(function(res) {
+      if (APP.HTTP.wxRequestIsOk(res)) {
+        wx.showModal({
+          title: '未找到动态',
+          content: '动态不存在或已被删除',
+          showCancel: false,
+          complete(res) {
+            wx.navigateBack();
+          }
+        });
+      }
     }).finally(() => {
       wx.stopPullDownRefresh();
     });
