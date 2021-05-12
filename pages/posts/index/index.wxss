@@ -15,12 +15,15 @@
       width: auto; }
       #page-posts-index .item-post #section-actions .item-action .item-action-btn .text-value {
         font-weight: normal; }
-    #page-posts-index .item-post #section-comments .footer .items-btn .item-btn {
-      padding: 10rpx;
-      margin-left: 10rpx;
-      width: auto;
-      height: 44rpx;
-      font-size: 26rpx; }
+    #page-posts-index .item-post #section-comments .item-comment {
+      padding-top: 26rpx;
+      padding-bottom: 26rpx; }
+      #page-posts-index .item-post #section-comments .item-comment .footer .items-btn .item-btn {
+        padding: 10rpx;
+        margin-left: 10rpx;
+        width: auto;
+        height: 44rpx;
+        font-size: 26rpx; }
   #page-posts-index .btn-create {
     z-index: 99;
     position: fixed;

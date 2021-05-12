@@ -34,14 +34,19 @@
     }
 
     #section-comments {
-      .footer {
-        .items-btn {
-          .item-btn {
-            padding: 10rpx;
-            margin-left: 10rpx;
-            width: auto;
-            height: 44rpx;
-            font-size: 26rpx;
+      .item-comment {
+        padding-top: 26rpx;
+        padding-bottom: 26rpx;
+
+        .footer {
+          .items-btn {
+            .item-btn {
+              padding: 10rpx;
+              margin-left: 10rpx;
+              width: auto;
+              height: 44rpx;
+              font-size: 26rpx;
+            }
           }
         }
       }

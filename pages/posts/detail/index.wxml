@@ -60,7 +60,7 @@
 
         <!-- 评论列表 -->
         <view id="section-comments" wx:if="{{ post.comments.length > 0 }}" class="cu-list menu-avatar comment" style="margin-top:0;">
-          <view class="cu-item" wx:for="{{ post.comments }}" wx:key="id" wx:for-item="comment" wx:for-index="commentIndex">
+          <view class="item-comment solid-bottom cu-item" wx:for="{{ post.comments }}" wx:key="id" wx:for-item="comment" wx:for-index="commentIndex">
             <view class="cu-avatar round" style="background-image:url('{{ comment.user_avatar }}');"></view>
             <view class="content">
               <view class="text-grey">{{ comment.user_nickname }}</view>
