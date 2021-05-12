@@ -25,11 +25,16 @@ Page({
    * goto Entity Page
    */
   gotoEntityPage(event) {
+    let _this = this;
     let notice = event.currentTarget.dataset.notice;
+    let noticeClass = event.currentTarget.dataset.class;
+    let messageTouchClass = _this.data.messageTouchClass;
 
-    if (notice.wxapp_redirect_url) {
+    if (! messageTouchClass && notice.wxapp_redirect_url) {
       wx.navigateTo({url: notice.wxapp_redirect_url});
     }
+
+    _this.messageMoveReset();
   },
 
   /**

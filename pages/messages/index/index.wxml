@@ -1,9 +1,9 @@
-<view class="container-full page-messages-index">
+<view class="container-full page-messages-index" bind:tap="messageMoveReset">
   <view wx:if="{{ appGlobalData.isAuth }}">
     <view wx:if="{{ notices.length }}" class="items-message cu-list menu-avatar">
       <view class="item-message cu-item {{ notice.is_read ? 'read' : 'unread' }} {{ messageTouchClass == 'item-message-' + index ? 'move-cur' : '' }}" data-target="item-message-{{ index }}"
             wx:for="{{ notices }}" wx:for-item="notice" wx:key="id"
-            bind:tap="gotoEntityPage" data-notice="{{ notice }}"
+            catch:tap="gotoEntityPage" data-notice="{{ notice }}" data-class="{{ 'item-message-' + index }}"
             bind:touchstart="messageTouchStart" bind:touchmove="messageTouchMove" bind:touchend="messageTouchEnd">
         <view class="date text-grey text-xs">{{ notice.created_at_for_humans }}</view>
         <view class="avatar cu-avatar round lg" style="background-image:url({{ notice.sender.avatar }});">
@@ -19,9 +19,9 @@
           </view>
         </view>
         <view class="move">
-          <view wx:if="{{ notice.is_read }}" bind:tap="noticeActionHandler" data-id="{{ notice.id }}" data-action="set-unread" data-index="{{ index }}" class="bg-grey">标为未读</view>
-          <view wx:else bind:tap="noticeActionHandler" data-id="{{ notice.id }}" data-action="set-isread" data-index="{{ index }}" class="bg-blue">标为已读</view>
-          <view bind:tap="noticeActionHandler" data-id="{{ notice.id }}" data-action="delete" data-index="{{ index }}" class="bg-red">删除</view>
+          <view wx:if="{{ notice.is_read }}" catch:tap="noticeActionHandler" data-id="{{ notice.id }}" data-action="set-unread" data-index="{{ index }}" class="bg-grey">标为未读</view>
+          <view wx:else catch:tap="noticeActionHandler" data-id="{{ notice.id }}" data-action="set-isread" data-index="{{ index }}" class="bg-blue">标为已读</view>
+          <view catch:tap="noticeActionHandler" data-id="{{ notice.id }}" data-action="delete" data-index="{{ index }}" class="bg-red">删除</view>
         </view>
       </view>
     </view>
