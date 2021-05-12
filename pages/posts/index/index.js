@@ -6,8 +6,8 @@ Page({
     posts: [],
 
     // 动态操作
-    postActionTargetModelIndex: null,
-    postActionTargetModel: null,
+    postActionPostIndex: null,
+    postActionPost: null,
     postActionSheetVisible: false,
     postActions: [],
     userPostActions: [
@@ -281,32 +281,21 @@ Page({
     let post = event.currentTarget.dataset.post;
     let postIndex = event.currentTarget.dataset.postIndex;
 
+    let actions = _this.data.userPostActions;
     if (APP.globalData.isAuth) {
-      let actions = _this.data.userPostActions;
       if (APP.globalData.userInfo.id == post.user_id) {
         actions = _this.data.authorPostActions;
       } else if (APP.globalData.userInfo.is_admin) {
         actions = _this.data.adminPostActions;
       }
-
-      _this.setData({
-        postActionSheetVisible: true,
-        postActions: actions,
-        postActionTargetModel: post,
-        postActionTargetModelIndex: postIndex,
-      });
-    } else {
-      wx.showModal({
-        title: '请先登录',
-        content: '登录后才能进行此操作，现在登录吗？',
-        confirmText: '登录',
-        success: function(res) {
-          if (res.confirm) {
-            wx.navigateTo({url: '/pages/users/auth/index'});
-          }
-        }
-      });
     }
+
+    _this.setData({
+      postActionSheetVisible: true,
+      postActions: actions,
+      postActionPost: post,
+      postActionPostIndex: postIndex,
+    });
   },
 
   /**
@@ -315,8 +304,8 @@ Page({
   postActionTapHandler(event) {
     let _this = this;
     let action = event.detail.value;
-    let post = _this.data.postActionTargetModel;
-    let postIndex = _this.data.postActionTargetModelIndex;
+    let post = _this.data.postActionPost;
+    let postIndex = _this.data.postActionPostIndex;
 
     if (action === 'detail') {
       wx.navigateTo({url: '/pages/posts/detail/index?id=' + post.id});
@@ -374,7 +363,6 @@ Page({
     let postIndex = event.currentTarget.dataset.postIndex;
 
     let actions = _this.data.userPostCommentActions;
-
     if (APP.globalData.isAuth) {
       if (APP.globalData.userInfo.id == comment.user_id) {
         actions = _this.data.authorPostCommentActions;
