@@ -5,6 +5,24 @@ Page({
     appGlobalData: null,
     posts: [],
 
+    postActionTargetModelIndex: null,
+    postActionTargetModel: null,
+    postActionSheetVisible: false,
+    postActions: [],
+    usedPostActions: [
+      {text: '查看动态详情', value: 'detail'},
+      {text: '报告不良信息', value: 'report', type: 'warn'},
+    ],
+    authorPostActions: [
+      {text: '查看动态详情', value: 'detail'},
+      {text: '删除', value: 'delete', type: 'warn'},
+    ],
+    adminPostActions: [
+      {text: '查看动态详情', value: 'detail'},
+      {text: '报告不良信息', value: 'report', type: 'warn'},
+      {text: '下架', value: 'hidden', type: 'warn'},
+    ],
+
     commentPopupVisible: false,
     commentPopupContent: null,
     commentPopupType: null,
@@ -235,6 +253,105 @@ Page({
         showCancel: false,
       });
     });
+  },
+
+  /**
+   * 显示动态的 actionSheet
+   */
+  showPostActionSheet(event) {
+    let _this = this;
+    let post = event.currentTarget.dataset.post;
+    let postIndex = event.currentTarget.dataset.postIndex;
+
+    if (APP.globalData.isAuth) {
+      let actions = _this.data.usedPostActions;
+      if (APP.globalData.userInfo.id == post.user_id) {
+        actions = _this.data.authorPostActions;
+      } else if (APP.globalData.userInfo.is_admin) {
+        actions = _this.data.adminPostActions;
+      }
+
+      _this.setData({
+        postActionSheetVisible: true,
+        postActions: actions,
+        postActionTargetModel: post,
+        postActionTargetModelIndex: postIndex,
+      });
+    } else {
+      wx.showModal({
+        title: '请先登录',
+        content: '登录后才能进行此操作，现在登录吗？',
+        confirmText: '登录',
+        success: function(res) {
+          if (res.confirm) {
+            wx.navigateTo({url: '/pages/users/auth/index'});
+          }
+        }
+      });
+    }
+  },
+
+  /**
+   * 动态 ActionSheet 操作处理
+   */
+  postActionTapHandler(event) {
+    let _this = this;
+    let action = event.detail.value;
+    let post = _this.data.postActionTargetModel;
+    let postIndex = _this.data.postActionTargetModelIndex;
+
+    if (action === 'detail') {
+      wx.navigateTo({url: '/pages/posts/detail/index?id=' + post.id});
+    } else if (action === 'report') {
+      // TODO: 后台处理
+      wx.showModal({title: '报告不良信息', content: '感谢，我们已收到你的报告信息', showCancel: false});
+    } else if (action === 'delete') {
+      wx.showLoading({title: '动态删除中'});
+      APP.HTTP.POST('posts/delete', {id: post.id}).then(function(result) {
+        _this.data.posts.splice(postIndex, 1);
+        _this.setData({posts: _this.data.posts});
+        APP.showNotify('动态删除成功');
+      }).catch(function(res) {
+        if (APP.HTTP.wxRequestIsOk(res)) {
+          wx.showModal({
+            title: '操作失败',
+            content: '动态删除失败: ' + res.data.message,
+            showCancel: false,
+          });
+        }
+      }).finally(function() {
+        wx.hideLoading();
+      });
+    } else if (action === 'hidden') {
+      wx.showLoading({title: '动态下架中'});
+      APP.HTTP.POST('posts/hidden', {id: post.id}).then(function(result) {
+        _this.data.posts.splice(postIndex, 1);
+        _this.setData({posts: _this.data.posts});
+        APP.showNotify('动态下架成功');
+      }).catch(function(res) {
+        if (APP.HTTP.wxRequestIsOk(res)) {
+          wx.showModal({
+            title: '操作失败',
+            content: '动态下架失败: ' + res.data.message,
+            showCancel: false,
+          });
+        }
+      }).finally(function() {
+        wx.hideLoading();
+      });
+    } else {
+      wx.showModal({title: '通知', content: '未能处理你的操作', showCancel: false});
+    }
+
+    _this.setData({postActionSheetVisible: false});
+  },
+
+  /**
+   * goto 动态详情页
+   */
+  gotoPostDetailPage(event) {
+    let pageUrl = '/pages/posts/detail/index?id=' . event.currentTarget.dataset.post.id;
+    wx.navigateTo({url: pageUrl});
   },
 
   /**

@@ -135,10 +135,18 @@ const httpRequestIsOk = function(res) {
   return res.statusCode.toString()[0] == 2;
 };
 
+/**
+ * wx.request 是否成功
+ */
+const wxRequestIsOk = function(res) {
+  if (res.errMsg === 'request:ok') return true;
+  return false;
+}
+
 //
 // module exports
 module.exports = {
   makeApiPath, makeWebPagePath,
-  httpRequestIsOk,
+  httpRequestIsOk, wxRequestIsOk,
   GET, POST, uploadFile,
 };

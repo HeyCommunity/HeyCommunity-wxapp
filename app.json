@@ -32,6 +32,9 @@
       "selectedIconPath": "/assets/images/tabbar/user-active.png"
     }]
   },
+  "useExtendedLib": {
+    "weui": true
+  },
   "usingComponents": {
     "van-button": "@vant/weapp/button/index",
     "van-empty": "@vant/weapp/empty/index",

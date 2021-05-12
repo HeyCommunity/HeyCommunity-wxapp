@@ -13,8 +13,9 @@
               <view>{{ post.user_nickname }}</view>
               <view class="text-gray text-sm flex justify-between">{{ post.created_at_for_humans }}</view>
             </view>
-            <view style="display:none;">
-              <button class="btn-more cu-btn bg-white icon">
+            <view>
+              <button class="btn-more cu-btn bg-white icon" bind:tap="showPostActionSheet"
+                      data-post="{{ post }}" data-post-index="{{ postIndex }}">
                 <text class="cuIcon-unfold"></text>
               </button>
             </view>
@@ -127,3 +128,6 @@
     </form>
   </van-popup>
 </view>
+
+<mp-actionSheet bind:actiontap="postActionTapHandler" title="动态操作"
+                show="{{ postActionSheetVisible }}" actions="{{ postActions }}" ></mp-actionSheet>
