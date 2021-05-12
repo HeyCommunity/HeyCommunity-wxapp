@@ -93,7 +93,10 @@
                     <text wx:else class="cuIcon-community"></text>
                     <text class="margin-left-xs" wx:if="{{ comment.comment_num }}">{{ comment.comment_num }}</text>
                   </button>
-                  <button style="display:none;" class="item-btn text-gray cu-btn sm bg-white"><text class="cuIcon-moreandroid"></text></button>
+                  <button class="item-btn text-gray cu-btn sm bg-white" bind:tap="showPostCommentActionSheet"
+                          data-comment="{{ comment }}" data-post-index="{{ postIndex }}" data-comment-index="{{ commentIndex }}">
+                    <text class="cuIcon-moreandroid"></text>
+                  </button>
                 </view>
               </view>
             </view>
@@ -129,5 +132,5 @@
   </van-popup>
 </view>
 
-<mp-actionSheet bind:actiontap="postActionTapHandler" title="动态操作"
-                show="{{ postActionSheetVisible }}" actions="{{ postActions }}" ></mp-actionSheet>
+<mp-actionSheet bind:actiontap="postActionTapHandler" title="动态操作" show="{{ postActionSheetVisible }}" actions="{{ postActions }}" ></mp-actionSheet>
+<mp-actionSheet bind:actiontap="postCommentActionTapHandler" title="评论操作" show="{{ postCommentActionSheetVisible }}" actions="{{ postCommentActions }}" ></mp-actionSheet>

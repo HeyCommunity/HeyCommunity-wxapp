@@ -5,11 +5,12 @@ Page({
     appGlobalData: null,
     posts: [],
 
+    // 动态操作
     postActionTargetModelIndex: null,
     postActionTargetModel: null,
     postActionSheetVisible: false,
     postActions: [],
-    usedPostActions: [
+    userPostActions: [
       {text: '查看动态详情', value: 'detail'},
       {text: '报告不良信息', value: 'report', type: 'warn'},
     ],
@@ -21,6 +22,23 @@ Page({
       {text: '查看动态详情', value: 'detail'},
       {text: '报告不良信息', value: 'report', type: 'warn'},
       {text: '下架', value: 'hidden', type: 'warn'},
+    ],
+
+    // 动态评论操作
+    postCommentActionComment: null,
+    postCommentActionCommentIndex: null,
+    postCommentActionPostIndex: null,
+    postCommentActionSheetVisible: false,
+    postCommentActions: [],
+    userPostCommentActions: [
+      {text: '报告不良信息', value: 'report', type: 'warn'},
+    ],
+    authorPostCommentActions: [
+      {text: '删除', value: 'delete', type: 'warn'},
+    ],
+    adminPostCommentActions: [
+      {text: '报告不良信息', value: 'report', type: 'warn'},
+      {text: '删除', value: 'delete', type: 'warn'},
     ],
 
     commentPopupVisible: false,
@@ -264,7 +282,7 @@ Page({
     let postIndex = event.currentTarget.dataset.postIndex;
 
     if (APP.globalData.isAuth) {
-      let actions = _this.data.usedPostActions;
+      let actions = _this.data.userPostActions;
       if (APP.globalData.userInfo.id == post.user_id) {
         actions = _this.data.authorPostActions;
       } else if (APP.globalData.userInfo.is_admin) {
@@ -344,6 +362,72 @@ Page({
     }
 
     _this.setData({postActionSheetVisible: false});
+  },
+
+  /**
+   * 显示动态评论的 actionSheet
+   */
+  showPostCommentActionSheet(event) {
+    let _this = this;
+    let comment = event.currentTarget.dataset.comment;
+    let commentIndex = event.currentTarget.dataset.commentIndex;
+    let postIndex = event.currentTarget.dataset.postIndex;
+
+    let actions = _this.data.userPostCommentActions;
+
+    if (APP.globalData.isAuth) {
+      if (APP.globalData.userInfo.id == comment.user_id) {
+        actions = _this.data.authorPostCommentActions;
+      } else if (APP.globalData.userInfo.is_admin) {
+        actions = _this.data.adminPostCommentActions;
+      }
+    }
+
+    _this.setData({
+      postCommentActionSheetVisible: true,
+      postCommentActions: actions,
+      postCommentActionComment: comment,
+      postCommentActionCommentIndex: commentIndex,
+      postCommentActionPostIndex: postIndex,
+    });
+  },
+
+  /**
+   * 动态评论 ActionSheet 操作处理
+   */
+  postCommentActionTapHandler(event) {
+    let _this = this;
+    let action = event.detail.value;
+    let comment = _this.data.postCommentActionComment;
+    let commentIndex = _this.data.postCommentActionCommentIndex;
+    let postIndex = _this.data.postCommentActionPostIndex;
+
+    if (action === 'report') {
+      // TODO: 后台处理
+      wx.showModal({title: '报告不良信息', content: '感谢，我们已收到你的报告', showCancel: false});
+    } else if (action === 'delete') {
+      wx.showLoading({title: '评论删除中'});
+      APP.HTTP.POST('post-comments/delete', {id: comment.id}).then(function(result) {
+        _this.data.posts[postIndex].comments.splice(commentIndex, 1);
+        _this.data.posts[postIndex].comment_num -= 1;
+        _this.setData({posts: _this.data.posts});
+        APP.showNotify('评论删除成功');
+      }).catch(function(res) {
+        if (APP.HTTP.wxRequestIsOk(res)) {
+          wx.showModal({
+            title: '操作失败',
+            content: '动态删除失败: ' + res.data.message,
+            showCancel: false,
+          });
+        }
+      }).finally(function() {
+        wx.hideLoading();
+      });
+    } else {
+      wx.showModal({title: '通知', content: '未能处理你的操作', showCancel: false});
+    }
+
+    _this.setData({postCommentActionSheetVisible: false});
   },
 
   /**
