@@ -77,10 +77,25 @@ App({
    * UserPingHandler
    */
   userPingHandler(result) {
-    console.debug('GotuserPingData', result);
+    console.debug('gotUserPingData', result);
 
     if (result.data && result.data.unread_notice_num) {
-      this.globalData.userInfo.unread_notice_num = result.data.unread_notice_num;
+      let beforeUnReadNoticeNum = this.globalData.userInfo.unread_notice_num;
+      let currentUnReadNoticeNum = result.data.unread_notice_num;
+      let newNoticeNum = currentUnReadNoticeNum - beforeUnReadNoticeNum;
+
+      if (newNoticeNum) {
+        this.Notify({
+          message: '收到 ' + newNoticeNum + ' 条新通知 \n 点击查看',
+          type: 'primary',
+          duration: 6000,
+          onClick: function() {
+            wx.switchTab({url: '/pages/messages/index/index'});
+          },
+        });
+
+        this.globalData.userInfo.unread_notice_num = currentUnReadNoticeNum;
+      }
     }
 
     this.resetTabBarBadge();
@@ -90,18 +105,37 @@ App({
    * Reset TabBar Badge
    */
   resetTabBarBadge() {
-    // 设置通知 TabBarBadge
-    if (this.globalData.isAuth && this.globalData.userInfo.unread_notice_num) {
-      let noticeTabBadgeText = String(this.globalData.userInfo.unread_notice_num);
+    let pages = getCurrentPages();
+    let currentPage = pages[pages.length - 1];
+    let currentPageUrl = currentPage.route;
 
-      wx.setTabBarBadge({
-        index: 1,
-        text: noticeTabBadgeText,
-      })
+    let tabPages = [
+      'pages/posts/index/index',
+      'pages/message/index/index',
+      'pages/users/index/index',
+    ];
+
+    if (this.globalData.isAuth) {
+      if (tabPages.includes(currentPageUrl)) {
+        // 设置通知页面的 TabBarBadge
+        if (this.globalData.userInfo.unread_notice_num) {
+          let noticeTabBadgeText = String(this.globalData.userInfo.unread_notice_num);
+
+          wx.setTabBarBadge({
+            index: 1,
+            text: noticeTabBadgeText,
+          });
+
+          // console.debug('resetTabBarBadge: unread_notice_num => ' + this.globalData.userInfo.unread_notice_num);
+        }
+      } else {
+        // console.debug('resetTabBarBadge: 当前页面为非 TabBar 页面，跳转设置');
+      }
     } else {
-      wx.removeTabBarBadge({
-        index: 1,
-      });
+      // 删除所有 TabBarBadge
+      wx.removeTabBarBadge({index: 1});
+      // wx.removeTabBarBadge({index: 0});
+      // wx.removeTabBarBadge({index: 2});
     }
   },
 })
