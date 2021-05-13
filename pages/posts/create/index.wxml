@@ -11,14 +11,17 @@
       <view class="grid col-4 grid-square flex-sub">
         <view class="item-image bg-img" wx:for="{{ images }}" wx:key="index" bind:tap="previewImage" data-url="{{ images[index].tempFilePath }}">
           <image src="{{ images[index].tempFilePath }}" mode="aspectFill"></image>
-          <view class="cu-tag bg-red" catchtap="deleteImage" data-index="{{ index }}">
+          <view class="cu-tag bg-red" catch:tap="deleteImage" data-index="{{ index }}">
             <text class="cuIcon-close"></text>
           </view>
         </view>
 
         <view class="item-video" wx:if="{{ video }}">
-          <video class="video" object-fit="cover" src="{{ video.file_path }}"></video>
-          <view class="cu-tag bg-red" catchtap="deleteVideo">
+          <video id="video" class="video" src="{{ video.file_path }}" title="{{ content }}"
+                 show-center-play-btn="{{ videoPlayBtnVisible }}" controls="{{ videoControlVisible }}"
+                 bind:play="videoPlayHandler" bind:fullscreenchange="videoFullScreenChangeHandler"
+                 enable-progress-gesture="{{ true }}" enable-play-gesture="{{ true }}"></video>
+          <view class="cu-tag bg-red" catch:tap="deleteVideo">
             <text class="cuIcon-close"></text>
           </view>
         </view>

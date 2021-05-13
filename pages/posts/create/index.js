@@ -5,6 +5,8 @@ Page({
     content: null,
     images: [],
     video: null,
+    videoControlVisible: false,
+    videoPlayBtnVisible: true,
   },
 
   /**
@@ -95,6 +97,34 @@ Page({
         });
       }
     });
+  },
+
+  /**
+   * 全屏显示视频
+   */
+  videoPlayHandler() {
+    let videoContext = wx.createVideoContext('video');
+    videoContext.requestFullScreen();
+    videoContext.play();
+  },
+
+  /**
+   * 视频全屏切换事件处理
+   */
+  videoFullScreenChangeHandler(event) {
+    let _this = this;
+
+    if (event.detail.fullScreen) {
+      this.setData({videoControlVisible: true});
+    } else {
+      let videoContext = wx.createVideoContext('video');
+      videoContext.stop();
+      this.setData({videoControlVisible: false});
+
+      setTimeout(function() {
+        _this.setData({videoPlayBtnVisible: true});
+      }, 1000);
+    }
   },
 
   /**

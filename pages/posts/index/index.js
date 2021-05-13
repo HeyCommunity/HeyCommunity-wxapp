@@ -5,6 +5,9 @@ Page({
     appGlobalData: null,
     posts: [],
 
+    // Video
+    currentVideoId: null,
+
     // 动态操作
     postActionPostIndex: null,
     postActionPost: null,
@@ -78,6 +81,12 @@ Page({
     let _this = this;
 
     _this.setData({appGlobalData: APP.globalData});
+
+    // 暂停当前视频
+    if (_this.data.currentVideoId) {
+      let currentVideoContext = wx.createVideoContext(_this.data.currentVideoId);
+      currentVideoContext.pause();
+    }
   },
 
   /**
@@ -88,6 +97,21 @@ Page({
       urls: event.currentTarget.dataset.urls.map(image => image.file_path),
       current: event.currentTarget.dataset.url,
     });
+  },
+
+  /**
+   * 视频播放处理
+   */
+  videoPlayHandler(event) {
+    let videoId = event.target.id;
+
+    // 暂时当前播放的视频
+    if (this.data.currentVideoId && this.data.currentVideoId != videoId) {
+      let currentVideoContext = wx.createVideoContext(this.data.currentVideoId);
+      currentVideoContext.pause();
+    }
+
+    this.setData({currentVideoId: videoId});
   },
 
   /**
