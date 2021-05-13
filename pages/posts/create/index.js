@@ -4,6 +4,7 @@ Page({
   data: {
     content: null,
     images: [],
+    video: null,
   },
 
   /**
@@ -74,6 +75,36 @@ Page({
   },
 
   /**
+   * 选择视频
+   */
+  pickVideo() {
+    let _this = this;
+
+    wx.chooseVideo({
+      success: function(res) {
+        let tempFilePath = res.tempFilePath;
+        let params = {
+          duration: res.duration,
+          size: res.size,
+          height: res.height,
+          width: res.width,
+        };
+
+        APP.HTTP.uploadFile('post-video', tempFilePath, params).then(function(result) {
+          _this.setData({video: result.data});
+        });
+      }
+    });
+  },
+
+  /**
+   * 删除视频
+   */
+  deleteVideo() {
+    this.setData({video: null});
+  },
+
+  /**
    * setInputValue
    */
   setInputValue(event) {
@@ -116,6 +147,10 @@ Page({
         _this.data.images.forEach(function(image) {
           params.image_ids.push(image.imageId);
         });
+
+        if (_this.data.video) {
+          params.video_id = _this.data.video.id;
+        }
 
         APP.HTTP.POST('posts', params).then((result) => {
           wx.navigateBack({

@@ -1,4 +1,4 @@
-<view class="container-full">
+<view class="container-full" id="page-posts-create">
   <form d-bind:submit="createPost">
     <!-- 文本 -->
     <view class="cu-form-group">
@@ -6,23 +6,33 @@
                 d-model:value="{{ content }}" bind:input="setInputValue" data-field="content"></textarea>
     </view>
 
-    <!-- 图片 -->
-    <view class="cu-form-group" style="border:none;">
+    <!-- 图片或视频 -->
+    <view id="section-assets" class="cu-form-group" style="border:none;">
       <view class="grid col-4 grid-square flex-sub">
-        <view class="bg-img" wx:for="{{ images }}" wx:key="index" bind:tap="previewImage" data-url="{{ images[index].tempFilePath }}">
+        <view class="item-image bg-img" wx:for="{{ images }}" wx:key="index" bind:tap="previewImage" data-url="{{ images[index].tempFilePath }}">
           <image src="{{ images[index].tempFilePath }}" mode="aspectFill"></image>
           <view class="cu-tag bg-red" catchtap="deleteImage" data-index="{{ index }}">
             <text class="cuIcon-close"></text>
           </view>
         </view>
 
-        <view class="solids" bind:tap="pickImages" wx:if="{{ images.length <= 9 }}">
+        <view class="item-video" wx:if="{{ video }}">
+          <video class="video" object-fit="cover" src="{{ video.file_path }}"></video>
+          <view class="cu-tag bg-red" catchtap="deleteVideo">
+            <text class="cuIcon-close"></text>
+          </view>
+        </view>
+
+        <view class="solids" bind:tap="pickImages" wx:if="{{ !video && images.length <= 9 }}">
           <text class="cuIcon-cameraadd"></text>
+        </view>
+        <view wx:if="{{ !video && !images.length }}" class="solids" bind:tap="pickVideo">
+          <text class="cuIcon-record"></text>
         </view>
       </view>
     </view>
 
-    <view class="container">
+    <view style="margin:20rpx;">
       <button class="cu-btn block bg-blue lg round margin-top-sm" style="width:100%"
               d-form-type="submit" bind:tap="createPost">发布</button>
     </view>
