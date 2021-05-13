@@ -26,11 +26,16 @@
           </view>
         </view>
 
-        <view class="solids" bind:tap="pickImages" wx:if="{{ !video && images.length <= 9 }}">
+        <!-- pickImage -->
+        <view class="solids" bind:tap="pickImages" wx:if="{{ !uploading && !video && images.length <= 9 }}">
           <text class="cuIcon-cameraadd"></text>
         </view>
-        <view wx:if="{{ !video && !images.length }}" class="solids" bind:tap="pickVideo">
+        <!-- pickVideo -->
+        <view wx:if="{{ !uploading && !video && !images.length }}" class="solids" bind:tap="pickVideo">
           <text class="cuIcon-record"></text>
+        </view>
+        <view wx:if="{{ uploading }}" class="solids">
+          <text class="cuIcon-loading2"></text>
         </view>
       </view>
     </view>

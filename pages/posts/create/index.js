@@ -5,6 +5,9 @@ Page({
     content: null,
     images: [],
     video: null,
+
+    uploading: false,
+
     videoControlVisible: false,
     videoPlayBtnVisible: true,
   },
@@ -27,6 +30,8 @@ Page({
       sourceType: ['camera', 'album'],
       success: (res) => {
         res.tempFilePaths.forEach(function(tempFilePath) {
+          _this.setData({uploading: true});
+
           APP.HTTP.uploadFile('post-images', tempFilePath).then(function(result) {
             let postImageId = result.data.id;
 
@@ -42,6 +47,8 @@ Page({
               title: '图片上传失败',
               showCancel: false,
             })
+          }).finally(function() {
+            _this.setData({uploading: false});
           });
         });
       }
@@ -92,8 +99,11 @@ Page({
           width: res.width,
         };
 
+        _this.setData({uploading: true});
         APP.HTTP.uploadFile('post-video', tempFilePath, params).then(function(result) {
           _this.setData({video: result.data});
+        }).finally(function() {
+          _this.setData({uploading: false});
         });
       }
     });
@@ -151,58 +161,85 @@ Page({
     let _this = this;
     // let formData = event.detail.value;       // 获取表单数据
 
+    // 内容不能为空
     if (! _this.data.content) {
       wx.showModal({
         content: '请说点什么',
-        showCancal: false,
+        showCancel: false,
       });
 
       throw 'Post content can\'t be null';
     }
 
-    // 订阅消息
-    wx.requestSubscribeMessage({
-      tmplIds: ['LRonMBmk_ejm4aOqJG_cNLwVnzwYYZTYnzsf-1pOPoQ', 'nctxK4mtq5lA_HMxKPTFQXAy7TZV7r3uK6Y5ueVI8UM'],
-      complete() {
-        wx.showLoading({
-          mask: true,
-          title: '发布中'
-        });
+    // 封装处理方法
+    let handler = function() {
+      // 订阅消息
+      wx.requestSubscribeMessage({
+        tmplIds: ['LRonMBmk_ejm4aOqJG_cNLwVnzwYYZTYnzsf-1pOPoQ', 'nctxK4mtq5lA_HMxKPTFQXAy7TZV7r3uK6Y5ueVI8UM'],
+        complete() {
+          wx.showLoading({
+            mask: true,
+            title: '发布中'
+          });
 
-        let params = {
-          content: _this.data.content,
-          image_ids: [],
-        };
+          let params = {
+            content: _this.data.content,
+            image_ids: [],
+          };
 
-        _this.data.images.forEach(function(image) {
-          params.image_ids.push(image.imageId);
-        });
+          _this.data.images.forEach(function(image) {
+            params.image_ids.push(image.imageId);
+          });
 
-        if (_this.data.video) {
-          params.video_id = _this.data.video.id;
-        }
+          if (_this.data.video) {
+            params.video_id = _this.data.video.id;
+          }
 
-        APP.HTTP.POST('posts', params).then((result) => {
-          wx.navigateBack({
-            success() {
-              if (result.data.status) {
-                APP.OnFire.fire('newPost', result.data);
-                APP.showNotify('动态发布成功');
-              } else {
-                APP.showNotify('动态创建成功 \n 管理审核通过后将发布', 'warning');
+          APP.HTTP.POST('posts', params).then((result) => {
+            wx.navigateBack({
+              success() {
+                if (result.data.status) {
+                  APP.OnFire.fire('newPost', result.data);
+                  APP.showNotify('动态发布成功');
+                } else {
+                  APP.showNotify('动态创建成功 \n 管理审核通过后将发布', 'warning');
+                }
               }
-            }
+            });
+          }).catch(function() {
+            wx.showModal({
+              title: '动态创建失败',
+              content: '请稍后再试',
+              showCancel: false,
+            });
+          }).finally(() => {
+            wx.hideLoading();
           });
-        }).catch(function() {
-          wx.showModal({
-            title: '动态创建失败',
-            content: '请稍后再试',
-            showCancel: false,
-          });
-        }).finally(() => {
-          wx.hideLoading();
-        });
-      },
-    });
+        },
+      });
+    }
+
+    // 如果正在上传
+    if (_this.data.uploading) {
+      console.log('uploading', _this.data.uploading);
+
+      wx.showModal({
+        title: '正在上传',
+        content: '请等待图片或视频上传完成后再发布动态',
+        cancelText: '立即发布',
+        confirmText: '再等等',
+        success: function(res) {
+          if (res.confirm) return false;
+          if (res.cancel) {
+            // TODO: 停止 HTTP 上传请求，并清空图片和视频
+            // _this.setData({images: [], video: null});
+            handler();
+          }
+        }
+      })
+    } else {
+      console.log('not uploading', _this.data.uploading);
+      handler();
+    }
   },
 });
