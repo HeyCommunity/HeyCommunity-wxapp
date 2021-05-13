@@ -80,8 +80,23 @@ Page({
       APP.HTTP.GET('notices').then(function(result, res) {
         _this.setData({notices: result.data});
 
-        APP.globalData.userInfo.unread_notice_num = result.meta.unread_notice_num;
+        let beforeUnReadNoticeNum = APP.globalData.userInfo.unread_notice_num;
+        let currentUnReadNoticeNum = result.meta.unread_notice_num;
+        let newNoticeNum = currentUnReadNoticeNum - beforeUnReadNoticeNum;
+
+        APP.globalData.userInfo.unread_notice_num = currentUnReadNoticeNum;
         APP.resetNoticeTabBarBadge(true);
+
+        if (newNoticeNum > 0) {
+          APP.Notify({
+            message: newNoticeNum + ' 条新通知',
+            type: 'primary',
+            duration: 6000,
+            onClick: function() {
+              wx.switchTab({url: '/pages/messages/index/index'});
+            },
+          });
+        }
 
         resolve(result, res);
       }).catch(function(result, res) {
@@ -133,7 +148,7 @@ Page({
         }
       }
 
-      // APP.resetNoticeTabBarBadge(true);
+      APP.resetNoticeTabBarBadge(true);
       _this.messageMoveReset();
     });
   },
