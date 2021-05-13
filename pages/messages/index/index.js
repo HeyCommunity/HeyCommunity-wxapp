@@ -9,6 +9,15 @@ Page({
   },
 
   /**
+   * onLoad
+   */
+  onLoad() {
+    APP.OnFire.on('noticeRefresh', function() {
+      wx.startPullDownRefresh();
+    });
+  },
+
+  /**
    * onShow
    */
   onShow() {
@@ -72,7 +81,7 @@ Page({
         _this.setData({notices: result.data});
 
         APP.globalData.userInfo.unread_notice_num = result.meta.unread_notice_num;
-        APP.resetTabBarBadge();
+        APP.resetNoticeTabBarBadge(true);
 
         resolve(result, res);
       }).catch(function(result, res) {
@@ -124,7 +133,7 @@ Page({
         }
       }
 
-      APP.resetTabBarBadge();
+      // APP.resetNoticeTabBarBadge(true);
       _this.messageMoveReset();
     });
   },

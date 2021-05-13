@@ -95,10 +95,10 @@ App({
         });
 
         this.globalData.userInfo.unread_notice_num = currentUnReadNoticeNum;
+
+        this.resetNoticeTabBarBadge();
       }
     }
-
-    this.resetTabBarBadge();
   },
 
   /**
@@ -111,33 +111,53 @@ App({
 
     let tabPages = [
       'pages/posts/index/index',
-      'pages/message/index/index',
+      'pages/messages/index/index',
       'pages/users/index/index',
     ];
 
     if (this.globalData.isAuth) {
       if (tabPages.includes(currentPageUrl)) {
-        // 设置通知页面的 TabBarBadge
-        if (this.globalData.userInfo.unread_notice_num) {
-          let noticeTabBadgeText = String(this.globalData.userInfo.unread_notice_num);
-
-          wx.setTabBarBadge({
-            index: 1,
-            text: noticeTabBadgeText,
-          });
-
-          // console.debug('resetTabBarBadge: unread_notice_num => ' + this.globalData.userInfo.unread_notice_num);
-        } else {
-          wx.removeTabBarBadge({index: 1});
-        }
+        this.resetNoticeTabBarBadge(false);      // 设置通知页面的 TabBarBadge
       } else {
-        // console.debug('resetTabBarBadge: 当前页面为非 TabBar 页面，跳转设置');
+        console.debug('resetTabBarBadge: 当前页面为非 TabBar 页面，跳过设置');
       }
     } else {
       // 删除所有 TabBarBadge
       wx.removeTabBarBadge({index: 1});
       // wx.removeTabBarBadge({index: 0});
       // wx.removeTabBarBadge({index: 2});
+
+      console.debug('resetTabBarBadge: 用户未登录，移除所有 TabBarBadge');
+    }
+  },
+
+  /**
+   * resetNoticeTabBarBadge
+   */
+  resetNoticeTabBarBadge(forceReset) {
+    if (forceReset === undefined) forceReset = true;
+
+    if (this.globalData.userInfo.unread_notice_num) {
+      let pages = getCurrentPages();
+      let currentPage = pages[pages.length - 1];
+      let currentPageUrl = currentPage.route;
+
+      if (forceReset || currentPageUrl !== 'pages/messages/index/index') {
+        let noticeTabBadgeText = String(this.globalData.userInfo.unread_notice_num);
+
+        wx.setTabBarBadge({
+          index: 1,
+          text: noticeTabBadgeText,
+        });
+
+        console.debug('resetNoticeTabBarBadge: unread_notice_num => ' + this.globalData.userInfo.unread_notice_num);
+      } else {
+        this.OnFire.fire('noticeRefresh');
+
+        console.debug('resetNoticeTabBarBadge: noticeRefresh');
+      }
+    } else {
+      wx.removeTabBarBadge({index: 1});
     }
   },
 })

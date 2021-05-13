@@ -2,6 +2,7 @@
  * Variable
  */
 const httpUtilPath = './http.js';
+const userPingTimeout = 1000 * 30;
 
 /**
  * 用户登录
@@ -107,14 +108,13 @@ const restoreLogin = function(APP) {
  */
 const userPingRun = function() {
   let APP = getApp();
-  let timeout = 1000 * 30;
 
   APP.userPingInterval = setInterval(function() {
     APP.HTTP.GET('users/ping', {}, {showRequestFailModal: false}).then(function(result) {
       APP.userPingHandler(result);
     }).catch(function() {
     });
-  }, timeout);
+  }, userPingTimeout);
 
   console.debug('UserPing Run');
 }
