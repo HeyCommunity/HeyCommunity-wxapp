@@ -17,6 +17,6 @@ HeyCommunity-wxapp 是 [HeyCommunity](https://github.com/HeyCommunity/HeyCommuni
 
 ### 支持与联系
 
-<img src="https://github.com/HeyCommunity/HeyCommunity/raw/dev-master/assets/wecom-group-qrcode.jpg" width="240">
+<img src="https://github.com/HeyCommunity/HeyCommunity/raw/dev-master/assets/wecom-group-qrcode.png" width="240">
 
 你还可以通过电子邮件联系我们: hi@hey-community.com
