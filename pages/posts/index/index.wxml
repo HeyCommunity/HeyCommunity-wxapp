@@ -24,9 +24,12 @@
 
         <!-- 内容与图片 -->
         <view class="text-content"><text>{{ post.content }}</text></view>
+        <view class="item-video" wx:if="{{ post.video }}">
+          <video class="video" object-fit="cover" src="{{ post.video.file_path }}"></video>
+        </view>
         <view wx:if="{{ post.images.length > 0 }}"
-              class="grid flex-sub padding-lr {{ post.images.length > 1 ? 'col-3 grid-square' : 'col-1' }}">
-          <view class="bg-img {{ post.images.length > 1 ? '' : 'only-img' }}"
+              class="items-image grid flex-sub padding-lr {{ post.images.length > 1 ? 'col-3 grid-square' : 'col-1' }}">
+          <view class="item-image bg-img {{ post.images.length > 1 ? '' : 'only-img' }}"
                 style="background-image:url('{{ image.file_path }}');"
                 bind:tap="previewImage" data-url="{{ image.file_path }}" data-urls="{{ post.images }}"
                 wx:for="{{ post.images }}" wx:for-item="image" wx:key="*this">

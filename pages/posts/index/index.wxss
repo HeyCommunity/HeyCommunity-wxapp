@@ -11,6 +11,8 @@
       right: 20rpx;
       font-size: 32rpx;
       font-weight: bold; }
+    #page-posts-index .item-post .item-video .video {
+      width: 100%; }
     #page-posts-index .item-post #section-actions .item-action .item-action-btn {
       width: auto; }
       #page-posts-index .item-post #section-actions .item-action .item-action-btn .text-value {
