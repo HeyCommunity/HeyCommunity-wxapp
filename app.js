@@ -84,7 +84,7 @@ App({
       let currentUnReadNoticeNum = result.data.unread_notice_num;
       let newNoticeNum = currentUnReadNoticeNum - beforeUnReadNoticeNum;
 
-      if (newNoticeNum) {
+      if (newNoticeNum > 0) {
         this.Notify({
           message: '收到 ' + newNoticeNum + ' 条新通知 \n 点击查看',
           type: 'primary',
@@ -127,6 +127,8 @@ App({
           });
 
           // console.debug('resetTabBarBadge: unread_notice_num => ' + this.globalData.userInfo.unread_notice_num);
+        } else {
+          wx.removeTabBarBadge({index: 1});
         }
       } else {
         // console.debug('resetTabBarBadge: 当前页面为非 TabBar 页面，跳转设置');

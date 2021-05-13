@@ -4,6 +4,8 @@ Page({
   data: {
     appGlobalData: null,
     notices: [],
+
+    messageTouchClass: null,
   },
 
   /**
@@ -27,11 +29,18 @@ Page({
   gotoEntityPage(event) {
     let _this = this;
     let notice = event.currentTarget.dataset.notice;
+    let noticeId = notice.id;
+    let noticeIndex = event.currentTarget.dataset.noticeIndex;
     let noticeClass = event.currentTarget.dataset.class;
     let messageTouchClass = _this.data.messageTouchClass;
 
     if (! messageTouchClass && notice.wxapp_redirect_url) {
-      wx.navigateTo({url: notice.wxapp_redirect_url});
+      wx.navigateTo({
+        url: notice.wxapp_redirect_url,
+        success: function(res) {
+          _this.sendNoticeActionHttpRequest('set-isread', notice, noticeId, noticeIndex)
+        }
+      });
     }
 
     _this.messageMoveReset();
@@ -87,6 +96,15 @@ Page({
     let noticeIndex = event.currentTarget.dataset.index;
     let notice = _this.data.notices[noticeIndex];
 
+    _this.sendNoticeActionHttpRequest(action, notice, noticeId, noticeIndex);
+  },
+
+  /**
+   * 发送通知 HTTP 请求
+   */
+  sendNoticeActionHttpRequest(action, notice, noticeId, noticeIndex) {
+    let _this = this;
+
     APP.HTTP.POST('notices/' + action, {id: noticeId}).then(function(result) {
       if (action === 'delete') {
         _this.data.notices.splice(noticeIndex, 1);
@@ -125,8 +143,8 @@ Page({
     if (e.touches[0].pageX - this.data.MessageTouchStart > 20) this.setData({MessageTouchDirection: 'right'});
     if (e.touches[0].pageX - this.data.MessageTouchStart < -60) this.setData({MessageTouchDirection: 'left'});
 
-    // console.debug('touchmove', e.touches[0].pageX - this.data.MessageTouchStart, this.data.MessageTouchDirection);
-    // console.debug('touchmove', e.touches[0].pageX, this.data.MessageTouchStart);
+    // console.debug('touchMove', this.data.messageTouchClass, e.touches[0].pageX - this.data.MessageTouchStart, this.data.MessageTouchDirection);
+    // console.debug('touchMove', e.touches[0].pageX, this.data.MessageTouchStart);
   },
 
   /**
@@ -138,6 +156,8 @@ Page({
     } else if (this.data.MessageTouchDirection == 'right')  {
       this.setData({messageTouchClass: null});
     }
+
+    // console.debug('touchEnd', this.data.messageTouchClass, this.data.MessageTouchDirection);
 
     this.setData({MessageTouchDirection: null})
   },
