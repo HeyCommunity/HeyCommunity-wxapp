@@ -64,30 +64,39 @@ Page({
    */
   userLoginHandler(wechatUserInfo) {
     APP.globalData.wechatUserInfo = wechatUserInfo;
+    APP.WXLog.addFilterMsg('AUTH');
+    APP.WXLog.info('userLoginHandler', wechatUserInfo);
 
     wx.login({
       success: res => {
         wx.showLoading({title: '登录中'});
 
         // 通过 wx.login res.code 发送到后台, 从而完成用户的注册和登录
-        APP.AUTH.userLogin(res.code).then(function() {
-          // 登录成功后更新用户资料
-          // TODO: 不要自动更新用户资料，而是在我的页面让用户手动触发
-          APP.AUTH.userUpdateInfo(wechatUserInfo);
-
+        APP.AUTH.userLogin(res.code).then(function(result) {
           wx.navigateBack({
             success(res) {
               APP.showNotify('登录成功');
               APP.resetTabBarBadge();
             }
           });
-        }).catch(function() {
-          wx.showModal({
-            icon: 'error',
-            title: '登录失败',
-            content: '发生未知错误，请稍后再试',
-            showCancel: false,
-          })
+
+          // TODO: 不要自动更新用户资料，而是在我的页面让用户手动触发
+          APP.AUTH.userUpdateInfo(wechatUserInfo);        // 登录成功后更新用户资料
+        }).catch(function(res) {
+          APP.WXLog.addFilterMsg('AUTH-ERR');
+
+          if (APP.HTTP.wxRequestIsOk(res)) {
+            wx.showModal({
+              icon: 'error',
+              title: '登录失败',
+              content: '发生错误，请稍后重试',
+              showCancel: false,
+            });
+
+            APP.WXLog.warn('用户登录失败 => ', res.data);
+          } else {
+            APP.WXLog.error('用户登录失败 => ', res);
+          }
         }).finally(function() {
           wx.hideLoading();
         });

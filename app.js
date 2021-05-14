@@ -1,6 +1,7 @@
 const AUTH = require('./utils/auth.js');
 const HTTP = require('./utils/http.js');
 const OnFire = require('./utils/onfire.js');
+const WXLog = require('./utils/wxlog.js');
 import Notify from './miniprogram_npm/@vant/weapp/notify/notify';
 const tdweapp = require('./utils/talkingData/tdweapp.js');
 
@@ -8,6 +9,7 @@ App({
   AUTH: AUTH,
   HTTP: HTTP,
   OnFire: OnFire,
+  WXLog: WXLog,
   Notify: Notify,
   globalData: {
     isAuth: false,
@@ -34,9 +36,13 @@ App({
       }).catch(function(res) {
         wx.login({
           success: function(res) {
-            _this.HTTP.GET('users/login', {code: res.code}).then(function(result) {
+            let loginCode = res.code;
+            _this.HTTP.GET('users/login', {code: loginCode}).then(function(result) {
               console.debug('未登录用户在后台进行注册，获取 apiToken => ' + result.data.token);
               _this.globalData.apiToken = result.data.token;
+            }).catch(function(res) {
+              _this.WXLog.addFilterMsg('AUTH-ERR');
+              _this.WXLog.warn('用户半登录失败 code => ' + loginCode);
             });
           },
         });

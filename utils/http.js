@@ -1,4 +1,5 @@
 const {apiDomain, apiProHost} = require('./env');
+const httpTimeout = 1000 * 10;
 
 /**
  * GET 请求
@@ -34,6 +35,7 @@ const request = function(type, path, params, configs) {
       },
       url: makeApiPath(path),
       data: params,
+      timeout: httpTimeout,
       success: function(res) {
         if (httpRequestIsOk(res)) {
           if (typeof res.data === 'object') {
