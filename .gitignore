@@ -1,5 +1,5 @@
 .DS_Store
 .idea
 *.map
-
 node_modules
+env.local.js
