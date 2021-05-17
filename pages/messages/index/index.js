@@ -25,11 +25,7 @@ Page({
 
     _this.setData({appGlobalData: APP.globalData});
 
-    if (APP.globalData.isAuth) {
-      wx.startPullDownRefresh();
-    } else {
-      _this.setData({notices: []});
-    }
+    wx.startPullDownRefresh();
   },
 
   /**
@@ -64,6 +60,18 @@ Page({
     if (APP.globalData.isAuth) {
       _this.getListData().finally(function() {
         wx.stopPullDownRefresh();
+      });
+    } else {
+      _this.setData({notices: []});
+      wx.stopPullDownRefresh();
+
+      APP.Notify({
+        message: '登录后才能查看消息 \n 点击这里进行登录',
+        type: 'primary',
+        duration: 6000,
+        onClick: function() {
+          wx.navigateTo({url: '/pages/users/auth/index'});
+        },
       });
     }
   },
