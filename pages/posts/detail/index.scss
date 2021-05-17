@@ -21,6 +21,18 @@
       }
     }
 
+    .text-content {
+    }
+
+    .item-video {
+      .video {
+        width: 100%;
+      }
+    }
+
+    .items-image {
+    }
+
     #section-actions {
       .item-action {
         .item-action-btn {
@@ -34,32 +46,22 @@
     }
 
     #section-comments {
-      .footer {
-        .items-btn {
-          .item-btn {
-            padding: 10rpx;
-            margin-left: 20rpx;
-            width: auto;
-            height: 44rpx;
-            font-size: 28rpx;
+      .item-comment {
+        padding-top: 26rpx;
+        padding-bottom: 26rpx;
+
+        .footer {
+          .items-btn {
+            .item-btn {
+              padding: 10rpx;
+              margin-left: 10rpx;
+              width: auto;
+              height: 44rpx;
+              font-size: 26rpx;
+            }
           }
         }
       }
-    }
-  }
-
-  .btn-create {
-    z-index: 99;
-    position: fixed;
-    bottom: 60rpx;
-    right: 40rpx;
-    width: 50px;
-    height: 50px;
-    border-bottom: 50%;
-
-    .icon {
-      font-size: 20px;
-      font-weight: bold;
     }
   }
 
