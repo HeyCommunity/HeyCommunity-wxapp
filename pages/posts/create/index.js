@@ -173,50 +173,66 @@ Page({
 
     // 封装处理方法
     let handler = function() {
-      // 订阅消息
-      wx.requestSubscribeMessage({
-        tmplIds: ['LRonMBmk_ejm4aOqJG_cNLwVnzwYYZTYnzsf-1pOPoQ', 'nctxK4mtq5lA_HMxKPTFQXAy7TZV7r3uK6Y5ueVI8UM'],
-        complete() {
-          wx.showLoading({
-            mask: true,
-            title: '发布中'
-          });
+      let httpRequest = function() {
+        wx.showLoading({
+          mask: true,
+          title: '发布中'
+        });
 
-          let params = {
-            content: _this.data.content,
-            image_ids: [],
-          };
+        let params = {
+          content: _this.data.content,
+          image_ids: [],
+        };
 
-          _this.data.images.forEach(function(image) {
-            params.image_ids.push(image.imageId);
-          });
+        _this.data.images.forEach(function(image) {
+          params.image_ids.push(image.imageId);
+        });
 
-          if (_this.data.video) {
-            params.video_id = _this.data.video.id;
-          }
+        if (_this.data.video) {
+          params.video_id = _this.data.video.id;
+        }
 
-          APP.HTTP.POST('posts', params).then((result) => {
-            wx.navigateBack({
-              success() {
-                if (result.data.status) {
-                  APP.OnFire.fire('newPost', result.data);
-                  APP.showNotify('动态发布成功');
-                } else {
-                  APP.showNotify('动态创建成功 \n 管理审核通过后将发布', 'warning');
-                }
+        APP.HTTP.POST('posts', params).then((result) => {
+          wx.navigateBack({
+            success() {
+              if (result.data.status) {
+                APP.OnFire.fire('newPost', result.data);
+                APP.showNotify('动态发布成功');
+              } else {
+                APP.showNotify('动态创建成功 \n 管理审核通过后将发布', 'warning');
               }
-            });
-          }).catch(function() {
-            wx.showModal({
-              title: '动态创建失败',
-              content: '请稍后再试',
-              showCancel: false,
-            });
-          }).finally(() => {
-            wx.hideLoading();
+            }
           });
-        },
-      });
+        }).catch(function() {
+          wx.showModal({
+            title: '动态创建失败',
+            content: '请稍后再试',
+            showCancel: false,
+          });
+        }).finally(() => {
+          wx.hideLoading();
+        });
+      };
+
+      // 订阅消息
+      console.debug('订阅消息', APP, APP.globalData.systemSettings);
+      if (APP.globalData.systemSettings
+        && APP.globalData.systemSettings.wxapp_subscribe_message
+        && APP.globalData.systemSettings.wxapp_subscribe_message.enable
+      ) {
+        wx.requestSubscribeMessage({
+          tmplIds: [
+            APP.globalData.systemSettings.wxapp_subscribe_message.thumb_up_temp_id,
+            APP.globalData.systemSettings.wxapp_subscribe_message.comment_temp_id,
+            APP.globalData.systemSettings.wxapp_subscribe_message.reply_temp_id,
+          ] ,
+          complete: function() {
+            httpRequest();
+          },
+        });
+      } else {
+        httpRequest();
+      }
     }
 
     // 如果正在上传

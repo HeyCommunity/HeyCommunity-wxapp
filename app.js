@@ -16,6 +16,7 @@ App({
     apiToken: null,
     userInfo: null,
     wechatUserInfo: null,
+    systemSettings: null,
   },
 
   /**
@@ -50,6 +51,11 @@ App({
         if (_this.authInitedCallback) _this.authInitedCallback();
       });
     }, 300)
+
+    // SystemSettings
+    _this.HTTP.GET('system/settings').then(function(result) {
+      _this.globalData.systemSettings = result.data;
+    });
   },
 
   /**
