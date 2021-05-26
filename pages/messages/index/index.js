@@ -173,6 +173,8 @@ Page({
   sendNoticeActionHttpRequest(action, notice, noticeId, noticeIndex) {
     let _this = this;
 
+    _this.messageMoveReset();
+
     APP.HTTP.POST('notices/' + action, {id: noticeId}).then(function(result) {
       if (action === 'delete') {
         _this.data.notices.splice(noticeIndex, 1);
@@ -193,7 +195,6 @@ Page({
       }
 
       APP.resetNoticeTabBarBadge(true);
-      _this.messageMoveReset();
     });
   },
 
