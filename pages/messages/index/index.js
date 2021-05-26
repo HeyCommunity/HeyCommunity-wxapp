@@ -114,6 +114,42 @@ Page({
   },
 
   /**
+   * 订阅动态通知处理
+   */
+  subscribePostMessagesHandler() {
+    this.selectComponent('#dropdown-subscribe').toggle(false);
+
+    if (APP.globalData.systemSettings
+      && APP.globalData.systemSettings.wxapp_subscribe_message
+      && APP.globalData.systemSettings.wxapp_subscribe_message.enable
+    ) {
+      wx.requestSubscribeMessage({
+        tmplIds: [
+          APP.globalData.systemSettings.wxapp_subscribe_message.thumb_up_temp_id,
+          APP.globalData.systemSettings.wxapp_subscribe_message.comment_temp_id,
+          APP.globalData.systemSettings.wxapp_subscribe_message.reply_temp_id,
+        ],
+      });
+    } else {
+      APP.showNotify('未启用微信订阅消息功能', 'danger');
+    }
+  },
+
+  /**
+   * 通知批量处理
+   */
+  batchNoticeActionHandler(event) {
+    let _this = this;
+    let action = event.currentTarget.dataset.action;
+
+    this.selectComponent('#dropdown-action').toggle(false);
+
+    this.data.notices.forEach(function(notice, noticeIndex) {
+      _this.sendNoticeActionHttpRequest(action, notice, notice.id, noticeIndex);
+    });
+  },
+
+  /**
    * 通知操作处理
    *
    * delete

@@ -1,8 +1,22 @@
-<view class="container-full page-messages-index" bind:tap="messageMoveReset">
+<view id="page-messages-index" class="container-full" bind:tap="messageMoveReset">
   <van-notify id="van-notify"></van-notify>
 
+  <!-- 顶部下拉菜单 -->
+  <van-sticky wx:if="{{ appGlobalData.isAuth }}">
+    <van-dropdown-menu active-color="#0081ff">
+      <van-dropdown-item id="dropdown-subscribe" title="订阅">
+        <van-cell bind:tap="subscribePostMessagesHandler" icon="bullhorn-o" title="订阅动态通知" value="点赞 | 评论 | 回复" is-link></van-cell>
+      </van-dropdown-item>
+      <van-dropdown-item id="dropdown-action" title="操作">
+        <van-cell bind:tap="batchNoticeActionHandler" data-action="set-isread" icon="passed" title="全部标记为已读" is-link></van-cell>
+        <van-cell bind:tap="batchNoticeActionHandler" data-action="set-unread" icon="info-o" title="全部标记为未读" is-link></van-cell>
+        <van-cell bind:tap="batchNoticeActionHandler" data-action="delete" icon="close" title="删除全部" is-link></van-cell>
+      </van-dropdown-item>
+    </van-dropdown-menu>
+  </van-sticky>
+
   <view wx:if="{{ appGlobalData.isAuth }}">
-    <view wx:if="{{ notices.length }}" class="items-message cu-list menu-avatar">
+    <view wx:if="{{ notices.length }}" class="margin-top margin-bottom-xs items-message cu-list menu-avatar">
       <view class="item-message cu-item {{ notice.is_read ? 'read' : 'unread' }} {{ messageTouchClass == 'item-message-' + noticeIndex ? 'move-cur' : '' }}" data-target="item-message-{{ noticeIndex }}"
             wx:for="{{ notices }}" wx:for-item="notice" wx:key="id" wx:for-index="noticeIndex"
             catch:tap="gotoEntityPage" data-notice="{{ notice }}" data-notice-index="{{ noticeIndex }}" data-class="{{ 'item-message-' + noticeIndex }}"
