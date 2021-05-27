@@ -117,6 +117,7 @@ Page({
    * 订阅动态通知处理
    */
   subscribePostMessagesHandler() {
+    let _this = this;
     this.selectComponent('#dropdown-subscribe').toggle(false);
 
     if (APP.globalData.systemSettings
@@ -129,6 +130,15 @@ Page({
           APP.globalData.systemSettings.wxapp_subscribe_message.comment_temp_id,
           APP.globalData.systemSettings.wxapp_subscribe_message.reply_temp_id,
         ],
+        success: function(res) {
+          APP.Notify({
+            type: 'primary',
+            message: '订阅已完成 \n 点击这里再次订阅',
+            onClick: function() {
+              _this.subscribePostMessagesHandler();
+            },
+          });
+        },
       });
     } else {
       APP.showNotify('未启用微信订阅消息功能', 'danger');
