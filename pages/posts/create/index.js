@@ -215,7 +215,6 @@ Page({
       };
 
       // 订阅消息
-      console.debug('订阅消息', APP, APP.globalData.systemSettings);
       if (APP.globalData.systemSettings
         && APP.globalData.systemSettings.wxapp_subscribe_message
         && APP.globalData.systemSettings.wxapp_subscribe_message.enable
@@ -237,7 +236,6 @@ Page({
 
     // 如果正在上传
     if (_this.data.uploading) {
-      console.log('uploading', _this.data.uploading);
 
       wx.showModal({
         title: '正在上传',
@@ -254,7 +252,6 @@ Page({
         }
       })
     } else {
-      console.log('not uploading', _this.data.uploading);
       handler();
     }
   },
