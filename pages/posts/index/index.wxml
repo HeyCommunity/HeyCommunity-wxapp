@@ -122,16 +122,15 @@
   <van-popup id="popup-comment-create" show="{{ commentPopupVisible }}" round closeable
           close-icon-position="top-right" position="bottom" custom-style="height:280rpx; overflow:hidden;"
           bind:close="closeCommentPopup">
-    <form class="form" bind:submit="commentHandler">
+    <form class="form">
       <view class="caption" wx:if="{{ commentPopupType === 'comment'}}">评论动态</view>
       <view class="caption" wx:if="{{ commentPopupType === 'replyComment' }}">参与讨论</view>
       <view class="flex flex-wrap">
         <view class="basis-xl">
-          <textarea name="content" model:value="{{ commentPopupContent }}"
-                    class="textarea-content bg-gray" placeholder="说说你的看法 ..." auto-focus="true"></textarea>
+          <textarea bind:input="setCommentContentHandler" value="{{ commentPopupContent }}" class="textarea-content bg-gray" placeholder="说说你的看法 ..."></textarea>
         </view>
         <view class="basis-xs">
-          <button form-type="submit" class="cu-btn btn-send block text-white bg-olive">发布</button>
+          <button bind:tap="commentHandler" class="cu-btn btn-send block text-white bg-olive">发布</button>
         </view>
       </view>
     </form>

@@ -249,9 +249,16 @@ Page({
   },
 
   /**
+   * 设置评论内容
+   */
+  setCommentContentHandler(event) {
+    this.setData({commentPopupContent: event.detail.value});
+  },
+
+  /**
    * 评论
    */
-  commentHandler(event) {
+  commentHandler() {
     let _this = this;
 
     let type = this.data.commentPopupType;
@@ -259,7 +266,7 @@ Page({
     let postId = this.data.commentPopupPostId;
     let commentIndex = this.data.commentPopupCommentIndex;
     let commentId = this.data.commentPopupCommentId;
-    let content = event.detail.value.content;
+    let content = this.data.commentPopupContent;
 
     if (! content) {
       wx.showModal({
@@ -275,26 +282,47 @@ Page({
     if (type === 'comment') params.post_id = postId;
     if (type === 'replyComment') params.comment_id = commentId;
 
-    APP.HTTP.POST('post-comments', params).then((result) => {
-      _this.closeCommentPopup();
+    let httpRequest = function() {
+      APP.HTTP.POST('post-comments', params).then((result) => {
+        _this.closeCommentPopup();
 
-      if (result.data.status) {
-        if (type === 'replyComment') _this.data.posts[postIndex].comments[commentIndex].i_have_comment = true;
-        _this.data.posts[postIndex].comments.unshift(result.data);
-        _this.data.posts[postIndex].comment_num += 1;
-        _this.data.posts[postIndex].i_have_comment = true;
-        _this.setData({posts: _this.data.posts});
+        if (result.data.status) {
+          if (type === 'replyComment') _this.data.posts[postIndex].comments[commentIndex].i_have_comment = true;
+          _this.data.posts[postIndex].comments.unshift(result.data);
+          _this.data.posts[postIndex].comment_num += 1;
+          _this.data.posts[postIndex].i_have_comment = true;
+          _this.setData({posts: _this.data.posts});
 
-        APP.showNotify('评论成功');
-      } else {
-        APP.showNotify('评论创建成功 \n 管理员审核通过后将发布', 'warning');
-      }
-    }).catch(() => {
-      wx.showModal({
-        title: '评论失败',
-        showCancel: false,
+          APP.showNotify('评论成功');
+        } else {
+          APP.showNotify('评论创建成功 \n 管理员审核通过后将发布', 'warning');
+        }
+      }).catch(() => {
+        wx.showModal({
+          title: '评论失败',
+          showCancel: false,
+        });
       });
-    });
+    };
+
+    // 订阅消息
+    if (APP.globalData.systemSettings
+      && APP.globalData.systemSettings.wxapp_subscribe_message
+      && APP.globalData.systemSettings.wxapp_subscribe_message.enable
+    ) {
+      wx.requestSubscribeMessage({
+        tmplIds: [
+          APP.globalData.systemSettings.wxapp_subscribe_message.thumb_up_temp_id,
+          APP.globalData.systemSettings.wxapp_subscribe_message.comment_temp_id,
+          APP.globalData.systemSettings.wxapp_subscribe_message.reply_temp_id,
+        ] ,
+        complete: function() {
+          httpRequest();
+        },
+      });
+    } else {
+      httpRequest();
+    }
   },
 
   /**
