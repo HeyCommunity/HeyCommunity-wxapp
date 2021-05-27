@@ -491,4 +491,10 @@ Page({
       wx.stopPullDownRefresh();
     });
   },
+
+  /**
+   * 分享
+   */
+  onShareAppMessage() {
+  },
 });

@@ -246,4 +246,13 @@ Page({
       });
     });
   },
+
+  /**
+   * 分享
+   */
+  onShareAppMessage() {
+    return {
+      title: this.data.post.user_nickname + '发布的动态',
+    };
+  },
 });
