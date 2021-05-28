@@ -91,11 +91,11 @@ const uploadFile = function(apiPath, filePath, params, configs) {
         res.data = JSON.parse(res.data);
 
         if (httpRequestIsOk(res)) {
+          resolve(res.data);
           console.debug('[HTTP-UploadFile] ' + filePath + ' successful', res);
-          resolve(res.data, res);
         } else {
+          reject(res);
           console.error('[HTTP-UploadFile] ' + filePath + ' fail', res);
-          reject(res.data, res);
         }
       },
       fail: function(res) {
@@ -107,8 +107,8 @@ const uploadFile = function(apiPath, filePath, params, configs) {
           });
         }
 
+        reject(res);
         console.error('[HTTP-UploadFile] ' + apiPath + ' wx.uploadFile fail', res);
-        reject('WX.REQUEST FAIL', res);
       },
     });
   });

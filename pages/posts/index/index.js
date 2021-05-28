@@ -152,7 +152,7 @@ Page({
       value: value,
     };
 
-    this.baseThumbUpHandler('post-comment-thumbs', params).then(function(result) {
+    this.baseThumbUpHandler('posts/comments/thumbs', params).then(function(result) {
       let message = null;
 
       if (result.statusCode === 201) {
@@ -191,7 +191,7 @@ Page({
       value: value,
     };
 
-    this.baseThumbUpHandler('post-thumbs', params).then(function(result) {
+    this.baseThumbUpHandler('posts/thumbs', params).then(function(result) {
       let message = null;
 
       if (result.statusCode === 201 || result.statusCode === 200) {
@@ -283,7 +283,7 @@ Page({
     if (type === 'replyComment') params.comment_id = commentId;
 
     let httpRequest = function() {
-      APP.HTTP.POST('post-comments', params).then((result) => {
+      APP.HTTP.POST('posts/comments', params).then((result) => {
         _this.closeCommentPopup();
 
         if (result.data.status) {
@@ -297,11 +297,19 @@ Page({
         } else {
           APP.showNotify('评论创建成功 \n 管理员审核通过后将发布', 'warning');
         }
-      }).catch(() => {
-        wx.showModal({
-          title: '评论失败',
-          showCancel: false,
-        });
+      }).catch(function(res) {
+        if (res.data.message) {
+          wx.showModal({
+            title: '评论失败',
+            content: res.data.message,
+            showCancel: false,
+          });
+        } else {
+          wx.showModal({
+            title: '评论失败',
+            showCancel: false,
+          });
+        }
       });
     };
 
@@ -447,7 +455,7 @@ Page({
       wx.showModal({title: '报告不良信息', content: '感谢，我们已收到你的报告', showCancel: false});
     } else if (action === 'delete') {
       wx.showLoading({title: '评论删除中'});
-      APP.HTTP.POST('post-comments/delete', {id: comment.id}).then(function(result) {
+      APP.HTTP.POST('posts/comments/delete', {id: comment.id}).then(function(result) {
         _this.data.posts[postIndex].comments.splice(commentIndex, 1);
         _this.data.posts[postIndex].comment_num -= 1;
         _this.setData({posts: _this.data.posts});

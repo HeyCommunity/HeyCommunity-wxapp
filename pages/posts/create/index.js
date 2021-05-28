@@ -32,7 +32,7 @@ Page({
         res.tempFilePaths.forEach(function(tempFilePath) {
           _this.setData({uploading: true});
 
-          APP.HTTP.uploadFile('post-images', tempFilePath).then(function(result) {
+          APP.HTTP.uploadFile('posts/upload-image', tempFilePath).then(function(result) {
             let postImageId = result.data.id;
 
             _this.setData({
@@ -42,11 +42,19 @@ Page({
                 'imageFilePath': null,
               }]),
             });
-          }).catch(function() {
-            wx.showModal({
-              title: '图片上传失败',
-              showCancel: false,
-            })
+          }).catch(function(res) {
+            if (res.data.message) {
+              wx.showModal({
+                title: '图片上传失败',
+                content: res.data.message,
+                showCancel: false,
+              });
+            } else {
+              wx.showModal({
+                title: '图片上传失败',
+                showCancel: false,
+              })
+            }
           }).finally(function() {
             _this.setData({uploading: false});
           });
@@ -100,7 +108,7 @@ Page({
         };
 
         _this.setData({uploading: true});
-        APP.HTTP.uploadFile('post-video', tempFilePath, params).then(function(result) {
+        APP.HTTP.uploadFile('posts/upload-video', tempFilePath, params).then(function(result) {
           _this.setData({video: result.data});
         }).finally(function() {
           _this.setData({uploading: false});
@@ -203,12 +211,20 @@ Page({
               }
             }
           });
-        }).catch(function() {
-          wx.showModal({
-            title: '动态创建失败',
-            content: '请稍后再试',
-            showCancel: false,
-          });
+        }).catch(function(res) {
+          if (res.data.message) {
+            wx.showModal({
+              title: '动态创建失败',
+              content: res.data.message,
+              showCancel: false,
+            });
+          } else {
+            wx.showModal({
+              title: '动态创建失败',
+              content: '请稍后再试',
+              showCancel: false,
+            });
+          }
         }).finally(() => {
           wx.hideLoading();
         });
@@ -236,7 +252,6 @@ Page({
 
     // 如果正在上传
     if (_this.data.uploading) {
-
       wx.showModal({
         title: '正在上传',
         content: '请等待图片或视频上传完成后再发布动态',
