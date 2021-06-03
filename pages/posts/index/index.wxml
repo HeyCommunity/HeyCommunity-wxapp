@@ -112,6 +112,7 @@
         </view>
       </view>
     </view>
+
   </view>
 
   <view wx:else style="padding-top:100px;">

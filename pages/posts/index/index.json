@@ -8,7 +8,6 @@
   "onReachBottomDistance": 200,
   "usingComponents": {
     "mp-actionSheet": "weui-miniprogram/actionsheet/actionsheet",
-    "van-empty": "@vant/weapp/empty/index",
     "van-popup": "@vant/weapp/popup/index"
   }
 }

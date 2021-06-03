@@ -1,8 +1,9 @@
 <view class="container-full" id="page-posts-detail">
   <van-notify id="van-notify"></van-notify>
 
-  <view wx:if="{{ post }}" class="items-post">
-    <view class="item-post cu-card dynamic no-card">
+  <view wx:if="{{ models.length > 0 }}" class="items-post">
+    <view class="item-post cu-card dynamic no-card"
+          wx:for="{{ models }}" wx:key="id" wx:for-item="post" wx:for-index="postIndex">
       <view class="cu-item shadow">
         <!-- Header -->
         <view id="section-header" class="cu-list menu-avatar">
@@ -12,8 +13,9 @@
               <view>{{ post.user_nickname }}</view>
               <view class="text-gray text-sm flex justify-between">{{ post.created_at_for_humans }}</view>
             </view>
-            <view style="display:none;">
-              <button class="btn-more cu-btn bg-white icon">
+            <view>
+              <button class="btn-more cu-btn bg-white icon" bind:tap="showPostActionSheet"
+                      data-post="{{ post }}" data-post-index="{{ postIndex }}">
                 <text class="cuIcon-unfold"></text>
               </button>
             </view>
@@ -45,7 +47,8 @@
                     data-type="{{ 'thumb_up' }}" data-value="{{ !post.i_have_thumb_up }}">
               <text wx:if="{{ post.i_have_thumb_up }}" class="cuIcon-appreciatefill margin-lr-xs"></text>
               <text wx:else class="cuIcon-appreciate margin-lr-xs"></text>
-              <text class="text-value">{{ post.thumb_up_num }}</text>
+              <text class="text-value" wx:if="{{ post.thumb_up_num }}">{{ post.thumb_up_num }}</text>
+              <text class="text-value text-sm" wx:else>点赞</text>
             </button>
           </view>
           <view class="item-action cu-item flex-sub padding-tb-sm margin-right-sm text-grey text-center">
@@ -53,20 +56,15 @@
                     bind:tap="openCommentPopup" data-type="comment" data-post-id="{{ post.id }}" data-post-index="{{ postIndex }}">
               <text wx:if="{{ post.i_have_comment }}" class="cuIcon-communityfill margin-lr-xs"></text>
               <text wx:else class="cuIcon-community margin-lr-xs"></text>
-              <text class="text-value">{{ post.comment_num }}</text>
+              <text class="text-value" wx:if="{{ post.comment_num }}">{{ post.comment_num }}</text>
+              <text class="text-value text-sm" wx:else>评论</text>
             </button>
-          </view>
-          <view class="item-action cu-item flex-sub padding-tb-sm margin-right-sm text-grey text-center">
-            <navigator open-type="navigate" url="/pages/posts/detail/index?id={{ post.id }}" class="item-action-btn cu-btn bg-white padding-lr-xl" style="width:auto;">
-              <text class="cuIcon-newsfill margin-lr-xs"></text>
-              <text class="text-value text-sm">详情</text>
-            </navigator>
           </view>
         </view>
 
         <!-- 评论列表 -->
         <view id="section-comments" wx:if="{{ post.comments.length > 0 }}" class="cu-list menu-avatar comment" style="margin-top:0;">
-          <view class="item-comment solid-bottom cu-item" wx:for="{{ post.comments }}" wx:key="id" wx:for-item="comment" wx:for-index="commentIndex">
+          <view class="item-comment cu-item solid-bottom" wx:for="{{ post.comments }}" wx:key="id" wx:for-item="comment" wx:for-index="commentIndex">
             <view class="cu-avatar round" style="background-image:url('{{ comment.user_avatar }}');"></view>
             <view class="content">
               <view class="text-grey">{{ comment.user_nickname }}</view>
@@ -97,7 +95,10 @@
                     <text wx:else class="cuIcon-community"></text>
                     <text class="margin-left-xs" wx:if="{{ comment.comment_num }}">{{ comment.comment_num }}</text>
                   </button>
-                  <button style="display:none;" class="item-btn text-gray cu-btn sm bg-white"><text class="cuIcon-moreandroid"></text></button>
+                  <button class="item-btn text-gray cu-btn sm bg-white" bind:tap="showPostCommentActionSheet"
+                          data-comment="{{ comment }}" data-post-index="{{ postIndex }}" data-comment-index="{{ commentIndex }}">
+                    <text class="cuIcon-moreandroid"></text>
+                  </button>
                 </view>
               </view>
             </view>
@@ -125,3 +126,6 @@
     </form>
   </van-popup>
 </view>
+
+<mp-actionSheet bind:actiontap="postActionTapHandler" title="动态操作" show="{{ postActionSheetVisible }}" actions="{{ postActions }}" ></mp-actionSheet>
+<mp-actionSheet bind:actiontap="postCommentActionTapHandler" title="评论操作" show="{{ postCommentActionSheetVisible }}" actions="{{ postCommentActions }}" ></mp-actionSheet>
