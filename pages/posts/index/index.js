@@ -3,7 +3,13 @@ const APP = getApp();
 Page({
   data: {
     appGlobalData: null,
-    posts: [],
+    model: null,
+    models: [],
+    apiPath: 'posts',
+    currentPage: 1,
+    lastPage: null,
+    refreshLoading: false,
+    moreLoading: false,
 
     // Video
     currentVideoId: null,
@@ -62,15 +68,13 @@ Page({
     // 获取动态
     setTimeout(function() {
       _this.setData({appGlobalData: APP.globalData});
-      
-      APP.HTTP.GET('posts').then(function(result) {
-        _this.setData({posts: result.data});
-      });
+
+      _this.getPageModels();
     }, 2000);
 
     APP.OnFire.on('newPost', function(post) {
-      _this.data.posts.unshift(post);
-      _this.setData({posts: _this.data.posts});
+      _this.data.models.unshift(post);
+      _this.setData({models: _this.data.models});
     });
   },
 
@@ -152,21 +156,21 @@ Page({
       value: value,
     };
 
-    this.baseThumbUpHandler('posts/comments/thumbs', params).then(function(result) {
+    this.baseThumbUpHandler(_this.data.apiPath + '/comments/thumbs', params).then(function(result) {
       let message = null;
 
       if (result.statusCode === 201) {
         message = '点赞成功';
-        _this.data.posts[postIndex].comments[commentIndex].i_have_thumb_up = true;
-        _this.data.posts[postIndex].comments[commentIndex].thumb_up_num += 1;
+        _this.data.models[postIndex].comments[commentIndex].i_have_thumb_up = true;
+        _this.data.models[postIndex].comments[commentIndex].thumb_up_num += 1;
       } else if (result.statusCode === 202) {
         message = '取消点赞成功';
-        _this.data.posts[postIndex].comments[commentIndex].i_have_thumb_up = false;
-        _this.data.posts[postIndex].comments[commentIndex].thumb_up_num -= 1;
+        _this.data.models[postIndex].comments[commentIndex].i_have_thumb_up = false;
+        _this.data.models[postIndex].comments[commentIndex].thumb_up_num -= 1;
       }
 
       if (message) {
-        _this.setData({posts: _this.data.posts});
+        _this.setData({models: _this.data.models});
         APP.showNotify(message);
       }
     });
@@ -191,21 +195,21 @@ Page({
       value: value,
     };
 
-    this.baseThumbUpHandler('posts/thumbs', params).then(function(result) {
+    this.baseThumbUpHandler(this.data.apiPath + '/thumbs', params).then(function(result) {
       let message = null;
 
       if (result.statusCode === 201 || result.statusCode === 200) {
         message = '点赞成功';
-        _this.data.posts[postIndex]['i_have_thumb_up'] = true;
-        _this.data.posts[postIndex]['thumb_up_num'] += 1;
+        _this.data.models[postIndex]['i_have_thumb_up'] = true;
+        _this.data.models[postIndex]['thumb_up_num'] += 1;
       } else if (result.statusCode === 202) {
         message = '取消点赞成功';
-        _this.data.posts[postIndex]['i_have_thumb_up'] = false;
-        _this.data.posts[postIndex]['thumb_up_num'] -= 1;
+        _this.data.models[postIndex]['i_have_thumb_up'] = false;
+        _this.data.models[postIndex]['thumb_up_num'] -= 1;
       }
 
       if (message) {
-        _this.setData({posts: _this.data.posts});
+        _this.setData({models: _this.data.models});
         APP.showNotify(message);
       }
     });
@@ -283,15 +287,15 @@ Page({
     if (type === 'replyComment') params.comment_id = commentId;
 
     let httpRequest = function() {
-      APP.HTTP.POST('posts/comments', params).then((result) => {
+      APP.HTTP.POST(_this.data.apiPath + '/comments', params).then((result) => {
         _this.closeCommentPopup();
 
         if (result.data.status) {
-          if (type === 'replyComment') _this.data.posts[postIndex].comments[commentIndex].i_have_comment = true;
-          _this.data.posts[postIndex].comments.unshift(result.data);
-          _this.data.posts[postIndex].comment_num += 1;
-          _this.data.posts[postIndex].i_have_comment = true;
-          _this.setData({posts: _this.data.posts});
+          if (type === 'replyComment') _this.data.models[postIndex].comments[commentIndex].i_have_comment = true;
+          _this.data.models[postIndex].comments.unshift(result.data);
+          _this.data.models[postIndex].comment_num += 1;
+          _this.data.models[postIndex].i_have_comment = true;
+          _this.setData({models: _this.data.models});
 
           APP.showNotify('评论成功');
         } else {
@@ -374,9 +378,9 @@ Page({
       wx.showModal({title: '报告不良信息', content: '感谢，我们已收到你的报告信息', showCancel: false});
     } else if (action === 'delete') {
       wx.showLoading({title: '动态删除中'});
-      APP.HTTP.POST('posts/delete', {id: post.id}).then(function(result) {
-        _this.data.posts.splice(postIndex, 1);
-        _this.setData({posts: _this.data.posts});
+      APP.HTTP.POST(_this.data.apiPath + '/delete', {id: post.id}).then(function(result) {
+        _this.data.models.splice(postIndex, 1);
+        _this.setData({models: _this.data.models});
         APP.showNotify('动态删除成功');
       }).catch(function(res) {
         if (APP.HTTP.wxRequestIsOk(res)) {
@@ -391,9 +395,9 @@ Page({
       });
     } else if (action === 'hidden') {
       wx.showLoading({title: '动态下架中'});
-      APP.HTTP.POST('posts/hidden', {id: post.id}).then(function(result) {
-        _this.data.posts.splice(postIndex, 1);
-        _this.setData({posts: _this.data.posts});
+      APP.HTTP.POST(_this.data.apiPath + '/hidden', {id: post.id}).then(function(result) {
+        _this.data.models.splice(postIndex, 1);
+        _this.setData({models: _this.data.models});
         APP.showNotify('动态下架成功');
       }).catch(function(res) {
         if (APP.HTTP.wxRequestIsOk(res)) {
@@ -455,10 +459,10 @@ Page({
       wx.showModal({title: '报告不良信息', content: '感谢，我们已收到你的报告', showCancel: false});
     } else if (action === 'delete') {
       wx.showLoading({title: '评论删除中'});
-      APP.HTTP.POST('posts/comments/delete', {id: comment.id}).then(function(result) {
-        _this.data.posts[postIndex].comments.splice(commentIndex, 1);
-        _this.data.posts[postIndex].comment_num -= 1;
-        _this.setData({posts: _this.data.posts});
+      APP.HTTP.POST(_this.data.apiPath + '/comments/delete', {id: comment.id}).then(function(result) {
+        _this.data.models[postIndex].comments.splice(commentIndex, 1);
+        _this.data.models[postIndex].comment_num -= 1;
+        _this.setData({models: _this.data.models});
         APP.showNotify('评论删除成功');
       }).catch(function(res) {
         if (APP.HTTP.wxRequestIsOk(res)) {
@@ -492,11 +496,54 @@ Page({
   onPullDownRefresh() {
     let _this = this;
 
-    // 获取动态
-    APP.HTTP.GET('posts').then((result) => {
-      _this.setData({posts: result.data});
-    }).finally(() => {
+    wx.showLoading({title: '刷新中'});
+    _this.getPageModels(1).finally(function() {
       wx.stopPullDownRefresh();
+      wx.hideLoading();
+    });
+  },
+
+  /**
+   * 下拉加载更多
+   */
+  onReachBottom() {
+    let _this = this;
+
+    if (this.data.currentPage >= this.data.lastPage) {
+      wx.showToast({icon: 'none', title: '没有更多数据了'});
+    } else {
+      // wx.showLoading({title: '加载中'});
+      this.setData({moreLoading: true});
+
+      this.getPageModels(this.data.currentPage + 1).finally(function() {
+        // wx.hideLoading();
+        _this.setData({moreLoading: false});
+      });
+    }
+  },
+
+  /**
+   * 获取 models
+   */
+  getPageModels(pageNum) {
+    let _this = this;
+    if (! pageNum) pageNum = _this.data.currentPage;
+
+    return new Promise(function(resolve, reject) {
+      APP.HTTP.GET(_this.data.apiPath, {page: pageNum}).then(function(result, res) {
+        if (result.meta.current_page === 1) _this.data.models = [];
+        _this.data.models = _this.data.models.concat(result.data);
+        _this.setData({models: _this.data.models});
+
+        _this.setData({
+          currentPage: result.meta.current_page,
+          lastPage: result.meta.last_page,
+        });
+
+        resolve(result, res);
+      }).catch(function(result, res) {
+        reject(result, res);
+      });
     });
   },
 

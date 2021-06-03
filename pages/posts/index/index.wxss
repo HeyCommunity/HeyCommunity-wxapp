@@ -1,6 +1,5 @@
 #page-posts-index {
-  padding-top: 20rpx;
-  padding-bottom: 30rpx; }
+  padding-top: 20rpx; }
   #page-posts-index .item-post {
     margin-top: 30rpx; }
     #page-posts-index .item-post:first-of-type {

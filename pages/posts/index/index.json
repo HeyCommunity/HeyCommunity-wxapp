@@ -5,6 +5,7 @@
   "backgroundColor": "#eeeeee",
   "backgroundTextStyle": "light",
   "enablePullDownRefresh": true,
+  "onReachBottomDistance": 200,
   "usingComponents": {
     "mp-actionSheet": "weui-miniprogram/actionsheet/actionsheet",
     "van-empty": "@vant/weapp/empty/index",

@@ -1,9 +1,9 @@
 <view class="container-full" id="page-posts-index">
   <van-notify id="van-notify"></van-notify>
 
-  <view class="items-post" wx:if="{{ posts.length > 0 }}">
+  <view class="items-post" wx:if="{{ models.length > 0 }}">
     <view class="item-post cu-card dynamic no-card"
-          wx:for="{{ posts }}" wx:key="id" wx:for-item="post" wx:for-index="postIndex">
+          wx:for="{{ models }}" wx:key="id" wx:for-item="post" wx:for-index="postIndex">
       <view class="cu-item shadow">
         <!-- Header -->
         <view id="section-header" class="cu-list menu-avatar">
@@ -116,6 +116,14 @@
 
   <view wx:else style="padding-top:100px;">
     <van-empty description="暂无动态"></van-empty>
+  </view>
+
+  <view id="section-more-loading-tip" wx:if="{{  moreLoading }}" class="text-center padding-tb">
+    <van-loading type="spinner">加载中...</van-loading>
+  </view>
+
+  <view id="section-more-loading-disabled-tip" class="padding-lr-xl padding-tb-lg" wx:if="{{ models.length && currentPage >= lastPage }}">
+    <van-divider contentPosition="center" customStyle="margin:0;">没有更多数据了</van-divider>
   </view>
 
   <navigator wx:if="{{ appGlobalData.isAuth }}" url="/pages/posts/create/index" class="btn-create cu-btn bg-blue round"><view class="icon cuIcon-post"></view></navigator>
