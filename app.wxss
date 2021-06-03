@@ -19,5 +19,4 @@
 #section-more-loading-tip {
 }
 #section-more-loading-disabled-tip {
-    padding-bottom: 1px;
 }

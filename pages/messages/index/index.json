@@ -11,8 +11,6 @@
     "van-dropdown-menu": "@vant/weapp/dropdown-menu/index",
     "van-dropdown-item": "@vant/weapp/dropdown-item/index",
     "van-cell": "@vant/weapp/cell/index",
-    "van-icon": "@vant/weapp/icon/index",
-    "van-loading": "@vant/weapp/loading/index",
-    "van-divider": "@vant/weapp/divider/index"
+    "van-icon": "@vant/weapp/icon/index"
   }
 }

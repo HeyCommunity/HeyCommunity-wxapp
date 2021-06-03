@@ -38,7 +38,9 @@
   "usingComponents": {
     "van-button": "@vant/weapp/button/index",
     "van-empty": "@vant/weapp/empty/index",
-    "van-notify": "@vant/weapp/notify/index"
+    "van-notify": "@vant/weapp/notify/index",
+    "van-loading": "@vant/weapp/loading/index",
+    "van-divider": "@vant/weapp/divider/index"
   },
   "window": {
     "backgroundTextStyle":"light",

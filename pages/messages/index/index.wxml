@@ -51,11 +51,11 @@
     <van-empty description="登录后才能查看消息"></van-empty>
   </view>
 
-  <view id="section-more-loading-tip" wx:if="{{ moreLoading }}" class="text-center padding-tb margin-bottom">
+  <view id="section-more-loading-tip" wx:if="{{  moreLoading }}" class="text-center padding-tb">
     <van-loading type="spinner">加载中...</van-loading>
   </view>
 
-  <view id="section-more-loading-disabled-tip" class="padding-lr" wx:if="{{ lastPage && currentPage >= lastPage }}">
-    <van-divider contentPosition="center">没有更多数据了</van-divider>
+  <view id="section-more-loading-disabled-tip" class="padding-lr-xl padding-tb-lg" wx:if="{{ models.length && currentPage >= lastPage }}">
+    <van-divider contentPosition="center" customStyle="margin:0;">没有更多数据了</van-divider>
   </view>
 </view>

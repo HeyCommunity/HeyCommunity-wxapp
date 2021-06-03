@@ -64,13 +64,10 @@ Page({
     let _this = this;
 
     if (APP.globalData.isAuth) {
-      _this.setData({
-        currentPage: 1,
-        models: [],
-      });
-
-      _this.getPageModels().finally(function() {
+      wx.showLoading({title: '刷新中'});
+      _this.getPageModels(1).finally(function() {
         wx.stopPullDownRefresh();
+        wx.hideLoading();
       });
     } else {
       _this.setData({models: []});
@@ -96,16 +93,18 @@ Page({
     if (this.data.currentPage >= this.data.lastPage) {
       wx.showToast({icon: 'none', title: '没有更多数据了'});
     } else {
+      // wx.showLoading({title: '加载中'});
       this.setData({moreLoading: true});
 
       this.getPageModels(this.data.currentPage + 1).finally(function() {
+        // wx.hideLoading();
         _this.setData({moreLoading: false});
       });
     }
   },
 
   /**
-   * 获取 models 数据
+   * 获取 models
    */
   getPageModels(pageNum) {
     let _this = this;
@@ -115,6 +114,7 @@ Page({
 
     return new Promise(function(resolve, reject) {
       APP.HTTP.GET(_this.data.apiPath, {page: pageNum}).then(function(result, res) {
+        if (result.meta.current_page === 1) _this.data.models = [];
         _this.data.models = _this.data.models.concat(result.data);
         _this.setData({models: _this.data.models});
 
