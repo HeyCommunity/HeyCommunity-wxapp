@@ -13,9 +13,15 @@
     "miniprogram": {
       "list": [
         {
-          "name": "动态首页",
+          "name": "动态列表页",
           "pathName": "pages/posts/index/index",
           "query": "",
+          "scene": null
+        },
+        {
+          "name": "动态详情页",
+          "pathName": "pages/posts/detail/index",
+          "query": "id=1",
           "scene": null
         },
         {
@@ -25,25 +31,19 @@
           "scene": null
         },
         {
-          "name": "消息首页",
-          "pathName": "pages/discussions/index/index",
+          "name": "消息列表页",
+          "pathName": "pages/messages/index/index",
           "query": "",
           "scene": null
         },
         {
-          "name": "聊天页面",
-          "pathName": "pages/discussions/detail/index",
-          "query": "",
-          "scene": null
-        },
-        {
-          "name": "我的首页",
+          "name": "我的页面",
           "pathName": "pages/users/index/index",
           "query": "",
           "scene": null
         },
         {
-          "name": "登录",
+          "name": "登录页面",
           "pathName": "pages/users/auth/index",
           "query": "",
           "scene": null
@@ -55,15 +55,15 @@
           "scene": null
         },
         {
-          "name": "消息列表页",
-          "pathName": "pages/messages/index/index",
+          "name": "聊天列表页",
+          "pathName": "pages/discussions/index/index",
           "query": "",
           "scene": null
         },
         {
-          "name": "动态详情页",
-          "pathName": "pages/posts/detail/index",
-          "query": "id=1",
+          "name": "聊天详情页",
+          "pathName": "pages/discussions/detail/index",
+          "query": "",
           "scene": null
         }
       ]
