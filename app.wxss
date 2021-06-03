@@ -14,3 +14,10 @@
 .container-full {
   padding: 0;
 }
+
+
+#section-more-loading-tip {
+}
+#section-more-loading-disabled-tip {
+    padding-bottom: 1px;
+}

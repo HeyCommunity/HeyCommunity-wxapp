@@ -3,7 +3,13 @@ const APP = getApp();
 Page({
   data: {
     appGlobalData: null,
-    notices: [],
+    model: null,
+    models: [],
+    apiPath: 'notices',
+    currentPage: 1,
+    lastPage: null,
+    refreshLoading: false,
+    moreLoading: false,
 
     messageTouchClass: null,
   },
@@ -58,11 +64,16 @@ Page({
     let _this = this;
 
     if (APP.globalData.isAuth) {
-      _this.getListData().finally(function() {
+      _this.setData({
+        currentPage: 1,
+        models: [],
+      });
+
+      _this.getPageModels().finally(function() {
         wx.stopPullDownRefresh();
       });
     } else {
-      _this.setData({notices: []});
+      _this.setData({models: []});
       wx.stopPullDownRefresh();
 
       APP.Notify({
@@ -77,16 +88,35 @@ Page({
   },
 
   /**
-   * 获取数据
+   * 下拉加载更多
    */
-  getListData() {
+  onReachBottom() {
     let _this = this;
+
+    if (this.data.currentPage >= this.data.lastPage) {
+      wx.showToast({icon: 'none', title: '没有更多数据了'});
+    } else {
+      this.setData({moreLoading: true});
+
+      this.getPageModels(this.data.currentPage + 1).finally(function() {
+        _this.setData({moreLoading: false});
+      });
+    }
+  },
+
+  /**
+   * 获取 models 数据
+   */
+  getPageModels(pageNum) {
+    let _this = this;
+    if (! pageNum) pageNum = _this.data.currentPage;
 
     _this.messageMoveReset();
 
     return new Promise(function(resolve, reject) {
-      APP.HTTP.GET('notices').then(function(result, res) {
-        _this.setData({notices: result.data});
+      APP.HTTP.GET(_this.data.apiPath, {page: pageNum}).then(function(result, res) {
+        _this.data.models = _this.data.models.concat(result.data);
+        _this.setData({models: _this.data.models});
 
         let beforeUnReadNoticeNum = APP.globalData.userInfo.unread_notice_num;
         let currentUnReadNoticeNum = result.meta.unread_notice_num;
@@ -99,12 +129,16 @@ Page({
           APP.Notify({
             message: newNoticeNum + ' 条新通知',
             type: 'primary',
-            duration: 6000,
             onClick: function() {
               wx.switchTab({url: '/pages/messages/index/index'});
             },
           });
         }
+
+        _this.setData({
+          currentPage: result.meta.current_page,
+          lastPage: result.meta.last_page,
+        });
 
         resolve(result, res);
       }).catch(function(result, res) {
@@ -154,7 +188,7 @@ Page({
 
     this.selectComponent('#dropdown-action').toggle(false);
 
-    this.data.notices.forEach(function(notice, noticeIndex) {
+    this.data.models.forEach(function(notice, noticeIndex) {
       _this.sendNoticeActionHttpRequest(action, notice, notice.id, noticeIndex);
     });
   },
@@ -172,7 +206,7 @@ Page({
     let action = event.currentTarget.dataset.action;
     let noticeId = event.currentTarget.dataset.id;
     let noticeIndex = event.currentTarget.dataset.index;
-    let notice = _this.data.notices[noticeIndex];
+    let notice = _this.data.models[noticeIndex];
 
     _this.sendNoticeActionHttpRequest(action, notice, noticeId, noticeIndex);
   },
@@ -185,13 +219,13 @@ Page({
 
     _this.messageMoveReset();
 
-    APP.HTTP.POST('notices/' + action, {id: noticeId}).then(function(result) {
+    APP.HTTP.POST(_this.data.apiPath + '/' + action, {id: noticeId}).then(function(result) {
       if (action === 'delete') {
-        _this.data.notices.splice(noticeIndex, 1);
-        _this.setData({notices: _this.data.notices});
+        _this.data.models.splice(noticeIndex, 1);
+        _this.setData({models: _this.data.models});
       } else {
-        _this.data.notices[noticeIndex] = result.data;
-        _this.setData({notices: _this.data.notices});
+        _this.data.models[noticeIndex] = result.data;
+        _this.setData({models: _this.data.models});
       }
 
       if (notice.is_read) {
