@@ -26,9 +26,11 @@
         <view class="text-content"><text>{{ post.content }}</text></view>
         <view class="item-video" wx:if="{{ post.video }}">
           <video id="video-{{ post.id }}" class="video" src="{{ post.video.file_path }}" title="{{ post.content }}"
-                 controls="{{ currentVideoId === ('video-' + post.id) }}"
                  bind:play="videoPlayHandler" show-mute-btn="{{ true }}"
-                 enable-progress-gesture="{{ true }}" enable-play-gesture="{{ true }}" enable-auto-rotation="{{ true }}"></video>
+                 controls="{{ true || currentVideoId === ('video-' + post.id) }}"
+                 vslide-gesture-in-fullscreen="{{ false }}"
+                 enable-progress-gesture="{{ true }}" enable-play-gesture="{{ true }}" enable-auto-rotation="{{ false }}">\
+          </video>
         </view>
         <view wx:if="{{ post.images.length > 0 }}"
               class="items-image grid flex-sub padding-lr {{ post.images.length > 1 ? 'col-3 grid-square' : 'col-1' }}">

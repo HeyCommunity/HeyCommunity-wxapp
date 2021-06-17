@@ -124,24 +124,23 @@ Page({
     let videoContext = wx.createVideoContext('video');
     videoContext.requestFullScreen();
     videoContext.play();
+
+    this.setData({videoPlayBtnVisible: false});
   },
 
   /**
    * 视频全屏切换事件处理
    */
   videoFullScreenChangeHandler(event) {
-    let _this = this;
-
     if (event.detail.fullScreen) {
       this.setData({videoControlVisible: true});
     } else {
       let videoContext = wx.createVideoContext('video');
       videoContext.stop();
-      this.setData({videoControlVisible: false});
-
-      setTimeout(function() {
-        _this.setData({videoPlayBtnVisible: true});
-      }, 1000);
+      this.setData({
+        videoControlVisible: false,
+        videoPlayBtnVisible: true,
+      });
     }
   },
 

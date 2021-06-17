@@ -18,8 +18,9 @@
 
         <view class="item-video" wx:if="{{ video }}">
           <video id="video" class="video" src="{{ video.file_path }}" title="{{ content }}"
-                 show-center-play-btn="{{ videoPlayBtnVisible }}" controls="{{ videoControlVisible }}"
                  bind:play="videoPlayHandler" bind:fullscreenchange="videoFullScreenChangeHandler"
+                 show-center-play-btn="{{ true || videoPlayBtnVisible }}" controls="{{ true || videoControlVisible }}"
+                 vslide-gesture-in-fullscreen="{{ false }}"
                  enable-progress-gesture="{{ true }}" enable-play-gesture="{{ true }}"></video>
           <view class="cu-tag bg-red" catch:tap="deleteVideo">
             <text class="cuIcon-close"></text>
