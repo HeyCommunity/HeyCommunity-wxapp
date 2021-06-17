@@ -1,5 +1,0 @@
-page {
-  padding-bottom: 100rpx; }
-
-.btn-send {
-  width: 6em !important; }
