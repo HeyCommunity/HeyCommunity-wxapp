@@ -22,9 +22,10 @@ const request = function(type, path, params, configs) {
   let APP = getApp();
   let apiToken = APP ? APP.globalData.apiToken : '';
 
-  if (configs === undefined) {
-    configs = {};
-  }
+  // configs
+  let defaultConfigs = {showRequestFailModal: false};
+  if (configs === undefined) configs = {};
+  configs = Object.assign(defaultConfigs, configs);
 
   return new Promise(function(resolve, reject) {
     wx.request({
@@ -52,7 +53,9 @@ const request = function(type, path, params, configs) {
         }
       },
       fail: function(res) {
-        if (configs.showRequestFailModal != false) {
+        APP.showNotify('网络请求失败', 'danger');
+
+        if (configs.showRequestFailModal) {
           wx.showModal({
             title: '网络请求失败',
             content: res.errMsg,          // TODO: 重定义，把 res.errMsg 转为本地语言
@@ -74,9 +77,11 @@ const uploadFile = function(apiPath, filePath, params, configs) {
   let APP = getApp();
   let apiToken = APP ? APP.globalData.apiToken : '';
 
-  if (configs === undefined) {
-    configs = {};
-  }
+  // configs
+  let defaultConfigs = {showRequestFailModal: true};
+  if (configs === undefined) configs = {};
+  configs = Object.assign(defaultConfigs, configs);
+
 
   return new Promise(function(resolve, reject) {
     wx.uploadFile({
@@ -99,7 +104,9 @@ const uploadFile = function(apiPath, filePath, params, configs) {
         }
       },
       fail: function(res) {
-        if (configs.showRequestFailModal != false) {
+        APP.showNotify('网络请求失败', 'danger');
+
+        if (configs.showRequestFailModal) {
           wx.showModal({
             title: '网络请求失败',
             content: res.errMsg,
