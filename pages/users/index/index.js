@@ -4,7 +4,8 @@ const APP = getApp();
 Page({
   data: {
     appGlobalData: null,
-    userCoverImagePath: apiDomain + '/images/users/default-cover.jpg',
+    defaultUserCoverImagePath: apiDomain + '/images/users/default-cover.jpg',
+    defaultProfileWaveImagePath: apiDomain + '/images/users/profile-wave.gif',
 
     wxAppAccountInfo: null,
   },

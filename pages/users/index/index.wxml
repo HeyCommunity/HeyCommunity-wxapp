@@ -2,15 +2,17 @@
   <van-notify id="van-notify"></van-notify>
 
   <scroll-view scroll-y class="scrollPage">
-    <view class="UCenter-bg" style="background-image:url({{ userCoverImagePath }})">
-      <image wx:if="{{ appGlobalData.isAuth }}" src="{{ appGlobalData.userInfo.avatar }}" class="png" mode="widthFix" style="border-radius:50%;"></image>
-      <image bind:tap="needAuth" wx:else src="/assets/images/users/default-avatar.jpg" class="png" mode="widthFix" style="border-radius:50%;"></image>
-      <view wx:if="{{ appGlobalData.isAuth }}" class="text-xl margin-top-sm">{{ appGlobalData.userInfo.nickname }}</view>
-      <view bind:tap="needAuth" wx:else class="text-xl margin-top-sm">请登录</view>
-      <view class="margin-top-sm" wx:if="{{ appGlobalData.isAuth && appGlobalData.userInfo.bio }}">
-        <text>{{ appGlobalData.userInfo.bio }}</text>
+    <view class="UCenter-bg" style="background-image:url({{ defaultUserCoverImagePath }})">
+      <view wx:if="{{ appGlobalData.isAuth }}" class="text-center">
+        <image src="{{ appGlobalData.userInfo.avatar }}" class="png" mode="widthFix" style="border-radius:50%;"></image>
+        <view class="text-xl margin-top-sm">{{ appGlobalData.userInfo.nickname }}</view>
+        <view class="margin-top-sm" wx:if="{{ appGlobalData.userInfo.bio }}"><text>{{ appGlobalData.userInfo.bio }}</text></view>
       </view>
-      <image src="/assets/images/users/profile-wave.gif" mode="scaleToFill" class="gif-wave"></image>
+      <view wx:else class="text-center">
+        <image bind:tap="needAuth" src="/assets/images/users/default-avatar.jpg" class="png" mode="widthFix" style="border-radius:50%;"></image>
+        <view bind:tap="needAuth" class="text-xl margin-top-sm">请登录</view>
+      </view>
+      <image src="{{ defaultProfileWaveImagePath }}" mode="scaleToFill" class="gif-wave"></image>
     </view>
 
     <view class="padding flex text-center text-grey bg-white shadow-warp">
