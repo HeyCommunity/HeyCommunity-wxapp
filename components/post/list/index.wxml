@@ -63,7 +63,7 @@
             <text class="text-value text-sm" wx:else>评论</text>
           </button>
         </view>
-        <view class="item-action cu-item flex-sub padding-tb-sm margin-right-sm text-grey text-center">
+        <view wx:if="{{ !isDetail }}" class="item-action cu-item flex-sub padding-tb-sm margin-right-sm text-grey text-center">
           <navigator open-type="navigate" url="/pages/posts/detail/index?id={{ post.id }}"
                      class="item-action-btn cu-btn bg-white padding-lr-xl" style="width:auto;">
             <text class="cuIcon-newsfill margin-lr-xs"></text>

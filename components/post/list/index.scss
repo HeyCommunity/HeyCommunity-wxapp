@@ -1,6 +1,10 @@
 .post-card {
   margin-top: 20rpx;
 
+  &:first-of-type {
+    margin-top: 0rpx;
+  }
+
   .section-header {
     .content {
       width: calc(100% - 96rpx - 60rpx - 20rpx - 60rpx) !important;

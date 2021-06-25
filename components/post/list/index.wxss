@@ -1,5 +1,7 @@
 .post-card {
   margin-top: 20rpx; }
+  .post-card:first-of-type {
+    margin-top: 0rpx; }
   .post-card .section-header .content {
     width: calc(100% - 96rpx - 60rpx - 20rpx - 60rpx) !important; }
   .post-card .section-header .btn-more {

@@ -1,11 +1,13 @@
-#page-posts-index .btn-create {
-  z-index: 99;
-  position: fixed;
-  bottom: 60rpx;
-  right: 40rpx;
-  width: 50px;
-  height: 50px;
-  border-bottom: 50%; }
-  #page-posts-index .btn-create .icon {
-    font-size: 20px;
-    font-weight: bold; }
+#page-posts-index {
+  padding-top: 20rpx; }
+  #page-posts-index .btn-create {
+    z-index: 99;
+    position: fixed;
+    bottom: 60rpx;
+    right: 40rpx;
+    width: 50px;
+    height: 50px;
+    border-bottom: 50%; }
+    #page-posts-index .btn-create .icon {
+      font-size: 20px;
+      font-weight: bold; }

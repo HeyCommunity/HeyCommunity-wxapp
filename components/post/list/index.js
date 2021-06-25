@@ -7,6 +7,10 @@ Component({
 
   properties: {
     posts: Array,
+    isDetail: {
+      type: Boolean,
+      value: false,
+    },
   },
   data: {
     // 评论模板框
