@@ -7,7 +7,6 @@
   "enablePullDownRefresh": true,
   "onReachBottomDistance": 200,
   "usingComponents": {
-    "mp-actionSheet": "weui-miniprogram/actionsheet/actionsheet",
-    "van-popup": "@vant/weapp/popup/index"
+    "post-list": "/components/post/list/index"
   }
 }

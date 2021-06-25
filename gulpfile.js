@@ -25,6 +25,13 @@ function sassTask(cb) {
  * @param cb
  */
 function sassWatchTask(cb) {
+  watchSass(['./components/**/*.scss'])
+    .pipe(sass().on('error', sass.logError))
+    .pipe(rename({
+      extname: '.wxss'
+    }))
+    .pipe(gulp.dest('./components'));
+
   watchSass(['./pages/**/*.scss'])
     .pipe(sass().on('error', sass.logError))
     .pipe(rename({
