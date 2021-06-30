@@ -1,0 +1,98 @@
+.post-card {
+  margin-top: 20rpx;
+
+  &:first-of-type {
+    margin-top: 0rpx;
+  }
+
+  .section-header {
+    .content {
+      width: calc(100% - 96rpx - 60rpx - 20rpx - 60rpx) !important;
+    }
+
+    .btn-more {
+      right: 20rpx;
+      font-size: 32rpx;
+      font-weight: bold;
+    }
+  }
+
+  .text-content {
+    max-height: none;
+  }
+
+  .item-video {
+    .video {
+      width: 100%;
+    }
+  }
+
+  .items-image {
+  }
+
+  //
+  // 操作栏
+  .section-actions {
+    .item-action {
+      .item-action-btn {
+        width: auto;
+
+        .text-value {
+          font-weight: normal;
+        }
+      }
+    }
+  }
+
+  //
+  // 评论区
+  .section-comments {
+    margin-top: 0;
+
+    .item-comment {
+      padding-top: 26rpx;
+      padding-bottom: 26rpx;
+
+      .footer {
+        .items-btn {
+          .item-btn {
+            padding: 10rpx;
+            margin-left: 10rpx;
+            width: auto;
+            height: 44rpx;
+            font-size: 26rpx;
+          }
+        }
+      }
+    }
+  }
+}
+
+.popup-comment-create {
+  z-index: 999;
+  .form {
+    display: block;
+    margin: 30rpx;
+
+    .caption {
+      font-size: 36rpx;
+      color: #333;
+      box-sizing: border-box;
+      margin-bottom: 16rpx;
+    }
+
+    .textarea-content {
+      padding: 16rpx;
+      width: 100%;
+      line-height: 1.5em;
+      height: calc(4.5em + 32rpx);
+    }
+
+    .btn-send {
+      width: auto;
+      border-radius: 0;
+      margin-left: 20rpx;
+      height: calc(4.5em + 32rpx);
+    }
+  }
+}

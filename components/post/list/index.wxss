@@ -1,0 +1,50 @@
+.post-card {
+  margin-top: 20rpx; }
+  .post-card:first-of-type {
+    margin-top: 0rpx; }
+  .post-card .section-header .content {
+    width: calc(100% - 96rpx - 60rpx - 20rpx - 60rpx) !important; }
+  .post-card .section-header .btn-more {
+    right: 20rpx;
+    font-size: 32rpx;
+    font-weight: bold; }
+  .post-card .text-content {
+    max-height: none; }
+  .post-card .item-video .video {
+    width: 100%; }
+  .post-card .section-actions .item-action .item-action-btn {
+    width: auto; }
+    .post-card .section-actions .item-action .item-action-btn .text-value {
+      font-weight: normal; }
+  .post-card .section-comments {
+    margin-top: 0; }
+    .post-card .section-comments .item-comment {
+      padding-top: 26rpx;
+      padding-bottom: 26rpx; }
+      .post-card .section-comments .item-comment .footer .items-btn .item-btn {
+        padding: 10rpx;
+        margin-left: 10rpx;
+        width: auto;
+        height: 44rpx;
+        font-size: 26rpx; }
+
+.popup-comment-create {
+  z-index: 999; }
+  .popup-comment-create .form {
+    display: block;
+    margin: 30rpx; }
+    .popup-comment-create .form .caption {
+      font-size: 36rpx;
+      color: #333;
+      box-sizing: border-box;
+      margin-bottom: 16rpx; }
+    .popup-comment-create .form .textarea-content {
+      padding: 16rpx;
+      width: 100%;
+      line-height: 1.5em;
+      height: calc(4.5em + 32rpx); }
+    .popup-comment-create .form .btn-send {
+      width: auto;
+      border-radius: 0;
+      margin-left: 20rpx;
+      height: calc(4.5em + 32rpx); }
