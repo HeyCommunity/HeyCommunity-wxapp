@@ -9,6 +9,13 @@ const watchSass = require("gulp-watch-sass");
  * @param cb
  */
 function sassTask(cb) {
+  gulp.src('./components/**/*.scss')
+    .pipe(sass().on('error', sass.logError))
+    .pipe(rename({
+      extname: '.wxss'
+    }))
+    .pipe(gulp.dest('./components'));
+
   gulp.src('./pages/**/*.scss')
     .pipe(sass().on('error', sass.logError))
     .pipe(rename({
@@ -43,6 +50,6 @@ function sassWatchTask(cb) {
 }
 
 
-exports.default = sassTask;
+exports.default = sassWatchTask;
 exports.sass = sassTask;
 exports.sassWatch = sassWatchTask;
