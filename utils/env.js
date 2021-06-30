@@ -1,5 +1,5 @@
 let apiDomain;
-const prodApiDomain = 'https://dev.hey-community.com.cn';
+const prodApiDomain = 'https://dev.api.heycommunity.com';
 const devApiDomain = 'http://127.0.0.1:8000';
 
 // 配置 apiDomain，默认使用 prodApiDomain
