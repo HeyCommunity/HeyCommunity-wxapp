@@ -13,6 +13,9 @@ Component({
     },
   },
   data: {
+    // Video
+    currentVideoId: null,
+
     // 评论模板框
     commentPopupVisible: false,
     commentPopupContent: null,
@@ -74,15 +77,34 @@ Component({
      * 视频播放处理
      */
     videoPlayHandler(event) {
+      let _this = this;
       let videoId = event.target.id;
 
       // 暂时当前播放的视频
-      if (this.data.currentVideoId && this.data.currentVideoId != videoId) {
-        let currentVideoContext = wx.createVideoContext(this.data.currentVideoId);
-        currentVideoContext.pause();
+      if (_this.data.currentVideoId && _this.data.currentVideoId != videoId) {
+        let query = _this.createSelectorQuery();
+        query.select('#' + _this.data.currentVideoId).context(function(res) {
+          res.context.pause();
+        }).exec();
       }
 
       this.setData({currentVideoId: videoId});
+    },
+
+    /**
+     * 暂停当前播放的视频
+     */
+    pauseCurrentVideo() {
+      let _this = this;
+
+      if (_this.data.currentVideoId) {
+        let query = _this.createSelectorQuery();
+        query.select('#' + _this.data.currentVideoId).context(function(res) {
+          res.context.pause();
+        }).exec();
+      }
+
+      this.setData({currentVideoId: null});
     },
 
     /**

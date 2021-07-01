@@ -2,7 +2,7 @@
   <van-notify id="van-notify"></van-notify>
 
   <view wx:if="{{ models.length > 0 }}" class="items-post">
-    <post-list posts="{{ models }}"></post-list>
+    <post-list id="comp-post-list" posts="{{ models }}"></post-list>
   </view>
 
   <view wx:else style="padding-top:100px;">
