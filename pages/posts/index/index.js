@@ -45,6 +45,13 @@ Page({
   },
 
   /**
+   * goto HeyCommunityPage
+   */
+  gotoHeyCommunityPage() {
+    wx.navigateTo({url: '/pages/users/hey-community/index'});
+  },
+
+  /**
    * 下拉刷新
    */
   onPullDownRefresh() {
