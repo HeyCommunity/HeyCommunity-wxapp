@@ -3,6 +3,7 @@ const APP = getApp();
 Page({
   data: {
     appGlobalData: null,
+    skeletonVisible: true,
     model: null,
     models: [],
     apiPath: 'posts',
@@ -22,7 +23,9 @@ Page({
     setTimeout(function() {
       _this.setData({appGlobalData: APP.globalData});
 
-      _this.getPageModels();
+      _this.getPageModels().then(function() {
+        _this.setData({skeletonVisible: false});
+      });
     }, 2000);
 
     APP.OnFire.on('newPost', function(post) {

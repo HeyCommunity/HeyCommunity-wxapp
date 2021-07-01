@@ -12,3 +12,11 @@
   #page-posts-index .btn-create .icon {
     font-size: 20px;
     font-weight: bold; }
+
+#page-posts-index .item-skeleton .van-skeleton {
+  margin-top: 30rpx;
+  margin-bottom: 40rpx; }
+  #page-posts-index .item-skeleton .van-skeleton .van-skeleton__content .van-skeleton__row {
+    margin-top: 20rpx; }
+  #page-posts-index .item-skeleton .van-skeleton .van-skeleton__avatar, #page-posts-index .item-skeleton .van-skeleton .van-skeleton__row, #page-posts-index .item-skeleton .van-skeleton .van-skeleton__title {
+    background-color: #DDD !important; }
