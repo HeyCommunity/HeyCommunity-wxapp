@@ -182,19 +182,34 @@ Page({
   /**
    * 通知批量处理
    */
-  batchNoticeActionHandler(event) {
+  batchNoticeActionHandler(event, disableConfirm) {
     let _this = this;
     let action = event.currentTarget.dataset.action;
+    if (disableConfirm === undefined) disableConfirm = false;
 
     this.selectComponent('#dropdown-action').toggle(false);
 
     if (action === 'delete' && _this.data.models.length) {
-      let notice = _this.data.models[0];
-      let noticeIndex = 0;
+      let confirmHandler = function() {
+        let notice = _this.data.models[0];
+        let noticeIndex = 0;
 
-      _this.sendNoticeActionHttpRequest(action, notice, notice.id, noticeIndex).then(function() {
-        _this.batchNoticeActionHandler(event);
-      });
+        _this.sendNoticeActionHttpRequest(action, notice, notice.id, noticeIndex).then(function() {
+          _this.batchNoticeActionHandler(event, true);
+        });
+      }
+
+      if (disableConfirm) {
+        confirmHandler();
+      } else {
+        wx.showModal({
+          title: '删除全部消息',
+          content: '请确定是否要执行此操作？',
+          success(res) {
+            if (res.confirm) confirmHandler();
+          },
+        });
+      }
     } else {
       this.data.models.forEach(function(notice, noticeIndex) {
         _this.sendNoticeActionHttpRequest(action, notice, notice.id, noticeIndex);
