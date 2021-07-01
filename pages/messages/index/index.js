@@ -188,9 +188,18 @@ Page({
 
     this.selectComponent('#dropdown-action').toggle(false);
 
-    this.data.models.forEach(function(notice, noticeIndex) {
-      _this.sendNoticeActionHttpRequest(action, notice, notice.id, noticeIndex);
-    });
+    if (action === 'delete' && _this.data.models.length) {
+      let notice = _this.data.models[0];
+      let noticeIndex = 0;
+
+      _this.sendNoticeActionHttpRequest(action, notice, notice.id, noticeIndex).then(function() {
+        _this.batchNoticeActionHandler(event);
+      });
+    } else {
+      this.data.models.forEach(function(notice, noticeIndex) {
+        _this.sendNoticeActionHttpRequest(action, notice, notice.id, noticeIndex);
+      });
+    }
   },
 
   /**
@@ -219,26 +228,32 @@ Page({
 
     _this.messageMoveReset();
 
-    APP.HTTP.POST(_this.data.apiPath + '/' + action, {id: noticeId}).then(function(result) {
-      if (action === 'delete') {
-        _this.data.models.splice(noticeIndex, 1);
-        _this.setData({models: _this.data.models});
-      } else {
-        _this.data.models[noticeIndex] = result.data;
-        _this.setData({models: _this.data.models});
-      }
-
-      if (notice.is_read) {
-        if (action === 'set-unread') {
-          APP.globalData.userInfo.unread_notice_num += 1;
+    return new Promise(function(resolve, reject) {
+      APP.HTTP.POST(_this.data.apiPath + '/' + action, {id: noticeId}).then(function(result) {
+        if (action === 'delete') {
+          _this.data.models.splice(noticeIndex, 1);
+          _this.setData({models: _this.data.models});
+        } else {
+          _this.data.models[noticeIndex] = result.data;
+          _this.setData({models: _this.data.models});
         }
-      } else {
-        if (action === 'delete' || action === 'set-isread') {
-          APP.globalData.userInfo.unread_notice_num -= 1;
-        }
-      }
 
-      APP.resetNoticeTabBarBadge(true);
+        if (notice.is_read) {
+          if (action === 'set-unread') {
+            APP.globalData.userInfo.unread_notice_num += 1;
+          }
+        } else {
+          if (action === 'delete' || action === 'set-isread') {
+            APP.globalData.userInfo.unread_notice_num -= 1;
+          }
+        }
+
+        APP.resetNoticeTabBarBadge(true);
+
+        resolve(result);
+      }).catch(function(res) {
+        reject(res);
+      });
     });
   },
 
