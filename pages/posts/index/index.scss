@@ -18,21 +18,4 @@
       font-weight: bold;
     }
   }
-
-  .item-skeleton {
-    .van-skeleton {
-      margin-top: 30rpx;
-      margin-bottom: 40rpx;
-
-      .van-skeleton__content {
-        .van-skeleton__row {
-          margin-top: 20rpx;
-        }
-      }
-
-      .van-skeleton__avatar, .van-skeleton__row, .van-skeleton__title {
-        background-color: #DDD !important;
-      }
-    }
-  }
 }

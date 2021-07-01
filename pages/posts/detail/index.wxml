@@ -1,7 +1,9 @@
 <view class="container-full" id="page-posts-detail">
   <van-notify id="van-notify"></van-notify>
 
-  <view wx:if="{{ models.length > 0 }}" class="items-post">
-    <post-card posts="{{ models }}" is-detail="{{ true }}"></post-card>
-  </view>
+  <van-skeleton class="item-skeleton" title avatar avatar-size="44px" row="8" loading="{{ skeletonVisible }}">
+    <view wx:if="{{ models.length > 0 }}" class="items-post">
+      <post-card posts="{{ models }}" is-detail="{{ true }}"></post-card>
+    </view>
+  </van-skeleton>
 </view>

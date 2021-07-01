@@ -1,2 +1,6 @@
 #page-posts-detail {
   padding-bottom: 30rpx; }
+  #page-posts-detail .item-skeleton .van-skeleton {
+    padding-top: 30rpx;
+    margin-top: auto;
+    margin-bottom: auto; }

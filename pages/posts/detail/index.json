@@ -6,6 +6,7 @@
   "backgroundTextStyle": "light",
   "enablePullDownRefresh": true,
   "usingComponents": {
-    "post-card": "/components/post/list/index"
+    "post-card": "/components/post/list/index",
+    "van-skeleton": "@vant/weapp/skeleton/index"
   }
 }
