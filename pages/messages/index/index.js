@@ -11,6 +11,7 @@ Page({
     refreshLoading: false,
     moreLoading: false,
 
+    wxSubscribePostNoticeNum: 0,
     messageTouchClass: null,
   },
 
@@ -165,9 +166,10 @@ Page({
           APP.globalData.systemSettings.wxapp_subscribe_message.reply_temp_id,
         ],
         success: function(res) {
+          _this.setData({wxSubscribePostNoticeNum: _this.data.wxSubscribePostNoticeNum + 1});
           APP.Notify({
             type: 'primary',
-            message: '订阅已完成 \n 点击这里再次订阅',
+            message: '订阅完成 x ' + _this.data.wxSubscribePostNoticeNum + ' \n 点击这里再次订阅',
             onClick: function() {
               _this.subscribePostMessagesHandler();
             },

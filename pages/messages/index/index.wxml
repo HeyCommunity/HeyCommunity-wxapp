@@ -56,6 +56,6 @@
   </view>
 
   <view id="section-more-loading-disabled-tip" class="padding-lr-xl padding-tb-lg" wx:if="{{ models.length && currentPage >= lastPage }}">
-    <van-divider contentPosition="center" customStyle="margin:0;">没有更多数据了</van-divider>
+    <van-divider contentPosition="center" customStyle="margin:0;">没有更多消息了</van-divider>
   </view>
 </view>
