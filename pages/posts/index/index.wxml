@@ -1,7 +1,7 @@
 <view class="container-full" id="page-posts-index">
   <van-notice-bar mode="link" color="#000000" background="#ffffff" left-icon="volume-o" delay="0" speed="30"
                   bind:click="gotoHeyCommunityPage"
-                  text="当前小程序为「HEY社区」的产品演示，你可以在这里自由发布有意义有价值的内容 ~">
+                  text="这是「HEY社区」的产品演示，你可以在这里自由地分享有意义或有趣的内容 ~">
   </van-notice-bar>
   <van-notify id="van-notify"></van-notify>
 
