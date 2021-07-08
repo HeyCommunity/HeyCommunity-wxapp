@@ -361,8 +361,7 @@ Component({
       if (action === 'detail') {
         wx.navigateTo({url: '/pages/posts/detail/index?id=' + post.id});
       } else if (action === 'report') {
-        // TODO: 后台处理
-        wx.showModal({title: '报告不良信息', content: '感谢，我们已收到你的报告信息', showCancel: false});
+        _this.userReportHandler({type: 'post', entity_id: post.id});
       } else if (action === 'delete') {
         wx.showLoading({title: '动态删除中'});
         APP.HTTP.POST('posts/delete', {id: post.id}).then(function(result) {
@@ -442,8 +441,7 @@ Component({
       let postIndex = _this.data.postCommentActionPostIndex;
 
       if (action === 'report') {
-        // TODO: 后台处理
-        wx.showModal({title: '报告不良信息', content: '感谢，我们已收到你的报告', showCancel: false});
+        _this.userReportHandler({type: 'comment', entity_id: comment.id});
       } else if (action === 'delete') {
         wx.showLoading({title: '评论删除中'});
         APP.HTTP.POST('posts/comments/delete', {id: comment.id}).then(function(result) {
@@ -467,6 +465,15 @@ Component({
       }
 
       _this.setData({postCommentActionSheetVisible: false});
+    },
+
+    /**
+     * 用户报告不良信息处理
+     */
+    userReportHandler(params) {
+      APP.HTTP.POST('user-reports', params).finally(function() {
+        wx.showModal({title: '报告不良信息', content: '感谢，我们已收到你的报告', showCancel: false});
+      });
     },
   },
 });
