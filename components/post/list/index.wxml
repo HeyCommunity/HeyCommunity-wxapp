@@ -21,23 +21,27 @@
       </view>
 
       <!-- 内容与图片 -->
-      <view class="text-content">
-        <text>{{ post.content }}</text>
-      </view>
-      <view wx:if="{{ post.video }}" class="item-video">
-        <video id="video-{{ post.id }}" class="video" src="{{ post.video.file_path }}" title="{{ post.content }}"
-               bind:play="videoPlayHandler" show-mute-btn="{{ true }}"
-               controls="{{ true || currentVideoId === ('video-' + post.id) }}"
-               vslide-gesture-in-fullscreen="{{ false }}"
-               enable-progress-gesture="{{ true }}" enable-play-gesture="{{ true }}" enable-auto-rotation="{{ false }}">
-        </video>
-      </view>
-      <view wx:if="{{ post.images.length > 0 }}"
-            class="items-image grid flex-sub padding-lr {{ post.images.length > 1 ? 'col-3 grid-square' : 'col-1' }}">
-        <view class="item-image bg-img {{ post.images.length > 1 ? '' : 'only-img' }}"
-              style="background-image:url('{{ image.file_path }}');"
-              bind:tap="previewImage" data-url="{{ image.file_path }}" data-urls="{{ post.images }}"
-              wx:for="{{ post.images }}" wx:for-item="image" wx:key="*this">
+      <view class="section-content">
+        <view class="text-content {{ posts.length === 1 ? 'text-display-all' : 'text-display-part' }}">
+          <text>{{ post.content }}</text>
+        </view>
+
+        <view wx:if="{{ post.video }}" class="item-video">
+          <video id="video-{{ post.id }}" class="video" src="{{ post.video.file_path }}" title="{{ post.content }}"
+                 bind:play="videoPlayHandler" show-mute-btn="{{ true }}"
+                 controls="{{ true || currentVideoId === ('video-' + post.id) }}"
+                 vslide-gesture-in-fullscreen="{{ false }}"
+                 enable-progress-gesture="{{ true }}" enable-play-gesture="{{ true }}" enable-auto-rotation="{{ false }}">
+          </video>
+        </view>
+
+        <view wx:if="{{ post.images.length > 0 }}"
+              class="items-image grid flex-sub padding-lr {{ post.images.length > 1 ? 'col-3 grid-square' : 'col-1' }}">
+          <view class="item-image bg-img {{ post.images.length > 1 ? '' : 'only-img' }}"
+                style="background-image:url('{{ image.file_path }}');"
+                bind:tap="previewImage" data-url="{{ image.file_path }}" data-urls="{{ post.images }}"
+                wx:for="{{ post.images }}" wx:for-item="image" wx:key="*this">
+          </view>
         </view>
       </view>
 

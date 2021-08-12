@@ -18,17 +18,41 @@
       }
     }
 
-    .text-content {
-      max-height: none;
-    }
+    .section-content {
+      .text-content {
+        padding: 0 30rpx 0;
+        max-height: 6.4em;
+        overflow: hidden;
+        font-size: 30rpx;
+        margin-bottom: 20rpx;
 
-    .item-video {
-      .video {
-        width: 100%;
+        &.text-display-all {
+          max-height: none;
+          overflow: auto;
+        }
+
+        &.text-display-part {
+          position: relative;
+
+          &:after {
+            content: " ...";
+            position: absolute;
+            bottom: 0;
+            right: 30rpx;
+            padding: 0 5px;
+            background-color: #fff;
+          }
+        }
       }
-    }
 
-    .items-image {
+      .item-video {
+        .video {
+          width: 100%;
+        }
+      }
+
+      .items-image {
+      }
     }
 
     //
