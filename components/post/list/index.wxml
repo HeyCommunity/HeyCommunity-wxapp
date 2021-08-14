@@ -22,7 +22,7 @@
 
       <!-- 内容与图片 -->
       <view class="section-content">
-        <view class="text-content {{ posts.length === 1 ? 'text-display-all' : 'text-display-part' }}">
+        <view class="text-content {{ posts.length === 1 ? 'text-display-all' : '' }} {{ post.content.length >= 100 ? 'text-display-part' : '' }}">
           <text>{{ post.content }}</text>
         </view>
 
