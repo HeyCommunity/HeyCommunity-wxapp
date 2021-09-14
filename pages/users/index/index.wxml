@@ -37,14 +37,12 @@
     </view>
 
     <view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg radius">
-      <navigator wx:if="{{ appGlobalData.isAuth && appGlobalData.userInfo.unread_notice_num }}"
-                 open-type="switchTab" url="/pages/messages/index/index" class="cu-item arrow">
+      <navigator wx:if="{{ appGlobalData.isAuth }}" open-type="switchTab" url="/pages/messages/index/index" class="cu-item arrow">
         <view class="content">
-          <text class="cuIcon-notice text-red"></text>
+          <text class="cuIcon-notice text-green"></text>
           <text class="text-grey">通知</text>
         </view>
-        <view class="action">
-          <text class="text-red text-sm">{{ appGlobalData.userInfo.unread_notice_num }} 条未读</text>
+        <view class="action" wx:if="{{ appGlobalData.userInfo.unread_notice_num }}">
           <!--
             <view class="cu-avatar-group">
               <view class="cu-avatar round sm" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big10004.jpg);"></view>
@@ -53,6 +51,10 @@
               <view class="cu-avatar round sm" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big10001.jpg);"></view>
             </view>
           -->
+          <text class="text-red text-sm">{{ appGlobalData.userInfo.unread_notice_num }} 条未读</text>
+        </view>
+        <view class="action" wx:else>
+          <text class="text-grey text-sm">无通知</text>
         </view>
       </navigator>
 
