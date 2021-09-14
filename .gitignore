@@ -2,4 +2,6 @@
 .idea
 *.map
 node_modules
+
+envs
 env.local.js
