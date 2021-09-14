@@ -1,5 +1,7 @@
 {
   "pages":[
+    "pages/users/detail/index",
+
     "pages/posts/index/index",
     "pages/posts/detail/index",
     "pages/posts/create/index",
