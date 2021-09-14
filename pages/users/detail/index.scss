@@ -1,9 +1,7 @@
 .UCenter-bg {
   background-image: url(https://raw.githubusercontent.com/HeyCommunity/HeyCommunity-wxapp/dev-master/assets/images/users/default-cover.jpg);
   background-size: cover;
-  height: 550rpx;
-  display: flex;
-  justify-content: center;
+  height: 250rpx;
   padding-top: 40rpx;
   overflow: hidden;
   position: relative;
@@ -12,6 +10,22 @@
   color: #fff;
   font-weight: 300;
   text-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+
+  .box {
+    padding-left: 60rpx;
+
+    .avatar {
+      height: 160rpx;
+      width: 160rpx;
+    }
+
+    .info {
+      .nickname {
+      }
+
+      .bio {}
+    }
+  }
 
   text {
     opacity: 0.8;
@@ -30,16 +44,5 @@
     z-index: 99;
     mix-blend-mode: screen;
     height: 100rpx;
-  }
-}
-
-.cu-list {
-  button.cu-item {
-    text-align: left;
-    width: 100%;
-    font-weight:normal;
-    font-size:30rpx;
-    height:46rpx;
-    line-height:1.6em;
   }
 }

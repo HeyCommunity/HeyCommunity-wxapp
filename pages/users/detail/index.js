@@ -7,14 +7,17 @@ Page({
     defaultUserCoverImagePath: apiDomain + '/images/users/default-cover.jpg',
     defaultProfileWaveImagePath: apiDomain + '/images/users/profile-wave.gif',
 
-    wxAppAccountInfo: null,
+    userId: null,
+    userInfo: null,
   },
 
   /**
    * onLoad
    */
-  onLoad() {
-    this.setData({wxAppAccountInfo: wx.getAccountInfoSync()});
+  onLoad(options) {
+    let _this = this;
+
+    _this.setData({userId: options.id});
   },
 
   /**
@@ -22,69 +25,21 @@ Page({
    */
   onShow() {
     this.setData({appGlobalData: APP.globalData});
-    this.refreshUserInfo();
+    this.getUserInfo();
   },
 
   /**
-   * reset UserInfo
+   * 获取用户信息
    */
-  refreshUserInfo() {
+  getUserInfo() {
     let _this = this;
 
-    if (APP.globalData.isAuth) {
-      APP.HTTP.GET('users/mine').then(function(result) {
-        APP.globalData.userInfo = result.data;
-        _this.setData({appGlobalData: APP.globalData});
+    APP.HTTP.GET('users/' + _this.data.userId).then(function(result) {
+      _this.setData({userInfo: result.data});
 
-        APP.resetTabBarBadge();
+      wx.setNavigationBarTitle({
+        title: result.data.nickname,
       });
-    }
-  },
-
-  /**
-   * goto WebPage
-   */
-  gotoWebPage(event) {
-    let webPageUrl = event.currentTarget.dataset.link;
-
-    wx.navigateTo({url: '/pages/web-page/index?webPageUrl=' + webPageUrl});
-  },
-
-  /**
-   * goto HeyCommunity 页面
-   */
-  gotoHeyCommunityPage() {
-    wx.navigateTo({url: '/pages/users/hey-community/index'});
-  },
-
-  /**
-   * needAuth
-   */
-  needAuth() {
-    APP.needAuth();
-  },
-
-  /**
-   * logoutHandler
-   */
-  logoutHandler() {
-    let _this = this;
-
-    wx.showLoading({title: '正在退出'});
-
-    APP.AUTH.userLogout().then(function() {
-      wx.showModal({
-        title: '你已安全登出',
-        showCancel: false,
-      });
-    }).catch(function() {
-      wx.showModal({
-        title: '你已退出登录',
-        showCancel: false,
-      });
-    }).finally(function() {
-      _this.setData({appGlobalData: APP.globalData});
-      wx.hideLoading();
     });
-  }
+  },
 });

@@ -1,7 +1,5 @@
 {
   "pages":[
-    "pages/users/detail/index",
-
     "pages/posts/index/index",
     "pages/posts/detail/index",
     "pages/posts/create/index",
@@ -9,7 +7,9 @@
     "pages/messages/index/index",
 
     "pages/users/index/index",
+    "pages/users/detail/index",
     "pages/users/auth/index",
+
     "pages/users/hey-community/index",
 
     "pages/web-page/index"

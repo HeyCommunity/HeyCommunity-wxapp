@@ -3,34 +3,32 @@
 
   <scroll-view scroll-y class="scrollPage">
     <view class="UCenter-bg" style="background-image:url({{ defaultUserCoverImagePath }})">
-      <view wx:if="{{ appGlobalData.isAuth }}" class="text-center">
-        <image src="{{ appGlobalData.userInfo.avatar }}" class="png" mode="widthFix" style="border-radius:50%;"></image>
-        <view class="text-xl margin-top-sm">{{ appGlobalData.userInfo.nickname }}</view>
-        <view class="margin-top-sm" wx:if="{{ appGlobalData.userInfo.bio }}"><text>{{ appGlobalData.userInfo.bio }}</text></view>
-      </view>
-      <view wx:else class="text-center">
-        <image bind:tap="needAuth" src="/assets/images/users/default-avatar.jpg" class="png" mode="widthFix" style="border-radius:50%;"></image>
-        <view bind:tap="needAuth" class="text-xl margin-top-sm">请登录</view>
+      <view class="box flex">
+        <image src="{{ userInfo.avatar }}" class="avatar" mode="widthFix" style="border-radius:50%;"></image>
+        <view class="info margin-left-sm">
+          <view class="nickname text-xl margin-top-sm">{{ userInfo.nickname }}</view>
+          <view class="bio margin-top-sm" wx:if="{{ userInfo.bio }}"><text>{{ userInfo.bio }}</text></view>
+        </view>
       </view>
       <image src="{{ defaultProfileWaveImagePath }}" mode="scaleToFill" class="gif-wave"></image>
     </view>
 
-    <view class="padding flex text-center text-grey bg-white shadow-warp">
+    <view class="padding-bottom-sm flex text-center text-grey bg-white shadow-warp">
       <view class="flex flex-sub flex-direction solid-right">
-        <view class="text-xxl text-orange">{{ appGlobalData.isAuth ? appGlobalData.userInfo.post_num : 0}}</view>
-        <view class="margin-top-sm">
+        <view class="text-xxl text-orange">{{ userInfo.post_num }}</view>
+        <view>
           <text class="cuIcon-newsfill"></text> 动态
         </view>
       </view>
       <view class="flex flex-sub flex-direction solid-right">
-        <view class="text-xxl text-green">{{ appGlobalData.isAuth ? appGlobalData.userInfo.got_post_comment_num : 0 }}</view>
-        <view class="margin-top-sm">
+        <view class="text-xxl text-green">{{ userInfo.got_post_comment_num }}</view>
+        <view>
           <text class="cuIcon-commentfill"></text> 评论
         </view>
       </view>
       <view class="flex flex-sub flex-direction">
-        <view class="text-xxl text-blue">{{ appGlobalData.isAuth ? appGlobalData.userInfo.got_post_thumb_up_num : 0 }}</view>
-        <view class="margin-top-sm">
+        <view class="text-xxl text-blue">{{ userInfo.got_post_thumb_up_num }}</view>
+        <view>
           <text class="cuIcon-appreciatefill"></text> 被赞
         </view>
       </view>

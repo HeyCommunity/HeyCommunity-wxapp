@@ -13,37 +13,43 @@
     "miniprogram": {
       "list": [
         {
-          "name": "动态列表页",
+          "name": "[POST] 动态列表页",
           "pathName": "pages/posts/index/index",
           "query": "",
           "scene": null
         },
         {
-          "name": "动态详情页",
+          "name": "[POST] 动态详情页",
           "pathName": "pages/posts/detail/index",
           "query": "id=1",
           "scene": null
         },
         {
-          "name": "动态发布页",
+          "name": "[POST] 动态发布页",
           "pathName": "pages/posts/create/index",
           "query": "",
           "scene": null
         },
         {
-          "name": "消息列表页",
+          "name": "[MESSAGE] 消息列表页",
           "pathName": "pages/messages/index/index",
           "query": "",
           "scene": null
         },
         {
-          "name": "我的页面",
+          "name": "[USER] 我的页面",
           "pathName": "pages/users/index/index",
           "query": "",
           "scene": null
         },
         {
-          "name": "登录页面",
+          "name": "[USER] 用户主页",
+          "pathName": "pages/users/detail/index",
+          "query": "id=1",
+          "scene": null
+        },
+        {
+          "name": "[USER] 登录页面",
           "pathName": "pages/users/auth/index",
           "query": "",
           "scene": null
