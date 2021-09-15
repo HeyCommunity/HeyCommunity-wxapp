@@ -4,6 +4,9 @@
   "navigationBarTitleText": "用户主页",
   "backgroundColor": "#eeeeee",
   "backgroundTextStyle": "light",
+  "enablePullDownRefresh": true,
+  "onReachBottomDistance": 200,
   "usingComponents": {
+    "post-list": "/components/post/list/index"
   }
 }

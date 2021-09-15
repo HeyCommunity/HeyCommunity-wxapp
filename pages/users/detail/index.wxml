@@ -1,7 +1,7 @@
 <view class="container-full">
   <van-notify id="van-notify"></van-notify>
 
-  <scroll-view scroll-y class="scrollPage">
+  <view scroll-y class="scrollPage">
     <view class="UCenter-bg" style="background-image:url({{ defaultUserCoverImagePath }})">
       <view class="box flex">
         <image src="{{ userInfo.avatar }}" class="avatar" mode="widthFix" style="border-radius:50%;"></image>
@@ -33,5 +33,20 @@
         </view>
       </view>
     </view>
-  </scroll-view>
+  </view>
+
+  <!-- posts -->
+  <view class="margin-top-sm">
+    <view wx:if="{{ posts.length > 0 }}" class="items-post">
+      <post-list id="comp-post-list" posts="{{ posts }}"></post-list>
+    </view>
+
+    <!-- tips -->
+    <view id="section-more-loading-tip" wx:if="{{ moreLoading }}" class="text-center padding-tb">
+      <van-loading type="spinner">加载中...</van-loading>
+    </view>
+    <view id="section-more-loading-disabled-tip" class="padding-lr-xl padding-tb-lg" wx:if="{{ posts.length && currentPage >= lastPage }}">
+      <van-divider contentPosition="center" customStyle="margin:0;">没有更多动态了</van-divider>
+    </view>
+  </view>
 </view>
