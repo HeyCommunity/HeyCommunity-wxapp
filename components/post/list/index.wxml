@@ -6,9 +6,12 @@
       <!-- Header -->
       <view id="section-header" class="section-header cu-list menu-avatar">
         <view class="cu-item">
-          <view class="cu-avatar round lg" style="background-image:url('{{ post.user_avatar }}');"></view>
+          <view class="cu-avatar round lg"
+                bind:tap="gotoUserDetailPage" data-id="{{ post.user_id }}"
+                style="background-image:url('{{ post.user_avatar }}');">
+          </view>
           <view class="content flex-sub">
-            <view>{{ post.user_nickname }}</view>
+            <view bind:tap="gotoUserDetailPage" data-id="{{ post.user_id }}">{{ post.user_nickname }}</view>
             <view class="text-gray text-sm flex justify-between">{{ post.created_at_for_humans }}</view>
           </view>
           <view>
@@ -80,14 +83,17 @@
       <view wx:if="{{ post.comments.length > 0 }}" id="section-comments"  class="section-comments cu-list menu-avatar comment">
         <view class="item-comment cu-item solid-bottom" wx:for="{{ post.comments }}" wx:key="id" wx:for-item="comment"
               wx:for-index="commentIndex">
-          <view class="cu-avatar round" style="background-image:url('{{ comment.user_avatar }}');"></view>
+          <view class="cu-avatar round"
+                bind:tap="gotoUserDetailPage" data-id="{{ comment.user_id }}"
+                style="background-image:url('{{ comment.user_avatar }}');">
+          </view>
           <view class="content">
-            <view class="text-grey">{{ comment.user_nickname }}</view>
+            <view class="text-grey" bind:tap="gotoUserDetailPage" data-id="{{ comment.user_id }}">{{ comment.user_nickname }}</view>
             <view class="text-grey text-content text-df">{{ comment.content }}</view>
 
             <view wx:if="{{ comment.parent }}" class="bg-gray padding-tb-xs padding-lr-sm radius margin-top-sm text-sm">
               <view class="flex">
-                <view>{{ comment.parent.user.nickname }}：</view>
+                <view bind:tap="gotoUserDetailPage" data-id="{{ comment.parent.user_id }}">{{ comment.parent.user.nickname }}：</view>
                 <view class="flex-sub">{{ comment.parent.content }}</view>
               </view>
             </view>

@@ -64,6 +64,15 @@ Component({
 
   methods: {
     /**
+     * 进入用户主页
+     */
+    gotoUserDetailPage(event) {
+      let userId = event.currentTarget.dataset.id;
+
+      wx.navigateTo({url: '/pages/users/detail/index?id=' + userId});
+    },
+
+    /**
      * 预览图片
      */
     previewImage(event) {
