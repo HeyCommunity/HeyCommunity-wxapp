@@ -6,8 +6,8 @@
       <view class="box flex">
         <image src="{{ userInfo.avatar }}" class="avatar" mode="widthFix" style="border-radius:50%;"></image>
         <view class="info margin-left-sm">
-          <view class="nickname text-xl margin-top-sm">{{ userInfo.nickname }}</view>
-          <view class="bio margin-top-sm" wx:if="{{ userInfo.bio }}"><text>{{ userInfo.bio }}</text></view>
+          <view class="nickname text-xl margin-top-lg">{{ userInfo.nickname }}</view>
+          <view class="bio"><text>{{ userInfo.bio ? userInfo.bio : '暂无简介' }}</text></view>
         </view>
       </view>
       <image src="{{ defaultProfileWaveImagePath }}" mode="scaleToFill" class="gif-wave"></image>
