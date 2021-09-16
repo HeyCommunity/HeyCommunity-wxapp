@@ -37,7 +37,7 @@
     </view>
 
     <view wx:if="{{ appGlobalData.isAuth }}" class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg radius">
-      <navigator wx:if="{{ appGlobalData.isAuth }}" url="/pages/users/detail/index?id={{ appGlobalData.userInfo.id }}" class="cu-item arrow">
+      <navigator url="/pages/users/detail/index?id={{ appGlobalData.userInfo.id }}" class="cu-item arrow">
         <view class="content">
           <text class="cuIcon-homefill text-blue"></text>
           <text class="text-grey">我的主页</text>
@@ -47,7 +47,7 @@
         </view>
       </navigator>
 
-      <navigator url="/pages/users/detail/index?id={{ appGlobalData.userInfo.id }}" class="cu-item arrow">
+      <navigator url="/pages/users/info/index" class="cu-item arrow">
         <view class="content">
           <text class="cuIcon-profilefill text-orange"></text>
           <text class="text-grey">我的资料</text>

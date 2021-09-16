@@ -43,6 +43,12 @@
           "scene": null
         },
         {
+          "name": "[USER] 我的资料",
+          "pathName": "pages/users/form/index",
+          "query": "",
+          "scene": null
+        },
+        {
           "name": "[USER] 用户主页",
           "pathName": "pages/users/detail/index",
           "query": "id=1",

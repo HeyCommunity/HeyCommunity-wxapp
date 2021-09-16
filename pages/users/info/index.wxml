@@ -1,0 +1,48 @@
+<view class="container-full">
+  <view>
+    <view class="cu-form-group margin-top">
+      <view class="title">头像</view>
+      <view class="cu-avatar radius bg-gray" style="background-image:url('{{ userInfo.avatar }}');"></view>
+    </view>
+    <view class="cu-form-group">
+      <view class="title">封面图</view>
+      <view class="cu-avatar radius bg-gray" style="background-image:url('{{ defaultUserCoverImagePath }}');"></view>
+    </view>
+  </view>
+
+  <view class="margin-top">
+    <view class="cu-form-group">
+      <view class="title">昵称</view>
+      <input class="text-right" placeholder="你的名字" value="{{ userInfo.nickname }}"></input>
+    </view>
+    <view class="cu-form-group">
+      <view class="title">签名</view>
+      <input class="text-right" placeholder="一句话介绍自己" value="{{ userInfo.bio }}"></input>
+    </view>
+    <view class="cu-form-group">
+      <view class="title">性别</view>
+      <picker bind:change="genderPickerChange" value="{{ userInfo.gender }}" range="{{ ['保密', '男', '女'] }}">
+        <view class="picker">
+          {{ userInfo.gender ? userInfo.gender : '请选择'}}
+        </view>
+      </picker>
+    </view>
+    <view class="cu-form-group">
+      <view class="title">手机号码</view>
+      <input class="text-right" placeholder="请输入手机号码" value="{{ userInfo.bio }}"></input>
+    </view>
+    <view class="cu-form-group">
+      <view class="title">电子邮箱</view>
+      <input class="text-right" placeholder="请输入电子邮箱" value="{{ userInfo.bio }}"></input>
+    </view>
+
+    <view class="cu-form-group align-start">
+      <view class="title">个人简介</view>
+      <textarea class="text-right" maxlength="-1" disabled="{{modalName!=null}}" bindinput="textareaBInput" placeholder="请输入你的个人简介"></textarea>
+    </view>
+  </view>
+
+  <view class="margin-lg">
+    <button class="cu-btn block lg bg-blue">更新</button>
+  </view>
+</view>
