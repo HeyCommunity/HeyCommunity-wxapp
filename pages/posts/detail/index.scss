@@ -1,11 +1,46 @@
 #page-posts-detail {
-  padding-bottom: 30rpx;
+  padding-bottom: 170rpx;
 
   .item-skeleton {
     .van-skeleton {
       padding-top: 30rpx;
       margin-top: auto;
       margin-bottom: auto;
+    }
+  }
+
+  #footer {
+    padding: 30rpx 30rpx 40rpx;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: white;
+    flex-direction: row;
+    display: flex;
+
+    .item {
+    }
+
+    .btn-thumb {
+      height: 80rpx;
+      width: 80rpx;
+      font-size: 34rpx;
+    }
+
+    .box-input {
+      margin-left: 1rem;
+      flex-grow: 1;
+
+      .el-input {
+        background-color: #F0F0F0;
+        width: 100%;
+        height: 80rpx;
+        line-height: 2rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
+        border-radius: 2rem;
+      }
     }
   }
 }
