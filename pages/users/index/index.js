@@ -42,6 +42,21 @@ Page({
   },
 
   /**
+   * goto 用户主页
+   */
+  gotoUserDetailPage() {
+    let userId = this.data.appGlobalData.userInfo.id;
+    wx.navigateTo({url: '/pages/users/detail/index?id=' + userId});
+  },
+
+  /**
+   * goto HEY社区页面
+   */
+  gotoHeyCommunityPage() {
+    wx.navigateTo({url: '/pages/users/hey-community/index'});
+  },
+
+  /**
    * goto WebPage
    */
   gotoWebPage(event) {

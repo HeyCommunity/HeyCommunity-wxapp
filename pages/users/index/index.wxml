@@ -1,7 +1,14 @@
-<view class="container-full">
+<view id="page-users-index" class="container-full">
   <van-notify id="van-notify"></van-notify>
 
-  <scroll-view scroll-y class="scrollPage">
+  <view id="section-user-card">
+    <view wx:if="{{ appGlobalData.isAuth }}" class="btn-edit">
+      <navigator url="/pages/users/info/index" class="cu-btn sm round bg-white">
+        <text class="icon cuIcon-skin margin-right-xs"></text>
+        <text class="text-sm">更新资料</text>
+      </navigator>
+    </view>
+
     <view class="UCenter-bg" style="background-image:url({{ defaultUserCoverImagePath }})">
       <view wx:if="{{ appGlobalData.isAuth }}" class="text-center">
         <image src="{{ appGlobalData.userInfo.avatar }}" class="png" mode="widthFix" style="border-radius:50%;"></image>
@@ -35,105 +42,96 @@
         </view>
       </view>
     </view>
+  </view>
 
-    <view wx:if="{{ appGlobalData.isAuth }}" class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg radius">
-      <navigator url="/pages/users/detail/index?id={{ appGlobalData.userInfo.id }}" class="cu-item arrow">
-        <view class="content">
-          <text class="cuIcon-homefill text-blue"></text>
-          <text class="text-grey">我的主页</text>
-        </view>
-        <view class="action">
-          <text class="text-gray text-sm"></text>
-        </view>
-      </navigator>
-
-      <navigator url="/pages/users/info/index" class="cu-item arrow">
-        <view class="content">
-          <text class="cuIcon-profilefill text-orange"></text>
-          <text class="text-grey">我的资料</text>
-        </view>
-      </navigator>
-    </view>
-
-    <view wx:if="{{ false }}" class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg radius">
-      <view class="cu-item arrow">
-        <view class="content">
-          <text class="cuIcon-profile text-blue"></text>
-          <text class="text-grey">我的资料</text>
-        </view>
+  <!-- 我的主页 -->
+  <view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg radius">
+    <view class="cu-item arrow" bind:tap="gotoUserDetailPage">
+      <view class="content">
+        <text class="cuIcon-homefill text-blue"></text>
+        <text class="text-grey">我的主页</text>
       </view>
-      <view class="cu-item arrow">
-        <view class="content">
-          <text class="cuIcon-news text-blue"></text>
-          <text class="text-grey">我的动态</text>
-        </view>
-      </view>
-      <view class="cu-item arrow">
-        <view class="content">
-          <text class="cuIcon-comment text-blue"></text>
-          <text class="text-grey">我的评论</text>
-        </view>
-      </view>
-      <view class="cu-item arrow">
-        <view class="content">
-          <text class="cuIcon-appreciate text-blue"></text>
-          <text class="text-grey">我的点赞</text>
-        </view>
+      <view class="action">
+        <text class="text-gray text-sm"></text>
       </view>
     </view>
+  </view>
 
-    <view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg radius">
-      <navigator url="/pages/users/hey-community/index" class="cu-item arrow">
-        <view class="content">
-          <text class="cuIcon-github text-black"></text>
-          <text class="text-grey">HEY社区</text>
-        </view>
-        <view class="action">
-          <text class="text-gray text-sm">免费开源</text>
-        </view>
-      </navigator>
-      <button class="cu-item arrow" open-type="contact">
-        <view class="content">
-          <text class="cuIcon-servicefill text-green"></text>
-          <text class="text-grey">联系客服</text>
-        </view>
-      </button>
-      <button class="cu-item arrow" open-type="feedback">
-        <view class="content">
-          <text class="cuIcon-writefill text-cyan"></text>
-          <text class="text-grey">意见反馈</text>
-        </view>
-      </button>
-    </view>
+  <!-- 我的xx -->
+  <view wx:if="{{ false }}" class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg radius">
+                                                                                                                <view class="cu-item arrow">
+                                                                                                                <view class="content">
+                                                                                                                <text class="cuIcon-profile text-blue"></text>
+                                                                                                                <text class="text-grey">我的资料</text>
+                                                                                                                </view>
+                                                                                                                </view>
+                                                                                                                <view class="cu-item arrow">
+                                                                                                                <view class="content">
+                                                                                                                <text class="cuIcon-news text-blue"></text>
+                                                                                                                <text class="text-grey">我的动态</text>
+                                                                                                                </view>
+                                                                                                                </view>
+                                                                                                                <view class="cu-item arrow">
+                                                                                                                <view class="content">
+                                                                                                                <text class="cuIcon-comment text-blue"></text>
+                                                                                                                <text class="text-grey">我的评论</text>
+                                                                                                                </view>
+                                                                                                                </view>
+                                                                                                                <view class="cu-item arrow">
+                                                                                                                <view class="content">
+                                                                                                                <text class="cuIcon-appreciate text-blue"></text>
+                                                                                                                <text class="text-grey">我的点赞</text>
+                                                                                                                </view>
+                                                                                                                </view>
+                                                                                                                </view>
 
-    <view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg radius">
-      <view class="cu-item arrow" style="display:none;">
-        <view class="content">
-          <text class="cuIcon-evaluate text-blue"></text>
-          <text class="text-grey">用户协议</text>
-        </view>
+  <!-- 其他 -->
+  <view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg radius">
+    <view class="cu-item arrow" bind:tap="gotoHeyCommunityPage">
+      <view class="content">
+        <text class="cuIcon-github text-black"></text>
+        <text class="text-grey">HEY社区</text>
       </view>
-
-      <view wx:if="{{ appGlobalData.isAuth }}" class="cu-item text-center" bind:tap="logoutHandler">
-        <view class="content">
-          <text class="cuIcon-exit text-red"></text>
-          <text class="text-red">退出登录</text>
-        </view>
-      </view>
-      <view wx:else class="cu-item text-center" bind:tap="needAuth">
-        <view class="content">
-          <text class="cuIcon-profile text-blue"></text>
-          <text class="text-blue">登录</text>
-        </view>
+      <view class="action">
+        <text class="text-gray text-sm">免费开源</text>
       </view>
     </view>
-
-    <view id="section-copyright" class="padding-bottom-xl padding-top-lg">
-      <view class="text-center text-gray" bind:tap="gotoHeyCommunityPage">
-        <view wx:if="{{ wxAppAccountInfo.miniProgram.envVersion === 'release' }}">HeyCommunity V{{ wxAppAccountInfo.miniProgram.version }}</view>
-        <view wx:else >HeyCommunity {{ wxAppAccountInfo.miniProgram.envVersion }}</view>
-        <view>Developed by supeRodv2 of ProtobiaTech</view>
+    <button class="cu-item arrow" open-type="contact">
+      <view class="content">
+        <text class="cuIcon-servicefill text-green"></text>
+        <text class="text-grey">联系客服</text>
       </view>
+    </button>
+    <button class="cu-item arrow" open-type="feedback">
+      <view class="content">
+        <text class="cuIcon-writefill text-cyan"></text>
+        <text class="text-grey">意见反馈</text>
+      </view>
+    </button>
+  </view>
+
+  <!-- 登录和退出 -->
+  <view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg radius">
+                                                                                    <view wx:if="{{ appGlobalData.isAuth }}" class="cu-item text-center" bind:tap="logoutHandler">
+                                                                                    <view class="content">
+                                                                                    <text class="cuIcon-exit text-red"></text>
+                                                                                    <text class="text-red">退出登录</text>
+                                                                                    </view>
+                                                                                    </view>
+                                                                                    <view wx:else class="cu-item text-center" bind:tap="needAuth">
+                                                                                    <view class="content">
+                                                                                    <text class="cuIcon-weixin text-blue"></text>
+                                                                                    <text class="text-blue">登录</text>
+                                                                                    </view>
+                                                                                    </view>
+                                                                                    </view>
+
+  <!-- 版权和版本信息 -->
+  <view id="section-copyright" class="padding-bottom-xl padding-top-lg">
+    <view class="text-center text-gray" bind:tap="gotoHeyCommunityPage">
+      <view wx:if="{{ wxAppAccountInfo.miniProgram.envVersion === 'release' }}">HeyCommunity V{{ wxAppAccountInfo.miniProgram.version }}</view>
+      <view wx:else >HeyCommunity {{ wxAppAccountInfo.miniProgram.envVersion }}</view>
+      <view>Developed by supeRodv2 of ProtobiaTech</view>
     </view>
-  </scroll-view>
+  </view>
 </view>
