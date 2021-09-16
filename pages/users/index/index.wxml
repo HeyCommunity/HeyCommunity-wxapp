@@ -17,64 +17,40 @@
 
     <view class="padding flex text-center text-grey bg-white shadow-warp">
       <view class="flex flex-sub flex-direction solid-right">
-        <view class="text-xxl text-orange">{{ appGlobalData.isAuth ? appGlobalData.userInfo.post_num : 0}}</view>
+        <view class="text-xxl text-orange">{{ appGlobalData.isAuth ? appGlobalData.userInfo.post_num : '-' }}</view>
         <view class="margin-top-sm">
           <text class="cuIcon-newsfill"></text> 动态
         </view>
       </view>
       <view class="flex flex-sub flex-direction solid-right">
-        <view class="text-xxl text-green">{{ appGlobalData.isAuth ? appGlobalData.userInfo.got_post_comment_num : 0 }}</view>
+        <view class="text-xxl text-green">{{ appGlobalData.isAuth ? appGlobalData.userInfo.got_post_comment_num : '-' }}</view>
         <view class="margin-top-sm">
           <text class="cuIcon-commentfill"></text> 评论
         </view>
       </view>
       <view class="flex flex-sub flex-direction">
-        <view class="text-xxl text-blue">{{ appGlobalData.isAuth ? appGlobalData.userInfo.got_post_thumb_up_num : 0 }}</view>
+        <view class="text-xxl text-blue">{{ appGlobalData.isAuth ? appGlobalData.userInfo.got_post_thumb_up_num : '-' }}</view>
         <view class="margin-top-sm">
           <text class="cuIcon-appreciatefill"></text> 被赞
         </view>
       </view>
     </view>
 
-    <view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg radius">
-      <navigator wx:if="{{ appGlobalData.isAuth }}" open-type="switchTab" url="/pages/messages/index/index" class="cu-item arrow">
+    <view wx:if="{{ appGlobalData.isAuth }}" class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg radius">
+      <navigator wx:if="{{ appGlobalData.isAuth }}" url="/pages/users/detail/index?id={{ appGlobalData.userInfo.id }}" class="cu-item arrow">
         <view class="content">
-          <text class="cuIcon-noticefill text-green"></text>
-          <text class="text-grey">通知</text>
-        </view>
-        <view class="action" wx:if="{{ appGlobalData.userInfo.unread_notice_num }}">
-          <!--
-            <view class="cu-avatar-group">
-              <view class="cu-avatar round sm" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big10004.jpg);"></view>
-              <view class="cu-avatar round sm" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big10003.jpg);"></view>
-              <view class="cu-avatar round sm" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big10002.jpg);"></view>
-              <view class="cu-avatar round sm" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big10001.jpg);"></view>
-            </view>
-          -->
-          <text class="text-red text-sm">{{ appGlobalData.userInfo.unread_notice_num }} 条未读</text>
-        </view>
-        <view class="action" wx:else>
-          <text class="text-grey text-sm">无通知</text>
-        </view>
-      </navigator>
-
-      <navigator wx:else open-type="navigate" url="/pages/users/auth/index" class="cu-item arrow">
-        <view class="content">
-          <text class="cuIcon-noticefill text-green"></text>
-          <text class="text-grey">通知</text>
-        </view>
-        <view class="action">
-          <text class="text-grey text-sm">无通知</text>
-        </view>
-      </navigator>
-
-      <navigator wx:if="{{ appGlobalData.isAuth }}" open-type="navigate" url="/pages/users/detail/index?id={{ appGlobalData.userInfo.id }}" class="cu-item arrow">
-        <view class="content">
-          <text class="cuIcon-profilefill text-blue"></text>
+          <text class="cuIcon-homefill text-blue"></text>
           <text class="text-grey">我的主页</text>
         </view>
         <view class="action">
           <text class="text-gray text-sm"></text>
+        </view>
+      </navigator>
+
+      <navigator url="/pages/users/detail/index?id={{ appGlobalData.userInfo.id }}" class="cu-item arrow">
+        <view class="content">
+          <text class="cuIcon-profilefill text-orange"></text>
+          <text class="text-grey">我的资料</text>
         </view>
       </navigator>
     </view>
@@ -107,15 +83,15 @@
     </view>
 
     <view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg radius">
-      <button class="cu-item arrow" bind:tap="gotoHeyCommunityPage">
+      <navigator url="/pages/users/hey-community/index" class="cu-item arrow">
         <view class="content">
-          <text class="cuIcon-github text-grey"></text>
+          <text class="cuIcon-github text-black"></text>
           <text class="text-grey">HEY社区</text>
         </view>
         <view class="action">
           <text class="text-gray text-sm">免费开源</text>
         </view>
-      </button>
+      </navigator>
       <button class="cu-item arrow" open-type="contact">
         <view class="content">
           <text class="cuIcon-servicefill text-green"></text>
@@ -156,7 +132,7 @@
       <view class="text-center text-gray" bind:tap="gotoHeyCommunityPage">
         <view wx:if="{{ wxAppAccountInfo.miniProgram.envVersion === 'release' }}">HeyCommunity V{{ wxAppAccountInfo.miniProgram.version }}</view>
         <view wx:else >HeyCommunity {{ wxAppAccountInfo.miniProgram.envVersion }}</view>
-        <view>Created by supeRodv2 at ProtobiaTech</view>
+        <view>Developed by supeRodv2 of ProtobiaTech</view>
       </view>
     </view>
   </scroll-view>

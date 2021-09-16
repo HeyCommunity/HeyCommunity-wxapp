@@ -51,13 +51,6 @@ Page({
   },
 
   /**
-   * goto HeyCommunity 页面
-   */
-  gotoHeyCommunityPage() {
-    wx.navigateTo({url: '/pages/users/hey-community/index'});
-  },
-
-  /**
    * needAuth
    */
   needAuth() {
@@ -70,21 +63,29 @@ Page({
   logoutHandler() {
     let _this = this;
 
-    wx.showLoading({title: '正在退出'});
+    wx.showModal({
+      title: '提示',
+      content: '确认要退出登录吗？',
+      success: function(res) {
+        if (res.confirm) {
+          wx.showLoading({title: '正在退出登录'});
 
-    APP.AUTH.userLogout().then(function() {
-      wx.showModal({
-        title: '你已安全登出',
-        showCancel: false,
-      });
-    }).catch(function() {
-      wx.showModal({
-        title: '你已退出登录',
-        showCancel: false,
-      });
-    }).finally(function() {
-      _this.setData({appGlobalData: APP.globalData});
-      wx.hideLoading();
+          APP.AUTH.userLogout().then(function() {
+            wx.showModal({
+              title: '你已安全地退出登录',
+              showCancel: false,
+            });
+          }).catch(function() {
+            wx.showModal({
+              title: '你已退出登录',
+              showCancel: false,
+            });
+          }).finally(function() {
+            _this.setData({appGlobalData: APP.globalData});
+            wx.hideLoading();
+          });
+        }
+      },
     });
   }
 });
