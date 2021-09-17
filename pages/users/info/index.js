@@ -64,6 +64,42 @@ Page({
   },
 
   /**
+   * 更新我的头像或封面
+   */
+  updateAvatarOrCoverHandler(event) {
+    let _this = this;
+    let type = event.currentTarget.dataset.type;
+    let typeName = event.currentTarget.dataset.typeName;
+
+    wx.chooseImage({
+      count: 1,
+      sizeType: ['original'],
+      sourceType: ['camera', 'album'],
+      success(res) {
+        let tempFilePath = res.tempFilePaths[0];
+
+        wx.showLoading({title: typeName + '上传中'});
+
+        APP.HTTP.uploadFile('users/mine-' + type, tempFilePath).then(function(result) {
+          _this.setData({userInfo: result.data});
+          wx.showToast({icon: 'success', title: typeName + '更新成功'});
+        }).catch(function(res) {
+          let modalContent = '未知错误';
+          if (res.data.message) modalContent = res.data.message;
+
+          wx.showModal({
+            title: typeName + '更新失败',
+            content: modalContent,
+            showCancel: false,
+          });
+        }).finally(function() {
+          wx.hideLoading();
+        });
+      },
+    });
+  },
+
+  /**
    * 获取用户信息
    */
   getUserInfo() {
