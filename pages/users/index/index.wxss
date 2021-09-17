@@ -20,9 +20,8 @@
   color: #fff;
   font-weight: 300;
   text-shadow: 0 0 3px rgba(0, 0, 0, 0.3); }
-  #page-users-index #section-user-card .UCenter-bg text {
-    opacity: 0.8; }
-  #page-users-index #section-user-card .UCenter-bg image {
+  #page-users-index #section-user-card .UCenter-bg .avatar {
+    border-radius: 50%;
     width: 200rpx;
     height: 200rpx; }
   #page-users-index #section-user-card .UCenter-bg .gif-wave {

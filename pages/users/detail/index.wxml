@@ -2,12 +2,12 @@
   <van-notify id="van-notify"></van-notify>
 
   <view scroll-y class="scrollPage">
-    <view class="UCenter-bg" style="background-image:url({{ defaultUserCoverImagePath }})">
+    <view class="UCenter-bg" style="background-position:center; background-image:url({{ userInfo.cover }})">
       <view class="box flex">
         <image src="{{ userInfo.avatar }}" class="avatar" mode="widthFix" style="border-radius:50%;"></image>
         <view class="info margin-left-sm">
           <view class="nickname text-xl margin-top-lg">{{ userInfo.nickname }}</view>
-          <view class="bio"><text>{{ userInfo.bio ? userInfo.bio : '暂无简介' }}</text></view>
+          <view class="bio"><text>{{ userInfo.bio ? userInfo.bio : '暂无签名' }}</text></view>
         </view>
       </view>
       <image src="{{ defaultProfileWaveImagePath }}" mode="scaleToFill" class="gif-wave"></image>

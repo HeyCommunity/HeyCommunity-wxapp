@@ -9,7 +9,6 @@ Page({
     refreshLoading: false,
     moreLoading: false,
 
-    defaultUserCoverImagePath: apiDomain + '/images/users/default-cover.jpg',
     defaultProfileWaveImagePath: apiDomain + '/images/users/profile-wave.gif',
 
     userId: null,

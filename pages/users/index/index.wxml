@@ -9,15 +9,15 @@
       </navigator>
     </view>
 
-    <view class="UCenter-bg" style="background-image:url({{ defaultUserCoverImagePath }})">
+    <view class="UCenter-bg" style="background-image:url({{ appGlobalData.isAuth ? appGlobalData.userInfo.cover : defaultUserCoverImagePath }})">
       <view wx:if="{{ appGlobalData.isAuth }}" class="text-center">
-        <image src="{{ appGlobalData.userInfo.avatar }}" class="png" mode="widthFix" style="border-radius:50%;"></image>
-        <view class="text-xl margin-top-sm">{{ appGlobalData.userInfo.nickname }}</view>
-        <view class="margin-top-sm" wx:if="{{ appGlobalData.userInfo.bio }}"><text>{{ appGlobalData.userInfo.bio }}</text></view>
+        <image class="avatar png" src="{{ appGlobalData.userInfo.avatar }}" mode="acceptFill"></image>
+        <view class="nickname text-xl margin-top-sm">{{ appGlobalData.userInfo.nickname }}</view>
+        <view class="bio" wx:if="{{ appGlobalData.userInfo.bio }}"><text>{{ appGlobalData.userInfo.bio }}</text></view>
       </view>
       <view wx:else class="text-center">
-        <image bind:tap="needAuth" src="/assets/images/users/default-avatar.jpg" class="png" mode="widthFix" style="border-radius:50%;"></image>
-        <view bind:tap="needAuth" class="text-xl margin-top-sm">请登录</view>
+        <image class="avatar png" bind:tap="needAuth" src="/assets/images/users/default-avatar.jpg" mode="acceptFill"></image>
+        <view class="nickname text-xl margin-top-sm" bind:tap="needAuth">请登录</view>
       </view>
       <image src="{{ defaultProfileWaveImagePath }}" mode="scaleToFill" class="gif-wave"></image>
     </view>

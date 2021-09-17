@@ -26,11 +26,8 @@
       font-weight: 300;
       text-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
 
-      text {
-        opacity: 0.8;
-      }
-
-      image {
+      .avatar {
+        border-radius: 50%;
         width: 200rpx;
         height: 200rpx;
       }
