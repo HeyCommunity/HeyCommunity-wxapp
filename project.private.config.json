@@ -44,7 +44,7 @@
         },
         {
           "name": "[USER] 我的资料",
-          "pathName": "pages/users/form/index",
+          "pathName": "pages/users/info/index",
           "query": "",
           "scene": null
         },
