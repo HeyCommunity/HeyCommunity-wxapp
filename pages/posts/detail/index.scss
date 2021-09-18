@@ -96,4 +96,14 @@
       }
     }
   }
+
+  #modal-comment {
+    .cu-dialog {
+      vertical-align: unset;
+    }
+
+    .input-content {
+      min-height: 7em;
+    }
+  }
 }

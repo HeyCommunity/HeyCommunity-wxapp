@@ -50,7 +50,7 @@
     </view>
 
     <!-- 点赞和评论列表 -->
-    <view id="section-list">
+    <view id="section-list" class="margin-top-sm">
       <scroll-view scroll-x class="bg-white nav">
         <view class="flex text-center">
           <view class="cu-item flex-sub {{ tabType === 'comment' ? 'text-orange cur' : '' }}" bind:tap="tabSelectHandler" data-type="comment">评论</view>
@@ -90,8 +90,8 @@
                     <text class="margin-left-xs" wx:if="{{ comment.thumb_up_num }}">{{ comment.thumb_up_num }}</text>
                   </button>
                   <button class="item-btn text-gray cu-btn sm bg-white"
-                          bind:tap="openCommentPopup" data-comment-id="{{ comment.id }}" data-type="replyComment"
-                          data-post-index="{{ postIndex }}" data-comment-index="{{ commentIndex }}">
+                          bind:tap="showCommentModal" data-comment-id="{{ comment.id }}" data-type="replyComment"
+                          data-comment-index="{{ commentIndex }}">
                     <text wx:if="{{ comment.i_have_comment }}" class="cuIcon-communityfill"></text>
                     <text wx:else class="cuIcon-community"></text>
                     <text class="margin-left-xs" wx:if="{{ comment.comment_num }}">{{ comment.comment_num }}</text>
@@ -120,13 +120,49 @@
     </view>
   </van-skeleton>
 
+  <!-- 底部 -->
   <view id="footer">
     <button class="item btn-thumb cu-btn icon" bind:tap="postThumbHandler" data-type="thumb_up" data-value="{{ !post.i_have_thumb_up }}">
       <text wx:if="{{ post.i_have_thumb_up }}" class="cuIcon-appreciatefill"></text>
       <text wx:else class="cuIcon-appreciate"></text>
     </button>
     <view class="item box-input">
-      <input disabled="true" class="el-input" placeholder="说说你的看法 ~"></input>
+      <input class="el-input" placeholder="说说你的看法 ~"
+             bind:tap="showCommentModal" data-type="comment" data-post-id="{{ post.id }}">
+      </input>
+    </view>
+  </view>
+
+  <!-- 评论模态框 -->
+  <view id="modal-comment" class="cu-modal {{ commentModalVisible ? 'show' : '' }}">
+    <view class="cu-dialog">
+      <form bind:submit="commentHandler">
+        <view class="cu-bar cu-white justify-end">
+          <view class="content">评论动态</view>
+          <view bind:tap="hideCommentModal" class="action">
+            <text class="cuIcon-close text-red"></text>
+          </view>
+        </view>
+
+        <view class="padding bg-gray text-left">
+          <textarea class="input-content" placeholder="说说你的看法 ~"
+                    name="content" value="{{ commentModalContent }}"
+                    auto-height="true"
+                    focus="{{ commentModalVisible }}">
+          </textarea>
+        </view>
+
+        <view class="cu-white padding">
+          <view class="flex">
+            <view class="flex-sub">
+              <button form-type="reset" class="cu-btn bg-gray block">清空</button>
+            </view>
+            <view class="flex-treble margin-left">
+              <button form-type="submit" class="cu-btn bg-green block">提交</button>
+            </view>
+          </view>
+        </view>
+      </form>
     </view>
   </view>
 </view>

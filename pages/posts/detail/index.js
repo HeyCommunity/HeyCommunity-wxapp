@@ -7,6 +7,14 @@ Page({
     postId: null,
 
     tabType: 'comment',
+
+    // 评论模态框
+    commentModalVisible: false,
+    commentModalContent: null,
+    commentModalType: null,
+    commentModalPostId: null,
+    commentModalCommentIndex: null,
+    commentModalCommentId: null,
   },
 
   /**
@@ -24,7 +32,7 @@ Page({
   onShow() {
     this.getPostData();
   },
-  
+
   /**
    * 进入用户主页
    */
@@ -105,7 +113,6 @@ Page({
     if (getApp().needAuth()) return;
 
     let _this = this;
-    let postIndex = event.currentTarget.dataset.postIndex;
     let commentIndex = event.currentTarget.dataset.commentIndex;
     let commentId = event.currentTarget.dataset.commentId;
     let type = event.currentTarget.dataset.type;
@@ -139,6 +146,120 @@ Page({
     });
   },
 
+  /**
+   * 打开评论弹出层
+   */
+  showCommentModal(event) {
+    if (getApp().needAuth()) return;
+
+    let type = event.currentTarget.dataset.type;
+    let postId = event.currentTarget.dataset.postId;
+    let commentIndex = event.currentTarget.dataset.commentIndex;
+    let commentId = event.currentTarget.dataset.commentId;
+
+    this.setData({
+      commentModalVisible: true,
+      commentModalType: type,
+      commentModalPostId: postId,
+      commentModalCommentIndex: commentIndex,
+      commentModalCommentId: commentId,
+    });
+  },
+
+  /**
+   * 关闭评论弹出层
+   */
+  hideCommentModal() {
+    this.setData({
+      commentModalVisible: false,
+      commentModalContent: null,
+      commentModalType: null,
+      commentModalPostId: null,
+      commentModalCommentIndex: null,
+      commentModalCommentId: null,
+    });
+  },
+
+  /**
+   * 设置评论内容
+   */
+  setCommentContentHandler(event) {
+    this.setData({commentModalContent: event.detail.value});
+  },
+
+  /**
+   * 评论处理
+   */
+  commentHandler(event) {
+    let _this = this;
+
+    let type = this.data.commentModalType;
+    let postId = this.data.commentModalPostId;
+    let commentIndex = this.data.commentModalCommentIndex;
+    let commentId = this.data.commentModalCommentId;
+    let content = event.detail.value.content;
+
+    if (! content) {
+      wx.showModal({
+        title: '请说点什么',
+        content: '内容不能为空',
+        showCancel: false,
+      });
+      throw '请说点什么，内容不能为空';
+    }
+
+    // 请求参数
+    let params = {content: content};
+    if (type === 'comment') params.post_id = postId;
+    if (type === 'replyComment') params.comment_id = commentId;
+
+    // 订阅消息
+    let wxappNoticeSubscribeHandler = function() {
+      if (APP.globalData.systemSettings
+        && APP.globalData.systemSettings.wxapp_subscribe_message
+        && APP.globalData.systemSettings.wxapp_subscribe_message.enable
+      ) {
+        wx.requestSubscribeMessage({
+          tmplIds: [
+            APP.globalData.systemSettings.wxapp_subscribe_message.thumb_up_temp_id,
+            APP.globalData.systemSettings.wxapp_subscribe_message.comment_temp_id,
+            APP.globalData.systemSettings.wxapp_subscribe_message.reply_temp_id,
+          ],
+          complete: function() {
+          },
+        });
+      }
+    };
+
+    // 发起评论请求
+    APP.HTTP.POST('posts/comments', params).then((result) => {
+      _this.hideCommentModal();
+
+      if (result.data.status) {
+        if (type === 'replyComment') _this.data.post.comments[commentIndex].i_have_comment = true;
+        _this.data.post.comments.unshift(result.data);
+        _this.data.post.comment_num += 1;
+        _this.data.post.i_have_comment = true;
+        _this.setData({post: _this.data.post});
+
+        APP.showNotify('评论成功');
+      } else {
+        APP.showNotify('评论创建成功 \n 管理员审核通过后将发布', 'warning');
+      }
+
+      // 订阅消息
+      wxappNoticeSubscribeHandler();
+    }).catch(function(res) {
+      let errorMessage = '未知错误';
+      if (res.data.message) errorMessage = res.data.message;
+
+      wx.showModal({
+        title: '评论失败',
+        content: res.data.message,
+        showCancel: false,
+      });
+    });
+  },
 
   /**
    * 获取 post
