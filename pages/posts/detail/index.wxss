@@ -4,6 +4,32 @@
     padding-top: 30rpx;
     margin-top: auto;
     margin-bottom: auto; }
+  #page-posts-detail .item-post .post-card .section-header .content {
+    width: calc(100% - 96rpx - 60rpx - 20rpx - 60rpx) !important; }
+  #page-posts-detail .item-post .post-card .section-header .btn-more {
+    right: 20rpx;
+    font-size: 32rpx;
+    font-weight: bold; }
+  #page-posts-detail .item-post .post-card .section-content .text-content {
+    padding: 0 30rpx 0;
+    max-height: 6.4em;
+    overflow: hidden;
+    font-size: 30rpx;
+    margin-bottom: 20rpx; }
+    #page-posts-detail .item-post .post-card .section-content .text-content.text-display-all {
+      max-height: none;
+      overflow: auto; }
+    #page-posts-detail .item-post .post-card .section-content .text-content.text-display-part {
+      position: relative; }
+      #page-posts-detail .item-post .post-card .section-content .text-content.text-display-part:after {
+        content: " ...";
+        position: absolute;
+        bottom: 0;
+        right: 30rpx;
+        padding: 0 5px;
+        background-color: #fff; }
+  #page-posts-detail .item-post .post-card .section-content .item-video .video {
+    width: 100%; }
   #page-posts-detail #footer {
     padding: 30rpx 30rpx 40rpx;
     position: fixed;

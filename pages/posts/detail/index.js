@@ -3,8 +3,10 @@ const APP = getApp();
 Page({
   data: {
     skeletonVisible: true,
-    models: [],
+    post: null,
     postId: null,
+
+    tabType: 'comment',
   },
 
   /**
@@ -24,12 +26,10 @@ Page({
   },
 
   /**
-   * 下拉刷新
+   * Tab 切换处理
    */
-  onPullDownRefresh() {
-    this.getPostData().finally(function() {
-      wx.stopPullDownRefresh();
-    });
+  tabSelectHandler(event) {
+    this.setData({tabType: event.currentTarget.dataset.type});
   },
 
   /**
@@ -41,14 +41,14 @@ Page({
     return new Promise(function(resolve, reject) {
       // 获取动态
       APP.HTTP.GET('posts/' + _this.data.postId).then(function(result) {
-        _this.setData({models: [result.data]});
+        _this.setData({post: result.data});
         _this.setData({skeletonVisible: false});
 
         resolve(result);
       }).catch(function(res) {
         if (APP.HTTP.wxRequestIsOk(res)) {
           wx.showModal({
-            title: '未找到动态',
+            title: '提示',
             content: '动态不存在或已被删除',
             showCancel: false,
             complete(res) {
@@ -59,6 +59,15 @@ Page({
 
         reject(res);
       });
+    });
+  },
+
+  /**
+   * 下拉刷新
+   */
+  onPullDownRefresh() {
+    this.getPostData().finally(function() {
+      wx.stopPullDownRefresh();
     });
   },
 
