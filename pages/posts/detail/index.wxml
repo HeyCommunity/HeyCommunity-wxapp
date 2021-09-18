@@ -82,7 +82,7 @@
                 <view class="text-gray text-df">{{ comment.created_at_for_humans }}</view>
                 <view class="items-btn">
                   <button class="item-btn text-gray cu-btn sm bg-white"
-                          bind:tap="postCommentThumbUpHandler" data-comment-id="{{ comment.id }}"
+                          bind:tap="postCommentThumbHandler" data-comment-id="{{ comment.id }}"
                           data-post-index="{{ postIndex }}" data-comment-index="{{ commentIndex }}"
                           data-type="{{ 'thumb_up' }}" data-value="{{ !comment.i_have_thumb_up }}">
                     <text wx:if="{{ comment.i_have_thumb_up }}" class="cuIcon-appreciatefill"></text>
@@ -121,8 +121,8 @@
   </van-skeleton>
 
   <view id="footer">
-    <button class="item btn-thumb cu-btn icon">
-      <text wx:if="{{ models[0].i_have_thumb_up }}" class="cuIcon-appreciatefill"></text>
+    <button class="item btn-thumb cu-btn icon" bind:tap="postThumbHandler" data-type="thumb_up" data-value="{{ !post.i_have_thumb_up }}">
+      <text wx:if="{{ post.i_have_thumb_up }}" class="cuIcon-appreciatefill"></text>
       <text wx:else class="cuIcon-appreciate"></text>
     </button>
     <view class="item box-input">
