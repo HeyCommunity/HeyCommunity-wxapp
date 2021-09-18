@@ -9,14 +9,18 @@
       </navigator>
     </view>
 
-    <view class="UCenter-bg" style="background-image:url({{ appGlobalData.isAuth ? appGlobalData.userInfo.cover : defaultUserCoverImagePath }})">
+    <view class="UCenter-bg"
+          style="background-image:url({{ appGlobalData.isAuth ? appGlobalData.userInfo.cover : defaultUserCoverImagePath }})">
       <view wx:if="{{ appGlobalData.isAuth }}" class="text-center">
         <image class="avatar" src="{{ appGlobalData.userInfo.avatar }}" mode="acceptFill"></image>
         <view class="nickname text-xl margin-top-sm">{{ appGlobalData.userInfo.nickname }}</view>
-        <view class="bio" wx:if="{{ appGlobalData.userInfo.bio }}"><text>{{ appGlobalData.userInfo.bio }}</text></view>
+        <view class="bio" wx:if="{{ appGlobalData.userInfo.bio }}">
+          <text>{{ appGlobalData.userInfo.bio }}</text>
+        </view>
       </view>
       <view wx:else class="text-center">
-        <image class="avatar png" bind:tap="needAuth" src="/assets/images/users/default-avatar.jpg" mode="acceptFill"></image>
+        <image class="avatar png" bind:tap="needAuth" src="/assets/images/users/default-avatar.jpg"
+               mode="acceptFill"></image>
         <view class="nickname text-xl margin-top-sm" bind:tap="needAuth">请登录</view>
       </view>
       <image src="{{ defaultProfileWaveImagePath }}" mode="scaleToFill" class="gif-wave"></image>
@@ -30,13 +34,17 @@
         </view>
       </view>
       <view class="flex flex-sub flex-direction solid-right">
-        <view class="text-xxl text-green">{{ appGlobalData.isAuth ? appGlobalData.userInfo.got_post_comment_num : '-' }}</view>
+        <view class="text-xxl text-green">{{ appGlobalData.isAuth ? appGlobalData.userInfo.got_post_comment_num : '-'
+          }}
+        </view>
         <view class="margin-top-sm">
           <text class="cuIcon-commentfill"></text> 评论
         </view>
       </view>
       <view class="flex flex-sub flex-direction">
-        <view class="text-xxl text-blue">{{ appGlobalData.isAuth ? appGlobalData.userInfo.got_post_thumb_up_num : '-' }}</view>
+        <view class="text-xxl text-blue">{{ appGlobalData.isAuth ? appGlobalData.userInfo.got_post_thumb_up_num : '-'
+          }}
+        </view>
         <view class="margin-top-sm">
           <text class="cuIcon-appreciatefill"></text> 被赞
         </view>
@@ -59,31 +67,31 @@
 
   <!-- 我的xx -->
   <view wx:if="{{ false }}" class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg radius">
-                                                                                                                <view class="cu-item arrow">
-                                                                                                                <view class="content">
-                                                                                                                <text class="cuIcon-profile text-blue"></text>
-                                                                                                                <text class="text-grey">我的资料</text>
-                                                                                                                </view>
-                                                                                                                </view>
-                                                                                                                <view class="cu-item arrow">
-                                                                                                                <view class="content">
-                                                                                                                <text class="cuIcon-news text-blue"></text>
-                                                                                                                <text class="text-grey">我的动态</text>
-                                                                                                                </view>
-                                                                                                                </view>
-                                                                                                                <view class="cu-item arrow">
-                                                                                                                <view class="content">
-                                                                                                                <text class="cuIcon-comment text-blue"></text>
-                                                                                                                <text class="text-grey">我的评论</text>
-                                                                                                                </view>
-                                                                                                                </view>
-                                                                                                                <view class="cu-item arrow">
-                                                                                                                <view class="content">
-                                                                                                                <text class="cuIcon-appreciate text-blue"></text>
-                                                                                                                <text class="text-grey">我的点赞</text>
-                                                                                                                </view>
-                                                                                                                </view>
-                                                                                                                </view>
+    <view class="cu-item arrow">
+      <view class="content">
+        <text class="cuIcon-profile text-blue"></text>
+        <text class="text-grey">我的资料</text>
+      </view>
+    </view>
+    <view class="cu-item arrow">
+      <view class="content">
+        <text class="cuIcon-news text-blue"></text>
+        <text class="text-grey">我的动态</text>
+      </view>
+    </view>
+    <view class="cu-item arrow">
+      <view class="content">
+        <text class="cuIcon-comment text-blue"></text>
+        <text class="text-grey">我的评论</text>
+      </view>
+    </view>
+    <view class="cu-item arrow">
+      <view class="content">
+        <text class="cuIcon-appreciate text-blue"></text>
+        <text class="text-grey">我的点赞</text>
+      </view>
+    </view>
+  </view>
 
   <!-- 其他 -->
   <view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg radius">
@@ -112,25 +120,27 @@
 
   <!-- 登录和退出 -->
   <view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg radius">
-                                                                                    <view wx:if="{{ appGlobalData.isAuth }}" class="cu-item text-center" bind:tap="logoutHandler">
-                                                                                    <view class="content">
-                                                                                    <text class="cuIcon-exit text-red"></text>
-                                                                                    <text class="text-red">退出登录</text>
-                                                                                    </view>
-                                                                                    </view>
-                                                                                    <view wx:else class="cu-item text-center" bind:tap="needAuth">
-                                                                                    <view class="content">
-                                                                                    <text class="cuIcon-weixin text-blue"></text>
-                                                                                    <text class="text-blue">登录</text>
-                                                                                    </view>
-                                                                                    </view>
-                                                                                    </view>
+    <view wx:if="{{ appGlobalData.isAuth }}" class="cu-item text-center" bind:tap="logoutHandler">
+      <view class="content">
+        <text class="cuIcon-exit text-red"></text>
+        <text class="text-red">退出登录</text>
+      </view>
+    </view>
+    <view wx:else class="cu-item text-center" bind:tap="needAuth">
+      <view class="content">
+        <text class="cuIcon-weixin text-blue"></text>
+        <text class="text-blue">登录</text>
+      </view>
+    </view>
+  </view>
 
   <!-- 版权和版本信息 -->
   <view id="section-copyright" class="padding-bottom-xl padding-top-lg">
     <view class="text-center text-gray" bind:tap="gotoHeyCommunityPage">
-      <view wx:if="{{ wxAppAccountInfo.miniProgram.envVersion === 'release' }}">HeyCommunity V{{ wxAppAccountInfo.miniProgram.version }}</view>
-      <view wx:else >HeyCommunity {{ wxAppAccountInfo.miniProgram.envVersion }}</view>
+      <view wx:if="{{ wxAppAccountInfo.miniProgram.envVersion === 'release' }}">HeyCommunity
+        V{{ wxAppAccountInfo.miniProgram.version }}
+      </view>
+      <view wx:else>HeyCommunity {{ wxAppAccountInfo.miniProgram.envVersion }}</view>
       <view>Developed by supeRodv2 of ProtobiaTech</view>
     </view>
   </view>
