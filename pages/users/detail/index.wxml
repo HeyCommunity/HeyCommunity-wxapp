@@ -1,10 +1,10 @@
-<view class="container-full">
+<view id="page-users-detail" class="container-full">
   <van-notify id="van-notify"></van-notify>
 
-  <view scroll-y class="scrollPage">
+  <view id="section-user-card">
     <view class="UCenter-bg" style="background-position:center; background-image:url({{ userInfo.cover }})">
       <view class="box flex">
-        <image src="{{ userInfo.avatar }}" class="avatar" mode="widthFix" style="border-radius:50%;"></image>
+        <image class="avatar" src="{{ userInfo.avatar }}" mode="acceptFill"></image>
         <view class="info margin-left-sm">
           <view class="nickname text-xl margin-top-lg">{{ userInfo.nickname }}</view>
           <view class="bio"><text>{{ userInfo.bio ? userInfo.bio : '暂无签名' }}</text></view>

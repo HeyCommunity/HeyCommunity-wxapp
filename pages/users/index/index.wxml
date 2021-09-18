@@ -11,7 +11,7 @@
 
     <view class="UCenter-bg" style="background-image:url({{ appGlobalData.isAuth ? appGlobalData.userInfo.cover : defaultUserCoverImagePath }})">
       <view wx:if="{{ appGlobalData.isAuth }}" class="text-center">
-        <image class="avatar png" src="{{ appGlobalData.userInfo.avatar }}" mode="acceptFill"></image>
+        <image class="avatar" src="{{ appGlobalData.userInfo.avatar }}" mode="acceptFill"></image>
         <view class="nickname text-xl margin-top-sm">{{ appGlobalData.userInfo.nickname }}</view>
         <view class="bio" wx:if="{{ appGlobalData.userInfo.bio }}"><text>{{ appGlobalData.userInfo.bio }}</text></view>
       </view>

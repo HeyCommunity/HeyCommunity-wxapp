@@ -21,6 +21,7 @@
   font-weight: 300;
   text-shadow: 0 0 3px rgba(0, 0, 0, 0.3); }
   #page-users-index #section-user-card .UCenter-bg .avatar {
+    background-color: #dddddd;
     border-radius: 50%;
     width: 200rpx;
     height: 200rpx; }
