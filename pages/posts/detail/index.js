@@ -15,6 +15,22 @@ Page({
     commentModalPostId: null,
     commentModalCommentIndex: null,
     commentModalCommentId: null,
+
+    // 动态评论操作
+    postCommentActionComment: null,
+    postCommentActionCommentIndex: null,
+    postCommentActionSheetVisible: false,
+    postCommentActions: [],
+    userPostCommentActions: [
+      {text: '报告不良信息', value: 'report', type: 'warn'},
+    ],
+    authorPostCommentActions: [
+      {text: '删除', value: 'delete', type: 'warn'},
+    ],
+    adminPostCommentActions: [
+      {text: '报告不良信息', value: 'report', type: 'warn'},
+      {text: '删除', value: 'delete', type: 'warn'},
+    ],
   },
 
   /**
@@ -258,6 +274,76 @@ Page({
         content: res.data.message,
         showCancel: false,
       });
+    });
+  },
+
+  /**
+   * 显示动态评论的 actionSheet
+   */
+  showPostCommentActionSheet(event) {
+    let _this = this;
+    let comment = event.currentTarget.dataset.comment;
+    let commentIndex = event.currentTarget.dataset.commentIndex;
+
+    let actions = _this.data.userPostCommentActions;
+    if (APP.globalData.isAuth) {
+      if (APP.globalData.userInfo.id == comment.user_id) {
+        actions = _this.data.authorPostCommentActions;
+      } else if (APP.globalData.userInfo.is_admin) {
+        actions = _this.data.adminPostCommentActions;
+      }
+    }
+
+    _this.setData({
+      postCommentActionSheetVisible: true,
+      postCommentActions: actions,
+      postCommentActionComment: comment,
+      postCommentActionCommentIndex: commentIndex,
+    });
+  },
+
+  /**
+   * 动态评论 ActionSheet 操作处理
+   */
+  postCommentActionTapHandler(event) {
+    let _this = this;
+    let action = event.detail.value;
+    let comment = _this.data.postCommentActionComment;
+    let commentIndex = _this.data.postCommentActionCommentIndex;
+
+    if (action === 'report') {
+      _this.userReportHandler({type: 'comment', entity_id: comment.id});
+    } else if (action === 'delete') {
+      wx.showLoading({title: '评论删除中'});
+      APP.HTTP.POST('posts/comments/delete', {id: comment.id}).then(function(result) {
+        _this.data.post.comments.splice(commentIndex, 1);
+        _this.data.post.comment_num -= 1;
+        _this.setData({post: _this.data.post});
+        APP.showNotify('评论删除成功');
+      }).catch(function(res) {
+        if (APP.HTTP.wxRequestIsOk(res)) {
+          wx.showModal({
+            title: '操作失败',
+            content: '动态删除失败: ' + res.data.message,
+            showCancel: false,
+          });
+        }
+      }).finally(function() {
+        wx.hideLoading();
+      });
+    } else {
+      wx.showModal({title: '通知', content: '未能处理你的操作', showCancel: false});
+    }
+
+    _this.setData({postCommentActionSheetVisible: false});
+  },
+
+  /**
+   * 用户报告不良信息处理
+   */
+  userReportHandler(params) {
+    APP.HTTP.POST('user-reports', params).finally(function() {
+      wx.showModal({title: '报告不良信息', content: '感谢，我们已收到你的报告', showCancel: false});
     });
   },
 

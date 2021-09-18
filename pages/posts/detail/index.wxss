@@ -54,7 +54,9 @@
         padding-left: 1rem;
         padding-right: 1rem;
         border-radius: 2rem; }
-  #page-posts-detail #modal-comment .cu-dialog {
-    vertical-align: unset; }
-  #page-posts-detail #modal-comment .input-content {
-    min-height: 7em; }
+
+#modal-comment .cu-dialog {
+  vertical-align: unset; }
+
+#modal-comment .input-content {
+  min-height: 7em; }

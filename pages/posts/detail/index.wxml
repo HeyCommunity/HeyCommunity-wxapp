@@ -146,9 +146,10 @@
       </input>
     </view>
   </view>
+</view>
 
-  <!-- 评论模态框 -->
-  <view id="modal-comment" class="cu-modal {{ commentModalVisible ? 'show' : '' }}">
+<!-- 评论模态框 -->
+<view id="modal-comment" class="cu-modal {{ commentModalVisible ? 'show' : '' }}">
     <view class="cu-dialog">
       <form bind:submit="commentHandler">
         <view class="cu-bar cu-white justify-end">
@@ -179,4 +180,7 @@
       </form>
     </view>
   </view>
-</view>
+
+<!-- 动态和评论 ActionSheet -->
+<mp-actionSheet bind:actiontap="postActionTapHandler" title="动态操作" show="{{ postActionSheetVisible }}" actions="{{ postActions }}" ></mp-actionSheet>
+<mp-actionSheet bind:actiontap="postCommentActionTapHandler" title="评论操作" show="{{ postCommentActionSheetVisible }}" actions="{{ postCommentActions }}" ></mp-actionSheet>
