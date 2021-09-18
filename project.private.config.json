@@ -21,7 +21,7 @@
         {
           "name": "[POST] 动态详情页",
           "pathName": "pages/posts/detail/index",
-          "query": "id=92",
+          "query": "id=1",
           "scene": null
         },
         {

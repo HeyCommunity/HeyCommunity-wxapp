@@ -16,7 +16,7 @@
 
               <view class="content flex-sub">
                 <view bind:tap="gotoUserDetailPage" data-id="{{ post.user_id }}">{{ post.user_nickname }}</view>
-                <view class="text-gray text-sm flex justify-between">{{ post.user_bio ? post.user_bio : '@TODO to be a better man' }}</view>
+                <view class="text-gray text-sm flex justify-between">{{ post.user_bio ? post.user_bio : post.created_at }}</view>
               </view>
             </view>
           </view>
@@ -111,9 +111,9 @@
       <!-- 点赞列表 -->
       <view wx:if="{{ tabType === 'thumb' }}" id="section-thumb-list" class="bg-white padding padding-bottom-xs">
         <view class="grid col-5 text-center">
-          <view class="item-user margin-bottom-sm" wx:for="{{ 50 }}">
-            <view class="cu-avatar lg round margin-lr-xs" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big25002.jpg);"></view>
-            <view><text>{{ post.user_nickname }}</text></view>
+          <view class="item-user margin-bottom-sm" wx:for="{{ post.thumbs }}" wx:key="id" wx:for-item="thumb">
+            <view class="cu-avatar lg round margin-lr-xs" style="background-image:url({{ thumb.user_avatar }});"></view>
+            <view><text>{{ thumb.user_nickname }}</text></view>
           </view>
         </view>
       </view>
