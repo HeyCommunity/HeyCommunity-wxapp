@@ -52,11 +52,11 @@
     <view id="section-list" class="margin-top-sm">
       <scroll-view scroll-x class="bg-white nav">
         <view class="flex text-center">
-          <view class="cu-item flex-sub {{ tabType === 'comment' ? 'text-orange cur' : '' }}" bind:tap="tabSelectHandler" data-type="comment">
+          <view class="cu-item flex-sub {{ tabType === 'comment' ? 'text-black cur' : '' }}" bind:tap="tabSelectHandler" data-type="comment">
             评论
             <view wx:if="{{ post.comment_num }}" class="cu-tag sm round">{{ post.comment_num }}</view>
           </view>
-          <view class="cu-item flex-sub {{ tabType === 'thumb' ? 'text-orange cur' : '' }}" bind:tap="tabSelectHandler" data-type="thumb">
+          <view class="cu-item flex-sub {{ tabType === 'thumb' ? 'text-black cur' : '' }}" bind:tap="tabSelectHandler" data-type="thumb">
             点赞
             <view wx:if="{{ post.thumb_up_num }}" class="cu-tag sm round">{{ post.thumb_up_num }}</view>
           </view>
@@ -135,14 +135,12 @@
 
   <!-- 底部 -->
   <view id="footer">
-    <button class="item btn-thumb cu-btn icon" bind:tap="postThumbHandler" data-type="thumb_up" data-value="{{ !post.i_have_thumb_up }}">
+    <button class="item btn-thumb cu-btn icon shadow" bind:tap="postThumbHandler" data-type="thumb_up" data-value="{{ !post.i_have_thumb_up }}">
       <text wx:if="{{ post.i_have_thumb_up }}" class="cuIcon-appreciatefill"></text>
       <text wx:else class="cuIcon-appreciate"></text>
     </button>
     <view class="item box-input">
-      <input class="el-input" placeholder="说说你的看法 ~"
-             bind:tap="showCommentModal" data-type="comment" data-post-id="{{ post.id }}">
-      </input>
+      <button class="el-input cu-btn shadow" bind:tap="showCommentModal" data-type="comment" data-post-id="{{ post.id }}">说说你的看法 ~</button>
     </view>
   </view>
 </view>

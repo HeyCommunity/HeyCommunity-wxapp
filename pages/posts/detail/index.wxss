@@ -40,7 +40,8 @@
     #page-posts-detail #footer .btn-thumb {
       height: 80rpx;
       width: 80rpx;
-      font-size: 34rpx; }
+      font-size: 34rpx;
+      color: #333333; }
     #page-posts-detail #footer .box-input {
       margin-left: 1rem;
       flex-grow: 1; }
@@ -51,7 +52,9 @@
         line-height: 2rem;
         padding-left: 1rem;
         padding-right: 1rem;
-        border-radius: 2rem; }
+        border-radius: 2rem;
+        justify-content: start;
+        color: #333333; }
 
 #modal-comment .cu-dialog {
   vertical-align: unset; }
