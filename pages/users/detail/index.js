@@ -108,4 +108,23 @@ Page({
       });
     }
   },
+
+  /**
+   * 分享到聊天
+   */
+  onShareAppMessage() {
+    return {
+      title: this.data.userInfo.nickname + '的主页',
+    }
+  },
+
+  /**
+   * 分享到朋友圈
+   */
+  onShareTimeline() {
+    return {
+      title: this.data.userInfo.nickname + '的主页',
+      imageUrl: this.data.userInfo.avatar,
+    };
+  },
 });

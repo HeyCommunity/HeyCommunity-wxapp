@@ -387,11 +387,24 @@ Page({
   },
 
   /**
-   * 分享
+   * 分享到聊天
    */
   onShareAppMessage() {
     return {
-      title: this.data.models[0].user_nickname + '发布的动态',
+      title: this.data.post.user_nickname + '发布的动态',
+    }
+  },
+
+  /**
+   * 分享到朋友圈
+   */
+  onShareTimeline() {
+    let imageUrl = null;
+    if (this.data.post.images.length) imageUrl = this.data.post.images[0].file_path;
+
+    return {
+      title: this.data.post.user_nickname + '发布的动态',
+      imageUrl: imageUrl,
     };
   },
 });

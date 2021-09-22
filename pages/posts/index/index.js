@@ -112,8 +112,22 @@ Page({
   },
 
   /**
-   * 分享
+   * 分享到聊天
    */
   onShareAppMessage() {
+    return {
+      title: this.data.appGlobalData.wxappName + '动态列表',
+    }
+  },
+
+  /**
+   * 分享到朋友圈
+   */
+  onShareTimeline() {
+    let imageUrl = null;
+
+    return {
+      title: this.data.appGlobalData.wxappName + '动态列表',
+    };
   },
 });

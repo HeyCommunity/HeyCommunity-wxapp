@@ -12,6 +12,7 @@ App({
   WXLog: WXLog,
   Notify: Notify,
   globalData: {
+    wxappName: 'HEY社区',
     isAuth: false,
     apiToken: null,
     userInfo: null,
