@@ -9,8 +9,7 @@
       </navigator>
     </view>
 
-    <view class="UCenter-bg"
-          style="background-image:url({{ appGlobalData.isAuth ? appGlobalData.userInfo.cover : defaultUserCoverImagePath }})">
+    <view class="UCenter-bg" style="background-image:url({{ appGlobalData.isAuth ? appGlobalData.userInfo.cover : defaultUserCoverImagePath }})">
       <view wx:if="{{ appGlobalData.isAuth }}" class="text-center">
         <image class="avatar" src="{{ appGlobalData.userInfo.avatar }}" mode="acceptFill"></image>
         <view class="nickname text-xl margin-top-sm">{{ appGlobalData.userInfo.nickname }}</view>
@@ -19,8 +18,7 @@
         </view>
       </view>
       <view wx:else class="text-center">
-        <image class="avatar png" bind:tap="needAuth" src="/assets/images/users/default-avatar.jpg"
-               mode="acceptFill"></image>
+        <image class="avatar png" bind:tap="needAuth" src="/assets/images/users/default-avatar.jpg" mode="acceptFill"></image>
         <view class="nickname text-xl margin-top-sm" bind:tap="needAuth">请登录</view>
       </view>
       <image src="{{ defaultProfileWaveImagePath }}" mode="scaleToFill" class="gif-wave"></image>
@@ -34,17 +32,13 @@
         </view>
       </view>
       <view class="flex flex-sub flex-direction solid-right">
-        <view class="text-xxl text-green">{{ appGlobalData.isAuth ? appGlobalData.userInfo.got_post_comment_num : '-'
-          }}
-        </view>
+        <view class="text-xxl text-green">{{ appGlobalData.isAuth ? appGlobalData.userInfo.got_post_comment_num : '-' }}</view>
         <view class="margin-top-sm">
           <text class="cuIcon-commentfill"></text> 评论
         </view>
       </view>
       <view class="flex flex-sub flex-direction">
-        <view class="text-xxl text-blue">{{ appGlobalData.isAuth ? appGlobalData.userInfo.got_post_thumb_up_num : '-'
-          }}
-        </view>
+        <view class="text-xxl text-blue">{{ appGlobalData.isAuth ? appGlobalData.userInfo.got_post_thumb_up_num : '-' }}</view>
         <view class="margin-top-sm">
           <text class="cuIcon-appreciatefill"></text> 被赞
         </view>
@@ -137,11 +131,11 @@
   <!-- 版权和版本信息 -->
   <view id="section-copyright" class="padding-bottom-xl padding-top-lg">
     <view class="text-center text-gray" bind:tap="gotoHeyCommunityPage">
-      <view wx:if="{{ wxAppAccountInfo.miniProgram.envVersion === 'release' }}">HeyCommunity
-        V{{ wxAppAccountInfo.miniProgram.version }}
+      <view wx:if="{{ wxAppAccountInfo.miniProgram.envVersion === 'release' }}">
+        HeyCommunity v{{ wxAppAccountInfo.miniProgram.version }}
       </view>
       <view wx:else>HeyCommunity {{ wxAppAccountInfo.miniProgram.envVersion }}</view>
-      <view>Developed by supeRodv2 of ProtobiaTech</view>
+      <view>Produced by supeRodv2 of ProtobiaTech</view>
     </view>
   </view>
 </view>
