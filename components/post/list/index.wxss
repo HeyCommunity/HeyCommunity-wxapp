@@ -14,18 +14,6 @@
     overflow: hidden;
     font-size: 30rpx;
     margin-bottom: 20rpx; }
-    .item-post .post-card .section-content .text-content.text-display-all {
-      max-height: none;
-      overflow: auto; }
-    .item-post .post-card .section-content .text-content.text-display-part {
-      position: relative; }
-      .item-post .post-card .section-content .text-content.text-display-part:after {
-        content: " ...";
-        position: absolute;
-        bottom: 0;
-        right: 30rpx;
-        padding: 0 5px;
-        background-color: #fff; }
   .item-post .post-card .section-content .item-video .video {
     width: 100%; }
   .item-post .post-card .section-actions .item-action .item-action-btn {

@@ -25,24 +25,6 @@
         overflow: hidden;
         font-size: 30rpx;
         margin-bottom: 20rpx;
-
-        &.text-display-all {
-          max-height: none;
-          overflow: auto;
-        }
-
-        &.text-display-part {
-          position: relative;
-
-          &:after {
-            content: " ...";
-            position: absolute;
-            bottom: 0;
-            right: 30rpx;
-            padding: 0 5px;
-            background-color: #fff;
-          }
-        }
       }
 
       .item-video {

@@ -6,12 +6,11 @@
       <!-- Header -->
       <view id="section-header" class="section-header cu-list menu-avatar">
         <view class="cu-item">
-          <view class="cu-avatar round lg"
-                bind:tap="gotoUserDetailPage" data-id="{{ post.user_id }}"
-                style="background-image:url('{{ post.user_avatar }}');">
-          </view>
+          <navigator class="cu-avatar round lg" url="/pages/users/detail/index?id={{ post.user_id }}"
+                     style="background-image:url('{{ post.user_avatar }}');">
+          </navigator>
           <view class="content flex-sub">
-            <view bind:tap="gotoUserDetailPage" data-id="{{ post.user_id }}">{{ post.user_nickname }}</view>
+            <view><navigator url="/pages/users/detail/index?id={{ post.user_id }}">{{ post.user_nickname }}</navigator></view>
             <view class="text-gray text-sm flex justify-between">{{ post.created_at_for_humans }}</view>
           </view>
           <view>
@@ -25,9 +24,10 @@
 
       <!-- 内容与图片 -->
       <view class="section-content">
-        <view class="text-content {{ posts.length === 1 ? 'text-display-all' : '' }} {{ post.content.length >= 100 ? 'text-display-part' : '' }}">
-          <text>{{ post.content }}</text>
-        </view>
+        <navigator class="text-content"
+                   url="/pages/posts/detail/index?id={{ post.id }}">
+          <text user-select="true">{{ post.content }}</text>
+        </navigator>
 
         <view wx:if="{{ post.video }}" class="item-video">
           <video id="video-{{ post.id }}" class="video" src="{{ post.video.file_path }}" title="{{ post.content }}"
