@@ -166,15 +166,25 @@ Page({
           APP.globalData.systemSettings.wxapp_subscribe_message.reply_temp_id,
         ],
         success: function(res) {
-          _this.setData({wxSubscribePostNoticeNum: _this.data.wxSubscribePostNoticeNum + 1});
-          APP.Notify({
-            type: 'primary',
-            message: '订阅完成 x ' + _this.data.wxSubscribePostNoticeNum + ' \n 点击这里再次订阅',
-            onClick: function() {
-              _this.subscribePostMessagesHandler();
-            },
-          });
+          if (res.errMsg === 'requestSubscribeMessage:ok') {
+            // TODO: 实际查看用户订阅了哪几个模板
+            _this.setData({wxSubscribePostNoticeNum: _this.data.wxSubscribePostNoticeNum + 1});
+            APP.Notify({
+              type: 'primary',
+              message: '完成订阅 x ' + _this.data.wxSubscribePostNoticeNum + ' \n 点击这里再次订阅',
+              onClick: function() {
+                _this.subscribePostMessagesHandler();
+              },
+            });
+          }
         },
+        fail: function(res) {
+          wx.showModal({
+            title: '订阅动态通知失败',
+            content: res.errMsg,
+            showCancel: false,
+          });
+        }
       });
     } else {
       APP.showNotify('未启用微信订阅消息功能', 'danger');
