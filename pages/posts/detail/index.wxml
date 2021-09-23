@@ -150,7 +150,8 @@
     <view class="cu-dialog">
       <form bind:submit="commentHandler">
         <view class="cu-bar cu-white justify-end">
-          <view class="content">评论动态</view>
+          <view class="content" wx:if="{{ commentModalCommentIndex === null }}">评论</view>
+          <view class="content" wx:else>回复{{ post.comments[commentModalCommentIndex].user_nickname }}</view>
           <view bind:tap="hideCommentModal" class="action">
             <text class="cuIcon-close text-red"></text>
           </view>
@@ -160,7 +161,7 @@
           <textarea class="input-content" placeholder="说说你的看法 ~"
                     name="content" value="{{ commentModalContent }}"
                     auto-height="true"
-                    focus="{{ commentModalVisible }}">
+                    focus="{{ commentTextareaFocus }}">
           </textarea>
         </view>
 

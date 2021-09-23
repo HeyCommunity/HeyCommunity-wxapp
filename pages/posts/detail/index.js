@@ -9,6 +9,7 @@ Page({
     tabType: 'comment',
 
     // 评论模态框
+    commentTextareaFocus: false,
     commentModalVisible: false,
     commentModalContent: null,
     commentModalType: null,
@@ -166,6 +167,8 @@ Page({
    * 打开评论弹出层
    */
   showCommentModal(event) {
+    let _this = this;
+
     if (getApp().needAuth()) return;
 
     let type = event.currentTarget.dataset.type;
@@ -180,12 +183,18 @@ Page({
       commentModalCommentIndex: commentIndex,
       commentModalCommentId: commentId,
     });
+
+    setTimeout(function() {
+      _this.setData({commentTextareaFocus: true});
+    }, 200);
   },
 
   /**
    * 关闭评论弹出层
    */
   hideCommentModal() {
+    let _this = this;
+
     this.setData({
       commentModalVisible: false,
       commentModalContent: null,
@@ -194,6 +203,10 @@ Page({
       commentModalCommentIndex: null,
       commentModalCommentId: null,
     });
+
+    setTimeout(function() {
+      _this.setData({commentTextareaFocus: true});
+    }, 200);
   },
 
   /**
