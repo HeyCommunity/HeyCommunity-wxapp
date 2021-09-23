@@ -1,14 +1,17 @@
 <view class="container-full" id="page-posts-create">
   <form d-bind:submit="createPost">
     <!-- 文本 -->
-    <view class="cu-form-group">
-      <textarea name="content" auto-focus="true" placeholder="有什么有趣的事物与大家分享 ..."
+    <view class="cu-form-group bg-gray">
+      <textarea class="input-content" name="content" d-model:value="{{ content }}" placeholder="有什么有趣的事物与大家分享 ~ "
+                auto-focus="true"
                 maxlength="-1"
-                d-model:value="{{ content }}" bind:input="setInputValue" data-field="content"></textarea>
+                auto-height="{{ true }}"
+                bind:input="setInputValue" data-field="content">
+      </textarea>
     </view>
 
     <!-- 图片或视频 -->
-    <view id="section-assets" class="cu-form-group" style="border:none;">
+    <view id="section-assets" class="cu-form-group padding-top" style="border:none;">
       <view class="grid col-4 grid-square flex-sub">
         <view class="item-image bg-img" wx:for="{{ images }}" wx:key="index" bind:tap="previewImage" data-url="{{ images[index].tempFilePath }}">
           <image src="{{ images[index].tempFilePath }}" mode="aspectFill"></image>
@@ -42,9 +45,8 @@
       </view>
     </view>
 
-    <view style="margin:20rpx;">
-      <button class="cu-btn block bg-blue lg round margin-top-sm" style="width:100%"
-              d-form-type="submit" bind:tap="createPost">发布</button>
+    <view id="section-options">
+      <button class="btn-submit cu-btn bg-blue lg round margin-top-sm" d-form-type="submit" bind:tap="createPost">发布</button>
     </view>
   </form>
 </view>
