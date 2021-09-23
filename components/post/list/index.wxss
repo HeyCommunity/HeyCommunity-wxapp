@@ -10,7 +10,6 @@
     font-weight: bold; }
   .item-post .post-card .section-content .text-content {
     padding: 0 30rpx 0;
-    max-height: 6.4em;
     overflow: hidden;
     font-size: 30rpx;
     margin-bottom: 20rpx; }

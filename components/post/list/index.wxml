@@ -26,7 +26,7 @@
       <view class="section-content">
         <navigator class="text-content"
                    url="/pages/posts/detail/index?id={{ post.id }}">
-          <text user-select="true">{{ post.content }}</text>
+          <text user-select="true">{{ post.content_preview }}</text>
         </navigator>
 
         <view wx:if="{{ post.video }}" class="item-video">
