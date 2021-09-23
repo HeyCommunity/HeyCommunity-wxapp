@@ -57,7 +57,9 @@
         color: #333333; }
 
 #modal-comment .cu-dialog {
-  vertical-align: unset; }
+  vertical-align: top;
+  top: 200rpx; }
 
 #modal-comment .input-content {
-  min-height: 7em; }
+  min-height: 6em;
+  max-height: 6em; }

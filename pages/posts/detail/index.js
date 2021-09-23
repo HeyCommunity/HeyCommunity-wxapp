@@ -205,7 +205,7 @@ Page({
     });
 
     setTimeout(function() {
-      _this.setData({commentTextareaFocus: true});
+      _this.setData({commentTextareaFocus: false});
     }, 200);
   },
 
