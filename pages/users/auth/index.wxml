@@ -1,8 +1,8 @@
 <view class="container page-users-auth-index">
   <van-notify id="van-notify"></van-notify>
 
-  <view class="text-center caption">登录到 HEY社区</view>
-  <view class="text-center subtitle">微信授权快速登录</view>
+  <view class="text-center subtitle">登入到</view>
+  <view class="text-center caption">{{ appGlobalData.wxappName }}</view>
 
   <view class="userinfo">
     <block wx:if="{{ canUseOpenData }}">

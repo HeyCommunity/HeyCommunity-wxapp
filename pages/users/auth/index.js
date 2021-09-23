@@ -2,6 +2,7 @@ const APP = getApp();
 
 Page({
   data: {
+    appGlobalData: null,
     canUseOpenData: wx.canIUse('open-data.type.userAvatarUrl') && wx.canIUse('open-data.type.userNickName'),
     canGetUserProfile: wx.getUserProfile ? true : false,
   },
@@ -17,6 +18,13 @@ Page({
         canIUseGetUserProfile: true
       })
     }
+  },
+
+  /**
+   * onShow
+   */
+  onShow() {
+    this.setData({appGlobalData: APP.globalData});
   },
 
   /**
