@@ -121,8 +121,8 @@
       <view wx:if="{{ tabType === 'thumb' }}" id="section-thumb-list" class="bg-white padding padding-bottom-xs">
         <view wx:if="{{ post.thumbs.length > 0 }}" class="grid col-5 text-center">
           <view class="item-user margin-bottom-sm" wx:for="{{ post.thumbs }}" wx:key="id" wx:for-item="thumb">
-            <view class="cu-avatar lg round margin-lr-xs" style="background-image:url({{ thumb.user_avatar }});"></view>
-            <view><text>{{ thumb.user_nickname }}</text></view>
+            <navigator url="/pages/users/detail/index?id={{ thumb.user_id }}" class="cu-avatar lg round margin-lr-xs" style="background-image:url({{ thumb.user_avatar }});"></navigator>
+            <view><navigator url="/pages/users/detail/index?id={{ thumb.user_id }}">{{ thumb.user_nickname }}</navigator></view>
           </view>
         </view>
 
