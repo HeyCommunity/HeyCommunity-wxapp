@@ -114,14 +114,14 @@
 
   <!-- 登录和退出 -->
   <view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg radius">
-    <view wx:if="{{ appGlobalData.isAuth }}" class="cu-item text-center" bind:tap="logoutHandler">
-      <view class="content">
+    <view wx:if="{{ appGlobalData.isAuth }}" class="cu-item" bind:tap="logoutHandler">
+      <view class="content text-center">
         <text class="cuIcon-exit text-red"></text>
         <text class="text-red">退出登录</text>
       </view>
     </view>
-    <view wx:else class="cu-item text-center" bind:tap="needAuth">
-      <view class="content">
+    <view wx:else class="cu-item" bind:tap="needAuth">
+      <view class="content text-center">
         <text class="cuIcon-weixin text-blue"></text>
         <text class="text-blue">登录</text>
       </view>
