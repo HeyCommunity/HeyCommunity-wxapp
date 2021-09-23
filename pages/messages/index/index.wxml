@@ -22,12 +22,12 @@
             catch:tap="gotoEntityPage" data-notice="{{ notice }}" data-notice-index="{{ noticeIndex }}" data-class="{{ 'item-message-' + noticeIndex }}"
             bind:touchstart="messageTouchStart" bind:touchmove="messageTouchMove" bind:touchend="messageTouchEnd">
         <view class="date text-grey text-xs">{{ notice.created_at_for_humans }}</view>
-        <view class="avatar cu-avatar round lg" style="background-image:url({{ notice.sender.avatar }});">
+        <navigator url="/pages/users/detail/index?id={{ notice.sender.id }}" class="avatar cu-avatar round lg" style="background-image:url({{ notice.sender.avatar }});">
           <view wx:if="{{ ! notice.is_read }}" class="cu-tag badge">未读</view>
-        </view>
+        </navigator>
         <view class="content padding-bottom-xs solid-bottom">
           <view class="text-grey">
-            <view class="nickname">{{ notice.sender.nickname }}</view>
+            <navigator url="/pages/users/detail/index?id={{ notice.sender.id }}" class="nickname">{{ notice.sender.nickname }}</navigator>
             <view class="message-action margin-left-xs text-gray">{{ notice.type_name }}</view>
           </view>
           <view class="text-gray text-sm flex">
