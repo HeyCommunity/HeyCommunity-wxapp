@@ -48,10 +48,12 @@ Page({
   },
 
   /**
-   * goto HeyCommunityPage
+   * goto 页面
    */
-  gotoHeyCommunityPage() {
-    wx.navigateTo({url: '/pages/users/hey-community/index'});
+  gotoPageByUrl(event) {
+    let url = event.currentTarget.dataset.url;
+
+    wx.navigateTo({url: url});
   },
 
   /**

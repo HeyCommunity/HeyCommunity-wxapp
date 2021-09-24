@@ -1,7 +1,10 @@
 <view class="container-full" id="page-posts-index">
-  <van-notice-bar mode="link" color="#000000" background="#ffffff" left-icon="volume-o" delay="0" speed="30"
-                  bind:click="gotoHeyCommunityPage"
-                  text="这是「HEY社区」的产品演示，你可以在这里自由地分享有意义或有趣的内容 ~">
+  <van-notice-bar
+    mode="link" delay="3" speed="30"
+    color="#000000" background="#ffffff" left-icon="volume-o"
+    text="{{ appGlobalData.systemSettings.wxapp_index_page_marquee.text }}"
+    wx:if="{{ appGlobalData.systemSettings.wxapp_index_page_marquee && appGlobalData.systemSettings.wxapp_index_page_marquee.enable }}"
+    bind:click="gotoPageByUrl" data-url="{{ appGlobalData.systemSettings.wxapp_index_page_marquee.url }}">
   </van-notice-bar>
   <van-notify id="van-notify"></van-notify>
 
