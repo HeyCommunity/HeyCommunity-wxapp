@@ -8,14 +8,12 @@
 
     "pages/users/index/index",
     "pages/users/info/index",
-
     "pages/users/detail/index",
     "pages/users/auth/index",
 
     "pages/systems/heycommunity/index",
     "pages/systems/about/index",
-
-    "pages/web-page/index"
+    "pages/systems/web-page/index"
   ],
   "tabBar": {
     "color": "#999999",
