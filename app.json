@@ -12,7 +12,8 @@
     "pages/users/detail/index",
     "pages/users/auth/index",
 
-    "pages/users/hey-community/index",
+    "pages/systems/heycommunity/index",
+    "pages/systems/about/index",
 
     "pages/web-page/index"
   ],

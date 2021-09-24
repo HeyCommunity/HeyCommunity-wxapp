@@ -89,15 +89,15 @@
 
   <!-- 其他 -->
   <view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg radius">
-    <view class="cu-item arrow" bind:tap="gotoHeyCommunityPage">
+    <navigator class="cu-item arrow" url="/pages/systems/about/index">
       <view class="content">
-        <text class="cuIcon-github text-black"></text>
-        <text class="text-grey">HEY社区</text>
+        <text class="cuIcon-hotfill text-blue"></text>
+        <text class="text-grey">{{ appGlobalData.wxappName }}</text>
       </view>
       <view class="action">
-        <text class="text-gray text-sm">免费开源</text>
+        <text class="text-gray text-sm">关于</text>
       </view>
-    </view>
+    </navigator>
     <button class="cu-item arrow" open-type="contact">
       <view class="content">
         <text class="cuIcon-servicefill text-green"></text>

@@ -61,20 +61,8 @@
           "scene": null
         },
         {
-          "name": "HEY社区",
-          "pathName": "pages/users/hey-community/index",
-          "query": "",
-          "scene": null
-        },
-        {
-          "name": "聊天列表页",
-          "pathName": "pages/discussions/index/index",
-          "query": "",
-          "scene": null
-        },
-        {
-          "name": "聊天详情页",
-          "pathName": "pages/discussions/detail/index",
+          "name": "[SYSTEM] 关于页面",
+          "pathName": "pages/systems/about/index",
           "query": "",
           "scene": null
         }
