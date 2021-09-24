@@ -1,50 +1,58 @@
-.page-users-auth-index {
-  padding-top: 200rpx;
-}
+#page-users-auth {
+  .box {
+    margin-top: -300rpx;
+    width: 100%;
 
-.caption {
-  font-size: 60rpx;
-  color: #333;
-}
-
-.subtitle {
-  margin-top: 10rpx;
-  font-size: 36rpx;
-  color: #999;
-}
-
-.userinfo {
-  margin-top: 80rpx;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  color: #aaa;
-
-  .avatar {
-    overflow: hidden;
-    width: 200rpx;
-    height: 200rpx;
-    border-radius: 50%;
-  }
-
-  .nickname {
-    font-size: 20px;
-    color: #555;
-  }
-}
-
-.footer {
-  margin-top: 100rpx;
-
-  .btn-login {
-    min-width: 340rpx;
-    position: relative;
-    overflow: hidden;
-
-    .icon {
-      position: absolute;
-      font-size: 160rpx;
-      left: -40rpx;
+    .card-white {
+      padding-top: 60rpx;
+      padding-bottom: 40rpx;
     }
-}
+
+    .caption {
+      font-size: 60rpx;
+      color: #333;
+    }
+
+    .subtitle {
+      margin-top: 10rpx;
+      font-size: 36rpx;
+      color: #999;
+    }
+
+    .userinfo {
+      margin-top: 40rpx;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: #aaa;
+
+      .avatar {
+        overflow: hidden;
+        width: 200rpx;
+        height: 200rpx;
+        border-radius: 50%;
+      }
+
+      .nickname {
+        font-size: 20px;
+        color: #777;
+      }
+    }
+
+    .footer {
+      margin-top: 60rpx;
+
+      .btn-login {
+        min-width: 340rpx;
+        position: relative;
+        overflow: hidden;
+
+        .icon {
+          position: absolute;
+          font-size: 160rpx;
+          left: -40rpx;
+        }
+      }
+    }
+  }
 }
