@@ -1,0 +1,22 @@
+<view class="container">
+  <view class="margin-xs bg-white padding-xl">
+    <view class="margin-top-sm margin-bottom-sm">
+      <view class="text-center" style="font-size:50rpx; line-height:1.2em;">HEY社区</view>
+      <view class="text-center" style="font-size:28rpx; line-height:1.2em; color:#666;">HeyCommunity</view>
+    </view>
+    <view>
+      <view>HEY社区（HeyCommunity）是一个社交软件项目（微信小程序）。当前产品功能以（图文、视频）动态分享为核心，支持点赞、评论、回复。同时也支持小程序订阅消息推送。</view>
+      <view>将来版本迭代会增加活动、话题、小组、IM 等功能，将来也会开发 APP 和网页端。</view>
+    </view>
+
+    <view class="margin-top-lg text-center">
+      <view>电子邮箱: supgeek.rod@gmail.com</view>
+      <view>官方网站: www.heycommunity.com</view>
+      <view>GitHub 仓库: github.com/HeyCommunity</view>
+    </view>
+
+    <view class="margin-top-lg text-center">
+      ©2021 ProtobiaTech
+    </view>
+  </view>
+</view>

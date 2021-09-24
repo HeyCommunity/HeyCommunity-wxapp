@@ -129,13 +129,13 @@
   </view>
 
   <!-- 版权和版本信息 -->
-  <view id="section-copyright" class="padding-bottom-xl padding-top-lg">
-    <view class="text-center text-gray" bind:tap="gotoHeyCommunityPage">
+  <view id="section-copyright">
+    <navigator class="text-center text-gray padding-bottom-xl padding-top-lg" url="/pages/systems/heycommunity/index">
       <view wx:if="{{ wxAppAccountInfo.miniProgram.envVersion === 'release' }}">
         HeyCommunity v{{ wxAppAccountInfo.miniProgram.version }}
       </view>
       <view wx:else>HeyCommunity {{ wxAppAccountInfo.miniProgram.envVersion }}</view>
       <view>Produced by supeRodv2 of ProtobiaTech</view>
-    </view>
+    </navigator>
   </view>
 </view>
