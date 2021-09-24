@@ -1,16 +1,25 @@
-// App Config
-const appName = 'HEY社区';
+//
+// 微信小程序名称
+// ==================================================
+const wxappName = 'HEY社区';
 
-// API list
+
+//
+// API Domain
+// ==================================================
+let apiDomain;
 const prodApiDomain = 'https://dev.api.heycommunity.com';
 const devApiDomain = 'https://dev.api.heycommunity.com';
 const localApiDomain = 'http://127.0.0.1:8000';
 
-// 设定 API
-let apiDomain = prodApiDomain;
-// apiDomain = devApiDomain;
-// apiDomain = localApiDomain;
+// 自定义 apiDomain
+apiDomain = prodApiDomain;
 
+
+//
+// module exports
+// ==================================================
 module.exports = {
+  appName,
   apiDomain,
 };

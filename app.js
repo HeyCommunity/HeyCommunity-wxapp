@@ -3,6 +3,7 @@ const HTTP = require('./utils/http.js');
 const OnFire = require('./utils/onfire.js');
 const WXLog = require('./utils/wxlog.js');
 import Notify from './miniprogram_npm/@vant/weapp/notify/notify';
+const { wxappName } = require('./utils/env.js');
 const tdweapp = require('./utils/talkingData/tdweapp.js');
 
 App({
@@ -12,7 +13,7 @@ App({
   WXLog: WXLog,
   Notify: Notify,
   globalData: {
-    wxappName: 'HEY社区',
+    wxappName: null,
     isAuth: false,
     apiToken: null,
     userInfo: null,
@@ -25,6 +26,9 @@ App({
    */
   onLaunch() {
     let _this = this;
+
+    // 设置小程序名称
+    _this.globalData.wxappName = wxappName;
 
     // 订阅 Notify
     this.OnFire.on('notify', function(options) {
