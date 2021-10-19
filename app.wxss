@@ -1,5 +1,5 @@
-@import "static/colorui/main.wxss";
-@import "static/colorui/icon.wxss";
+@import "assets/colorui/main.wxss";
+@import "assets/colorui/icon.wxss";
 
 /**
  * app.wxss
