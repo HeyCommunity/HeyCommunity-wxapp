@@ -1,0 +1,45 @@
+<view class="item-post">
+  <view class="post-card cu-card dynamic no-card">
+    <view class="cu-item shadow">
+      <!-- Header -->
+      <view id="section-header" class="section-header cu-list menu-avatar">
+        <view class="cu-item">
+          <navigator class="cu-avatar round lg" url="/pages/users/detail/index?id={{ model.user_id }}"
+                     style="background-image:url('{{ model.user_avatar }}');">
+          </navigator>
+
+          <view class="content flex-sub">
+            <view><navigator url="/pages/users/detail/index?id={{ model.user_id }}">{{ model.user_nickname }}</navigator></view>
+            <view class="text-gray text-sm flex justify-between">{{ model.user_bio ? model.user_bio : model.created_at }}</view>
+          </view>
+        </view>
+      </view>
+
+      <!-- 内容与图片 -->
+      <view class="section-content margin-bottom-sm">
+        <view class="text-content">
+          <text user-select="true">{{ model.content }}</text>
+        </view>
+
+        <view wx:if="{{ model.video }}" class="item-video">
+          <video id="video-{{ model.id }}" class="video" src="{{ model.video.file_path }}" title="{{ model.content }}"
+                 bind:play="videoPlayHandler" show-mute-btn="{{ true }}"
+                 controls="{{ true || currentVideoId === ('video-' + model.id) }}"
+                 vslide-gesture-in-fullscreen="{{ false }}"
+                 enable-progress-gesture="{{ true }}" enable-play-gesture="{{ true }}" enable-auto-rotation="{{ false }}">
+          </video>
+        </view>
+
+        <view wx:if="{{ model.images.length > 0 }}"
+              class="items-image grid flex-sub padding-lr {{ model.images.length > 1 ? 'col-3 grid-square' : 'col-1' }}">
+          <view class="item-image bg-img {{ model.images.length > 1 ? '' : 'only-img' }}"
+                style="background-image:url('{{ image.file_path }}');"
+                bind:tap="previewImage" data-url="{{ image.file_path }}" data-urls="{{ model.images }}"
+                wx:for="{{ model.images }}" wx:for-item="image" wx:key="*this">
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+

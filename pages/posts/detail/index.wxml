@@ -1,186 +1,27 @@
-<view id="page-posts-detail" class="container-full" >
-  <van-notify id="van-notify"></van-notify>
+<van-notify id="van-notify"></van-notify>
+<post-api id="comp-post-api"></post-api>
 
-  <van-skeleton class="item-skeleton" title avatar avatar-size="44px" row="8" loading="{{ skeletonVisible }}">
-    <!-- 动态卡片 -->
-    <view class="item-post">
-      <view class="post-card cu-card dynamic no-card">
-        <view class="cu-item shadow">
-          <!-- Header -->
-          <view id="section-header" class="section-header cu-list menu-avatar">
-            <view class="cu-item">
-              <navigator class="cu-avatar round lg" url="/pages/users/detail/index?id={{ post.user_id }}"
-                         style="background-image:url('{{ post.user_avatar }}');">
-              </navigator>
+<view id="page-posts-detail" class="container-full" wx:if="{{ model }}">
+  <!-- 动态卡片 -->
+  <include src="subview/_post-item.wxml"></include>
 
-              <view class="content flex-sub">
-                <view><navigator url="/pages/users/detail/index?id={{ post.user_id }}">{{ post.user_nickname }}</navigator></view>
-                <view class="text-gray text-sm flex justify-between">{{ post.user_bio ? post.user_bio : post.created_at }}</view>
-              </view>
-            </view>
-          </view>
-
-          <!-- 内容与图片 -->
-          <view class="section-content margin-bottom-sm">
-           <view class="text-content">
-             <text user-select="true">{{ post.content }}</text>
-           </view>
-
-           <view wx:if="{{ post.video }}" class="item-video">
-             <video id="video-{{ post.id }}" class="video" src="{{ post.video.file_path }}" title="{{ post.content }}"
-                    bind:play="videoPlayHandler" show-mute-btn="{{ true }}"
-                    controls="{{ true || currentVideoId === ('video-' + post.id) }}"
-                    vslide-gesture-in-fullscreen="{{ false }}"
-                    enable-progress-gesture="{{ true }}" enable-play-gesture="{{ true }}" enable-auto-rotation="{{ false }}">
-             </video>
-           </view>
-
-           <view wx:if="{{ post.images.length > 0 }}"
-                 class="items-image grid flex-sub padding-lr {{ post.images.length > 1 ? 'col-3 grid-square' : 'col-1' }}">
-             <view class="item-image bg-img {{ post.images.length > 1 ? '' : 'only-img' }}"
-                   style="background-image:url('{{ image.file_path }}');"
-                   bind:tap="previewImage" data-url="{{ image.file_path }}" data-urls="{{ post.images }}"
-                   wx:for="{{ post.images }}" wx:for-item="image" wx:key="*this">
-             </view>
-           </view>
-         </view>
-        </view>
-      </view>
-    </view>
-
-    <!-- 点赞和评论列表 -->
-    <view id="section-list" class="margin-top-sm">
-      <scroll-view scroll-x class="bg-white nav">
-        <view class="flex text-center">
-          <view class="cu-item flex-sub {{ tabType === 'comment' ? 'text-black cur' : '' }}" bind:tap="tabSelectHandler" data-type="comment">
-            评论
-            <view wx:if="{{ post.comment_num }}" class="cu-tag sm round">{{ post.comment_num }}</view>
-          </view>
-          <view class="cu-item flex-sub {{ tabType === 'thumb' ? 'text-black cur' : '' }}" bind:tap="tabSelectHandler" data-type="thumb">
-            点赞
-            <view wx:if="{{ post.thumb_up_num }}" class="cu-tag sm round">{{ post.thumb_up_num }}</view>
-          </view>
-        </view>
-      </scroll-view>
-
-      <!-- 评论列表 -->
-      <view wx:if="{{ tabType === 'comment' }}" id="section-comment-list" class="bg-white padding-top-sm">
-        <view wx:if="{{ post.comments.length > 0 }}" id="section-comments"  class="section-comments cu-list menu-avatar comment">
-          <view class="item-comment cu-item solid-bottom" wx:for="{{ post.comments }}" wx:key="id" wx:for-item="comment"
-                wx:for-index="commentIndex">
-            <view class="cu-avatar round"
-                  bind:tap="gotoUserDetailPage" data-id="{{ comment.user_id }}"
-                  style="background-image:url('{{ comment.user_avatar }}');">
-            </view>
-            <view class="content">
-              <view class="text-grey" bind:tap="gotoUserDetailPage" data-id="{{ comment.user_id }}">{{ comment.user_nickname }}</view>
-              <view class="text-grey text-content text-df">{{ comment.content }}</view>
-
-              <view wx:if="{{ comment.parent }}" class="bg-gray padding-tb-xs padding-lr-sm radius margin-top-sm text-sm">
-                <view class="flex">
-                  <view bind:tap="gotoUserDetailPage" data-id="{{ comment.parent.user_id }}">{{ comment.parent.user.nickname }}：</view>
-                  <view class="flex-sub">{{ comment.parent.content }}</view>
-                </view>
-              </view>
-
-              <view class="footer margin-top-sm flex justify-between">
-                <view class="text-gray text-df">{{ comment.created_at_for_humans }}</view>
-                <view class="items-btn">
-                  <button class="item-btn text-gray cu-btn sm bg-white"
-                          bind:tap="postCommentThumbHandler" data-comment-id="{{ comment.id }}"
-                          data-post-index="{{ postIndex }}" data-comment-index="{{ commentIndex }}"
-                          data-type="{{ 'thumb_up' }}" data-value="{{ !comment.i_have_thumb_up }}">
-                    <text wx:if="{{ comment.i_have_thumb_up }}" class="cuIcon-appreciatefill"></text>
-                    <text wx:else class="cuIcon-appreciate"></text>
-                    <text class="margin-left-xs" wx:if="{{ comment.thumb_up_num }}">{{ comment.thumb_up_num }}</text>
-                  </button>
-                  <button class="item-btn text-gray cu-btn sm bg-white"
-                          bind:tap="showCommentModal" data-comment-id="{{ comment.id }}" data-type="replyComment"
-                          data-comment-index="{{ commentIndex }}">
-                    <text wx:if="{{ comment.i_have_comment }}" class="cuIcon-communityfill"></text>
-                    <text wx:else class="cuIcon-community"></text>
-                    <text class="margin-left-xs" wx:if="{{ comment.comment_num }}">{{ comment.comment_num }}</text>
-                  </button>
-                  <button class="item-btn text-gray cu-btn sm bg-white" bind:tap="showPostCommentActionSheet"
-                          data-comment="{{ comment }}" data-post-index="{{ postIndex }}"
-                          data-comment-index="{{ commentIndex }}">
-                    <text class="cuIcon-moreandroid"></text>
-                  </button>
-                </view>
-              </view>
-            </view>
-          </view>
-        </view>
-
-        <view wx:else>
-          <van-empty description="没有评论"></van-empty>
-        </view>
-      </view>
-
-      <!-- 点赞列表 -->
-      <view wx:if="{{ tabType === 'thumb' }}" id="section-thumb-list" class="bg-white padding padding-bottom-xs">
-        <view wx:if="{{ post.thumbs.length > 0 }}" class="grid col-5 text-center">
-          <view class="item-user margin-bottom-sm" wx:for="{{ post.thumbs }}" wx:key="id" wx:for-item="thumb">
-            <navigator url="/pages/users/detail/index?id={{ thumb.user_id }}" class="cu-avatar lg round margin-lr-xs" style="background-image:url({{ thumb.user_avatar }});"></navigator>
-            <view><navigator url="/pages/users/detail/index?id={{ thumb.user_id }}">{{ thumb.user_nickname }}</navigator></view>
-          </view>
-        </view>
-
-        <view wx:else>
-          <van-empty description="没有点赞"></van-empty>
-        </view>
-      </view>
-    </view>
-  </van-skeleton>
+  <!-- 点赞和评论列表 -->
+  <include src="subview/_comments-and-thumbs.wxml"></include>
 
   <!-- 底部 -->
   <view id="footer">
-    <button class="item btn-thumb cu-btn icon shadow" bind:tap="postThumbHandler" data-type="thumb_up" data-value="{{ !post.i_have_thumb_up }}">
-      <text wx:if="{{ post.i_have_thumb_up }}" class="cuIcon-appreciatefill"></text>
+    <button class="item btn-thumb cu-btn icon shadow" bind:tap="postThumbHandler"
+            data-entity-id="{{ model.id }}" data-entity-type="post" data-type="thumb_up" data-value="{{ !model.i_have_thumb_up }}">
+      <text wx:if="{{ model.i_have_thumb_up }}" class="cuIcon-appreciatefill"></text>
       <text wx:else class="cuIcon-appreciate"></text>
     </button>
     <view class="item box-input">
-      <button class="el-input cu-btn shadow" bind:tap="showCommentModal" data-type="comment" data-post-id="{{ post.id }}">说说你的看法 ~</button>
+      <button class="el-input cu-btn shadow" bind:tap="showCommentModal"
+              data-type="comment" data-entity-type="post" data-entity-id="{{ model.id }}">说说你的看法 ~</button>
     </view>
   </view>
 </view>
 
-<!-- 评论模态框 -->
-<view id="modal-comment" class="cu-modal {{ commentModalVisible ? 'show' : '' }}">
-    <view class="cu-dialog">
-      <form bind:submit="commentHandler">
-        <view class="cu-bar cu-white justify-end">
-          <view class="content" wx:if="{{ commentModalCommentIndex === null }}">评论</view>
-          <view class="content" wx:else>回复{{ post.comments[commentModalCommentIndex].user_nickname }}</view>
-          <view bind:tap="hideCommentModal" class="action">
-            <text class="cuIcon-close text-red"></text>
-          </view>
-        </view>
-
-        <view class="padding bg-gray text-left">
-          <textarea name="content" class="input-content" placeholder="说说你的看法 ~" value="{{ commentModalContent }}"
-                    auto-height="true"
-                    maxlength="500"
-                    fixed="{{ true }}"
-                    adjust-position="{{ false }}"
-                    show-confirm-bar="{{ false }}"
-                    focus="{{ commentTextareaFocus }}">
-          </textarea>
-        </view>
-
-        <view class="cu-white padding">
-          <view class="flex">
-            <view class="flex-sub">
-              <button form-type="reset" class="cu-btn bg-gray block">清空</button>
-            </view>
-            <view class="flex-treble margin-left">
-              <button form-type="submit" class="cu-btn bg-green block">提交</button>
-            </view>
-          </view>
-        </view>
-      </form>
-    </view>
-  </view>
 
 <!-- 动态和评论 ActionSheet -->
 <mp-actionSheet bind:actiontap="postActionTapHandler" title="动态操作" show="{{ postActionSheetVisible }}" actions="{{ postActions }}" ></mp-actionSheet>

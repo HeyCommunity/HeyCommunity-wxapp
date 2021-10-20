@@ -1,5 +1,6 @@
 const AUTH = require('./utils/auth.js');
 const HTTP = require('./utils/http.js');
+const MODEL = require('./utils/model.js');
 const OnFire = require('./utils/onfire.js');
 const WXLog = require('./utils/wxlog.js');
 import Notify from './miniprogram_npm/@vant/weapp/notify/notify';
@@ -9,6 +10,7 @@ const tdweapp = require('./utils/talkingData/tdweapp.js');
 App({
   AUTH: AUTH,
   HTTP: HTTP,
+  MODEL: MODEL,
   OnFire: OnFire,
   WXLog: WXLog,
   Notify: Notify,
