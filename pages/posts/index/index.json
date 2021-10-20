@@ -7,8 +7,7 @@
   "enablePullDownRefresh": true,
   "onReachBottomDistance": 200,
   "usingComponents": {
-    "post-list": "/components/post/list/index",
-    "van-notice-bar": "@vant/weapp/notice-bar/index",
-    "van-skeleton": "@vant/weapp/skeleton/index"
+    "comment": "/components/common/comment/index",
+    "van-notice-bar": "@vant/weapp/notice-bar/index"
   }
 }

@@ -1,4 +1,6 @@
 <van-notify id="van-notify"></van-notify>
+<comment id="comp-comment"></comment>
+
 <view class="container-full" id="page-posts-index">
   <van-notice-bar
     mode="link" delay="3" speed="30"
@@ -8,15 +10,8 @@
     bind:click="gotoPageByUrl" data-url="{{ appGlobalData.systemSettings.wxapp_index_page_marquee.url }}">
   </van-notice-bar>
 
-  <view>
-    <view wx:if="{{ models.length > 0 }}" class="items-post">
-      <post-list id="comp-post-list" posts="{{ models }}"></post-list>
-    </view>
-
-    <view wx:else style="padding-top:100px;">
-      <van-empty description="暂无动态"></van-empty>
-    </view>
-  </view>
+  <!-- 动态列表 -->
+  <include src="subview/_post-item.wxml"></include>
 
   <!-- 创建动态按钮 -->
   <navigator wx:if="{{ appGlobalData.isAuth }}" url="/pages/posts/create/index" class="btn-create cu-btn bg-blue round"><view class="icon cuIcon-post"></view></navigator>

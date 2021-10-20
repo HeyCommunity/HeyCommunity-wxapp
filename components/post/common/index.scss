@@ -1,0 +1,14 @@
+@import "assets/colorui/main.wxss";
+@import "assets/colorui/icon.wxss";
+
+.modal-comment {
+  .cu-dialog {
+    vertical-align: top;
+    top: 200rpx;
+  }
+
+  .input-content {
+    min-height: 6em;
+    max-height: 6em;
+  }
+}
