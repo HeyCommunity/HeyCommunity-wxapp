@@ -115,7 +115,7 @@ Component({
       // 发起评论请求
       this.commentRequest(params).then(function(result) {
         if (result.data.status) {
-          if (_this.data.commentIndex != null) modelInstance.comments[_this.data.commentIndex].i_have_comment = true;
+          if (modelInstance.comments[_this.data.commentIndex]) modelInstance.comments[_this.data.commentIndex].i_have_comment = true;
 
           modelInstance.comments.unshift(result.data);
           modelInstance.comment_num += 1;
@@ -132,7 +132,6 @@ Component({
 
         _this.hideCommentModal();
         _this.setData({commentTextareaContent: null});
-
 
         // 订阅消息
         wxappNoticeSubscribeHandler();
