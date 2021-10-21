@@ -94,7 +94,7 @@ Component({
       };
 
       // 定义 modelInstance
-      let modelInstance = pageThis.data.models[this.data.modelIndex];
+      let modelInstance = pageThis.data.models ? pageThis.data.models[this.data.modelIndex] : pageThis.data.model;
 
       // 订阅消息
       let wxappNoticeSubscribeHandler = function() {

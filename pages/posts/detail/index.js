@@ -1,26 +1,12 @@
 const APP = getApp();
+const MODEL = require('../../../utils/model.js');
+const THUMB = require('../../../components/common/thumb/index.js');
 
 Page({
   data: {
     model: null,
 
     tabType: 'comment',
-
-    // 动态评论操作
-    postCommentActionComment: null,
-    postCommentActionCommentIndex: null,
-    postCommentActionSheetVisible: false,
-    postCommentActions: [],
-    userPostCommentActions: [
-      {text: '报告不良信息', value: 'report', type: 'warn'},
-    ],
-    authorPostCommentActions: [
-      {text: '删除', value: 'delete', type: 'warn'},
-    ],
-    adminPostCommentActions: [
-      {text: '报告不良信息', value: 'report', type: 'warn'},
-      {text: '删除', value: 'delete', type: 'warn'},
-    ],
   },
 
   /**
@@ -30,7 +16,7 @@ Page({
     this.setData({modelId: options.id});
 
     wx.showLoading({title: '加载中'});
-    APP.MODEL.getModel(this, 'posts/' + this.data.modelId).finally(function() {
+    MODEL.getModel(this, 'posts/' + this.data.modelId).finally(function() {
       wx.hideLoading();
     });
   },
@@ -39,7 +25,7 @@ Page({
    * onShow
    */
   onShow() {
-    APP.MODEL.getModel(this, 'posts/' + this.data.modelId);
+    MODEL.getModel(this, 'posts/' + this.data.modelId);
   },
 
   /**
@@ -59,24 +45,17 @@ Page({
   },
 
   /**
-   * 动态点赞处理
+   * 点赞处理
    */
-  postThumbHandler(event) {
-    this.selectComponent('#comp-post-api').postThumbHandler(this, event);
-  },
-
-  /**
-   * 评论点赞处理
-   */
-  postCommentThumbHandler(event) {
-    this.selectComponent('#comp-post-api').postThumbHandler(this, event);
+  thumbHandler(event) {
+    THUMB.thumbHandler(event, this);
   },
 
   /**
    * 打开评论弹出层
    */
   showCommentModal(event) {
-    this.selectComponent('#comp-post-api').showCommentModal(this, event);
+    this.selectComponent('#comp-comment-modal').showCommentModal(this, event);
   },
 
   /**

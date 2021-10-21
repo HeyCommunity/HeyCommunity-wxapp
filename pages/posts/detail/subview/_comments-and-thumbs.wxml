@@ -14,53 +14,13 @@
 
   <!-- 评论列表 -->
   <view wx:if="{{ tabType === 'comment' }}" id="section-comment-list" class="bg-white padding-top-sm">
-    <view wx:if="{{ model.comments.length > 0 }}" id="section-comments"  class="section-comments cu-list menu-avatar comment">
-      <view class="item-comment cu-item solid-bottom" wx:for="{{ model.comments }}" wx:key="id" wx:for-item="comment"
-            wx:for-index="commentIndex">
-        <view class="cu-avatar round"
-              bind:tap="gotoUserDetailPage" data-id="{{ comment.user_id }}"
-              style="background-image:url('{{ comment.user_avatar }}');">
-        </view>
-        <view class="content">
-          <view class="text-grey" bind:tap="gotoUserDetailPage" data-id="{{ comment.user_id }}">{{ comment.user_nickname }}</view>
-          <view class="text-grey text-content text-df">{{ comment.content }}</view>
-
-          <view wx:if="{{ comment.parent }}" class="bg-gray padding-tb-xs padding-lr-sm radius margin-top-sm text-sm">
-            <view class="flex">
-              <view bind:tap="gotoUserDetailPage" data-id="{{ comment.parent.user_id }}">{{ comment.parent.user.nickname }}：</view>
-              <view class="flex-sub">{{ comment.parent.content }}</view>
-            </view>
-          </view>
-
-          <view class="footer margin-top-sm flex justify-between">
-            <view class="text-gray text-df">{{ comment.created_at_for_humans }}</view>
-            <view class="items-btn">
-              <button class="item-btn text-gray cu-btn sm bg-white" bind:tap="postCommentThumbHandler"
-                      data-comment-index="{{ commentIndex }}"
-                      data-entity-id="{{ comment.id }}" data-entity-type="post_comment"
-                      data-type="thumb_up" data-value="{{ !comment.i_have_thumb_up }}">
-                <text wx:if="{{ comment.i_have_thumb_up }}" class="cuIcon-appreciatefill"></text>
-                <text wx:else class="cuIcon-appreciate"></text>
-                <text class="margin-left-xs" wx:if="{{ comment.thumb_up_num }}">{{ comment.thumb_up_num }}</text>
-              </button>
-              <button class="item-btn text-gray cu-btn sm bg-white" bind:tap="showCommentModal"
-                      data-target-user-nickname="{{ comment.user_nickname }}"
-                      data-type="replyComment"
-                      data-entity-type="post_comment" data-entity-id="{{ comment.id }}"
-                      data-comment-id="{{ comment.id }}" data-comment-index="{{ commentIndex }}">
-                <text wx:if="{{ comment.i_have_comment }}" class="cuIcon-communityfill"></text>
-                <text wx:else class="cuIcon-community"></text>
-                <text class="margin-left-xs" wx:if="{{ comment.comment_num }}">{{ comment.comment_num }}</text>
-              </button>
-              <button class="item-btn text-gray cu-btn sm bg-white" bind:tap="showPostCommentActionSheet"
-                      data-comment="{{ comment }}" data-post-index="{{ postIndex }}"
-                      data-comment-index="{{ commentIndex }}">
-                <text class="cuIcon-moreandroid"></text>
-              </button>
-            </view>
-          </view>
-        </view>
-      </view>
+    <view wx:if="{{ model.comments.length }}">
+      <comment-list id="section-comments"
+                    bind:showCommentModalEvent="showCommentModal"
+                    bind:thumbHandlerEvent="thumbHandler"
+                    comments="{{ model.comments }}" model="{{ model }}"
+                    entity-class="\\Modules\\Post\\Entities\\Post">
+      </comment-list>
     </view>
 
     <view wx:else>

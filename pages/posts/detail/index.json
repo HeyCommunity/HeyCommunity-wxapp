@@ -6,8 +6,7 @@
   "backgroundTextStyle": "light",
   "enablePullDownRefresh": true,
   "usingComponents": {
-    "post-api": "/components/post/api/index",
-    "van-skeleton": "@vant/weapp/skeleton/index",
-    "mp-actionSheet": "weui-miniprogram/actionsheet/actionsheet"
+    "comment-modal": "/components/common/comment-modal",
+    "comment-list": "/components/common/comment-list/index"
   }
 }

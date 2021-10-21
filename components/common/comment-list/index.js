@@ -5,7 +5,7 @@ Component({
   properties: {
     comments: Array,
     model: Object,
-    modelIndex: Number,
+    modelIndex: null,
     entityClass: String,
   },
   data: {},

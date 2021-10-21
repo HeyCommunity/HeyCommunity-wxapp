@@ -9,9 +9,11 @@ function thumbHandler(event, _this) {
 
   let modelIndex = currentTarget.dataset.modelIndex;
   let commentIndex = currentTarget.dataset.commentIndex;
+
   let entity = _this.data.model;
-  if (modelIndex != undefined && commentIndex == undefined) entity = _this.data.models[modelIndex];
-  if (modelIndex != undefined && commentIndex != undefined) entity = _this.data.models[modelIndex].comments[commentIndex];
+  if (modelIndex == null && commentIndex != null) entity = _this.data.model.comments[commentIndex];
+  if (modelIndex != null && commentIndex == null) entity = _this.data.models[modelIndex];
+  if (modelIndex != null && commentIndex != null) entity = _this.data.models[modelIndex].comments[commentIndex];
 
   let params = {
     entity_id: currentTarget.dataset.entityId,
