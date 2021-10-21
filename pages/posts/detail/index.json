@@ -7,6 +7,7 @@
   "enablePullDownRefresh": true,
   "usingComponents": {
     "comment-modal": "/components/common/comment-modal",
-    "comment-list": "/components/common/comment-list/index"
+    "comment-list": "/components/common/comment-list/index",
+    "post-actionSheet": "/components/post/action-sheet"
   }
 }

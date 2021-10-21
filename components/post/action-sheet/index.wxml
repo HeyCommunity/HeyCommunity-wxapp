@@ -1,0 +1,1 @@
+<mp-actionSheet bind:actiontap="actionHandler" title="动态操作" show="{{ actionSheetVisible }}" actions="{{ actionSheetActions }}" ></mp-actionSheet>

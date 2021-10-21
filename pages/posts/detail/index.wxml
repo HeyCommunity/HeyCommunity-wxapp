@@ -24,6 +24,5 @@
 <!-- 动态评论模态框 -->
 <comment-modal id="comp-comment-modal"></comment-modal>
 
-<!-- 动态和评论 ActionSheet -->
-<mp-actionSheet bind:actiontap="postActionTapHandler" title="动态操作" show="{{ postActionSheetVisible }}" actions="{{ postActions }}" ></mp-actionSheet>
-<mp-actionSheet bind:actiontap="postCommentActionTapHandler" title="评论操作" show="{{ postCommentActionSheetVisible }}" actions="{{ postCommentActions }}" ></mp-actionSheet>
+<!-- 动态 ActionSheet -->
+<post-actionSheet id="comp-post-actionSheet"></post-actionSheet>

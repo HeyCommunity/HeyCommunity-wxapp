@@ -12,6 +12,12 @@
             <view><navigator url="/pages/users/detail/index?id={{ model.user_id }}">{{ model.user_nickname }}</navigator></view>
             <view class="text-gray text-sm flex justify-between">{{ model.user_bio ? model.user_bio : model.created_at }}</view>
           </view>
+
+          <view class="">
+            <button class="btn-more cu-btn bg-white icon" bind:tap="showPostActionSheet" data-post="{{ post }}">
+              <text class="cuIcon-unfold"></text>
+            </button>
+          </view>
         </view>
       </view>
 
