@@ -52,7 +52,7 @@ Page({
    * 打开评论弹出层
    */
   showCommentModal(event) {
-    this.selectComponent('#comp-comment').showCommentModal(this, event);
+    this.selectComponent('#comp-comment-modal').showCommentModal(this, event);
   },
 
   /**

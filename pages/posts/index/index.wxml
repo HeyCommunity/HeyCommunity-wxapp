@@ -1,5 +1,4 @@
 <van-notify id="van-notify"></van-notify>
-<comment id="comp-comment"></comment>
 
 <view class="container-full" id="page-posts-index">
   <van-notice-bar
@@ -17,3 +16,6 @@
   <navigator wx:if="{{ appGlobalData.isAuth }}" url="/pages/posts/create/index" class="btn-create cu-btn bg-blue round"><view class="icon cuIcon-post"></view></navigator>
   <navigator wx:else url="/pages/users/auth/index" class="btn-create cu-btn bg-blue round"><view class="icon cuIcon-post"></view></navigator>
 </view>
+
+<!-- 动态评论模态框 -->
+<comment-modal id="comp-comment-modal"></comment-modal>
