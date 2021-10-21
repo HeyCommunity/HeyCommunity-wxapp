@@ -2,7 +2,7 @@
 @import "assets/colorui/icon.wxss";
 
 /**
- * app.wxss
+ * container 容器
  */
 .container, .container-full {
   background-color: #F5F5F5;
@@ -10,29 +10,20 @@
   min-height: 100vh;
   box-sizing: border-box;
 }
-
 .container-full {
   padding: 0;
 }
 
 
-#section-more-loading-tip {
+/**
+ * 文本样式
+ */
+.d-block {
+  display: block;
 }
-#section-more-loading-disabled-tip {
+.d-inline {
+  display: inline;
 }
-
-/** 骨架屏样式 */
-.item-skeleton .van-skeleton {
-  margin-top: 30rpx;
-  margin-bottom: 40rpx;
-}
-.item-skeleton .van-skeleton .van-skeleton__content {
-}
-.item-skeleton .van-skeleton .van-skeleton__content .van-skeleton__row {
-  margin-top: 20rpx;
-}
-.item-skeleton .van-skeleton .van-skeleton__avatar,
-.item-skeleton .van-skeleton .van-skeleton__row,
-.item-skeleton .van-skeleton .van-skeleton__title {
-  background-color: #DDD !important;
+.d-inline-block {
+  display: inline-block;
 }

@@ -5,17 +5,19 @@ const HTTP = require('../../../utils/http');
 function thumbHandler(event, _this) {
   if (getApp().needAuth()) return;
 
-  let modelIndex = event.currentTarget.dataset.modelIndex;
-  let commentIndex = event.currentTarget.dataset.commentIndex;
+  let currentTarget = event.detail.currentTarget ? event.detail.currentTarget : event.currentTarget;
+
+  let modelIndex = currentTarget.dataset.modelIndex;
+  let commentIndex = currentTarget.dataset.commentIndex;
   let entity = _this.data.model;
   if (modelIndex != undefined && commentIndex == undefined) entity = _this.data.models[modelIndex];
   if (modelIndex != undefined && commentIndex != undefined) entity = _this.data.models[modelIndex].comments[commentIndex];
 
   let params = {
-    entity_id: event.currentTarget.dataset.entityId,
-    entity_type: event.currentTarget.dataset.entityType,
-    type: event.currentTarget.dataset.type,
-    value: event.currentTarget.dataset.value,
+    entity_id: currentTarget.dataset.entityId,
+    entity_type: currentTarget.dataset.entityType,
+    type: currentTarget.dataset.type,
+    value: currentTarget.dataset.value,
   };
 
   thumbRequest(params).then(function(result) {

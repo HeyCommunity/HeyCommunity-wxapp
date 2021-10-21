@@ -42,7 +42,6 @@
           }
         }
 
-        //
         // 操作栏
         .section-actions {
           .item-action {
@@ -54,35 +53,18 @@
               }
             }
           }
-        }
 
-        //
-        // 评论区
-        .section-comments {
-          margin-top: 0;
-
-          .item-comment {
-            padding-top: 26rpx;
-            padding-bottom: 26rpx;
-
-            .footer {
-              .items-btn {
-                .item-btn {
-                  padding: 10rpx;
-                  margin-left: 10rpx;
-                  width: auto;
-                  height: 44rpx;
-                  font-size: 26rpx;
-                }
-              }
-            }
+          &.solids-bottom::after {
+            border-bottom: 4rpx solid #e1e1e1;
           }
         }
       }
     }
-
   }
 
+  /**
+   * 右下角创建按钮
+   */
   .btn-create {
     z-index: 99;
     position: fixed;

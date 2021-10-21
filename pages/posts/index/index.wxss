@@ -1,46 +1,41 @@
-#page-posts-index .items-post {
-  padding-top: 20rpx; }
-  #page-posts-index .items-post .item-post {
-    margin-top: 20rpx; }
-    #page-posts-index .items-post .item-post:first-of-type {
-      margin-top: 0rpx; }
-    #page-posts-index .items-post .item-post .post-card .section-header .content {
-      width: calc(100% - 96rpx - 60rpx - 20rpx - 60rpx) !important; }
-    #page-posts-index .items-post .item-post .post-card .section-header .btn-more {
-      right: 20rpx;
-      font-size: 32rpx;
+@charset "UTF-8";
+#page-posts-index {
+  /**
+   * 右下角创建按钮
+   */ }
+  #page-posts-index .items-post {
+    padding-top: 20rpx; }
+    #page-posts-index .items-post .item-post {
+      margin-top: 20rpx; }
+      #page-posts-index .items-post .item-post:first-of-type {
+        margin-top: 0rpx; }
+      #page-posts-index .items-post .item-post .post-card .section-header .content {
+        width: calc(100% - 96rpx - 60rpx - 20rpx - 60rpx) !important; }
+      #page-posts-index .items-post .item-post .post-card .section-header .btn-more {
+        right: 20rpx;
+        font-size: 32rpx;
+        font-weight: bold; }
+      #page-posts-index .items-post .item-post .post-card .section-content .text-content {
+        padding: 0 30rpx 0;
+        overflow: hidden;
+        font-size: 30rpx;
+        margin-bottom: 20rpx; }
+      #page-posts-index .items-post .item-post .post-card .section-content .item-video .video {
+        width: 100%; }
+      #page-posts-index .items-post .item-post .post-card .section-actions .item-action .item-action-btn {
+        width: auto; }
+        #page-posts-index .items-post .item-post .post-card .section-actions .item-action .item-action-btn .text-value {
+          font-weight: normal; }
+      #page-posts-index .items-post .item-post .post-card .section-actions.solids-bottom::after {
+        border-bottom: 4rpx solid #e1e1e1; }
+  #page-posts-index .btn-create {
+    z-index: 99;
+    position: fixed;
+    bottom: 60rpx;
+    right: 40rpx;
+    width: 50px;
+    height: 50px;
+    border-bottom: 50%; }
+    #page-posts-index .btn-create .icon {
+      font-size: 20px;
       font-weight: bold; }
-    #page-posts-index .items-post .item-post .post-card .section-content .text-content {
-      padding: 0 30rpx 0;
-      overflow: hidden;
-      font-size: 30rpx;
-      margin-bottom: 20rpx; }
-    #page-posts-index .items-post .item-post .post-card .section-content .item-video .video {
-      width: 100%; }
-    #page-posts-index .items-post .item-post .post-card .section-actions .item-action .item-action-btn {
-      width: auto; }
-      #page-posts-index .items-post .item-post .post-card .section-actions .item-action .item-action-btn .text-value {
-        font-weight: normal; }
-    #page-posts-index .items-post .item-post .post-card .section-comments {
-      margin-top: 0; }
-      #page-posts-index .items-post .item-post .post-card .section-comments .item-comment {
-        padding-top: 26rpx;
-        padding-bottom: 26rpx; }
-        #page-posts-index .items-post .item-post .post-card .section-comments .item-comment .footer .items-btn .item-btn {
-          padding: 10rpx;
-          margin-left: 10rpx;
-          width: auto;
-          height: 44rpx;
-          font-size: 26rpx; }
-
-#page-posts-index .btn-create {
-  z-index: 99;
-  position: fixed;
-  bottom: 60rpx;
-  right: 40rpx;
-  width: 50px;
-  height: 50px;
-  border-bottom: 50%; }
-  #page-posts-index .btn-create .icon {
-    font-size: 20px;
-    font-weight: bold; }

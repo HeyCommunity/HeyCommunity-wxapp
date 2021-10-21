@@ -29,17 +29,19 @@ Component({
 
       this.setData({pageThis: pageThis});
 
+      let currentTarget = event.detail.currentTarget ? event.detail.currentTarget : event.currentTarget;
+
       this.setData({
         modalVisible: true,
-        actionType: event.currentTarget.dataset.actionType,
-        commentTargetUserNickname: event.currentTarget.dataset.targetUserNickname,
+        actionType: currentTarget.dataset.actionType,
+        commentTargetUserNickname: currentTarget.dataset.targetUserNickname,
 
-        modelIndex: event.currentTarget.dataset.modelIndex,
-        commentIndex: event.currentTarget.dataset.commentIndex,
+        modelIndex: currentTarget.dataset.modelIndex,
+        commentIndex: currentTarget.dataset.commentIndex,
 
-        entityClass: event.currentTarget.dataset.entityClass,
-        entityId: event.currentTarget.dataset.entityId,
-        parentId: event.currentTarget.dataset.parentId,
+        entityClass: currentTarget.dataset.entityClass,
+        entityId: currentTarget.dataset.entityId,
+        parentId: currentTarget.dataset.parentId,
       });
 
       setTimeout(function() {
@@ -137,7 +139,6 @@ Component({
         wxappNoticeSubscribeHandler();
       });
     },
-
 
     //
     // 评论请求
