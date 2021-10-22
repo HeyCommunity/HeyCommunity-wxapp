@@ -1,5 +1,5 @@
 const APP = getApp();
-const HTTP = require('../../../utils/http');
+const HTTP = require('../../../../utils/http');
 
 Component({
   options: {},

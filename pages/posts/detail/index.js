@@ -1,6 +1,6 @@
 const APP = getApp();
 const MODEL = require('../../../utils/model.js');
-const THUMB = require('../../../components/common/thumb/index.js');
+const THUMB = require('../../../components/common/thumb/script/index.js');
 
 Page({
   data: {

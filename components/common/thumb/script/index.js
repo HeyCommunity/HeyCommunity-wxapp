@@ -1,4 +1,4 @@
-const HTTP = require('../../../utils/http');
+const HTTP = require('../../../../utils/http.js');
 
 //
 // 点赞处理
