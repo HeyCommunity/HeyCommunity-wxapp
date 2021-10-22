@@ -22,8 +22,8 @@ Page({
           title: '提示',
           content: '内容不存在或已被删除',
           showCancel: false,
-          complete(res) {
-            wx.navigateBack();
+          complete() {
+            wx.switchTab({url: '/pages/posts/index/index'});
           }
         });
       } else {
