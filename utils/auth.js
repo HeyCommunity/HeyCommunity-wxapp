@@ -84,7 +84,7 @@ const restoreLogin = function(APP) {
   return new Promise(function(resolve, reject) {
     if (apiToken) {
       APP.globalData.apiToken = apiToken;
-      APP.HTTP.GET('users/mine').then(function(result) {
+      APP.HTTP.GET('users/mine', {}, {showRequestFailModal: false}).then(function(result) {
         APP.globalData.isAuth = true;
         APP.globalData.userInfo = result.data;
 

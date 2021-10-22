@@ -48,13 +48,7 @@ const request = function(type, path, params, configs) {
           resolve(res.data);
           console.debug('[HTTP-' + type + '][' + res.statusCode + ']: /' + path, res);
         } else {
-          if (configs.showRequestFailModal) {
-            wx.showModal({
-              title: '发生错误',
-              content: res.data.message,
-              showCancel: false,
-            });
-          }
+          if (configs.showRequestFailModal) showRequestFailModal(res);
 
           reject(res);
           console.error('[HTTP-' + type + '][' + res.statusCode + ']: /' + path, res);
@@ -63,13 +57,7 @@ const request = function(type, path, params, configs) {
       fail: function(res) {
         APP.showNotify('网络请求失败', 'danger');
 
-        if (configs.showRequestFailModal) {
-          wx.showModal({
-            title: '网络请求失败',
-            content: res.errMsg,          // TODO: 重定义，把 res.errMsg 转为本地语言
-            showCancel: false,
-          });
-        }
+        if (configs.showRequestFailModal) showRequestFailModal(res);
 
         reject(res);
         console.error('[HTTP-' + type + '][WX.REQUEST-FAIL]: /' + path, res);
@@ -161,15 +149,29 @@ const wxRequestIsOk = function(res) {
 
 /**
  * 获取请求失败的返回消息
+ * TODO: 重定义，把 res.errMsg 转为本地语言
  */
 const getRequestFailMessage = function(res) {
   return (wxRequestIsOk(res)) ? res.data.message : res.errMsg;
+}
+
+/**
+ * 显示请求失败的模态框通知
+ */
+const showRequestFailModal = function(res) {
+  let title = wxRequestIsOk(res) ? '发生错误' : '网络请求失败';
+
+  wx.showModal({
+    title: title,
+    content: getRequestFailMessage(res),
+    showCancel: false,
+  })
 }
 
 //
 // module exports
 module.exports = {
   makeApiPath, makeWebPagePath,
-  httpRequestIsOk, wxRequestIsOk, getRequestFailMessage,
+  httpRequestIsOk, wxRequestIsOk, getRequestFailMessage, showRequestFailModal,
   GET, POST, uploadFile,
 };

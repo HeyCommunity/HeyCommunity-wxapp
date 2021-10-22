@@ -16,7 +16,20 @@ Page({
     this.setData({modelId: options.id});
 
     wx.showLoading({title: '加载中'});
-    MODEL.getModel(this, 'posts/' + this.data.modelId).finally(function() {
+    MODEL.getModel(this, 'posts/' + this.data.modelId, {}, {showRequestFailModal: false}).catch(function(res) {
+      if (APP.HTTP.wxRequestIsOk(res)) {
+        wx.showModal({
+          title: '提示',
+          content: '内容不存在或已被删除',
+          showCancel: false,
+          complete(res) {
+            wx.navigateBack();
+          }
+        });
+      } else {
+        APP.HTTP.showRequestFailModal(res);
+      }
+    }).finally(function() {
       wx.hideLoading();
     });
   },
@@ -25,7 +38,7 @@ Page({
    * onShow
    */
   onShow() {
-    MODEL.getModel(this, 'posts/' + this.data.modelId);
+    MODEL.getModel(this, 'posts/' + this.data.modelId, {}, {showRequestFailModal: false});
   },
 
   /**

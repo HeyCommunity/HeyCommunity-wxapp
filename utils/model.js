@@ -26,7 +26,7 @@ let init = function(page, apiPath) {
 
 //
 // 获取 models
-let getModels = function(pageNum, params) {
+let getModels = function(pageNum, params, config) {
   let _this = this;
   if (! this.apiPath) throw '请先调用 init 方法进行初始化';
 
@@ -37,7 +37,7 @@ let getModels = function(pageNum, params) {
 
   return new Promise(function(resolve, reject) {
     wx.showLoading({title: '加载中'});
-    HTTP.GET(_this.apiPath, params).then(function(result, res) {
+    HTTP.GET(_this.apiPath, params, config).then(function(result, res) {
       if (result.meta.current_page === 1) _this.PAGE.data.models = [];
       _this.PAGE.data.models = _this.PAGE.data.models.concat(result.data);
       _this.PAGE.setData({models: _this.PAGE.data.models});
@@ -70,24 +70,13 @@ let getNextPageModels = function(params) {
 
 //
 // 获取 model
-let getModel = function(pageThis, apiPath, params) {
+let getModel = function(pageThis, apiPath, params, config) {
   return new Promise(function(resolve, reject) {
-    HTTP.GET(apiPath).then(function(result) {
+    HTTP.GET(apiPath, params, config).then(function(result) {
       pageThis.setData({model: result.data});
 
       resolve(result);
     }).catch(function(res) {
-      if (HTTP.wxRequestIsOk(res)) {
-        wx.showModal({
-          title: '提示',
-          content: '内容不存在或已被删除',
-          showCancel: false,
-          complete(res) {
-            wx.navigateBack();
-          }
-        });
-      }
-
       reject(res);
     });
   });

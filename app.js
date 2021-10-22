@@ -45,7 +45,7 @@ App({
         wx.login({
           success: function(res) {
             let loginCode = res.code;
-            _this.HTTP.GET('users/login', {code: loginCode}).then(function(result) {
+            _this.HTTP.GET('users/login', {code: loginCode}, {showRequestFailModal: false}).then(function(result) {
               console.debug('未登录用户在后台进行注册，获取 apiToken => ' + result.data.token);
               // _this.globalData.apiToken = result.data.token;
             }).catch(function(res) {
@@ -60,7 +60,7 @@ App({
     }, 300)
 
     // SystemSettings
-    _this.HTTP.GET('system/settings').then(function(result) {
+    _this.HTTP.GET('system/settings', {}, {showRequestFailModal: false}).then(function(result) {
       _this.globalData.systemSettings = result.data;
     });
   },
