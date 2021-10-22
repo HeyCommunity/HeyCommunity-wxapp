@@ -10,7 +10,7 @@
   <!-- 底部 -->
   <view id="footer">
     <button class="item btn-thumb cu-btn icon shadow" bind:tap="thumbHandler"
-            data-entity-id="{{ model.id }}" data-entity-type="post" data-type="thumb_up" data-value="{{ !model.i_have_thumb_up }}">
+            data-entity-id="{{ model.id }}" data-entity-class="\\Modules\\Post\\Entities\\Post" data-type="thumb_up" data-value="{{ !model.i_have_thumb_up }}">
       <text wx:if="{{ model.i_have_thumb_up }}" class="cuIcon-appreciatefill"></text>
       <text wx:else class="cuIcon-appreciate"></text>
     </button>

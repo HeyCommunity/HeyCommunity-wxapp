@@ -17,7 +17,7 @@ function thumbHandler(event, _this) {
 
   let params = {
     entity_id: currentTarget.dataset.entityId,
-    entity_type: currentTarget.dataset.entityType,
+    entity_class: currentTarget.dataset.entityClass,
     type: currentTarget.dataset.type,
     value: currentTarget.dataset.value,
   };

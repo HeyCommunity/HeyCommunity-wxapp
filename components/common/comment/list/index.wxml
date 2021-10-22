@@ -24,7 +24,7 @@
         <view class="items-btn">
           <button class="item-btn text-gray cu-btn sm bg-white" bind:tap="thumbHandler"
                   data-model-index="{{ modelIndex }}" data-comment-index="{{ commentIndex }}"
-                  data-entity-id="{{ comment.id }}" data-entity-type="post_comment" data-type="thumb_up" data-value="{{ !comment.i_have_thumb_up }}">
+                  data-entity-id="{{ comment.id }}" data-entity-class="\\App\\Models\\Common\\Comment" data-type="thumb_up" data-value="{{ !comment.i_have_thumb_up }}">
             <text wx:if="{{ comment.i_have_thumb_up }}" class="cuIcon-appreciatefill"></text>
             <text wx:else class="cuIcon-appreciate"></text>
             <text class="margin-left-xs" wx:if="{{ comment.thumb_up_num }}">{{ comment.thumb_up_num }}</text>

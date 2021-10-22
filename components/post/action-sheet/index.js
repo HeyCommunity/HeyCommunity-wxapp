@@ -131,7 +131,7 @@ Component({
               content: '动态' + actionTypeName + '成功',
               showCancel: false,
               success(res) {
-                if (res.confirm)  wx.switchTab({url: '/pages/posts/index/index'});
+                if (res.confirm) wx.switchTab({url: '/pages/posts/index/index'});
               }
             });
           }
