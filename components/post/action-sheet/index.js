@@ -24,7 +24,7 @@ Component({
       guest: ['detail', 'report'],
       user: ['detail', 'report'],
       author: ['detail', 'delete'],
-      admin: ['detail', 'report', 'hidden', 'delete'],
+      admin: ['detail', 'report', 'hidden'],
     },
   },
   methods: {
@@ -81,10 +81,8 @@ Component({
           this.detailActionHandler();
           break;
         case 'hidden':
-          this.hiddenActionHandler();
-          break;
         case 'delete':
-          this.deleteActionHandler();
+          this.hiddenAndDeleteActionHandler(action);
           break;
         case 'report':
           this.reportActionHandler();
@@ -108,31 +106,29 @@ Component({
     },
 
     /**
-     * 下架处理
+     * 下架和删除处理
      */
-    hiddenActionHandler() {
-      wx.navigateBack();
-    },
-
-    /**
-     * 删除处理
-     */
-    deleteActionHandler() {
+    hiddenAndDeleteActionHandler(actionType) {
       let _this = this;
       let pageThis = this.data.pageThis;
 
-      let confirmDeleteHandler = function() {
-        wx.showLoading({title: '删除中'});
+      let actionTypeName = '未知操作';
+      if (actionType === 'hidden') actionTypeName = '下架';
+      if (actionType === 'delete') actionTypeName = '删除';
 
-        HTTP.POST('posts/delete', {id: _this.data.post.id}).then(function(result) {
+      let confirmHandler = function() {
+        wx.showLoading({title: '动态' + actionTypeName + '中'});
+
+        let apiPath = 'posts/' + actionType;
+        HTTP.POST(apiPath, {id: _this.data.post.id}).then(function(result) {
           if (_this.data.postIndex != null) {
             pageThis.data.models.splice(_this.data.postIndex, 1);
             pageThis.setData({models: pageThis.data.models});
-            wx.showToast({title: '动态删除成功'});
+            wx.showToast({title: '动态' + actionTypeName + '成功'});
           } else {
             wx.showModal({
               title: '操作成功',
-              content: '动态删除成功',
+              content: '动态' + actionTypeName + '成功',
               showCancel: false,
               success(res) {
                 if (res.confirm)  wx.switchTab({url: '/pages/posts/index/index'});
@@ -142,13 +138,13 @@ Component({
         }).finally(function() {
           wx.hideLoading();
         });
-      }
+      };
 
       wx.showModal({
         title: '提示',
-        content: '确定要删除这条动态？',
+        content: '确定要' + actionTypeName + '这条动态？',
         success: function(res) {
-          if (res.confirm) confirmDeleteHandler();
+          if (res.confirm) confirmHandler();
         },
       });
     },
@@ -157,13 +153,24 @@ Component({
      * 报告不良信息处理
      */
     reportActionHandler() {
-      let params = {
-        entity_class: '\\Modules\\Post\\Entities\\Post',
-        entity_id: this.data.post.id,
-      };
+      let _this = this;
 
-      HTTP.POST('user-reports', params).then(function() {
-        wx.showModal({title: '报告不良信息', content: '感谢，我们已收到你的报告', showCancel: false});
+      wx.showModal({
+        title: '报告不良信息',
+        content: '如果你认为这条动态包含不良信息，请向我们报告',
+        confirmText: '提交',
+        success: function(res) {
+          if (res.confirm) {
+            let params = {
+              entity_class: '\\Modules\\Post\\Entities\\Post',
+              entity_id: _this.data.post.id,
+            };
+
+            HTTP.POST('user-reports', params).then(function() {
+              wx.showModal({title: '报告不良信息', content: '感谢，我们已收到你的报告', showCancel: false});
+            });
+          }
+        },
       });
     },
   },
