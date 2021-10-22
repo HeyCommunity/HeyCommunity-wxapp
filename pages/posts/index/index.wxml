@@ -19,3 +19,6 @@
 
 <!-- 动态评论模态框 -->
 <comment-modal id="comp-comment-modal"></comment-modal>
+
+<!-- 动态 ActionSheet -->
+<post-actionSheet id="comp-post-actionSheet"></post-actionSheet>

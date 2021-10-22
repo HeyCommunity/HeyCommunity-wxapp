@@ -56,6 +56,13 @@ Page({
   },
 
   /**
+   * 显示 ActionSheet
+   */
+  showPostActionSheet(event) {
+    this.selectComponent('#comp-post-actionSheet').showPostActionSheet(this, event);
+  },
+
+  /**
    * 下拉刷新
    */
   onPullDownRefresh() {

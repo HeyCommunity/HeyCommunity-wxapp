@@ -62,16 +62,7 @@ Page({
    * 显示 ActionSheet
    */
   showPostActionSheet(event) {
-    this.selectComponent('#comp-post-actionSheet').showPostActionSheet(event);
-  },
-
-  /**
-   * 用户报告不良信息处理
-   */
-  userReportHandler(params) {
-    APP.HTTP.POST('user-reports', params).finally(function() {
-      wx.showModal({title: '报告不良信息', content: '感谢，我们已收到你的报告', showCancel: false});
-    });
+    this.selectComponent('#comp-post-actionSheet').showPostActionSheet(this, event);
   },
 
   /**

@@ -23,7 +23,7 @@ const request = function(type, path, params, configs) {
   let apiToken = APP ? APP.globalData.apiToken : '';
 
   // configs
-  let defaultConfigs = {showRequestFailModal: false};
+  let defaultConfigs = {showRequestFailModal: true};
   if (configs === undefined) configs = {};
   configs = Object.assign(defaultConfigs, configs);
 
@@ -48,6 +48,14 @@ const request = function(type, path, params, configs) {
           resolve(res.data);
           console.debug('[HTTP-' + type + '][' + res.statusCode + ']: /' + path, res);
         } else {
+          if (configs.showRequestFailModal) {
+            wx.showModal({
+              title: '发生错误',
+              content: res.data.message,
+              showCancel: false,
+            });
+          }
+
           reject(res);
           console.error('[HTTP-' + type + '][' + res.statusCode + ']: /' + path, res);
         }
@@ -81,7 +89,6 @@ const uploadFile = function(apiPath, filePath, params, configs) {
   let defaultConfigs = {showRequestFailModal: true};
   if (configs === undefined) configs = {};
   configs = Object.assign(defaultConfigs, configs);
-
 
   return new Promise(function(resolve, reject) {
     wx.uploadFile({
@@ -152,10 +159,17 @@ const wxRequestIsOk = function(res) {
   return false;
 }
 
+/**
+ * 获取请求失败的返回消息
+ */
+const getRequestFailMessage = function(res) {
+  return (wxRequestIsOk(res)) ? res.data.message : res.errMsg;
+}
+
 //
 // module exports
 module.exports = {
   makeApiPath, makeWebPagePath,
-  httpRequestIsOk, wxRequestIsOk,
+  httpRequestIsOk, wxRequestIsOk, getRequestFailMessage,
   GET, POST, uploadFile,
 };

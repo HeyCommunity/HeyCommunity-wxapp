@@ -14,7 +14,7 @@
           </view>
 
           <view class="">
-            <button class="btn-more cu-btn bg-white icon" bind:tap="showPostActionSheet" data-post="{{ post }}">
+            <button class="btn-more cu-btn bg-white icon" bind:tap="showPostActionSheet" data-post-index="{{ null }}" data-post="{{ model }}">
               <text class="cuIcon-unfold"></text>
             </button>
           </view>

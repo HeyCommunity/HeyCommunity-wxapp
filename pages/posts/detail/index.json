@@ -6,8 +6,8 @@
   "backgroundTextStyle": "light",
   "enablePullDownRefresh": true,
   "usingComponents": {
+    "post-actionSheet": "/components/post/action-sheet",
     "comment-modal": "/components/common/comment-modal",
-    "comment-list": "/components/common/comment-list/index",
-    "post-actionSheet": "/components/post/action-sheet"
+    "comment-list": "/components/common/comment-list/index"
   }
 }
