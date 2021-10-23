@@ -47,8 +47,8 @@ Component({
     commentSuccessfulHandler: function (event) {
       this.setData({entity: event.detail.entity});
 
-      // 更新 post.comment_num
-      this.triggerEvent('updatePostDataEvent', {post: this.properties.entity});
+      // 更新 entity
+      this.triggerEvent('updateEntityDataEvent', {entity: this.properties.entity});
     }
   }
 });

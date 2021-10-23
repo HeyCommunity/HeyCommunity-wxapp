@@ -43,7 +43,7 @@
       </view>
 
       <!-- 操作栏 -->
-      <view wx:if="{{ postCardActionBarVisible }}" class="section-actions cu-list flex margin-top-sm solids-bottom">
+      <view wx:if="{{ !isDetailPage }}" class="section-actions cu-list flex margin-top-sm solids-bottom">
         <view class="item-action cu-item flex-sub padding-tb-sm margin-lr-sm text-grey text-center">
           <button class="item-action-btn cu-btn bg-white padding-lr-xl" bind:tap="thumbHandler"
                   data-model-index="{{ postIndex }}"
@@ -76,7 +76,7 @@
       </view>
 
       <!-- 评论列表 -->
-      <comment-list id="comp-comment-list" bind:updateEntityDataEvent="updatePostDataHandler"
+      <comment-list wx:if="{{ !isDetailPage }}" id="comp-comment-list" bind:updateEntityDataEvent="updatePostDataHandler"
                     entity-class="\\Modules\\Post\\Entities\\Post" entity="{{ post }}" entity-id="{{ post.id }}">
       </comment-list>
     </view>
@@ -89,5 +89,5 @@
 
 <!-- 动态 ActionSheet -->
 <post-actionSheet id="comp-post-actionSheet" bind:updatePostDataEvent="updatePostDataHandler"
-                  action-sheet-detail-visible="{{ actionSheetDetailVisible }}"
+                  is-detail-page="{{ isDetailPage }}"
                   post="{{ post }}"></post-actionSheet>

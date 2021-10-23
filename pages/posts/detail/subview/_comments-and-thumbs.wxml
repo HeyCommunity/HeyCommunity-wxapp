@@ -15,11 +15,8 @@
   <!-- 评论列表 -->
   <view wx:if="{{ tabType === 'comment' }}" id="section-comment-list" class="bg-white padding-top-sm">
     <view wx:if="{{ model.comments.length }}">
-      <comment-list id="section-comments"
-                    bind:showCommentModalEvent="showCommentModal"
-                    bind:thumbHandlerEvent="thumbHandler"
-                    comments="{{ model.comments }}" model="{{ model }}"
-                    entity-class="\\Modules\\Post\\Entities\\Post">
+      <comment-list id="comp-comment-list" bind:updateEntityDataEvent="updatePostDataHandler"
+                    entity-class="\\Modules\\Post\\Entities\\Post" entity="{{ model }}" entity-id="{{ model.id }}">
       </comment-list>
     </view>
 

@@ -5,9 +5,9 @@ Component({
     addGlobalClass: true,
   },
   properties: {
-    actionSheetDetailVisible: {
+    isDetailPage: {
       type: Boolean,
-      value: true,
+      value: false,
     },
     postCardActionBarVisible: {
       type: Boolean,
@@ -71,10 +71,10 @@ Component({
     },
 
     /**
-     * 更新 Entity 数据
+     * 更新 Post 数据
      */
     updatePostDataHandler: function (event) {
-      this.setData({post: event.detail.post});
+      this.setData({post: event.detail.entity});
     },
   },
 });

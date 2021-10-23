@@ -84,6 +84,13 @@ Page({
   },
 
   /**
+   * 更新 Post 数据
+   */
+  updatePostDataHandler: function (event) {
+    this.setData({model: event.detail.entity});
+  },
+
+  /**
    * 下拉刷新
    */
   onPullDownRefresh() {
