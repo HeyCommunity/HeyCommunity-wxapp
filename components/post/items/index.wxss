@@ -1,0 +1,23 @@
+.item-post {
+  margin-top: 20rpx; }
+  .item-post:first-of-type {
+    margin-top: 0rpx; }
+  .item-post .post-card .section-header .content {
+    width: calc(100% - 96rpx - 60rpx - 20rpx - 60rpx) !important; }
+  .item-post .post-card .section-header .btn-more {
+    right: 20rpx;
+    font-size: 32rpx;
+    font-weight: bold; }
+  .item-post .post-card .section-content .text-content {
+    padding: 0 30rpx 0;
+    overflow: hidden;
+    font-size: 30rpx;
+    margin-bottom: 20rpx; }
+  .item-post .post-card .section-content .item-video .video {
+    width: 100%; }
+  .item-post .post-card .section-actions .item-action .item-action-btn {
+    width: auto; }
+    .item-post .post-card .section-actions .item-action .item-action-btn .text-value {
+      font-weight: normal; }
+  .item-post .post-card .section-actions.solids-bottom::after {
+    border-bottom: 4rpx solid #e1e1e1; }

@@ -9,7 +9,6 @@
           <text class="cuIcon-close text-red"></text>
         </view>
       </view>
-
       <view class="padding bg-gray text-left">
         <textarea name="content" class="input-content" placeholder="说说你的看法 ~" value="{{ commentTextareaContent }}"
                   auto-height="true"

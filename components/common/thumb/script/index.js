@@ -2,48 +2,31 @@ const HTTP = require('../../../../utils/http.js');
 
 //
 // 点赞处理
-function thumbHandler(event, _this) {
-  if (getApp().needAuth()) return;
+function thumbHandler(params, entity) {
+  return new Promise(function(resolve, reject) {
+    thumbRequest(params).then(function(result) {
+      let message;
 
-  let currentTarget = event.detail.currentTarget ? event.detail.currentTarget : event.currentTarget;
+      if (result.statusCode === 201 || result.statusCode === 200) {
+        message = '点赞成功';
+        entity.i_have_thumb_up = true;
+        entity.thumb_up_num += 1;
 
-  let modelIndex = currentTarget.dataset.modelIndex;
-  let commentIndex = currentTarget.dataset.commentIndex;
+        wx.showToast({title: message});
+      } else if (result.statusCode === 202) {
+        message = '点赞已取消';
+        entity.i_have_thumb_up = false;
+        entity.thumb_up_num -= 1;
 
-  let entity = _this.data.model;
-  if (modelIndex == null && commentIndex != null) entity = _this.data.model.comments[commentIndex];
-  if (modelIndex != null && commentIndex == null) entity = _this.data.models[modelIndex];
-  if (modelIndex != null && commentIndex != null) entity = _this.data.models[modelIndex].comments[commentIndex];
+        wx.showToast({title: message, icon: 'none'});
+      }
 
-  let params = {
-    entity_id: currentTarget.dataset.entityId,
-    entity_class: currentTarget.dataset.entityClass,
-    type: currentTarget.dataset.type,
-    value: currentTarget.dataset.value,
-  };
+      // if (message) wx.showToast({title: message});
 
-  thumbRequest(params).then(function(result) {
-    let message;
-
-    if (result.statusCode === 201 || result.statusCode === 200) {
-      message = '点赞成功';
-      entity.i_have_thumb_up = true;
-      entity.thumb_up_num += 1;
-    } else if (result.statusCode === 202) {
-      message = '取消点赞';
-      entity.i_have_thumb_up = false;
-      entity.thumb_up_num -= 1;
-    }
-
-    // DEBUG: 莫名其妙 entity 是引用赋值
-    // if (modelIndex == undefined && commentIndex == undefined) _this.data.model = entity;
-    // if (modelIndex != undefined && commentIndex == undefined) _this.data.models[modelIndex] = entity;
-    // if (modelIndex != undefined && commentIndex != undefined) _this.data.models[modelIndex].comments[commentIndex] = entity;
-
-    _this.setData({model: _this.data.model});
-    _this.setData({models: _this.data.models});
-
-    if (message) wx.showToast({title: message});
+      return resolve(result);
+    }).catch(function(res) {
+      reject(res);
+    });
   });
 }
 

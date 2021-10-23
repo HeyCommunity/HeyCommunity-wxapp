@@ -1,5 +1,6 @@
 {
   "component": true,
   "usingComponents": {
+    "comment-modal": "/components/common/comment/modal/index"
   }
 }

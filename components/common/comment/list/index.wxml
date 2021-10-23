@@ -1,5 +1,5 @@
-<view wx:if="{{ comments.length > 0 }}" class="section-comments cu-list menu-avatar comment">
-  <view class="item-comment cu-item solid-bottom" wx:for="{{ comments }}" wx:key="id" wx:for-item="comment" wx:for-index="commentIndex">
+<view wx:if="{{ entity.comments.length > 0 }}" class="section-comments cu-list menu-avatar comment">
+  <view class="item-comment cu-item solid-bottom" wx:for="{{ entity.comments }}" wx:key="id" wx:for-item="comment" wx:for-index="commentIndex">
     <!-- 头像 -->
     <navigator url="/pages/users/detail/index?id={{ comment.user_id }}" class="cu-avatar round" style="background-image:url('{{ comment.user_avatar }}');"></navigator>
 
@@ -23,16 +23,15 @@
         <view class="text-gray text-df">{{ comment.created_at_for_humans }}</view>
         <view class="items-btn">
           <button class="item-btn text-gray cu-btn sm bg-white" bind:tap="thumbHandler"
-                  data-model-index="{{ modelIndex }}" data-comment-index="{{ commentIndex }}"
+                  data-comment-index="{{ commentIndex }}" data-comment="{{ comment }}"
                   data-entity-id="{{ comment.id }}" data-entity-class="\\App\\Models\\Common\\Comment" data-type="thumb_up" data-value="{{ !comment.i_have_thumb_up }}">
             <text wx:if="{{ comment.i_have_thumb_up }}" class="cuIcon-appreciatefill"></text>
             <text wx:else class="cuIcon-appreciate"></text>
             <text class="margin-left-xs" wx:if="{{ comment.thumb_up_num }}">{{ comment.thumb_up_num }}</text>
           </button>
-          <button class="item-btn text-gray cu-btn sm bg-white" bind:tap="showCommentModal"
-                  data-action-type="replyComment" data-target-user-nickname="{{ comment.user_nickname }}"
-                  data-model-index="{{ modelIndex }}" data-comment-index="{{ commentIndex }}"
-                  data-entity-id="{{ model.id }}" data-parent-id="{{ comment.id }}" data-entity-class="{{ entityClass }}">
+          <button class="item-btn text-gray cu-btn sm bg-white"
+                  bind:tap="showCommentModal" data-comment-index="{{ commentIndex }}"
+                  data-target-user-nickname="{{ comment.user_nickname }}" data-parent-id="{{ comment.id }}">
             <text wx:if="{{ comment.i_have_comment }}" class="cuIcon-communityfill"></text>
             <text wx:else class="cuIcon-community"></text>
             <text class="margin-left-xs" wx:if="{{ comment.comment_num }}">{{ comment.comment_num }}</text>
@@ -49,3 +48,7 @@
   </view>
 </view>
 
+<!-- 评论模态框 -->
+<comment-modal class="comp-comment-modal"
+               entity-class="{{ entityClass }}" entity-id="{{ entityId }}" entity="{{ entity }}"
+               bind:commentSuccessfulEvent="commentSuccessfulHandler"></comment-modal>

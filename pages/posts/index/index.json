@@ -7,7 +7,9 @@
   "enablePullDownRefresh": true,
   "onReachBottomDistance": 200,
   "usingComponents": {
-    "post-actionSheet": "/components/post/action-sheet",
+    "post-actionSheet": "/components/post/action-sheet/index",
+    "post-item": "/components/post/item/index",
+    "post-items": "/components/post/items/index",
     "comment-modal": "/components/common/comment/modal/index",
     "comment-list": "/components/common/comment/list/index",
     "van-notice-bar": "@vant/weapp/notice-bar/index"

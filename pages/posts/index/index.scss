@@ -1,64 +1,10 @@
 #page-posts-index {
   .items-post {
     padding-top: 20rpx;
-    // padding-bottom: 30rpx;
+    padding-bottom: 10rpx;
 
     .item-post {
-      margin-top: 20rpx;
-
-      &:first-of-type {
-        margin-top: 0rpx;
-      }
-
-      .post-card {
-        .section-header {
-          .content {
-            width: calc(100% - 96rpx - 60rpx - 20rpx - 60rpx) !important;
-          }
-
-          .btn-more {
-            right: 20rpx;
-            font-size: 32rpx;
-            font-weight: bold;
-          }
-        }
-
-        .section-content {
-          .text-content {
-            padding: 0 30rpx 0;
-            // max-height: 6.4em;
-            overflow: hidden;
-            font-size: 30rpx;
-            margin-bottom: 20rpx;
-          }
-
-          .item-video {
-            .video {
-              width: 100%;
-            }
-          }
-
-          .items-image {
-          }
-        }
-
-        // 操作栏
-        .section-actions {
-          .item-action {
-            .item-action-btn {
-              width: auto;
-
-              .text-value {
-                font-weight: normal;
-              }
-            }
-          }
-
-          &.solids-bottom::after {
-            border-bottom: 4rpx solid #e1e1e1;
-          }
-        }
-      }
+      margin-bottom: 20rpx;
     }
   }
 

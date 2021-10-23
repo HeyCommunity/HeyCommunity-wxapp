@@ -4,48 +4,37 @@ const HTTP = require('../../../../utils/http');
 Component({
   options: {},
   properties: {
+    entity: Object,
+    entityId: Number,
+    entityClass: String,
+    parentId: null,
   },
   data: {
-    pageThis: null,
-
-    actionType: null,           // 接受 comment 或者 replyComment
     modalVisible: false,
     commentTextareaFocus: false,
     commentTextareaContent: null,
     commentTargetUserNickname: null,
 
-    modelIndex: null,
     commentIndex: null,
-
-    entityClass: null,          // Laravel Model Namespace + ClassName
-    entityId: null,
-    parentId: null,
   },
   methods: {
     //
     // 显示评论框
-    showCommentModal(pageThis, event) {
+    showCommentModal(event) {
+      console.log('showCommentModal event', event);
+
       if (getApp().needAuth()) return;
-
-      this.setData({pageThis: pageThis});
-
-      let currentTarget = event.detail.currentTarget ? event.detail.currentTarget : event.currentTarget;
 
       this.setData({
         modalVisible: true,
-        actionType: currentTarget.dataset.actionType,
-        commentTargetUserNickname: currentTarget.dataset.targetUserNickname,
-
-        modelIndex: currentTarget.dataset.modelIndex,
-        commentIndex: currentTarget.dataset.commentIndex,
-
-        entityClass: currentTarget.dataset.entityClass,
-        entityId: currentTarget.dataset.entityId,
-        parentId: currentTarget.dataset.parentId,
+        commentTargetUserNickname: event.currentTarget.dataset.targetUserNickname,
+        parentId: event.currentTarget.dataset.parentId,
+        commentIndex: event.currentTarget.dataset.commentIndex,
       });
 
+      let _this = this;
       setTimeout(function() {
-        pageThis.setData({commentTextareaFocus: true});
+        _this.setData({commentTextareaFocus: true});
       }, 200);
     },
 
@@ -54,16 +43,9 @@ Component({
     hideCommentModal() {
       this.setData({
         modalVisible: false,
-        actionType: null,
         commentTargetUserNickname: null,
         commentTextareaFocus: false,
-
-        modelIndex: null,
         commentIndex: null,
-
-        entityClass: null,
-        entityId: null,
-        parentId: null,
       });
     },
 
@@ -73,58 +55,36 @@ Component({
       if (getApp().needAuth()) return;
 
       let _this = this;
-      let pageThis = this.data.pageThis;
 
       let content = event.detail.value.content;
       if (! content) {
         wx.showModal({
-          title: '请说点什么',
+          title: '提示',
           content: '内容不能为空',
           showCancel: false,
         });
-        throw '请说点什么，内容不能为空';
+        console.error('评论内容不能为空');
+        return;
       }
 
-      // 请求参数
       let params = {
-        entity_class: this.data.entityClass,
-        entity_id: this.data.entityId,
-        parent_id: this.data.parentId,
+        entity_class: this.properties.entityClass,
+        entity_id: this.properties.entityId,
+        parent_id: this.properties.parentId,
         content: content,
-      };
-
-      // 定义 modelInstance
-      let modelInstance = pageThis.data.models ? pageThis.data.models[this.data.modelIndex] : pageThis.data.model;
-
-      // 订阅消息
-      let wxappNoticeSubscribeHandler = function() {
-        if (APP.globalData.systemSettings
-          && APP.globalData.systemSettings.wxapp_subscribe_message
-          && APP.globalData.systemSettings.wxapp_subscribe_message.enable
-        ) {
-          wx.requestSubscribeMessage({
-            tmplIds: [
-              APP.globalData.systemSettings.wxapp_subscribe_message.thumb_up_temp_id,
-              APP.globalData.systemSettings.wxapp_subscribe_message.comment_temp_id,
-              APP.globalData.systemSettings.wxapp_subscribe_message.reply_temp_id,
-            ],
-            complete: function() {
-            },
-          });
-        }
       };
 
       // 发起评论请求
       this.commentRequest(params).then(function(result) {
         if (result.data.status) {
-          if (modelInstance.comments[_this.data.commentIndex]) modelInstance.comments[_this.data.commentIndex].i_have_comment = true;
+          if (_this.data.commentIndex != null) {
+            _this.properties.entity.comments[_this.data.commentIndex].i_have_comment = true;
+            _this.properties.entity.comments[_this.data.commentIndex].comment_num += 1;
+          }
 
-          modelInstance.comments.unshift(result.data);
-          modelInstance.comment_num += 1;
-          modelInstance.i_have_comment = true;
-
-          pageThis.setData({model: pageThis.data.model});
-          pageThis.setData({models: pageThis.data.models});
+          _this.properties.entity.comments.unshift(result.data);
+          _this.properties.entity.comment_num += 1;
+          _this.properties.entity.i_have_comment = true;
 
           // APP.showNotify('评论成功');
           wx.showToast({title: '评论成功'});
@@ -135,8 +95,7 @@ Component({
         _this.hideCommentModal();
         _this.setData({commentTextareaContent: null});
 
-        // 订阅消息
-        wxappNoticeSubscribeHandler();
+        _this.triggerEvent('commentSuccessfulEvent', {entity: _this.properties.entity});
       });
     },
 

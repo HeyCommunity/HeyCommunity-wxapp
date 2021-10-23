@@ -10,7 +10,15 @@
   </van-notice-bar>
 
   <!-- 动态列表 -->
-  <include src="subview/_post-item.wxml"></include>
+  <view wx:if="{{ models.length > 0 }}" class="items-post">
+    <view wx:for="{{ models }}" wx:key="id" wx:for-item="post" wx:for-index="postIndex">
+      <post-item id="comp-post-item-{{ postIndex }}" post="{{ post }}"></post-item>
+    </view>
+  </view>
+
+  <view wx:else style="padding-top:100px;">
+    <van-empty description="暂无动态"></van-empty>
+  </view>
 
   <!-- 创建动态按钮 -->
   <navigator wx:if="{{ appGlobalData.isAuth }}" url="/pages/posts/create/index" class="btn-create cu-btn bg-blue round"><view class="icon cuIcon-post"></view></navigator>

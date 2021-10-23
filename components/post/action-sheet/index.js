@@ -5,11 +5,14 @@ Component({
   options: {
     addGlobalClass: true,
   },
-  properties: {},
+  properties: {
+    isDetailPage: {
+      type: Boolean,
+      value: false,
+    },
+  },
   data: {
-    pageThis: null,
     post: null,
-    postIndex: null,
 
     actionSheetVisible: false,
     actionSheetActions: [],
@@ -29,6 +32,27 @@ Component({
   },
   methods: {
     /**
+     * 显示 ActionSheet
+     */
+    showPostActionSheet(pageThis, event) {
+      let post = event.currentTarget.dataset.post;
+
+      let userRole = 'guest';
+      if (APP.globalData.isAuth) userRole = 'user';
+      if (APP.globalData.isAuth && APP.globalData.userInfo.is_admin) userRole = 'admin';
+      if (APP.globalData.isAuth && APP.globalData.userInfo.id === post.user_id) userRole = 'author';
+
+      let keys = this.data.userRoleActionSheetActionMaps[userRole].slice();
+      if (this.properties.isDetailPage) keys.splice(keys.indexOf('detail'), 1);          // 如果是详情页，则不显示查看详情 Action
+      let actionSheetActions = this.makeActionSheetActions(keys);
+
+      this.setData({
+        post: post,
+        actionSheetVisible: true,
+        actionSheetActions: actionSheetActions,
+      });
+    },
+    /**
      * 生成
      */
     makeActionSheetActions(keys) {
@@ -42,33 +66,6 @@ Component({
       return actionSheetActions;
     },
 
-    /**
-     * 显示 ActionSheet
-     */
-    showPostActionSheet(pageThis, event) {
-      let post = event.currentTarget.dataset.post;
-      let postIndex = event.currentTarget.dataset.postIndex;
-
-      this.setData({
-        post: post,
-        postIndex: postIndex,
-        pageThis: pageThis,
-      });
-
-      let userRole = 'guest';
-      if (APP.globalData.isAuth) userRole = 'user';
-      if (APP.globalData.isAuth && APP.globalData.userInfo.is_admin) userRole = 'admin';
-      if (APP.globalData.isAuth && APP.globalData.userInfo.id === post.user_id) userRole = 'author';
-
-      let keys = this.data.userRoleActionSheetActionMaps[userRole].slice();
-      if (postIndex == null) keys.splice(keys.indexOf('detail'), 1);          // 如果是详情页，则不显示查看详情 Action
-      let actionSheetActions = this.makeActionSheetActions(keys);
-
-      this.setData({
-        actionSheetVisible: true,
-        actionSheetActions: actionSheetActions,
-      });
-    },
 
     /**
      * ActionSheet action 处理
@@ -110,30 +107,27 @@ Component({
      */
     hiddenAndDeleteActionHandler(actionType) {
       let _this = this;
-      let pageThis = this.data.pageThis;
 
       let actionTypeName = '未知操作';
       if (actionType === 'hidden') actionTypeName = '下架';
       if (actionType === 'delete') actionTypeName = '删除';
+      let successfulMessage = '动态' + actionTypeName + '成功';
 
       let confirmHandler = function() {
         wx.showLoading({title: '动态' + actionTypeName + '中'});
 
         let apiPath = 'posts/' + actionType;
-        HTTP.POST(apiPath, {id: _this.data.post.id}).then(function(result) {
-          if (_this.data.postIndex != null) {
-            pageThis.data.models.splice(_this.data.postIndex, 1);
-            pageThis.setData({models: pageThis.data.models});
-            wx.showToast({title: '动态' + actionTypeName + '成功'});
-          } else {
+        HTTP.POST(apiPath, {id: _this.data.post.id}).then(function() {
+          if (_this.properties.isDetailPage) {
             wx.showModal({
               title: '操作成功',
-              content: '动态' + actionTypeName + '成功',
+              content: successfulMessage,
               showCancel: false,
-              success(res) {
-                if (res.confirm) wx.switchTab({url: '/pages/posts/index/index'});
-              }
+              success(res) { if (res.confirm) wx.switchTab({url: '/pages/posts/index/index'}); }
             });
+          } else {
+            wx.showToast({title: successfulMessage});
+            _this.triggerEvent('updatePostDataEvent', {post: null});
           }
         }).finally(function() {
           wx.hideLoading();
@@ -153,21 +147,22 @@ Component({
      * 报告不良信息处理
      */
     reportActionHandler() {
-      let _this = this;
+      let entityClass = '\\Modules\\Post\\Entities\\Post';
+      let entityId = this.data.post.id;
 
       wx.showModal({
         title: '报告不良信息',
-        content: '如果你认为这条动态包含不良信息，请向我们报告',
-        confirmText: '提交',
+        content: '如果该内容包含不良信息，点击「提交报告」向我们进行举报',
+        confirmText: '提交报告',
         success: function(res) {
           if (res.confirm) {
             let params = {
-              entity_class: '\\Modules\\Post\\Entities\\Post',
-              entity_id: _this.data.post.id,
+              entity_class: entityClass,
+              entity_id: entityId,
             };
 
             HTTP.POST('user-reports', params).then(function() {
-              wx.showModal({title: '报告不良信息', content: '感谢，我们已收到你的报告', showCancel: false});
+              wx.showModal({title: '报告不良信息', content: '感谢，我们已收到你的举报', showCancel: false});
             });
           }
         },
