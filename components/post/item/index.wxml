@@ -36,16 +36,14 @@
 
         <view wx:if="{{ post.images.length > 0 }}"
               class="items-image grid flex-sub padding-lr {{ post.images.length > 1 ? 'col-3 grid-square' : 'col-1' }}">
-          <view class="item-image bg-img {{ post.images.length > 1 ? '' : 'only-img' }}"
-                style="background-image:url('{{ image.file_path }}');"
-                bind:tap="previewImage" data-url="{{ image.file_path }}" data-urls="{{ post.images }}"
-                wx:for="{{ post.images }}" wx:for-item="image" wx:key="*this">
+          <view class="item-image bg-img {{ post.images.length > 1 ? '' : 'only-img' }}" style="background-image:url('{{ image.file_path }}');"
+                bind:tap="previewImage" data-image-index="{{ imageIndex }}" wx:for="{{ post.images }}" wx:for-item="image" wx:for-index="imageIndex" wx:key="*this">
           </view>
         </view>
       </view>
 
       <!-- 操作栏 -->
-      <view class="section-actions cu-list flex margin-top-sm solids-bottom">
+      <view wx:if="{{ postCardActionBarVisible }}" class="section-actions cu-list flex margin-top-sm solids-bottom">
         <view class="item-action cu-item flex-sub padding-tb-sm margin-lr-sm text-grey text-center">
           <button class="item-action-btn cu-btn bg-white padding-lr-xl" bind:tap="thumbHandler"
                   data-model-index="{{ postIndex }}"
@@ -90,5 +88,6 @@
                entity-class="\\Modules\\Post\\Entities\\Post" entity="{{ post }}" entity-id="{{ post.id }}"></comment-modal>
 
 <!-- 动态 ActionSheet -->
-<post-actionSheet id="comp-post-actionSheet" bind:updatePostDataEvent="updatePostDataHandler" post="{{ post }}">
-</post-actionSheet>
+<post-actionSheet id="comp-post-actionSheet" bind:updatePostDataEvent="updatePostDataHandler"
+                  action-sheet-detail-visible="{{ actionSheetDetailVisible }}"
+                  post="{{ post }}"></post-actionSheet>

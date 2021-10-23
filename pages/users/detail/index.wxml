@@ -37,8 +37,8 @@
 
   <!-- posts -->
   <view class="margin-top-sm">
-    <view wx:if="{{ posts.length > 0 }}" class="items-post">
-      <post-list id="comp-post-list" posts="{{ posts }}"></post-list>
+    <view wx:if="{{ posts.length > 0 }}" class="items-post" wx:for="{{ posts }}" wx:key="id" wx:for-item="post" wx:for-index="postIndex">
+      <post-item id="comp-post-item" post="{{ post }}"></post-item>
     </view>
 
     <!-- tips -->

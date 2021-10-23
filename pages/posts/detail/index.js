@@ -61,7 +61,19 @@ Page({
    * 点赞处理
    */
   thumbHandler(event) {
-    THUMB.thumbHandler(event, this);
+    if (getApp().needAuth()) return;
+
+    let _this = this;
+    let params = {
+      entity_id: event.currentTarget.dataset.entityId,
+      entity_class: event.currentTarget.dataset.entityClass,
+      type: event.currentTarget.dataset.type,
+      value: event.currentTarget.dataset.value,
+    };
+
+    THUMB.thumbHandler(params, this.data.model).then(function() {
+      _this.setData({model: _this.data.model});
+    });
   },
 
   /**
@@ -69,13 +81,6 @@ Page({
    */
   showCommentModal(event) {
     this.selectComponent('#comp-comment-modal').showCommentModal(this, event);
-  },
-
-  /**
-   * 显示 ActionSheet
-   */
-  showPostActionSheet(event) {
-    this.selectComponent('#comp-post-actionSheet').showPostActionSheet(this, event);
   },
 
   /**

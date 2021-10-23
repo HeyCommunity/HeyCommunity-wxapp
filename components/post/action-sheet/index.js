@@ -10,6 +10,10 @@ Component({
       type: Boolean,
       value: false,
     },
+    actionSheetDetailVisible: {
+      type: Boolean,
+      value: true,
+    },
   },
   data: {
     post: null,
@@ -43,7 +47,7 @@ Component({
       if (APP.globalData.isAuth && APP.globalData.userInfo.id === post.user_id) userRole = 'author';
 
       let keys = this.data.userRoleActionSheetActionMaps[userRole].slice();
-      if (this.properties.isDetailPage) keys.splice(keys.indexOf('detail'), 1);          // 如果是详情页，则不显示查看详情 Action
+      if (! this.properties.actionSheetDetailVisible) keys.splice(keys.indexOf('detail'), 1);          // 如果是详情页，则不显示查看详情 Action
       let actionSheetActions = this.makeActionSheetActions(keys);
 
       this.setData({
@@ -118,7 +122,8 @@ Component({
 
         let apiPath = 'posts/' + actionType;
         HTTP.POST(apiPath, {id: _this.data.post.id}).then(function() {
-          if (_this.properties.isDetailPage) {
+          // TODO: 如果是动态详情页则返回到动态列表页
+          if (! _this.properties.actionSheetDetailVisible) {
             wx.showModal({
               title: '操作成功',
               content: successfulMessage,

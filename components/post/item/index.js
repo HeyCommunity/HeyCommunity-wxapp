@@ -5,12 +5,29 @@ Component({
     addGlobalClass: true,
   },
   properties: {
+    actionSheetDetailVisible: {
+      type: Boolean,
+      value: true,
+    },
+    postCardActionBarVisible: {
+      type: Boolean,
+      value: true,
+    },
     post: Object,
   },
-  data: {
-    md: 'mdmdmd',
-  },
   methods: {
+    /**
+     * 预览图片
+     */
+    previewImage(event) {
+      let imageIndex = event.currentTarget.dataset.imageIndex;
+
+      wx.previewImage({
+        urls: this.properties.post.images.map(image => image.file_path),
+        current: this.properties.post.images[imageIndex].file_path,
+      });
+    },
+
     /**
      * 点赞处理
      */
