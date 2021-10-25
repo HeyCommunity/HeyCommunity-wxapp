@@ -2,8 +2,15 @@ const HTTP = require('../../../../utils/http.js');
 
 //
 // 点赞处理
-function thumbHandler(params, entity) {
+function thumbHandler(event, entity) {
   if (getApp().needAuth()) return;
+
+  let params = {
+    entity_id: event.currentTarget.dataset.entityId,
+    entity_class: event.currentTarget.dataset.entityClass,
+    type: event.currentTarget.dataset.type,
+    value: event.currentTarget.dataset.value,
+  };
 
   return new Promise(function(resolve, reject) {
     thumbRequest(params).then(function(result) {
@@ -52,8 +59,16 @@ function thumbRequest(params) {
   });
 }
 
+function thumbHandler2(event, pageThis, entityKey) {
+  let newData = {};
+  newData[entityKey] = {content_preview: 'hihi'};
+
+  pageThis.setData(newData);
+}
+
 //
 // module exports
 module.exports = {
   thumbHandler,
+  thumbHandler2,
 }

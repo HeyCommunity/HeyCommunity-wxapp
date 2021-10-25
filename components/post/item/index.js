@@ -42,14 +42,8 @@ Component({
      */
     thumbHandler(event) {
       let _this = this;
-      let params = {
-        entity_id: event.currentTarget.dataset.entityId,
-        entity_class: event.currentTarget.dataset.entityClass,
-        type: event.currentTarget.dataset.type,
-        value: event.currentTarget.dataset.value,
-      };
 
-      THUMB.thumbHandler(params, this.properties.post).then(function() {
+      THUMB.thumbHandler(event, this.properties.post).then(function() {
         _this.setData({post: _this.properties.post});
       });
     },
