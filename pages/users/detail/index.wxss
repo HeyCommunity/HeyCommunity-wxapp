@@ -25,3 +25,9 @@
     z-index: 99;
     mix-blend-mode: screen;
     height: 100rpx; }
+
+#page-users-detail .items-post {
+  padding-top: 20rpx;
+  padding-bottom: 10rpx; }
+  #page-users-detail .items-post .item-post {
+    margin-bottom: 20rpx; }
