@@ -6,6 +6,7 @@ Component({
     addGlobalClass: true,
   },
   properties: {
+    post: Object,
     postCommentNum: {
       type: Number,
       value: 0,
@@ -18,7 +19,10 @@ Component({
       type: Boolean,
       value: true,
     },
-    post: Object,
+    postCommentListVisible: {
+      type: Boolean,
+      value: true,
+    },
   },
   methods: {
     /**
@@ -37,8 +41,6 @@ Component({
      * 点赞处理
      */
     thumbHandler(event) {
-      if (getApp().needAuth()) return;
-
       let _this = this;
       let params = {
         entity_id: event.currentTarget.dataset.entityId,
@@ -56,8 +58,6 @@ Component({
      * 显示评论框
      */
     showCommentModal: function(event) {
-      if (getApp().needAuth()) return;
-
       this.selectComponent('.comp-comment-modal').showCommentModal(event);
     },
 
@@ -81,13 +81,8 @@ Component({
     commentSuccessfulHandler: function (event) {
       this.setData({post: event.detail.entity});
       this.setData({postCommentNum: this.properties.post.comment_num});
-    },
 
-    /**
-     * 更新 Post 数据
-     */
-    updatePostDataHandler: function (event) {
-      this.setData({post: event.detail.entity});
+      // TODO: 订阅微信消息通知
     },
   },
 });

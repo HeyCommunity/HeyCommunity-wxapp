@@ -29,14 +29,13 @@
             <text wx:else class="cuIcon-appreciate"></text>
             <text class="margin-left-xs" wx:if="{{ comment.thumb_up_num }}">{{ comment.thumb_up_num }}</text>
           </button>
-          <button class="item-btn text-gray cu-btn sm bg-white"
-                  bind:tap="showCommentModal" data-comment-index="{{ commentIndex }}"
-                  data-target-user-nickname="{{ comment.user_nickname }}" data-parent-id="{{ comment.id }}">
+          <button class="item-btn text-gray cu-btn sm bg-white" bind:tap="showCommentModal"
+                  data-target-user-nickname="{{ comment.user_nickname }}" data-comment-index="{{ commentIndex }}">
             <text wx:if="{{ comment.i_have_comment }}" class="cuIcon-communityfill"></text>
             <text wx:else class="cuIcon-community"></text>
             <text class="margin-left-xs" wx:if="{{ comment.comment_num }}">{{ comment.comment_num }}</text>
           </button>
-          <!-- TODO -->
+          <!-- TODO: 评论 ActionSheet -->
           <button class="item-btn text-gray cu-btn sm bg-white" bind:tap="showPostCommentActionSheet"
                   data-comment="{{ comment }}" data-model-index="{{ modelIndex }}"
                   data-comment-index="{{ commentIndex }}">
@@ -49,6 +48,6 @@
 </view>
 
 <!-- 评论模态框 -->
-<comment-modal class="comp-comment-modal"
-               entity-class="{{ entityClass }}" entity-id="{{ entityId }}" entity="{{ entity }}"
-               bind:commentSuccessfulEvent="commentSuccessfulHandler"></comment-modal>
+<comment-modal class="comp-comment-modal" bind:commentSuccessfulEvent="commentSuccessfulHandler"
+               entity-class="{{ entityClass }}" entity="{{ entity }}">
+</comment-modal>

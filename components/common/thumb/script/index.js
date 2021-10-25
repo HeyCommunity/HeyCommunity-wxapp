@@ -3,6 +3,8 @@ const HTTP = require('../../../../utils/http.js');
 //
 // 点赞处理
 function thumbHandler(params, entity) {
+  if (getApp().needAuth()) return;
+
   return new Promise(function(resolve, reject) {
     thumbRequest(params).then(function(result) {
       let message;

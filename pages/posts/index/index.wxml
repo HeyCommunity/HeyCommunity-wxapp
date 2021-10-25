@@ -1,12 +1,10 @@
 <van-notify id="van-notify"></van-notify>
 
-<view class="container-full" id="page-posts-index">
-  <van-notice-bar
-    mode="link" delay="3" speed="30"
-    color="#000000" background="#ffffff" left-icon="volume-o"
-    text="{{ appGlobalData.systemSettings.wxapp_index_page_marquee.text }}"
-    wx:if="{{ appGlobalData.systemSettings.wxapp_index_page_marquee && appGlobalData.systemSettings.wxapp_index_page_marquee.enable }}"
-    bind:click="gotoPageByUrl" data-url="{{ appGlobalData.systemSettings.wxapp_index_page_marquee.url }}">
+<view id="page-posts-index" class="container-full">
+  <!-- 跑马灯消息 -->
+  <van-notice-bar wx:if="{{ appGlobalData.systemSettings.wxapp_index_page_marquee && appGlobalData.systemSettings.wxapp_index_page_marquee.enable }}"
+    mode="link" delay="3" speed="30" color="#000000" background="#ffffff" left-icon="volume-o" text="{{ appGlobalData.systemSettings.wxapp_index_page_marquee.text }}"
+    bind:click="gotoPage" data-url="{{ appGlobalData.systemSettings.wxapp_index_page_marquee.url }}">
   </van-notice-bar>
 
   <!-- 动态列表 -->

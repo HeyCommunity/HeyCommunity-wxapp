@@ -2,12 +2,12 @@ const APP = getApp();
 const HTTP = require('../../../../utils/http');
 
 Component({
-  options: {},
+  options: {
+    addGlobalClass: true,
+  },
   properties: {
     entity: Object,
-    entityId: Number,
     entityClass: String,
-    parentId: null,
   },
   data: {
     modalVisible: false,
@@ -18,28 +18,29 @@ Component({
     commentIndex: null,
   },
   methods: {
-    //
-    // 显示评论框
+    /**
+     * 显示评论框
+     * 可接受 targetUserNickname，用于显示回复对象
+     * 可接受 commentIndex 以获取 parentComment
+     */
     showCommentModal(event) {
-      console.log('showCommentModal event', event);
-
       if (getApp().needAuth()) return;
 
+      let _this = this;
       this.setData({
         modalVisible: true,
         commentTargetUserNickname: event.currentTarget.dataset.targetUserNickname,
-        parentId: event.currentTarget.dataset.parentId,
         commentIndex: event.currentTarget.dataset.commentIndex,
       });
 
-      let _this = this;
       setTimeout(function() {
         _this.setData({commentTextareaFocus: true});
-      }, 200);
+      }, 100);
     },
 
-    //
-    // 关闭评论框
+    /**
+     * 关闭评论框
+     */
     hideCommentModal() {
       this.setData({
         modalVisible: false,
@@ -49,8 +50,9 @@ Component({
       });
     },
 
-    //
-    // 评论处理
+    /**
+     * 评论处理
+     */
     commentHandler(event) {
       if (getApp().needAuth()) return;
 
@@ -67,24 +69,32 @@ Component({
         return;
       }
 
+      let entity = this.properties.entity;
+      let parentComment = null;
+      if (this.data.commentIndex) parentComment = entity.comments[this.data.commentIndex];
+
       let params = {
         entity_class: this.properties.entityClass,
-        entity_id: this.properties.entityId,
-        parent_id: this.properties.parentId,
+        entity_id: this.properties.entity.id,
+        parent_id: parentComment ? parentComment.id : null,
         content: content,
       };
 
       // 发起评论请求
+      this.setData({modalVisible: false});
+      wx.showLoading({title: '请稍后'});
       this.commentRequest(params).then(function(result) {
+        wx.hideLoading();
+
         if (result.data.status) {
-          if (_this.data.commentIndex != null) {
-            _this.properties.entity.comments[_this.data.commentIndex].i_have_comment = true;
-            _this.properties.entity.comments[_this.data.commentIndex].comment_num += 1;
+          if (parentComment != null) {
+            parentComment.i_have_comment = true;
+            parentComment.comment_num += 1;
           }
 
-          _this.properties.entity.comments.unshift(result.data);
-          _this.properties.entity.comment_num += 1;
-          _this.properties.entity.i_have_comment = true;
+          entity.comments.unshift(result.data);
+          entity.comment_num += 1;
+          entity.i_have_comment = true;
 
           // APP.showNotify('评论成功');
           wx.showToast({title: '评论成功'});
@@ -95,12 +105,14 @@ Component({
         _this.hideCommentModal();
         _this.setData({commentTextareaContent: null});
 
-        _this.triggerEvent('commentSuccessfulEvent', {entity: _this.properties.entity});
+        // 触发评论成功事件
+        _this.triggerEvent('commentSuccessfulEvent', {entity: entity});
       });
     },
 
-    //
-    // 评论请求
+    /**
+     * 评论请求
+     */
     commentRequest(params) {
       let apiPath = 'comments';
 

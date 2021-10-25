@@ -1,6 +1,6 @@
 .item-post {
   .post-card {
-    .section-header {
+    .part-header {
       .content {
         width: calc(100% - 96rpx - 60rpx - 20rpx - 60rpx) !important;
       }
@@ -12,7 +12,7 @@
       }
     }
 
-    .section-content {
+    .part-content {
       .text-content {
         padding: 0 30rpx 0;
         // max-height: 6.4em;
@@ -21,18 +21,16 @@
         margin-bottom: 20rpx;
       }
 
+      .items-image {}
+
       .item-video {
         .video {
           width: 100%;
         }
       }
-
-      .items-image {
-      }
     }
 
-    // 操作栏
-    .section-actions {
+    .part-actions {
       .item-action {
         .item-action-btn {
           width: auto;

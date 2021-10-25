@@ -2,17 +2,15 @@
   <view class="post-card cu-card dynamic no-card">
     <view class="cu-item shadow">
       <!-- Header -->
-      <view class="section-header cu-list menu-avatar">
+      <view class="part-header cu-list menu-avatar">
         <view class="cu-item">
-          <navigator class="cu-avatar round lg" url="/pages/users/detail/index?id={{ post.user_id }}"
-                     style="background-image:url('{{ post.user_avatar }}');">
-          </navigator>
+          <navigator class="cu-avatar round lg" url="/pages/users/detail/index?id={{ post.user_id }}" style="background-image:url('{{ post.user_avatar }}');"></navigator>
           <view class="content flex-sub">
             <view><navigator url="/pages/users/detail/index?id={{ post.user_id }}">{{ post.user_nickname }}</navigator></view>
             <view class="text-gray text-sm flex justify-between">{{ post.created_at_for_humans }}</view>
           </view>
           <view>
-            <button class="btn-more cu-btn bg-white icon" bind:tap="showPostActionSheet" data-post-index="{{ postIndex }}" data-post="{{ post }}">
+            <button class="btn-more cu-btn bg-white icon" bind:tap="showPostActionSheet">
               <text class="cuIcon-unfold"></text>
             </button>
           </view>
@@ -20,11 +18,12 @@
       </view>
 
       <!-- 内容与图片 -->
-      <view class="section-content">
+      <view class="part-content">
         <view class="text-content">
           <text user-select="true">{{ post.content_preview }}</text>
         </view>
 
+        <!-- 动态视频 -->
         <view wx:if="{{ post.video }}" class="item-video">
           <video id="video-{{ post.id }}" class="video" src="{{ post.video.file_path }}" title="{{ post.content }}"
                  bind:play="videoPlayHandler" show-mute-btn="{{ true }}"
@@ -34,9 +33,11 @@
           </video>
         </view>
 
+        <!-- 动态图片 -->
         <view wx:if="{{ post.images.length > 0 }}"
               class="items-image grid flex-sub padding-lr {{ post.images.length > 1 ? 'col-3 grid-square' : 'col-1' }}">
-          <view class="item-image bg-img {{ post.images.length > 1 ? '' : 'only-img' }}" style="background-image:url('{{ image.file_path }}');"
+          <view class="item-image bg-img {{ post.images.length > 1 ? '' : 'only-img' }}"
+                style="background-image:url('{{ image.file_path }}');"
                 wx:for="{{ post.images }}" wx:for-item="image" wx:for-index="imageIndex" wx:key="id"
                 bind:tap="previewImage" data-image-index="{{ imageIndex }}">
           </view>
@@ -44,10 +45,9 @@
       </view>
 
       <!-- 操作栏 -->
-      <view wx:if="{{ !isDetailPage }}" class="section-actions cu-list flex margin-top-sm solids-bottom">
+      <view wx:if="{{ !isDetailPage }}" class="part-actions cu-list flex margin-top-sm solids-bottom">
         <view class="item-action cu-item flex-sub padding-tb-sm margin-lr-sm text-grey text-center">
           <button class="item-action-btn cu-btn bg-white padding-lr-xl" bind:tap="thumbHandler"
-                  data-model-index="{{ postIndex }}"
                   data-entity-class="\\Modules\\Post\\Entities\\Post"
                   data-entity-id="{{ post.id }}" data-type="thumb_up" data-value="{{ !post.i_have_thumb_up }}">
             <text wx:if="{{ post.i_have_thumb_up }}" class="cuIcon-appreciatefill margin-lr-xs"></text>
@@ -57,10 +57,7 @@
           </button>
         </view>
         <view class="item-action cu-item flex-sub padding-tb-sm margin-right-sm text-grey text-center">
-          <button class="item-action-btn cu-btn bg-white padding-lr-xl" bind:tap="showCommentModal"
-                  data-action-type="comment" data-target-user-nickname="{{ null }}"
-                  data-model-index="{{ postIndex }}" data-comment-index="{{ null }}"
-                  data-entity-id="{{ post.id }}" data-parent-id="{{ null }}" data-entity-class="\\Modules\\Post\\Entities\\Post">
+          <button class="item-action-btn cu-btn bg-white padding-lr-xl" bind:tap="showCommentModal">
             <text wx:if="{{ post.i_have_comment }}" class="cuIcon-communityfill margin-lr-xs"></text>
             <text wx:else class="cuIcon-community margin-lr-xs"></text>
             <text class="text-value" wx:if="{{ postCommentNum }}">{{ postCommentNum }}</text>
@@ -87,8 +84,8 @@
 
 <!-- 动态评论模态框 -->
 <comment-modal class="comp-comment-modal" bind:commentSuccessfulEvent="commentSuccessfulHandler"
-               entity-class="\\Modules\\Post\\Entities\\Post" entity="{{ post }}" entity-id="{{ post.id }}"></comment-modal>
+               entity-class="\\Modules\\Post\\Entities\\Post" entity="{{ post }}"></comment-modal>
 
 <!-- 动态 ActionSheet -->
 <mp-actionSheet bind:actiontap="postActionSheetHandler" title="动态操作"
-                show="{{ postActionSheetVisible }}" actions="{{ postActionSheetActions ? postActionSheetActions : [] }}"></mp-actionSheet>
+                show="{{ postActionSheetVisible }}" actions="{{ postActionSheetActions }}"></mp-actionSheet>

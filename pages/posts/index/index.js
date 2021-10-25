@@ -34,7 +34,7 @@ Page({
   /**
    * goto 页面
    */
-  gotoPageByUrl(event) {
+  gotoPage(event) {
     let url = event.currentTarget.dataset.url;
 
     wx.navigateTo({url: url});
