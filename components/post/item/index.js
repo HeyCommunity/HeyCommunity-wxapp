@@ -1,10 +1,15 @@
 const THUMB = require('../../common/thumb/script/index.js');
+const PostActionSheet = require('./_post-action-sheet');
 
 Component({
   options: {
     addGlobalClass: true,
   },
   properties: {
+    postCommentNum: {
+      type: Number,
+      value: 0,
+    },
     isDetailPage: {
       type: Boolean,
       value: false,
@@ -53,14 +58,21 @@ Component({
     showCommentModal: function(event) {
       if (getApp().needAuth()) return;
 
-      this.selectComponent('#comp-comment-modal').showCommentModal(event);
+      this.selectComponent('.comp-comment-modal').showCommentModal(event);
     },
 
     /**
-     * 显示 ActionSheet
+     * 显示 PostActionSheet
      */
-    showPostActionSheet(event) {
-      this.selectComponent('#comp-post-actionSheet').showPostActionSheet(this, event);
+    showPostActionSheet() {
+      PostActionSheet.showActionSheet(this);
+    },
+
+    /**
+     * PostActionSheet 处理
+     */
+    postActionSheetHandler(event) {
+      PostActionSheet.actionSheetHandler(event);
     },
 
     /**
@@ -68,6 +80,7 @@ Component({
      */
     commentSuccessfulHandler: function (event) {
       this.setData({post: event.detail.entity});
+      this.setData({postCommentNum: this.properties.post.comment_num});
     },
 
     /**

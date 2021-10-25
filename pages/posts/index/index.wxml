@@ -10,23 +10,19 @@
   </van-notice-bar>
 
   <!-- 动态列表 -->
-  <view wx:if="{{ models.length > 0 }}" class="items-post">
-    <view wx:for="{{ models }}" wx:key="id" wx:for-item="post" wx:for-index="postIndex">
-      <post-item id="comp-post-item" post="{{ post }}"></post-item>
+  <view id="section-posts">
+    <view wx:if="{{ models.length > 0 }}" class="items-post">
+      <view wx:for="{{ models }}" wx:key="id" wx:for-item="post" wx:for-index="postIndex">
+        <post-item post="{{ post }}" post-comment-num="{{ post.comment_num }}"></post-item>
+      </view>
     </view>
-  </view>
 
-  <view wx:else style="padding-top:100px;">
-    <van-empty description="暂无动态"></van-empty>
+    <view wx:else style="padding-top:100px;">
+      <van-empty description="暂无动态"></van-empty>
+    </view>
   </view>
 
   <!-- 创建动态按钮 -->
   <navigator wx:if="{{ appGlobalData.isAuth }}" url="/pages/posts/create/index" class="btn-create cu-btn bg-blue round"><view class="icon cuIcon-post"></view></navigator>
   <navigator wx:else url="/pages/users/auth/index" class="btn-create cu-btn bg-blue round"><view class="icon cuIcon-post"></view></navigator>
 </view>
-
-<!-- 动态评论模态框 -->
-<comment-modal id="comp-comment-modal"></comment-modal>
-
-<!-- 动态 ActionSheet -->
-<post-actionSheet id="comp-post-actionSheet"></post-actionSheet>

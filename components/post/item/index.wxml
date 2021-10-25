@@ -37,7 +37,8 @@
         <view wx:if="{{ post.images.length > 0 }}"
               class="items-image grid flex-sub padding-lr {{ post.images.length > 1 ? 'col-3 grid-square' : 'col-1' }}">
           <view class="item-image bg-img {{ post.images.length > 1 ? '' : 'only-img' }}" style="background-image:url('{{ image.file_path }}');"
-                bind:tap="previewImage" data-image-index="{{ imageIndex }}" wx:for="{{ post.images }}" wx:for-item="image" wx:for-index="imageIndex" wx:key="*this">
+                wx:for="{{ post.images }}" wx:for-item="image" wx:for-index="imageIndex" wx:key="id"
+                bind:tap="previewImage" data-image-index="{{ imageIndex }}">
           </view>
         </view>
       </view>
@@ -62,7 +63,7 @@
                   data-entity-id="{{ post.id }}" data-parent-id="{{ null }}" data-entity-class="\\Modules\\Post\\Entities\\Post">
             <text wx:if="{{ post.i_have_comment }}" class="cuIcon-communityfill margin-lr-xs"></text>
             <text wx:else class="cuIcon-community margin-lr-xs"></text>
-            <text class="text-value" wx:if="{{ post.comment_num }}">{{ post.comment_num }}</text>
+            <text class="text-value" wx:if="{{ postCommentNum }}">{{ postCommentNum }}</text>
             <text class="text-value text-sm" wx:else>评论</text>
           </button>
         </view>
@@ -76,7 +77,8 @@
       </view>
 
       <!-- 评论列表 -->
-      <comment-list wx:if="{{ !isDetailPage }}" id="comp-comment-list" bind:updateEntityDataEvent="updatePostDataHandler"
+      <comment-list wx:if="{{ !isDetailPage }}" class="comp-comment-list"
+                    model:entity-comment-num="{{ postCommentNum }}"
                     entity-class="\\Modules\\Post\\Entities\\Post" entity="{{ post }}" entity-id="{{ post.id }}">
       </comment-list>
     </view>
@@ -84,10 +86,9 @@
 </view>
 
 <!-- 动态评论模态框 -->
-<comment-modal id="comp-comment-modal" bind:commentSuccessfulEvent="commentSuccessfulHandler"
+<comment-modal class="comp-comment-modal" bind:commentSuccessfulEvent="commentSuccessfulHandler"
                entity-class="\\Modules\\Post\\Entities\\Post" entity="{{ post }}" entity-id="{{ post.id }}"></comment-modal>
 
 <!-- 动态 ActionSheet -->
-<post-actionSheet id="comp-post-actionSheet" bind:updatePostDataEvent="updatePostDataHandler"
-                  is-detail-page="{{ isDetailPage }}"
-                  post="{{ post }}"></post-actionSheet>
+<mp-actionSheet bind:actiontap="postActionSheetHandler" title="动态操作"
+                show="{{ postActionSheetVisible }}" actions="{{ postActionSheetActions ? postActionSheetActions : [] }}"></mp-actionSheet>

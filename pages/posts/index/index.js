@@ -1,6 +1,5 @@
 const APP = getApp();
 const MODEL = require('../../../utils/model.js');
-const THUMB = require('../../../components/common/thumb/script/index.js');
 
 Page({
   data: {
@@ -39,27 +38,6 @@ Page({
     let url = event.currentTarget.dataset.url;
 
     wx.navigateTo({url: url});
-  },
-
-  /**
-   * 点赞处理
-   */
-  thumbHandler(event) {
-    THUMB.thumbHandler(event, this);
-  },
-
-  /**
-   * 打开评论弹出层
-   */
-  showCommentModal(event) {
-    this.selectComponent('#comp-comment-modal').showCommentModal(this, event);
-  },
-
-  /**
-   * 显示 ActionSheet
-   */
-  showPostActionSheet(event) {
-    this.selectComponent('#comp-post-actionSheet').showPostActionSheet(this, event);
   },
 
   /**

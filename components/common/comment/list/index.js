@@ -5,6 +5,10 @@ Component({
     addGlobalClass: true,
   },
   properties: {
+    entityCommentNum: {
+      type: Number,
+      value: 0,
+    },
     entity: Object,
     entityId: Number,
     entityClass: String,
@@ -46,9 +50,7 @@ Component({
      */
     commentSuccessfulHandler: function (event) {
       this.setData({entity: event.detail.entity});
-
-      // 更新 entity
-      this.triggerEvent('updateEntityDataEvent', {entity: this.properties.entity});
+      this.setData({entityCommentNum: this.properties.entity.comment_num});
     }
   }
 });

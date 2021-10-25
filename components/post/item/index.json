@@ -3,6 +3,7 @@
   "usingComponents": {
     "post-actionSheet": "/components/post/action-sheet/index",
     "comment-modal": "/components/common/comment/modal/index",
-    "comment-list": "/components/common/comment/list/index"
+    "comment-list": "/components/common/comment/list/index",
+    "mp-actionSheet": "weui-miniprogram/actionsheet/actionsheet"
   }
 }
