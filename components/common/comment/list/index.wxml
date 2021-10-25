@@ -35,10 +35,7 @@
             <text wx:else class="cuIcon-community"></text>
             <text class="margin-left-xs" wx:if="{{ comment.comment_num }}">{{ comment.comment_num }}</text>
           </button>
-          <!-- TODO: 评论 ActionSheet -->
-          <button class="item-btn text-gray cu-btn sm bg-white" bind:tap="showPostCommentActionSheet"
-                  data-comment="{{ comment }}" data-model-index="{{ modelIndex }}"
-                  data-comment-index="{{ commentIndex }}">
+          <button class="item-btn text-gray cu-btn sm bg-white" bind:tap="showCommentActionSheet" data-comment-index="{{ commentIndex }}">
             <text class="cuIcon-moreandroid"></text>
           </button>
         </view>
@@ -51,3 +48,7 @@
 <comment-modal class="comp-comment-modal" bind:commentSuccessfulEvent="commentSuccessfulHandler"
                entity-class="{{ entityClass }}" entity="{{ entity }}">
 </comment-modal>
+
+<!-- 评论 ActionSheet -->
+<mp-actionSheet bind:actiontap="commentActionSheetHandler" title="评论操作"
+                show="{{ commentActionSheetVisible }}" actions="{{ commentActionSheetActions }}"></mp-actionSheet>

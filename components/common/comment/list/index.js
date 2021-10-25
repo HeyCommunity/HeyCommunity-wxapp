@@ -1,4 +1,5 @@
 const THUMB = require('../../../common/thumb/script/index.js');
+const CommentActionSheet = require('./_post-action-sheet');
 
 Component({
   options: {
@@ -29,6 +30,20 @@ Component({
     },
 
     /**
+     * 显示 CommentActionSheet
+     */
+    showCommentActionSheet(event) {
+      CommentActionSheet.showActionSheet(this, event);
+    },
+
+    /**
+     * CommentActionSheet 处理
+     */
+    commentActionSheetHandler(event) {
+      CommentActionSheet.actionSheetHandler(event);
+    },
+
+    /**
      * 显示评论框
      */
     showCommentModal: function (event) {
@@ -41,6 +56,8 @@ Component({
     commentSuccessfulHandler: function (event) {
       this.setData({entity: event.detail.entity});
       this.setData({entityCommentNum: this.properties.entity.comment_num});
+
+      // TODO: 订阅微信消息通知
     }
   }
 });

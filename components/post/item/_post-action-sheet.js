@@ -1,4 +1,5 @@
 const HTTP = require('../../../utils/http.js');
+const REPORT = require('../../common/report/index.js');
 
 let pageThis;
 let entity;
@@ -7,11 +8,6 @@ let entityClass = '\\Modules\\Post\\Entities\\Post';
 
 let hiddenActionApiPath = 'posts/hidden';
 let deleteActionApiPath = 'posts/delete';
-
-let setEntityData = function(entityData) {
-  entity = entityData;
-  if (pageThis) pageThis.setData({post: entity});
-}
 
 let actionSheetActionList = {
   detail: {text: '查看动态详情', value: 'detail', type: 'default'},
@@ -27,19 +23,14 @@ let userRoleActionSheetActionMaps = {
   admin: ['detail', 'report', 'hidden']
 };
 
-let makeActionSheetActions = function(userRole, isDetailPage) {
-  let actionSheetActions = [];
+let setEntityData = function(entityData) {
+  entity = entityData;
+  if (pageThis) pageThis.setData({post: entity});
+}
 
-  let keys = this.data.userRoleActionSheetActionMaps[userRole].slice();
-  if (isDetailPage) keys.splice(keys.indexOf('detail'), 1);          // 如果是详情页，则不显示查看详情 Action
-
-  keys.forEach(function(key) {
-    actionSheetActions.push(actionSheetActionList[key]);
-  });
-
-  return actionSheetActions;
-};
-
+/**
+ * 显示 ActionSheet
+ */
 let showActionSheet = function(pt) {
   pageThis = pt;
   entity = pageThis.data.post;
@@ -47,22 +38,25 @@ let showActionSheet = function(pt) {
 
   pageThis.setData({
     postActionSheetVisible: true,
-    postActionSheetActions: [
-      {text: '查看动态详情', value: 'detail', type: 'default'},
-      {text: '删除', value: 'delete', type: 'warn'},
-      {text: '下架', value: 'hidden', type: 'warn'},
-      {text: '报告不良信息', value: 'report', type: 'default'}
-    ],
+    postActionSheetActions: makeActionSheetActions(),
   });
 };
 
-let hideActionSheet = function(pt) {
+/**
+ * 隐藏 ActionSheet
+ */
+let hideActionSheet = function() {
   pageThis.setData({
     postActionSheetVisible: false,
     postActionSheetActions: [],
   });
 };
 
+/**
+ * ActionSheet 处理
+ *
+ * @param event
+ */
 let actionSheetHandler = function(event) {
   hideActionSheet();
 
@@ -120,7 +114,7 @@ let hiddenAndDeleteActionHandler = function(actionType) {
           content: successfulMessage,
           showCancel: false,
           success(res) {
-            // TODO: goback or gotoHomePage
+            // TODO: goBack or gotoHomePage
             if (res.confirm) wx.switchTab({url: '/pages/posts/index/index'});
           }
         });
@@ -146,23 +140,29 @@ let hiddenAndDeleteActionHandler = function(actionType) {
  * 报告不良信息处理
  */
 let reportActionHandler = function() {
-  wx.showModal({
-    title: '报告不良信息',
-    content: '如果该内容包含不良信息，点击「提交报告」向我们进行举报',
-    confirmText: '提交报告',
-    success: function(res) {
-      if (res.confirm) {
-        let params = {
-          entity_class: entityClass,
-          entity_id: entityId,
-        };
+  REPORT.reportHandler(entityClass, entity.id);
+};
 
-        HTTP.POST('user-reports', params).then(function() {
-          wx.showModal({title: '报告不良信息', content: '感谢，我们已收到你的举报', showCancel: false});
-        });
-      }
-    },
+/**
+ * 生成 ActionSheetActions
+ */
+let makeActionSheetActions = function() {
+  let actionSheetActions = [];
+
+  let APP = getApp();
+  let userRole = 'guest';
+  if (APP.globalData.isAuth) userRole = 'user';
+  if (APP.globalData.isAuth && APP.globalData.userInfo.is_admin) userRole = 'admin';
+  if (APP.globalData.isAuth && APP.globalData.userInfo.id === entity.user_id) userRole = 'author';
+
+  let keys = userRoleActionSheetActionMaps[userRole].slice();
+  if (pageThis.properties.isDetailPage) keys.splice(keys.indexOf('detail'), 1);          // 如果是详情页，则不显示查看详情 Action
+
+  keys.forEach(function(key) {
+    actionSheetActions.push(actionSheetActionList[key]);
   });
+
+  return actionSheetActions;
 };
 
 module.exports = {
