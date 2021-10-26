@@ -71,7 +71,7 @@ Component({
 
       let entity = this.properties.entity;
       let parentComment = null;
-      if (this.data.commentIndex) parentComment = entity.comments[this.data.commentIndex];
+      if (this.data.commentIndex != null) parentComment = entity.comments[this.data.commentIndex];
 
       let params = {
         entity_class: this.properties.entityClass,

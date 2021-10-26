@@ -3,7 +3,7 @@
     <view class="flex text-center">
       <view class="cu-item flex-sub {{ tabType === 'comment' ? 'text-black cur' : '' }}" bind:tap="tabSelectHandler" data-type="comment">
         评论
-        <view wx:if="{{ model.comment_num }}" class="cu-tag sm round">{{ model.comment_num }}</view>
+        <view wx:if="{{ model.comment_num }}" class="cu-tag sm round">{{ postCommentNum ? postCommentNum : model.comment_num }}</view>
       </view>
       <view class="cu-item flex-sub {{ tabType === 'thumb' ? 'text-black cur' : '' }}" bind:tap="tabSelectHandler" data-type="thumb">
         点赞
@@ -16,6 +16,7 @@
   <view wx:if="{{ tabType === 'comment' }}" id="section-comment-list" class="bg-white padding-top-sm">
     <view wx:if="{{ model.comments.length }}">
       <comment-list id="comp-comment-list" bind:updateEntityDataEvent="updatePostDataHandler"
+                    model:entity-comment-num="{{ postCommentNum }}"
                     entity-class="\\Modules\\Post\\Entities\\Post" entity="{{ model }}" entity-id="{{ model.id }}">
       </comment-list>
     </view>

@@ -2,7 +2,7 @@
 
 <view id="page-posts-detail" class="container-full" wx:if="{{ model }}">
   <!-- 动态卡片 -->
-  <post-item id="comp-post-item" post="{{ model }}" is-detail-page="{{ true }}"></post-item>
+  <post-item id="comp-post-item" post="{{ model }}" post-comment-num="{{ model.comment_num }}" is-detail-page="{{ true }}"></post-item>
 
   <!-- 点赞和评论列表 -->
   <include src="subview/_comments-and-thumbs.wxml"></include>
@@ -22,4 +22,5 @@
 </view>
 
 <!-- 动态评论模态框 -->
-<comment-modal id="comp-comment-modal"></comment-modal>
+<comment-modal id="comp-comment-modal" bind:commentSuccessfulEvent="commentSuccessfulHandler"
+               entity-class="\\Modules\\Post\\Entities\\Post" entity="{{ model }}"></comment-modal>

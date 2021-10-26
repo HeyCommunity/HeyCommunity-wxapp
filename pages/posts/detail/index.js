@@ -64,14 +64,8 @@ Page({
     if (getApp().needAuth()) return;
 
     let _this = this;
-    let params = {
-      entity_id: event.currentTarget.dataset.entityId,
-      entity_class: event.currentTarget.dataset.entityClass,
-      type: event.currentTarget.dataset.type,
-      value: event.currentTarget.dataset.value,
-    };
 
-    THUMB.thumbHandler(params, this.data.model).then(function() {
+    THUMB.thumbHandler(event, this.data.model).then(function() {
       _this.setData({model: _this.data.model});
     });
   },
@@ -80,7 +74,7 @@ Page({
    * 打开评论弹出层
    */
   showCommentModal(event) {
-    this.selectComponent('#comp-comment-modal').showCommentModal(this, event);
+    this.selectComponent('#comp-comment-modal').showCommentModal(event);
   },
 
   /**
@@ -99,6 +93,15 @@ Page({
       wx.hideLoading();
       wx.stopPullDownRefresh();
     });
+  },
+
+  /**
+   * 评论成功处理
+   */
+  commentSuccessfulHandler: function (event) {
+    this.setData({model: event.detail.entity});
+
+    // TODO: 订阅微信消息通知
   },
 
   /**
