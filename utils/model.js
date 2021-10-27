@@ -80,7 +80,6 @@ let getModel = function(pageThis, apiPath, params, config) {
       reject(res);
     });
   });
-
 }
 
 //

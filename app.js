@@ -109,7 +109,7 @@ App({
           type: 'primary',
           duration: 6000,
           onClick: function() {
-            wx.switchTab({url: '/pages/messages/index/index'});
+            wx.switchTab({url: '/pages/notices/index/index'});
           },
         });
 
@@ -130,7 +130,7 @@ App({
 
     let tabPages = [
       'pages/posts/index/index',
-      'pages/messages/index/index',
+      'pages/notices/index/index',
       'pages/users/index/index',
     ];
 
@@ -154,25 +154,20 @@ App({
    * resetNoticeTabBarBadge
    */
   resetNoticeTabBarBadge(forceReset) {
-    if (forceReset === undefined) forceReset = true;
-
     if (this.globalData.userInfo.unread_notice_num) {
       let pages = getCurrentPages();
       let currentPage = pages[pages.length - 1];
       let currentPageUrl = currentPage.route;
 
-      if (forceReset || currentPageUrl !== 'pages/messages/index/index') {
-        let noticeTabBadgeText = String(this.globalData.userInfo.unread_notice_num);
+      let noticeTabBadgeText = String(this.globalData.userInfo.unread_notice_num);
+      wx.setTabBarBadge({
+        index: 1,
+        text: noticeTabBadgeText,
+      });
+      console.debug('resetNoticeTabBarBadge: unread_notice_num => ' + this.globalData.userInfo.unread_notice_num);
 
-        wx.setTabBarBadge({
-          index: 1,
-          text: noticeTabBadgeText,
-        });
-
-        console.debug('resetNoticeTabBarBadge: unread_notice_num => ' + this.globalData.userInfo.unread_notice_num);
-      } else {
+      if (currentPageUrl === 'pages/notices/index/index') {
         this.OnFire.fire('noticeRefresh');
-
         console.debug('resetNoticeTabBarBadge: noticeRefresh');
       }
     } else {

@@ -8,17 +8,17 @@
         <van-cell bind:tap="subscribePostMessagesHandler" icon="bullhorn-o" title="订阅动态通知" value="点赞 | 评论 | 回复" is-link></van-cell>
       </van-dropdown-item>
       <van-dropdown-item id="dropdown-action" title="操作">
-        <van-cell bind:tap="batchNoticeActionHandler" data-action="set-isread" icon="passed" title="全部标记为已读" is-link></van-cell>
-        <van-cell bind:tap="batchNoticeActionHandler" data-action="set-unread" icon="info-o" title="全部标记为未读" is-link></van-cell>
+        <van-cell bind:tap="batchNoticeActionHandler" data-action="set-isread" icon="passed" title="全部已读" is-link></van-cell>
+        <!-- <van-cell bind:tap="batchNoticeActionHandler" data-action="set-unread" icon="info-o" title="全部未读" is-link></van-cell> -->
         <van-cell bind:tap="batchNoticeActionHandler" data-action="delete" icon="close" title="删除全部" is-link></van-cell>
       </van-dropdown-item>
     </van-dropdown-menu>
   </van-sticky>
 
   <view wx:if="{{ appGlobalData.isAuth }}">
-    <view wx:if="{{ models.length }}" class="margin-top margin-bottom-xs items-message cu-list menu-avatar">
+    <view wx:if="{{ notices.length }}" class="margin-top margin-bottom-xs items-message cu-list menu-avatar">
       <view class="item-message cu-item {{ notice.is_read ? 'read' : 'unread' }} {{ messageTouchClass == 'item-message-' + noticeIndex ? 'move-cur' : '' }}" data-target="item-message-{{ noticeIndex }}"
-            wx:for="{{ models }}" wx:for-item="notice" wx:key="id" wx:for-index="noticeIndex"
+            wx:for="{{ notices }}" wx:for-item="notice" wx:key="id" wx:for-index="noticeIndex"
             catch:tap="gotoEntityPage" data-notice="{{ notice }}" data-notice-index="{{ noticeIndex }}" data-class="{{ 'item-message-' + noticeIndex }}"
             bind:touchstart="messageTouchStart" bind:touchmove="messageTouchMove" bind:touchend="messageTouchEnd">
         <view class="date text-grey text-xs">{{ notice.created_at_for_humans }}</view>
@@ -49,13 +49,5 @@
 
   <view wx:else style="padding-top:100px;">
     <van-empty description="登录后才能查看消息"></van-empty>
-  </view>
-
-  <view id="section-more-loading-tip" wx:if="{{  moreLoading }}" class="text-center padding-tb">
-    <van-loading type="spinner">加载中...</van-loading>
-  </view>
-
-  <view id="section-more-loading-disabled-tip" class="padding-lr-xl padding-tb-lg" wx:if="{{ models.length && currentPage >= lastPage }}">
-    <van-divider contentPosition="center" customStyle="margin:0;">没有更多消息了</van-divider>
   </view>
 </view>
