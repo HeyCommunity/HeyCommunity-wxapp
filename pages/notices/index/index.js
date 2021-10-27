@@ -26,6 +26,7 @@ Page({
       if (_this.data.appGlobalData.isAuth) wx.startPullDownRefresh();
     });
 
+    _this.setData({appGlobalData: APP.globalData});
     APP.authInitedCallback = function() {
       _this.setData({appGlobalData: APP.globalData});
       if (_this.data.appGlobalData.isAuth) wx.startPullDownRefresh();

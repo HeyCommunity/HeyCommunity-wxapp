@@ -18,8 +18,8 @@
         </view>
       </view>
       <view wx:else class="text-center">
-        <image class="avatar png" bind:tap="needAuth" src="/assets/images/users/default-avatar.jpg" mode="acceptFill"></image>
-        <view class="nickname text-xl margin-top-sm" bind:tap="needAuth">请登录</view>
+        <image class="avatar png" bind:tap="gotoAuthPage" src="/assets/images/users/default-avatar.jpg" mode="acceptFill"></image>
+        <navigator url="/pages/users/auth/index" class="nickname text-xl margin-top-sm">请登录</navigator>
       </view>
       <image src="{{ defaultProfileWaveImagePath }}" mode="scaleToFill" class="gif-wave"></image>
     </view>
@@ -48,7 +48,7 @@
 
   <!-- 我的主页 -->
   <view wx:if="{{ appGlobalData.isAuth }}" class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg radius">
-    <view class="cu-item arrow" bind:tap="gotoUserDetailPage">
+    <navigator class="cu-item arrow" url="/pages/users/detail/index?id={{ appGlobalData.userInfo.id }}">
       <view class="content">
         <text class="cuIcon-homefill text-blue"></text>
         <text class="text-grey">我的主页</text>
@@ -56,7 +56,7 @@
       <view class="action">
         <text class="text-gray text-sm"></text>
       </view>
-    </view>
+    </navigator>
   </view>
 
   <!-- 我的xx -->
@@ -120,12 +120,12 @@
         <text class="text-red">退出登录</text>
       </view>
     </view>
-    <view wx:else class="cu-item" bind:tap="needAuth">
+    <navigator wx:else class="cu-item" url="/pages/users/auth/index">
       <view class="content text-center">
         <text class="cuIcon-weixin text-blue"></text>
         <text class="text-blue">登录</text>
       </view>
-    </view>
+    </navigator>
   </view>
 
   <!-- 版权和版本信息 -->

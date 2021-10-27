@@ -14,7 +14,13 @@ Page({
    * onLoad
    */
   onLoad() {
+    let _this = this;
     this.setData({wxAppAccountInfo: wx.getAccountInfoSync()});
+
+    _this.setData({appGlobalData: APP.globalData});
+    APP.authInitedCallback = function() {
+      _this.setData({appGlobalData: APP.globalData});
+    };
   },
 
   /**
@@ -22,40 +28,34 @@ Page({
    */
   onShow() {
     this.setData({appGlobalData: APP.globalData});
-    this.refreshUserInfo();
+    if (this.data.appGlobalData.isAuth) this.refreshUserInfo();
   },
 
   /**
-   * reset UserInfo
+   * 刷新用户信息
    */
   refreshUserInfo() {
     let _this = this;
 
-    if (APP.globalData.isAuth) {
+    if (this.data.appGlobalData.isAuth) {
       APP.HTTP.GET('users/mine').then(function(result) {
         APP.globalData.userInfo = result.data;
         _this.setData({appGlobalData: APP.globalData});
 
+        // TODO: 更新 NoticeTabBarBadge
         APP.resetTabBarBadge();
+      }).catch(function() {
+        APP.AUTH.userLogout();
+        _this.setData({appGlobalData: APP.globalData});
       });
     }
   },
 
   /**
-   * goto 用户主页
+   * goto 用户登录页
    */
-  gotoUserDetailPage() {
-    if (! APP.needAuth()) {
-      let userId = this.data.appGlobalData.userInfo.id;
-      wx.navigateTo({url: '/pages/users/detail/index?id=' + userId});
-    }
-  },
-
-  /**
-   * needAuth
-   */
-  needAuth() {
-    APP.needAuth();
+  gotoAuthPage() {
+    wx.navigateTo({url: '/pages/users/auth/index'});
   },
 
   /**
