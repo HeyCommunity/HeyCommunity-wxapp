@@ -20,12 +20,14 @@ const POST = function(path, params, configs) {
  */
 const request = function(type, path, params, configs) {
   let APP = getApp();
-  let apiToken = APP ? APP.globalData.apiToken : '';
 
   // configs
   let defaultConfigs = {showRequestFailModal: true};
   if (configs === undefined) configs = {};
   configs = Object.assign(defaultConfigs, configs);
+
+  let apiToken = APP ? APP.globalData.apiToken : '';
+  if (configs.apiToken) apiToken = configs.apiToken;
 
   return new Promise(function(resolve, reject) {
     wx.request({

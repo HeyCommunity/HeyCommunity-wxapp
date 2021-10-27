@@ -1,18 +1,21 @@
+const ENV = require('./utils/env.js');
 const AUTH = require('./utils/auth.js');
 const HTTP = require('./utils/http.js');
+const REQUEST = require('./utils/http.js');
 const MODEL = require('./utils/model.js');
 const OnFire = require('./utils/onfire.js');
 const WXLog = require('./utils/wxlog.js');
-import Notify from './miniprogram_npm/@vant/weapp/notify/notify';
-const { wxappName } = require('./utils/env.js');
+import Notify from './miniprogram_npm/@vant/weapp/notify/notify.js';
 
 App({
+  ENV: EVN,
   AUTH: AUTH,
-  HTTP: HTTP,
+  HTTP: HTTP,           // TODO: 准备废弃，使用 REQUEST 替代
+  REQUEST: REQUEST,
   MODEL: MODEL,
   OnFire: OnFire,
-  WXLog: WXLog,
   Notify: Notify,
+  WXLog: WXLog,
   globalData: {
     wxappName: null,
     isAuth: false,
@@ -29,37 +32,36 @@ App({
     let _this = this;
 
     // 设置小程序名称
-    _this.globalData.wxappName = wxappName;
+    this.globalData.wxappName = ENV.wxappName;
 
+    // TODO: 准备废弃
     // 订阅 Notify
-    this.OnFire.on('notify', function(options) {
-      _this.Notify(options);
-    });
+    // this.OnFire.on('notify', function(options) {
+    //   _this.Notify(options);
+    // });
 
     // 恢复用户及登录状态
-    setTimeout(function () {
-      AUTH.restoreLogin(_this).then(function(result) {
-        _this.showNotify(result.data.nickname + ', 欢迎回来', 'primary');
-      }).catch(function(res) {
-        wx.login({
-          success: function(res) {
-            let loginCode = res.code;
-            _this.HTTP.GET('users/login', {code: loginCode}, {showRequestFailModal: false}).then(function(result) {
-              _this.globalData.apiToken = result.data.token;
-              console.debug('未登录用户在后台进行注册，获取 apiToken => ' + result.data.token);
-            }).catch(function(res) {
-              _this.WXLog.addFilterMsg('AUTH-ERR');
-              _this.WXLog.warn('用户半登录失败 code => ' + loginCode);
-            });
-          },
-        });
-      }).finally(function() {
-        if (_this.authInitedCallback) _this.authInitedCallback();
+    AUTH.restoreLogin(_this).then(function(result) {
+      _this.showNotify(result.data.nickname + ', 欢迎回来', 'primary');
+    }).catch(function(res) {
+      wx.login({
+        success: function(res) {
+          let loginCode = res.code;
+          _this.REQUEST.GET('users/login', {code: loginCode}, {showRequestFailModal: false}).then(function(result) {
+            _this.globalData.apiToken = result.data.token;
+            console.debug('未登录用户在后台进行注册，获取 apiToken => ' + result.data.token);
+          }).catch(function(res) {
+            _this.WXLog.addFilterMsg('AUTH-ERR');
+            _this.WXLog.warn('用户半登录失败 code => ' + loginCode);
+          });
+        },
       });
-    }, 300)
+    }).finally(function() {
+      if (_this.authInitedCallback) _this.authInitedCallback();
+    });
 
     // SystemSettings
-    _this.HTTP.GET('system/settings', {}, {showRequestFailModal: false}).then(function(result) {
+    this.REQUEST.GET('system/settings', {}, {showRequestFailModal: false}).then(function(result) {
       _this.globalData.systemSettings = result.data;
     });
   },
@@ -67,14 +69,16 @@ App({
   /**
    * ShowNotify
    */
-  showNotify(message, type) {
+  showNotify(message, type, duration) {
     let _this = this;
-    if (type === undefined) type = 'success';
+    if (type == null) type = 'success';
+    if (duration == null) duration = 3000;
 
     setTimeout(function() {
       _this.Notify({
         message: message,
         type: type,
+        duration: duration,
       });
     }, 100);
   },
