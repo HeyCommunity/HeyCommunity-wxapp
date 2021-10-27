@@ -5,7 +5,6 @@ const OnFire = require('./utils/onfire.js');
 const WXLog = require('./utils/wxlog.js');
 import Notify from './miniprogram_npm/@vant/weapp/notify/notify';
 const { wxappName } = require('./utils/env.js');
-const tdweapp = require('./utils/talkingData/tdweapp.js');
 
 App({
   AUTH: AUTH,

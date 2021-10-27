@@ -15,7 +15,7 @@ try {
   wxappName = envLocal.wxappName;
   console.debug('使用 env.local.js wxappName: ' + wxappName);
 } catch (exception) {
-  console.debug('使用 utils/env.js wxappName: ' + wxappName);
+  console.debug('使用 /utils/env.js wxappName: ' + wxappName);
 }
 
 
@@ -29,7 +29,7 @@ try {
   apiDomain = envLocal.apiDomain;
   console.debug('使用 env.local.js apiDomain: ' + apiDomain);
 } catch (exception) {
-  console.debug('使用 utils/env.js apiDomain: ' + apiDomain);
+  console.debug('使用 /utils/env.js apiDomain: ' + apiDomain);
 }
 
 
@@ -40,7 +40,7 @@ const apiProHost =  apiDomain + '/api';
 
 
 //
-// TalkDataConfig
+// module exports
 // ==================================================
 module.exports = {
   wxappName,
