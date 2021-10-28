@@ -52,14 +52,7 @@ Page({
    * TODO: 改为页面按钮
    */
   showLoginNotifyBar() {
-    APP.Notify({
-      message: '登录后才能查看消息 \n 点击这里进行登录',
-      type: 'primary',
-      duration: 6000,
-      onClick: function() {
-        wx.navigateTo({url: '/pages/users/auth/index'});
-      },
-    });
+    APP.Notify({type: 'primary', message: '登录后才能查看消息'});
   },
 
   /**

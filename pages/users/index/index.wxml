@@ -91,11 +91,20 @@
   <view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg radius">
     <navigator class="cu-item arrow" url="/pages/systems/about/index">
       <view class="content">
-        <text class="cuIcon-hotfill text-blue"></text>
+        <text class="cuIcon-infofill text-blue"></text>
         <text class="text-grey">{{ appGlobalData.wxappName }}</text>
       </view>
       <view class="action">
-        <text class="text-gray text-sm">关于</text>
+        <text class="text-gray text-sm">{{ wxappVersion }}</text>
+      </view>
+    </navigator>
+    <navigator class="cu-item arrow" url="/pages/users/term/index">
+      <view class="content">
+        <text class="cuIcon-formfill text-brown"></text>
+        <text class="text-grey">社区协议</text>
+      </view>
+      <view class="action">
+        <text class="text-gray text-sm">社区规章制度</text>
       </view>
     </navigator>
     <button class="cu-item arrow" open-type="contact">
@@ -103,11 +112,17 @@
         <text class="cuIcon-servicefill text-green"></text>
         <text class="text-grey">联系客服</text>
       </view>
+      <view class="action">
+        <text class="text-gray text-sm">7x24 小时在线</text>
+      </view>
     </button>
     <button class="cu-item arrow" open-type="feedback">
       <view class="content">
         <text class="cuIcon-writefill text-cyan"></text>
         <text class="text-grey">意见反馈</text>
+      </view>
+      <view class="action">
+        <text class="text-gray text-sm">功能异常 | 产品建议</text>
       </view>
     </button>
   </view>
@@ -131,10 +146,7 @@
   <!-- 版权和版本信息 -->
   <view id="section-copyright">
     <navigator class="text-center text-gray padding-bottom-xl padding-top-lg" url="/pages/systems/heycommunity/index">
-      <view wx:if="{{ wxAppAccountInfo.miniProgram.envVersion === 'release' }}">
-        HeyCommunity v{{ wxAppAccountInfo.miniProgram.version }}
-      </view>
-      <view wx:else>HeyCommunity {{ wxAppAccountInfo.miniProgram.envVersion }}</view>
+      <view>HeyCommunity v0.1-beta.3.x</view>
       <view>Produced by supeRodv2 of ProtobiaTech</view>
     </navigator>
   </view>

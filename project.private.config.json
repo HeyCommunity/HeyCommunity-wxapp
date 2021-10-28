@@ -61,14 +61,14 @@
           "scene": null
         },
         {
-          "name": "[USER] 用户协议",
-          "pathName": "pages/users/term/index",
+          "name": "[SYSTEM] 关于页面",
+          "pathName": "pages/systems/about/index",
           "query": "",
           "scene": null
         },
         {
-          "name": "[SYSTEM] 关于页面",
-          "pathName": "pages/systems/about/index",
+          "name": "[SYSTEM] 社区协议",
+          "pathName": "pages/systems/term/index",
           "query": "",
           "scene": null
         }

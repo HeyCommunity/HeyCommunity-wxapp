@@ -11,7 +11,7 @@ Page({
    * onLoad
    */
   onLoad() {
-    APP.Notify({type: 'warning', message: '请登录'});
+    APP.Notify({type: 'primary', message: '请登录'});
 
     if (wx.getUserProfile) {
       this.setData({

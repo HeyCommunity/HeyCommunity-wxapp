@@ -1,7 +1,7 @@
 <view class="container">
   <view class="margin-xs bg-white padding-xl">
     <view class="margin-top-sm margin-bottom-sm">
-      <view class="text-center" style="font-size:50rpx; line-height:1.2em;">用户协议</view>
+      <view class="text-center" style="font-size:50rpx; line-height:1.2em;">社区协议</view>
     </view>
     <view class="margin-top-lg">
       <text user-select>用户可在平台自由发布有价值有意义的内容。但不得制作、上载、复制、发布、传播或者转载如下内容：</text>

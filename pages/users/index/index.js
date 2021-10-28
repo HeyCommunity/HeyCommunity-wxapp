@@ -7,7 +7,7 @@ Page({
     defaultUserCoverImagePath: apiDomain + '/images/users/default-cover.jpg',
     defaultProfileWaveImagePath: apiDomain + '/images/users/profile-wave.gif',
 
-    wxAppAccountInfo: null,
+    wxappVersion: null,
   },
 
   /**
@@ -15,7 +15,11 @@ Page({
    */
   onLoad() {
     let _this = this;
-    this.setData({wxAppAccountInfo: wx.getAccountInfoSync()});
+
+    // 小程序版本号
+    let wxappAccountInfo = wx.getAccountInfoSync();
+    let wxappVersion = wxappAccountInfo.miniProgram.version ? wxappAccountInfo.miniProgram.version : wxappAccountInfo.miniProgram.envVersion;
+    this.setData({wxappVersion: wxappVersion});
 
     _this.setData({appGlobalData: APP.globalData});
     APP.authInitedCallback = function() {

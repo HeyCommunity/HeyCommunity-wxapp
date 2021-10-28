@@ -49,5 +49,8 @@
 
   <view wx:else style="padding-top:100px;">
     <van-empty description="登录后才能查看消息"></van-empty>
+    <view class="text-center">
+      <navigator url="/pages/users/auth/index" class="cu-btn line-grey text-black">立即登录</navigator>
+    </view>
   </view>
 </view>
