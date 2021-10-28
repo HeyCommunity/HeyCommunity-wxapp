@@ -152,6 +152,7 @@ const wxRequestIsOk = function(res) {
 /**
  * 获取请求失败的返回消息
  * TODO: 重定义，把 res.errMsg 转为本地语言
+ * TODO: 404 res.data.message 为空
  */
 const getRequestFailMessage = function(res) {
   return (wxRequestIsOk(res)) ? res.data.message : res.errMsg;

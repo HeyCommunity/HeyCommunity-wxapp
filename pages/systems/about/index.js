@@ -2,6 +2,7 @@ const APP = getApp();
 
 Page({
   data: {
+    appGlobalData: null,
     about: null,
   },
 
@@ -11,9 +12,10 @@ Page({
   onLoad() {
     let _this = this;
 
-    wx.showLoading({title: '加载中'});
+    this.setData({appGlobalData: APP.globalData});
 
-    APP.HTTP.GET('system/about').then(function(result) {
+    wx.showLoading({title: '加载中'});
+    APP.REQUEST.GET('system/about').then(function(result) {
       _this.setData({
         about: result.data,
       });

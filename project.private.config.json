@@ -61,6 +61,12 @@
           "scene": null
         },
         {
+          "name": "[SYSTEM] HEY社区",
+          "pathName": "pages/systems/heycommunity/index",
+          "query": "",
+          "scene": null
+        },
+        {
           "name": "[SYSTEM] 关于页面",
           "pathName": "pages/systems/about/index",
           "query": "",

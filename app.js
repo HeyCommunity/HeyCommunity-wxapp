@@ -17,7 +17,11 @@ App({
   Notify: Notify,
   WXLog: WXLog,
   globalData: {
+    hcInfo: null,
+    wxappAccountInfo: null,
     wxappName: null,
+    wxappVersion: null,
+
     isAuth: false,
     apiToken: null,
     userInfo: null,
@@ -31,8 +35,12 @@ App({
   onLaunch() {
     let _this = this;
 
-    // 设置小程序名称
-    this.globalData.wxappName = ENV.wxappName;
+    // 初始化小程序信息
+    this.globalData.hcInfo = ENV.hcInfo;                                                          // HeyCommunity 信息
+    this.globalData.wxappName = ENV.wxappName;                                                    // 当前小程序名称
+    this.globalData.wxappAccountInfo = wx.getAccountInfoSync();                                   // 当前小程序帐号信息
+    this.globalData.wxappVersion = this.globalData.wxappAccountInfo.miniProgram.version;          // 当前小程序版本号
+    if (! this.globalData.wxappVersion) this.globalData.wxappVersion = this.globalData.wxappAccountInfo.miniProgram.envVersion;
 
     // TODO: 准备废弃
     // 订阅 Notify
@@ -68,6 +76,7 @@ App({
 
   /**
    * ShowNotify
+   * TODO: 准备废弃
    */
   showNotify(message, type, duration) {
     let _this = this;

@@ -95,10 +95,10 @@
         <text class="text-grey">{{ appGlobalData.wxappName }}</text>
       </view>
       <view class="action">
-        <text class="text-gray text-sm">{{ wxappVersion }}</text>
+        <text class="text-gray text-sm">{{ appGlobalData.wxappVersion }}</text>
       </view>
     </navigator>
-    <navigator class="cu-item arrow" url="/pages/users/term/index">
+    <navigator class="cu-item arrow" url="/pages/systems/term/index">
       <view class="content">
         <text class="cuIcon-formfill text-brown"></text>
         <text class="text-grey">社区协议</text>
@@ -146,7 +146,7 @@
   <!-- 版权和版本信息 -->
   <view id="section-copyright">
     <navigator class="text-center text-gray padding-bottom-xl padding-top-lg" url="/pages/systems/heycommunity/index">
-      <view>HeyCommunity v0.1-beta.3.x</view>
+      <view>HeyCommunity {{ appGlobalData.hcInfo.version }}</view>
       <view>Produced by supeRodv2 of ProtobiaTech</view>
     </navigator>
   </view>

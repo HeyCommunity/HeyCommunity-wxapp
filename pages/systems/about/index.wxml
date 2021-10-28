@@ -2,11 +2,20 @@
   <view wx:if="{{ about }}" class="margin-xs bg-white padding-xl">
     <view class="margin-top-sm margin-bottom-sm">
       <view class="text-center" style="font-size:50rpx; line-height:1.2em;">{{ about.title }}</view>
-      <view class="text-center" style="font-size:28rpx; line-height:1.2em; color:#666;">{{ about.subtitle }}</view>
+      <view class="text-center margin-top-xs" style="font-size:28rpx; line-height:1.2em; color:#666;">{{ about.subtitle }}</view>
     </view>
 
     <view class="margin-top-xs">
       <rich-text nodes="{{ about.content }}"></rich-text>
+    </view>
+  </view>
+
+  <view class="margin-xs margin-top-lg bg-white padding-xl">
+    <view class="text-center">
+      <view>当前小程序版本: {{ appGlobalData.wxappVersion }}</view>
+      <!-- 开源不易，请保留版权信息 -->
+      <!-- 官方网站: www.heycommunity.com -->
+      <text user-select>基于 HeyCommunity {{ appGlobalData.hcInfo.version }} 构建</text>
     </view>
   </view>
 </view>
