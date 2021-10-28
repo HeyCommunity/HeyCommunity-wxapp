@@ -10,9 +10,9 @@ import Notify from './miniprogram_npm/@vant/weapp/notify/notify.js';
 App({
   ENV: ENV,
   AUTH: AUTH,
-  HTTP: HTTP,           // TODO: 准备废弃，使用 REQUEST 替代
   REQUEST: REQUEST,
-  MODEL: MODEL,
+  HTTP: HTTP,           // TODO: 准备废弃，使用 REQUEST 替代
+  MODEL: MODEL,         // TODO: 准备删除，MODEL 每个页面应该使用新的 MODEL 实例
   OnFire: OnFire,
   Notify: Notify,
   WXLog: WXLog,

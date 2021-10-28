@@ -144,6 +144,8 @@
   </view>
 
   <!-- 版权和版本信息 -->
+  <!-- 开源不易，请保留版权信息 -->
+  <!-- 官方网站: www.heycommunity.com -->
   <view id="section-copyright">
     <navigator class="text-center text-gray padding-bottom-xl padding-top-lg" url="/pages/systems/heycommunity/index">
       <view>HeyCommunity {{ appGlobalData.hcInfo.version }}</view>
