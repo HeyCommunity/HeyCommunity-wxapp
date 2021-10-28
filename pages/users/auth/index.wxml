@@ -27,6 +27,9 @@
       </view>
     </view>
 
-    <view class="text-center text-grey">登录即代表您同意我们的《用户协议》</view>
+    <view class="text-center text-grey">
+      登录即代表您同意我们的
+      <navigator class="d-inline text-underline" url="/pages/users/term/index">《用户协议》</navigator>
+    </view>
   </view>
 </view>

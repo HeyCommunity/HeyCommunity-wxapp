@@ -61,6 +61,12 @@
           "scene": null
         },
         {
+          "name": "[USER] 用户协议",
+          "pathName": "pages/users/term/index",
+          "query": "",
+          "scene": null
+        },
+        {
           "name": "[SYSTEM] 关于页面",
           "pathName": "pages/systems/about/index",
           "query": "",

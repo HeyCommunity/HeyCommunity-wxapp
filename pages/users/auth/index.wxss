@@ -18,6 +18,7 @@
     align-items: center;
     color: #aaa; }
     #page-users-auth .box .userinfo .avatar {
+      background-color: #CCCCCC;
       overflow: hidden;
       width: 200rpx;
       height: 200rpx;

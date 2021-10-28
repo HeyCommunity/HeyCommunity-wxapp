@@ -8,7 +8,7 @@ const WXLog = require('./utils/wxlog.js');
 import Notify from './miniprogram_npm/@vant/weapp/notify/notify.js';
 
 App({
-  ENV: EVN,
+  ENV: ENV,
   AUTH: AUTH,
   HTTP: HTTP,           // TODO: 准备废弃，使用 REQUEST 替代
   REQUEST: REQUEST,

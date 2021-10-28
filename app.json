@@ -10,6 +10,7 @@
     "pages/users/info/index",
     "pages/users/detail/index",
     "pages/users/auth/index",
+    "pages/users/term/index",
 
     "pages/systems/heycommunity/index",
     "pages/systems/about/index",
