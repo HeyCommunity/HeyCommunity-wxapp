@@ -1,4 +1,4 @@
-<view id="page-messages-index" class="container-full" bind:tap="messageMoveReset">
+<view id="page-notices-index" class="container-full" bind:tap="noticeTouchResetHandler">
   <van-notify id="van-notify"></van-notify>
 
   <!-- 顶部下拉菜单 -->
@@ -16,11 +16,11 @@
   </van-sticky>
 
   <view wx:if="{{ appGlobalData.isAuth }}">
-    <view wx:if="{{ notices.length }}" class="margin-top margin-bottom-xs items-message cu-list menu-avatar">
-      <view class="item-message cu-item {{ notice.is_read ? 'read' : 'unread' }} {{ messageTouchClass == 'item-message-' + noticeIndex ? 'move-cur' : '' }}" data-target="item-message-{{ noticeIndex }}"
+    <view wx:if="{{ notices.length }}" class="margin-top margin-bottom-xs items-notice cu-list menu-avatar">
+      <view class="item-notice cu-item {{ notice.is_read ? 'read' : 'unread' }} {{ noticeTouchClass == 'item-notice-' + noticeIndex ? 'move-cur' : '' }}" data-target="item-notice-{{ noticeIndex }}"
             wx:for="{{ notices }}" wx:for-item="notice" wx:key="id" wx:for-index="noticeIndex"
-            catch:tap="gotoEntityPage" data-notice="{{ notice }}" data-notice-index="{{ noticeIndex }}" data-class="{{ 'item-message-' + noticeIndex }}"
-            bind:touchstart="messageTouchStart" bind:touchmove="messageTouchMove" bind:touchend="messageTouchEnd">
+            catch:tap="gotoEntityPage" data-notice="{{ notice }}" data-notice-index="{{ noticeIndex }}" data-class="{{ 'item-notice-' + noticeIndex }}"
+            bind:touchstart="noticeTouchStartHandler" bind:touchmove="noticeTouchMoveHandler" bind:touchend="noticeTouchEndHandler">
         <view class="date text-grey text-xs">{{ notice.created_at_for_humans }}</view>
         <navigator url="/pages/users/detail/index?id={{ notice.sender.id }}" class="avatar cu-avatar round lg" style="background-image:url({{ notice.sender.avatar }});">
           <view wx:if="{{ ! notice.is_read }}" class="cu-tag badge">未读</view>
@@ -28,7 +28,7 @@
         <view class="content padding-bottom-xs solid-bottom">
           <view class="text-grey">
             <navigator url="/pages/users/detail/index?id={{ notice.sender.id }}" class="nickname">{{ notice.sender.nickname }}</navigator>
-            <view class="message-action margin-left-xs text-gray">{{ notice.type_name }}</view>
+            <view class="notice-action margin-left-xs text-gray">{{ notice.type_name }}</view>
           </view>
           <view class="text-gray text-sm flex">
             <text class="text-cut">{{ notice.content }}</text>

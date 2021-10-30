@@ -7,7 +7,6 @@ Page({
     notices: [],
 
     wxSubscribePostNoticeNum: 0,
-    messageTouchClass: null,
   },
 
   /**
@@ -42,21 +41,12 @@ Page({
     if (this.data.appGlobalData.isAuth) {
       wx.startPullDownRefresh();
     } else {
-      this.showLoginNotifyBar();
+      APP.Notify({type: 'primary', message: '登录后才能查看消息'});
     }
   },
 
   /**
-   * 显示登录 Notify
-   *
-   * TODO: 改为页面按钮
-   */
-  showLoginNotifyBar() {
-    APP.Notify({type: 'primary', message: '登录后才能查看消息'});
-  },
-
-  /**
-   * goto Entity Page
+   * goto 消息实体页面
    */
   gotoEntityPage(event) {
     let _this = this;
@@ -64,9 +54,9 @@ Page({
     let noticeId = notice.id;
     let noticeIndex = event.currentTarget.dataset.noticeIndex;
     let noticeClass = event.currentTarget.dataset.class;
-    let messageTouchClass = _this.data.messageTouchClass;
+    let noticeTouchClass = _this.data.noticeTouchClass;
 
-    if (! messageTouchClass && notice.wxapp_redirect_url) {
+    if (! noticeTouchClass && notice.wxapp_redirect_url) {
       wx.navigateTo({
         url: notice.wxapp_redirect_url,
         success: function(res) {
@@ -75,34 +65,13 @@ Page({
       });
     }
 
-    _this.messageMoveReset();
-  },
-
-  /**
-   * 下拉刷新
-   */
-  onPullDownRefresh() {
-    if (this.data.appGlobalData.isAuth) {
-      MODEL.getFirstPageModels().finally(function () {
-        wx.stopPullDownRefresh();
-      });
-    } else {
-      wx.stopPullDownRefresh();
-      this.setData({notice: []});
-
-      this.showLoginNotifyBar();
-    }
-  },
-
-  /**
-   * 下拉加载更多
-   */
-  onReachBottom() {
-    MODEL.getNextPageModels();
+    _this.noticeTouchResetHandler();
   },
 
   /**
    * 订阅动态通知处理
+   *
+   * TODO: 需求整理和优化
    */
   subscribePostMessagesHandler() {
     let _this = this;
@@ -146,6 +115,8 @@ Page({
 
   /**
    * 通知批量处理
+   *
+   * TODO: 需要优化和整理
    */
   batchNoticeActionHandler(event, disableConfirm) {
     let _this = this;
@@ -154,9 +125,9 @@ Page({
 
     this.selectComponent('#dropdown-action').toggle(false);
 
-    if (action === 'delete' && _this.data.models.length) {
+    if (action === 'delete' && _this.data.notices.length) {
       let confirmHandler = function() {
-        let notice = _this.data.models[0];
+        let notice = _this.data.notices[0];
         let noticeIndex = 0;
 
         _this.sendNoticeActionHttpRequest(action, notice, notice.id, noticeIndex).then(function() {
@@ -176,7 +147,7 @@ Page({
         });
       }
     } else {
-      this.data.models.forEach(function(notice, noticeIndex) {
+      this.data.notices.forEach(function(notice, noticeIndex) {
         _this.sendNoticeActionHttpRequest(action, notice, notice.id, noticeIndex);
       });
     }
@@ -188,6 +159,8 @@ Page({
    * delete
    * set-isread
    * set-unread
+   *
+   * TODO: 待整理和优化
    */
   noticeActionHandler(event) {
     let _this = this;
@@ -195,27 +168,29 @@ Page({
     let action = event.currentTarget.dataset.action;
     let noticeId = event.currentTarget.dataset.id;
     let noticeIndex = event.currentTarget.dataset.index;
-    let notice = _this.data.models[noticeIndex];
+    let notice = _this.data.notices[noticeIndex];
 
     _this.sendNoticeActionHttpRequest(action, notice, noticeId, noticeIndex);
   },
 
   /**
    * 发送通知 HTTP 请求
+   *
+   * TODO: 待整理和优化
    */
   sendNoticeActionHttpRequest(action, notice, noticeId, noticeIndex) {
     let _this = this;
 
-    _this.messageMoveReset();
+    _this.noticeTouchResetHandler();
 
     return new Promise(function(resolve, reject) {
-      APP.HTTP.POST(_this.data.apiPath + '/' + action, {id: noticeId}).then(function(result) {
+      APP.HTTP.POST('notices/' + action, {id: noticeId}).then(function(result) {
         if (action === 'delete') {
-          _this.data.models.splice(noticeIndex, 1);
-          _this.setData({models: _this.data.models});
+          _this.data.notices.splice(noticeIndex, 1);
+          _this.setData({notices: _this.data.notices});
         } else {
-          _this.data.models[noticeIndex] = result.data;
-          _this.setData({models: _this.data.models});
+          _this.data.notices[noticeIndex] = result.data;
+          _this.setData({notices: _this.data.notices});
         }
 
         if (notice.is_read) {
@@ -238,43 +213,66 @@ Page({
   },
 
   /**
-   * messageMove 开始
+   * 下拉刷新
    */
-  messageTouchStart(e) {
-    this.setData({MessageTouchStart: e.touches[0].pageX})
+  onPullDownRefresh() {
+    if (this.data.appGlobalData.isAuth) {
+      MODEL.getFirstPageModels().finally(function () {
+        wx.stopPullDownRefresh();
+      });
+    } else {
+      wx.stopPullDownRefresh();
+      this.setData({notice: []});
+
+      APP.Notify({type: 'primary', message: '登录后才能查看消息'});
+    }
   },
 
   /**
-   * messageMove 计算方向
+   * 下拉加载更多
    */
-  messageTouchMove(e) {
-    if (e.touches[0].pageX - this.data.MessageTouchStart > 20) this.setData({MessageTouchDirection: 'right'});
-    if (e.touches[0].pageX - this.data.MessageTouchStart < -60) this.setData({MessageTouchDirection: 'left'});
-
-    // console.debug('touchMove', this.data.messageTouchClass, e.touches[0].pageX - this.data.MessageTouchStart, this.data.MessageTouchDirection);
-    // console.debug('touchMove', e.touches[0].pageX, this.data.MessageTouchStart);
+  onReachBottom() {
+    MODEL.getNextPageModels();
   },
 
   /**
-   * messageMove 计算滚动
+   * noticeMove 开始
    */
-  messageTouchEnd(e) {
-    if (this.data.MessageTouchDirection == 'left')  {
-      this.setData({messageTouchClass: e.currentTarget.dataset.target});
-    } else if (this.data.MessageTouchDirection == 'right')  {
-      this.setData({messageTouchClass: null});
+  noticeTouchStartHandler(event) {
+    this.setData({MessageTouchStart: event.touches[0].pageX})
+  },
+
+  /**
+   * noticeMove 计算方向
+   */
+  noticeTouchMoveHandler(event) {
+    if (event.touches[0].pageX - this.data.MessageTouchStart > 20) this.setData({noticeTouchDirection: 'right'});
+    if (event.touches[0].pageX - this.data.MessageTouchStart < -60) this.setData({noticeTouchDirection: 'left'});
+
+    // console.debug('touchMove', this.data.noticeTouchClass, event.touches[0].pageX - this.data.MessageTouchStart, this.data.noticeTouchDirection);
+    // console.debug('touchMove', event.touches[0].pageX, this.data.MessageTouchStart);
+  },
+
+  /**
+   * noticeMove 计算滚动
+   */
+  noticeTouchEndHandler(event) {
+    if (this.data.noticeTouchDirection == 'left')  {
+      this.setData({noticeTouchClass: event.currentTarget.dataset.target});
+    } else if (this.data.noticeTouchDirection == 'right')  {
+      this.setData({noticeTouchClass: null});
     }
 
-    // console.debug('touchEnd', this.data.messageTouchClass, this.data.MessageTouchDirection);
+    // console.debug('touchEnd', this.data.noticeTouchClass, this.data.noticeTouchDirection);
 
-    this.setData({MessageTouchDirection: null})
+    this.setData({noticeTouchDirection: null})
   },
 
   /**
-   * messageMove 重置成初始状态
+   * noticeMove 重置成初始状态
    */
-  messageMoveReset() {
-    this.setData({messageTouchClass: null});
-    this.setData({MessageTouchDirection: null})
+  noticeTouchResetHandler() {
+    this.setData({noticeTouchClass: null});
+    this.setData({noticeTouchDirection: null})
   }
 });
