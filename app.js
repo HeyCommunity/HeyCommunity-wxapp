@@ -1,6 +1,5 @@
 const ENV = require('./utils/env.js');
 const AUTH = require('./utils/auth.js');
-const MODEL = require('./utils/model.js');
 const REQUEST = require('./utils/request.js');
 const OnFire = require('./utils/onfire.js');
 const WXLog = require('./utils/wxlog.js');
@@ -10,7 +9,6 @@ App({
   ENV: ENV,
   AUTH: AUTH,
   REQUEST: REQUEST,
-  MODEL: MODEL,         // TODO: 准备删除，MODEL 每个页面应该使用新的 MODEL 实例
   OnFire: OnFire,
   Notify: Notify,
   WXLog: WXLog,

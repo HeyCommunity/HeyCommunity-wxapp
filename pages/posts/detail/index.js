@@ -89,7 +89,7 @@ Page({
    */
   onPullDownRefresh() {
     wx.showLoading({title: '加载中'});
-    APP.MODEL.getModel(this, 'posts/' + this.data.modelId).finally(function() {
+    MODEL.getModel(this, 'posts/' + this.data.modelId).finally(function() {
       wx.hideLoading();
       wx.stopPullDownRefresh();
     });
