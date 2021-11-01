@@ -83,7 +83,7 @@ Page({
         APP.AUTH.userLogin(res.code).then(function(result) {
           wx.navigateBack({
             success(res) {
-              APP.showNotify('登录成功');
+              APP.Notify({message: '登录成功'});
               APP.resetTabBarBadge();
             }
           });

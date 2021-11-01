@@ -57,7 +57,7 @@ const request = function(type, path, params, configs) {
         }
       },
       fail: function(res) {
-        APP.showNotify('网络请求失败', 'danger');
+        APP.Notify({message: '网络请求失败', type: 'danger'});
 
         if (configs.showRequestFailModal) showRequestFailModal(res);
 
@@ -101,7 +101,7 @@ const uploadFile = function(apiPath, filePath, params, configs) {
         }
       },
       fail: function(res) {
-        APP.showNotify('网络请求失败', 'danger');
+        APP.Notify({message: '网络请求失败', type: 'danger'});
 
         if (configs.showRequestFailModal) {
           wx.showModal({

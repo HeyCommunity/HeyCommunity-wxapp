@@ -204,9 +204,9 @@ Page({
             success() {
               if (result.data.status) {
                 APP.OnFire.fire('newPost', result.data);
-                APP.showNotify('动态发布成功');
+                APP.Notify({message: '动态发布成功'});
               } else {
-                APP.showNotify('动态创建成功 \n 管理审核通过后将发布', 'warning');
+                APP.Notify({message: '动态创建成功 \n 管理审核通过后将发布', type: 'warning'});
               }
             }
           });

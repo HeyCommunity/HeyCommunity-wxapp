@@ -109,7 +109,7 @@ Page({
         }
       });
     } else {
-      APP.showNotify('未启用微信订阅消息功能', 'danger');
+      APP.Notify({message: '未启用微信订阅消息功能', type: 'danger'});
     }
   },
 

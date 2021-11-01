@@ -96,10 +96,9 @@ Component({
           entity.comment_num += 1;
           entity.i_have_comment = true;
 
-          // APP.showNotify('评论成功');
           wx.showToast({title: '评论成功'});
         } else {
-          APP.showNotify('评论创建成功 \n 管理员审核通过后将发布', 'warning');
+          APP.Notify({message: '评论创建成功 \n 管理员审核通过后将发布', type: 'warning'});
         }
 
         _this.hideCommentModal();

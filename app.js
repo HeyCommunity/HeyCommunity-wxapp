@@ -38,12 +38,6 @@ App({
     this.globalData.wxappVersion = this.globalData.wxappAccountInfo.miniProgram.version;          // 当前小程序版本号
     if (! this.globalData.wxappVersion) this.globalData.wxappVersion = this.globalData.wxappAccountInfo.miniProgram.envVersion;
 
-    // TODO: 准备废弃
-    // 订阅 Notify
-    // this.OnFire.on('notify', function(options) {
-    //   _this.Notify(options);
-    // });
-
     // 恢复用户及登录状态
     AUTH.restoreLogin(_this).then(function(result) {
       _this.showNotify(result.data.nickname + ', 欢迎回来', 'primary');
@@ -68,24 +62,6 @@ App({
     this.REQUEST.GET('system/settings', {}, {showRequestFailModal: false}).then(function(result) {
       _this.globalData.systemSettings = result.data;
     });
-  },
-
-  /**
-   * ShowNotify
-   * TODO: 准备废弃
-   */
-  showNotify(message, type, duration) {
-    let _this = this;
-    if (type == null) type = 'success';
-    if (duration == null) duration = 3000;
-
-    setTimeout(function() {
-      _this.Notify({
-        message: message,
-        type: type,
-        duration: duration,
-      });
-    }, 100);
   },
 
   /**
