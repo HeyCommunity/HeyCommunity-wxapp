@@ -32,7 +32,7 @@ Page({
         res.tempFilePaths.forEach(function(tempFilePath) {
           _this.setData({uploading: true});
 
-          APP.HTTP.uploadFile('posts/upload-image', tempFilePath).then(function(result) {
+          APP.REQUEST.uploadFile('posts/upload-image', tempFilePath).then(function(result) {
             let postImageId = result.data.id;
 
             _this.setData({
@@ -108,7 +108,7 @@ Page({
         };
 
         _this.setData({uploading: true});
-        APP.HTTP.uploadFile('posts/upload-video', tempFilePath, params).then(function(result) {
+        APP.REQUEST.uploadFile('posts/upload-video', tempFilePath, params).then(function(result) {
           _this.setData({video: result.data});
         }).finally(function() {
           _this.setData({uploading: false});
@@ -199,7 +199,7 @@ Page({
           params.video_id = _this.data.video.id;
         }
 
-        APP.HTTP.POST('posts', params).then((result) => {
+        APP.REQUEST.POST('posts', params).then((result) => {
           wx.navigateBack({
             success() {
               if (result.data.status) {

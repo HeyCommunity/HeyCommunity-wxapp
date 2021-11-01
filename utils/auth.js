@@ -12,7 +12,7 @@ const userLogin = function(code) {
 
   return new Promise(function(resolve, reject) {
     // 获取 token
-    APP.HTTP.GET('users/login', {code: code}).then(function(result) {
+    APP.REQUEST.GET('users/login', {code: code}).then(function(result) {
       APP.globalData.apiToken = result.data.token;
       APP.globalData.isAuth = true;
       APP.globalData.userInfo = result.data;
@@ -47,7 +47,7 @@ const userLogout = function() {
     userPingStop();
     APP.resetTabBarBadge();
 
-    APP.HTTP.POST('users/logout').then(function(result, res) {
+    APP.REQUEST.POST('users/logout').then(function(result, res) {
       resolve(result, res);
     }).catch(function(result, res) {
       reject(result, res);
@@ -62,7 +62,7 @@ const userUpdateInfo = function(wechatUserInfo) {
   let APP = getApp();
 
   return new Promise(function(resolve, reject) {
-    APP.HTTP.POST('users/mine', wechatUserInfo).then(function(result, res) {
+    APP.REQUEST.POST('users/mine', wechatUserInfo).then(function(result, res) {
       APP.globalData.userInfo = result.data;
 
       console.debug('updated user info => ', result.data);
@@ -84,7 +84,7 @@ const restoreLogin = function(APP) {
   return new Promise(function(resolve, reject) {
     if (apiToken) {
       APP.globalData.apiToken = apiToken;
-      APP.HTTP.GET('users/mine', {}, {
+      APP.REQUEST.GET('users/mine', {}, {
         apiToken: apiToken,
         showRequestFailModal: false
       }).then(function(result) {
@@ -113,7 +113,7 @@ const userPingRun = function() {
   let APP = getApp();
 
   APP.userPingInterval = setInterval(function() {
-    APP.HTTP.GET('users/ping', {}, {showRequestFailModal: false}).then(function(result) {
+    APP.REQUEST.GET('users/ping', {}, {showRequestFailModal: false}).then(function(result) {
       APP.userPingHandler(result);
     }).catch(function() {
     });

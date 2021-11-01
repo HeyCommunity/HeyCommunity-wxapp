@@ -17,7 +17,7 @@ Page({
 
     wx.showLoading({title: '加载中'});
     MODEL.getModel(this, 'posts/' + this.data.modelId, {}, {showRequestFailModal: false}).catch(function(res) {
-      if (APP.HTTP.wxRequestIsOk(res)) {
+      if (APP.REQUEST.wxRequestIsOk(res)) {
         wx.showModal({
           title: '提示',
           content: '内容不存在或已被删除',
@@ -27,7 +27,7 @@ Page({
           }
         });
       } else {
-        APP.HTTP.showRequestFailModal(res);
+        APP.REQUEST.showRequestFailModal(res);
       }
     }).finally(function() {
       wx.hideLoading();

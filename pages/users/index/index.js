@@ -35,7 +35,7 @@ Page({
     let _this = this;
 
     if (this.data.appGlobalData.isAuth) {
-      APP.HTTP.GET('users/mine').then(function(result) {
+      APP.REQUEST.GET('users/mine').then(function(result) {
         APP.globalData.userInfo = result.data;
         _this.setData({appGlobalData: APP.globalData});
 

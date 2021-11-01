@@ -39,7 +39,7 @@ Page({
   updateInfoHandler(event) {
     let data = event.detail.value;
 
-    APP.HTTP.POST('users/mine-info', data).then(function(result) {
+    APP.REQUEST.POST('users/mine-info', data).then(function(result) {
       wx.showToast({
         icon: 'success',
         title: '更新资料成功',
@@ -80,7 +80,7 @@ Page({
 
         wx.showLoading({title: typeName + '上传中'});
 
-        APP.HTTP.uploadFile('users/mine-' + type, tempFilePath).then(function(result) {
+        APP.REQUEST.uploadFile('users/mine-' + type, tempFilePath).then(function(result) {
           _this.setData({userInfo: result.data});
           wx.showToast({icon: 'success', title: typeName + '更新成功'});
         }).catch(function(res) {
@@ -105,7 +105,7 @@ Page({
   getUserInfo() {
     let _this = this;
 
-    APP.HTTP.GET('users/mine').then(function(result) {
+    APP.REQUEST.GET('users/mine').then(function(result) {
       _this.setData({userInfo: result.data});
     });
   },

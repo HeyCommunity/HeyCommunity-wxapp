@@ -93,7 +93,7 @@ Page({
         }).catch(function(res) {
           APP.WXLog.addFilterMsg('AUTH-ERR');
 
-          if (APP.HTTP.wxRequestIsOk(res)) {
+          if (APP.REQUEST.wxRequestIsOk(res)) {
             wx.showModal({
               icon: 'error',
               title: '登录失败',

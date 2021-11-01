@@ -40,7 +40,7 @@ Page({
   getUserInfo() {
     let _this = this;
 
-    APP.HTTP.GET('users/' + _this.data.userId).then(function(result) {
+    APP.REQUEST.GET('users/' + _this.data.userId).then(function(result) {
       _this.setData({userInfo: result.data});
 
       wx.setNavigationBarTitle({

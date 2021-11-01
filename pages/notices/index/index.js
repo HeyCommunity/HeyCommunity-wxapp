@@ -184,7 +184,7 @@ Page({
     _this.noticeTouchResetHandler();
 
     return new Promise(function(resolve, reject) {
-      APP.HTTP.POST('notices/' + action, {id: noticeId}).then(function(result) {
+      APP.REQUEST.POST('notices/' + action, {id: noticeId}).then(function(result) {
         if (action === 'delete') {
           _this.data.notices.splice(noticeIndex, 1);
           _this.setData({notices: _this.data.notices});
