@@ -35,22 +35,22 @@ Component({
     /**
      * 点赞处理
      */
-    thumbUpHandler(event) {
-      this.triggerEvent('thumbUpEvent', event.currentTarget.dataset);
+    thumbUpHandler() {
+      this.triggerEvent('thumbUpEvent', {post: this.data.post, postIndex: this.data.postIndex});
     },
 
     /**
      * 显示评论框
      */
-    showCommentModal: function (event) {
-      this.triggerEvent('showCommentModalEvent', event.currentTarget.dataset);
+    showCommentModal() {
+      this.triggerEvent('showCommentModalEvent', {post: this.data.post, postIndex: this.data.postIndex});
     },
 
     /**
      * 显示 PostActionSheet
      */
     showPostActionSheet() {
-      this.triggerEvent('showPostActionSheetEvent', {postIndex: this.properties.postIndex});
+      this.triggerEvent('showPostActionSheetEvent', {post: this.data.post, postIndex: this.data.postIndex});
     },
   },
 });

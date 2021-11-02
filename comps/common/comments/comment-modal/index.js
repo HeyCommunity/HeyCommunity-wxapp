@@ -6,16 +6,17 @@ Component({
     addGlobalClass: true,
   },
   properties: {
-    entity: Object,
     entityClass: String,
   },
   data: {
     modalVisible: false,
     commentTextareaFocus: false,
     commentTextareaContent: null,
-    commentTargetUserNickname: null,
 
+    entity: Object,
+    entityIndex: null,
     commentIndex: null,
+    commentTargetUserNickname: null,
   },
   methods: {
     /**
@@ -23,14 +24,16 @@ Component({
      * 可接受 targetUserNickname，用于显示回复对象
      * 可接受 commentIndex 以获取 parentComment
      */
-    showCommentModal(event) {
+    showCommentModal(config) {
       if (getApp().needAuth()) return;
 
       let _this = this;
       this.setData({
         modalVisible: true,
-        commentTargetUserNickname: event.currentTarget.dataset.targetUserNickname,
-        commentIndex: event.currentTarget.dataset.commentIndex,
+        entity: config.entity,
+        entityIndex: config.entityIndex ? config.entityIndex : null,
+        commentIndex: config.commentIndex ? config.commentIndex : null,
+        commentTargetUserNickname: config.commentTargetUserNickname ? config.commentTargetUserNickname : null,
       });
 
       setTimeout(function() {
@@ -44,9 +47,11 @@ Component({
     hideCommentModal() {
       this.setData({
         modalVisible: false,
+        entity: null,
+        entityIndex: null,
+        commentIndex: null,
         commentTargetUserNickname: null,
         commentTextareaFocus: false,
-        commentIndex: null,
       });
     },
 
@@ -69,13 +74,13 @@ Component({
         return;
       }
 
-      let entity = this.properties.entity;
+      let entity = this.data.entity;
       let parentComment = null;
       if (this.data.commentIndex != null) parentComment = entity.comments[this.data.commentIndex];
 
       let params = {
-        entity_class: this.properties.entityClass,
-        entity_id: this.properties.entity.id,
+        entity_class: this.data.entityClass,
+        entity_id: entity.id,
         parent_id: parentComment ? parentComment.id : null,
         content: content,
       };

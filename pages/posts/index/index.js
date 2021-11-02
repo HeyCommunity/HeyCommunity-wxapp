@@ -44,7 +44,10 @@ Page({
    * 显示 评论模态框
    */
   showCommentModal(event) {
-    wx.showModal({content: 'call showCommentModal'});
+    this.selectComponent('#comp-comment-modal').showCommentModal({
+      entity: event.detail.post,
+      entityIndex: event.detail.postIndex,
+    });
   },
 
   /**

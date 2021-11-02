@@ -33,3 +33,11 @@
   <navigator wx:if="{{ appGlobalData.isAuth }}" url="/pages/posts/create/index" class="btn-create cu-btn bg-blue round"><view class="icon cuIcon-post"></view></navigator>
   <navigator wx:else url="/pages/users/auth/index" class="btn-create cu-btn bg-blue round"><view class="icon cuIcon-post"></view></navigator>
 </view>
+
+<!-- 动态评论模态框 -->
+<comment-modal id="comp-comment-modal" bind:commentSuccessfulEvent="commentSuccessfulHandler"
+               entity-class="\\Modules\\Post\\Entities\\Post"></comment-modal>
+
+<!-- 动态 ActionSheet -->
+<mp-actionSheet bind:actiontap="postActionSheetHandler" title="动态操作"
+                show="{{ postActionSheetVisible }}" actions="{{ postActionSheetActions }}"></mp-actionSheet>
