@@ -7,6 +7,7 @@
   "enablePullDownRefresh": true,
   "onReachBottomDistance": 200,
   "usingComponents": {
-    "post-item": "/components/post/item/index"
+    "post-item": "/comps/posts/post-item/index",
+    "comment-list": "/comps/common/comments/comment-list/index"
   }
 }
