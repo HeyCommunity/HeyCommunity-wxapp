@@ -11,7 +11,16 @@
   <view id="section-posts">
     <view wx:if="{{ models.length > 0 }}" class="items-post">
       <view wx:for="{{ models }}" wx:key="id" wx:for-item="post" wx:for-index="postIndex">
-        <post-item post="{{ post }}" post-comment-num="{{ post.comment_num }}"></post-item>
+        <post-item post="{{ post }}" post-index="{{ postIndex }}"
+                   bind:thumbUpEvent="thumbUpHandler"
+                   bind:showCommentModalEvent="showCommentModal"
+                   bind:showPostActionSheetEvent="showPostActionSheet">
+          <!-- 评论列表 -->
+          <comment-list slot="comment-list" class="comp-comment-list" entity-class="\\Modules\\Post\\Entities\\Post" entity="{{ post }}" entity-id="{{ post.id }}"
+                        bind:thumbUpEvent="thumbUpHandler"
+                        bind:showCommentModalEvent="showCommentModal"
+                        bind:showCommentActionSheetEvent="showCommentActionSheet" />
+        </post-item>
       </view>
     </view>
 

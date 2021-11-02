@@ -3,14 +3,12 @@ const PostActionSheet = require('../../../components/post/item/_post-action-shee
 
 Component({
   options: {
+    multipleSlots: true,
     addGlobalClass: true,
   },
   properties: {
     post: Object,
-    postCommentNum: {
-      type: Number,
-      value: 0,
-    },
+    postIndex: null,
     isDetailPage: {
       type: Boolean,
       value: false,
@@ -40,43 +38,22 @@ Component({
     /**
      * 点赞处理
      */
-    thumbHandler(event) {
-      let _this = this;
-
-      THUMB.thumbHandler(event, this.properties.post).then(function() {
-        _this.setData({post: _this.properties.post});
-      });
+    thumbUpHandler(event) {
+      this.triggerEvent('thumbUpEvent', event.currentTarget.dataset);
     },
 
     /**
      * 显示评论框
      */
-    showCommentModal: function(event) {
-      this.selectComponent('.comp-comment-modal').showCommentModal(event);
+    showCommentModal: function (event) {
+      this.triggerEvent('showCommentModalEvent', event.currentTarget.dataset);
     },
 
     /**
      * 显示 PostActionSheet
      */
     showPostActionSheet() {
-      PostActionSheet.showActionSheet(this);
-    },
-
-    /**
-     * PostActionSheet 处理
-     */
-    postActionSheetHandler(event) {
-      PostActionSheet.actionSheetHandler(event);
-    },
-
-    /**
-     * 评论成功处理
-     */
-    commentSuccessfulHandler: function (event) {
-      this.setData({post: event.detail.entity});
-      this.setData({postCommentNum: this.properties.post.comment_num});
-
-      // TODO: 订阅微信消息通知
+      this.triggerEvent('showPostActionSheetEvent', {postIndex: this.properties.postIndex});
     },
   },
 });

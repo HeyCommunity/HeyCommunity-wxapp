@@ -41,6 +41,41 @@ Page({
   },
 
   /**
+   * 显示 评论模态框
+   */
+  showCommentModal(event) {
+    wx.showModal({content: 'call showCommentModal'});
+  },
+
+  /**
+   * 隐藏评论模态框
+   */
+  hideCommentModal() {
+    wx.showModal({content: 'call hideCommentModal'});
+  },
+
+  /**
+   * 点赞处理
+   */
+  thumbUpHandler() {
+    wx.showModal({content: 'call thumbUpHandler'});
+  },
+
+  /**
+   * 显示动态 ActionSheet
+   */
+  showPostActionSheet() {
+    wx.showModal({content: 'call showPostActionSheet'});
+  },
+
+  /**
+   * 显示评论 ActionSheet
+   */
+  showCommentActionSheet() {
+    wx.showModal({content: 'call showCommentActionSheet'});
+  },
+
+  /**
    * 下拉刷新
    */
   onPullDownRefresh() {

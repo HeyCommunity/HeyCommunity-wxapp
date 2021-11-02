@@ -8,6 +8,7 @@
   "onReachBottomDistance": 200,
   "usingComponents": {
     "van-notice-bar": "@vant/weapp/notice-bar/index",
-    "post-item": "/comps/posts/post-item/index"
+    "post-item": "/comps/posts/post-item/index",
+    "comment-list": "/comps/common/comments/comment-list/index"
   }
 }
