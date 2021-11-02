@@ -9,15 +9,12 @@ Component({
   properties: {
     post: Object,
     postIndex: null,
-    isDetailPage: {
-      type: Boolean,
-      value: false,
-    },
-    postCardActionBarVisible: {
+
+    postActionSheetDetailVisible: {
       type: Boolean,
       value: true,
     },
-    postCommentListVisible: {
+    actionBarVisible: {
       type: Boolean,
       value: true,
     },

@@ -17,8 +17,10 @@
     <view wx:if="{{ model.comments.length }}">
       <comment-list id="comp-comment-list" bind:updateEntityDataEvent="updatePostDataHandler"
                     model:entity-comment-num="{{ postCommentNum }}"
-                    entity-class="\\Modules\\Post\\Entities\\Post" entity="{{ model }}" entity-id="{{ model.id }}">
-      </comment-list>
+                    entity-class="\\Modules\\Post\\Entities\\Post" entity="{{ model }}" entity-id="{{ model.id }}"
+                    bind:thumbUpEvent="thumbUpHandler"
+                    bind:showCommentModalEvent="showCommentModal"
+                    bind:showCommentActionSheetEvent="showCommentActionSheet" />
     </view>
 
     <view wx:else>

@@ -58,6 +58,20 @@ Page({
   },
 
   /**
+   * 显示动态 ActionSheet
+   */
+  showPostActionSheet() {
+    wx.showModal({content: 'call showPostActionSheet'});
+  },
+
+  /**
+   * 显示评论 ActionSheet
+   */
+  showCommentActionSheet() {
+    wx.showModal({content: 'call showCommentActionSheet'});
+  },
+
+  /**
    * 点赞处理
    */
   thumbHandler(event) {

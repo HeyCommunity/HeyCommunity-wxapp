@@ -45,30 +45,32 @@
       </view>
 
       <!-- 操作栏 -->
-      <view class="part-actions cu-list flex margin-top-sm solids-bottom">
-        <view class="item-action cu-item flex-sub padding-tb-sm margin-lr-sm text-grey text-center">
-          <button class="item-action-btn cu-btn bg-white padding-lr-xl" bind:tap="thumbUpHandler" data-post-index="{{ postIndex }}" data-event-name="thumbUpEvent">
-            <text wx:if="{{ post.i_have_thumb_up }}" class="cuIcon-appreciatefill margin-lr-xs"></text>
-            <text wx:else class="cuIcon-appreciate margin-lr-xs"></text>
-            <text class="text-value" wx:if="{{ post.thumb_up_num }}">{{ post.thumb_up_num }}</text>
-            <text class="text-value text-sm" wx:else>点赞</text>
-          </button>
+      <block wx:if="{{ actionBarVisible }}">
+        <view class="part-actions cu-list flex margin-top-sm solids-bottom">
+          <view class="item-action cu-item flex-sub padding-tb-sm margin-lr-sm text-grey text-center">
+            <button class="item-action-btn cu-btn bg-white padding-lr-xl" bind:tap="thumbUpHandler" data-post-index="{{ postIndex }}" data-event-name="thumbUpEvent">
+              <text wx:if="{{ post.i_have_thumb_up }}" class="cuIcon-appreciatefill margin-lr-xs"></text>
+              <text wx:else class="cuIcon-appreciate margin-lr-xs"></text>
+              <text class="text-value" wx:if="{{ post.thumb_up_num }}">{{ post.thumb_up_num }}</text>
+              <text class="text-value text-sm" wx:else>点赞</text>
+            </button>
+          </view>
+          <view class="item-action cu-item flex-sub padding-tb-sm margin-right-sm text-grey text-center">
+            <button class="item-action-btn cu-btn bg-white padding-lr-xl" bind:tap="showCommentModal" data-post-index="{{ postIndex }}">
+              <text wx:if="{{ post.i_have_comment }}" class="cuIcon-communityfill margin-lr-xs"></text>
+              <text wx:else class="cuIcon-community margin-lr-xs"></text>
+              <text class="text-value" wx:if="{{ post.comment_num }}">{{ post.comment_num }}</text>
+              <text class="text-value text-sm" wx:else>评论</text>
+            </button>
+          </view>
+          <view class="item-action cu-item flex-sub padding-tb-sm margin-right-sm text-grey text-center">
+            <navigator url="/pages/posts/detail/index?id={{ post.id }}" class="item-action-btn cu-btn bg-white padding-lr-xl">
+              <text class="cuIcon-newsfill margin-lr-xs"></text>
+              <text class="text-value text-sm">详情</text>
+            </navigator>
+          </view>
         </view>
-        <view class="item-action cu-item flex-sub padding-tb-sm margin-right-sm text-grey text-center">
-          <button class="item-action-btn cu-btn bg-white padding-lr-xl" bind:tap="showCommentModal" data-post-index="{{ postIndex }}">
-            <text wx:if="{{ post.i_have_comment }}" class="cuIcon-communityfill margin-lr-xs"></text>
-            <text wx:else class="cuIcon-community margin-lr-xs"></text>
-            <text class="text-value" wx:if="{{ post.comment_num }}">{{ post.comment_num }}</text>
-            <text class="text-value text-sm" wx:else>评论</text>
-          </button>
-        </view>
-        <view class="item-action cu-item flex-sub padding-tb-sm margin-right-sm text-grey text-center">
-          <navigator url="/pages/posts/detail/index?id={{ post.id }}" class="item-action-btn cu-btn bg-white padding-lr-xl">
-            <text class="cuIcon-newsfill margin-lr-xs"></text>
-            <text class="text-value text-sm">详情</text>
-          </navigator>
-        </view>
-      </view>
+      </block>
 
       <!-- 评论列表 -->
       <slot name="comment-list"></slot>

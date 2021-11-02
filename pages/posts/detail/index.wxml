@@ -2,7 +2,10 @@
 
 <view id="page-posts-detail" class="container-full" wx:if="{{ model }}">
   <!-- 动态卡片 -->
-  <post-item id="comp-post-item" post="{{ model }}" post-comment-num="{{ model.comment_num }}" is-detail-page="{{ true }}"></post-item>
+  <post-item id="comp-post-item" post="{{ model }}"
+             post-action-sheet-detail-visible="{{ false }}"
+             action-bar-visible="{{ false }}"
+             bind:showPostActionSheetEvent="showPostActionSheet" />
 
   <!-- 点赞和评论列表 -->
   <include src="subview/_comments-and-thumbs.wxml"></include>
