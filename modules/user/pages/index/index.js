@@ -52,7 +52,7 @@ Page({
    * goto 用户登录页
    */
   gotoAuthPage() {
-    wx.navigateTo({url: '/pages/users/auth/index'});
+    this.pageRouter.navigateTo({url: '../auth/index'});
   },
 
   /**

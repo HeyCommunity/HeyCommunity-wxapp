@@ -14,67 +14,67 @@
       "list": [
         {
           "name": "[POST] 动态列表页",
-          "pathName": "pages/posts/index/index",
+          "pathName": "modules/post/pages/index/index",
           "query": "",
           "scene": null
         },
         {
           "name": "[POST] 动态详情页",
-          "pathName": "pages/posts/detail/index",
+          "pathName": "modules/post/pages/detail/index",
           "query": "id=1",
           "scene": null
         },
         {
           "name": "[POST] 动态发布页",
-          "pathName": "pages/posts/create/index",
+          "pathName": "modules/post/pages/create/index",
           "query": "",
           "scene": null
         },
         {
           "name": "[NOTICE] 消息列表页",
-          "pathName": "pages/notices/index/index",
+          "pathName": "modules/notice/pages/index/index",
           "query": "",
           "scene": null
         },
         {
           "name": "[USER] 我的页面",
-          "pathName": "pages/users/index/index",
+          "pathName": "modules/user/pages/index/index",
           "query": "",
           "scene": null
         },
         {
           "name": "[USER] 我的资料",
-          "pathName": "pages/users/info/index",
+          "pathName": "modules/user/pages/info/index",
           "query": "",
           "scene": null
         },
         {
           "name": "[USER] 用户主页",
-          "pathName": "pages/users/detail/index",
+          "pathName": "modules/user/pages/detail/index",
           "query": "id=1",
           "scene": null
         },
         {
           "name": "[USER] 登录页面",
-          "pathName": "pages/users/auth/index",
+          "pathName": "modules/user/pages/auth/index",
           "query": "",
           "scene": null
         },
         {
           "name": "[SYSTEM] HEY社区",
-          "pathName": "pages/systems/heycommunity/index",
+          "pathName": "modules/system/pages/heycommunity/index",
           "query": "",
           "scene": null
         },
         {
           "name": "[SYSTEM] 关于页面",
-          "pathName": "pages/systems/about/index",
+          "pathName": "modules/system/pages/about/index",
           "query": "",
           "scene": null
         },
         {
           "name": "[SYSTEM] 社区协议",
-          "pathName": "pages/systems/term/index",
+          "pathName": "modules/system/pages/term/index",
           "query": "",
           "scene": null
         }

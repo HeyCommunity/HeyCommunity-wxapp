@@ -30,8 +30,8 @@
   </view>
 
   <!-- 创建动态按钮 -->
-  <navigator wx:if="{{ appGlobalData.isAuth }}" url="/pages/posts/create/index" class="btn-create cu-btn bg-blue round"><view class="icon cuIcon-post"></view></navigator>
-  <navigator wx:else url="/pages/users/auth/index" class="btn-create cu-btn bg-blue round"><view class="icon cuIcon-post"></view></navigator>
+  <navigator wx:if="{{ appGlobalData.isAuth }}" url="../create/index" class="btn-create cu-btn bg-blue round"><view class="icon cuIcon-post"></view></navigator>
+  <navigator wx:else url="/modules/user/pages/auth/index" class="btn-create cu-btn bg-blue round"><view class="icon cuIcon-post"></view></navigator>
 </view>
 
 <!-- 动态评论模态框 -->

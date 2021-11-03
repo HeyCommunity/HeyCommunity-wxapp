@@ -22,29 +22,27 @@
     "list": [{
       "text": "动态",
       "pagePath": "modules/post/pages/index/index",
-      "iconPath": "/modules/post/images/tabbar/icon.png",
-      "selectedIconPath": "/modules/post/images/tabbar/icon-active.png"
+      "iconPath": "/modules/post/assets/images/icon.png",
+      "selectedIconPath": "/modules/post/assets/images/icon-active.png"
     }, {
       "text": "消息",
       "pagePath": "modules/notice/pages/index/index",
-      "iconPath": "/modules/notice/images/tabbar/icon.png",
-      "selectedIconPath": "/modules/notice/images/tabbar/icon-active.png"
+      "iconPath": "/modules/notice/assets/images/icon.png",
+      "selectedIconPath": "/modules/notice/assets/images/icon-active.png"
     }, {
       "text": "我的",
       "pagePath": "modules/user/pages/index/index",
-      "iconPath": "/modules/user/images/tabbar/icon.png",
-      "selectedIconPath": "/modules/user/images/tabbar/icon-active.png"
+      "iconPath": "/modules/user/assets/images/icon.png",
+      "selectedIconPath": "/modules/user/assets/images/icon-active.png"
     }]
   },
   "useExtendedLib": {
     "weui": true
   },
   "usingComponents": {
-    "van-button": "@vant/weapp/button/index",
-    "van-empty": "@vant/weapp/empty/index",
     "van-notify": "@vant/weapp/notify/index",
-    "van-loading": "@vant/weapp/loading/index",
-    "van-divider": "@vant/weapp/divider/index"
+    "van-empty": "@vant/weapp/empty/index",
+    "van-button": "@vant/weapp/button/index"
   },
   "window": {
     "backgroundTextStyle":"light",

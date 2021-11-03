@@ -22,12 +22,12 @@
             catch:tap="gotoEntityPage" data-notice="{{ notice }}" data-notice-index="{{ noticeIndex }}" data-class="{{ 'item-notice-' + noticeIndex }}"
             bind:touchstart="noticeTouchStartHandler" bind:touchmove="noticeTouchMoveHandler" bind:touchend="noticeTouchEndHandler">
         <view class="date text-grey text-xs">{{ notice.created_at_for_humans }}</view>
-        <navigator url="/pages/users/detail/index?id={{ notice.sender.id }}" class="avatar cu-avatar round lg" style="background-image:url({{ notice.sender.avatar }});">
+        <navigator url="/modules/user/pages/detail/index?id={{ notice.sender.id }}" class="avatar cu-avatar round lg" style="background-image:url({{ notice.sender.avatar }});">
           <view wx:if="{{ ! notice.is_read }}" class="cu-tag badge">未读</view>
         </navigator>
         <view class="content padding-bottom-xs solid-bottom">
           <view class="text-grey">
-            <navigator url="/pages/users/detail/index?id={{ notice.sender.id }}" class="nickname">{{ notice.sender.nickname }}</navigator>
+            <navigator url="/modules/user/pages/detail/index?id={{ notice.sender.id }}" class="nickname">{{ notice.sender.nickname }}</navigator>
             <view class="notice-action margin-left-xs text-gray">{{ notice.type_name }}</view>
           </view>
           <view class="text-gray text-sm flex">
@@ -50,7 +50,7 @@
   <view wx:else style="padding-top:100px;">
     <van-empty description="登录后才能查看消息"></van-empty>
     <view class="text-center">
-      <navigator url="/pages/users/auth/index" class="cu-btn line-grey text-black">立即登录</navigator>
+      <navigator url="/modules/user/pages/auth/index" class="cu-btn line-grey text-black">立即登录</navigator>
     </view>
   </view>
 </view>

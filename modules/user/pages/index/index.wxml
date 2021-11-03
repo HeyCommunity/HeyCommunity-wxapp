@@ -3,7 +3,7 @@
 
   <view id="section-user-card">
     <view wx:if="{{ appGlobalData.isAuth }}" class="btn-edit">
-      <navigator url="/pages/users/info/index" class="cu-btn sm round bg-white">
+      <navigator url="../info/index" class="cu-btn sm round bg-white">
         <text class="icon cuIcon-skin margin-right-xs"></text>
         <text class="text-sm">更新资料</text>
       </navigator>
@@ -18,8 +18,8 @@
         </view>
       </view>
       <view wx:else class="text-center">
-        <image class="avatar png" bind:tap="gotoAuthPage" src="/assets/images/users/default-avatar.jpg" mode="acceptFill"></image>
-        <navigator url="/pages/users/auth/index" class="nickname text-xl margin-top-sm">请登录</navigator>
+        <image class="avatar png" bind:tap="gotoAuthPage" src="../../assets/images/default-avatar.jpg" mode="acceptFill"></image>
+        <navigator url="../auth/index" class="nickname text-xl margin-top-sm">请登录</navigator>
       </view>
       <image src="{{ defaultProfileWaveImagePath }}" mode="scaleToFill" class="gif-wave"></image>
     </view>
@@ -48,7 +48,7 @@
 
   <!-- 我的主页 -->
   <view wx:if="{{ appGlobalData.isAuth }}" class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg radius">
-    <navigator class="cu-item arrow" url="/pages/users/detail/index?id={{ appGlobalData.userInfo.id }}">
+    <navigator class="cu-item arrow" url="../detail/index?id={{ appGlobalData.userInfo.id }}">
       <view class="content">
         <text class="cuIcon-homefill text-blue"></text>
         <text class="text-grey">我的主页</text>
@@ -89,7 +89,7 @@
 
   <!-- 其他 -->
   <view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg radius">
-    <navigator class="cu-item arrow" url="/pages/systems/about/index">
+    <navigator class="cu-item arrow" url="/modules/system/pages/about/index">
       <view class="content">
         <text class="cuIcon-infofill text-blue"></text>
         <text class="text-grey">{{ appGlobalData.wxappName }}</text>
@@ -98,7 +98,7 @@
         <text class="text-gray text-sm">{{ appGlobalData.wxappVersion }}</text>
       </view>
     </navigator>
-    <navigator class="cu-item arrow" url="/pages/systems/term/index">
+    <navigator class="cu-item arrow" url="/modules/system/pages/term/index">
       <view class="content">
         <text class="cuIcon-formfill text-brown"></text>
         <text class="text-grey">社区协议</text>
@@ -135,7 +135,7 @@
         <text class="text-red">退出登录</text>
       </view>
     </view>
-    <navigator wx:else class="cu-item" url="/pages/users/auth/index">
+    <navigator wx:else class="cu-item" url="../auth/index">
       <view class="content text-center">
         <text class="cuIcon-weixin text-blue"></text>
         <text class="text-blue">登录</text>
@@ -147,7 +147,7 @@
   <!-- 开源不易，请保留版权信息 -->
   <!-- 官方网站: www.heycommunity.com -->
   <view id="section-copyright">
-    <navigator class="text-center text-gray padding-bottom-xl padding-top-lg" url="/pages/systems/heycommunity/index">
+    <navigator class="text-center text-gray padding-bottom-xl padding-top-lg" url="/modules/system/pages/heycommunity/index">
       <view>HeyCommunity {{ appGlobalData.hcInfo.version }}</view>
       <view>Produced by supeRodv2 of ProtobiaTech</view>
     </navigator>

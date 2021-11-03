@@ -23,7 +23,7 @@ Page({
           content: '内容不存在或已被删除',
           showCancel: false,
           complete() {
-            wx.switchTab({url: '/pages/posts/index/index'});
+            wx.switchTab({url: '../index/index'});
           }
         });
       } else {
@@ -47,7 +47,7 @@ Page({
   gotoUserDetailPage(event) {
     let userId = event.currentTarget.dataset.id;
 
-    wx.navigateTo({url: '/pages/users/detail/index?id=' + userId});
+    wx.navigateTo({url: '/modules/user/pages/detail/index?id=' + userId});
   },
 
   /**
