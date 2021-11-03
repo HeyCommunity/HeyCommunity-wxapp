@@ -1,5 +1,5 @@
 const APP = getApp();
-const MODEL = require('../../../../utils/model.js');
+const MODEL = require('../../../../libs/model.js');
 
 Page({
   data: {

@@ -1,8 +1,8 @@
-const ENV = require('./utils/env.js');
-const AUTH = require('./utils/auth.js');
-const REQUEST = require('./utils/request.js');
-const OnFire = require('./utils/onfire.js');
-const WXLog = require('./utils/wxlog.js');
+const ENV = require('./libs/env.js');
+const AUTH = require('./libs/auth.js');
+const REQUEST = require('./libs/request.js');
+const OnFire = require('./libs/onfire.js');
+const WXLog = require('./libs/wxlog.js');
 import Notify from './miniprogram_npm/@vant/weapp/notify/notify.js';
 
 App({

@@ -1,4 +1,4 @@
-const HTTP = require('./http.js');
+const HTTP = require('../utils/http.js');
 
 let pageThis = null;
 let data = null;
