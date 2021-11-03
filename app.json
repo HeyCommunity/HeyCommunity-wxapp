@@ -1,39 +1,39 @@
 {
   "pages":[
-    "pages/posts/index/index",
-    "pages/posts/detail/index",
-    "pages/posts/create/index",
+    "modules/post/pages/index/index",
+    "modules/post/pages/detail/index",
+    "modules/post/pages/create/index",
 
-    "pages/notices/index/index",
+    "modules/notice/pages/index/index",
 
-    "pages/users/index/index",
-    "pages/users/info/index",
-    "pages/users/detail/index",
-    "pages/users/auth/index",
+    "modules/user/pages/index/index",
+    "modules/user/pages/info/index",
+    "modules/user/pages/detail/index",
+    "modules/user/pages/auth/index",
 
-    "pages/systems/heycommunity/index",
-    "pages/systems/about/index",
-    "pages/systems/term/index",
-    "pages/systems/web-page/index"
+    "modules/system/pages/heycommunity/index",
+    "modules/system/pages/about/index",
+    "modules/system/pages/term/index",
+    "modules/system/pages/web-page/index"
   ],
   "tabBar": {
     "color": "#999999",
     "selectedColor": "#0081ff",
     "list": [{
       "text": "动态",
-      "pagePath": "pages/posts/index/index",
-      "iconPath": "/assets/images/tabbar/post.png",
-      "selectedIconPath": "/assets/images/tabbar/post-active.png"
+      "pagePath": "modules/post/pages/index/index",
+      "iconPath": "/modules/post/images/tabbar/icon.png",
+      "selectedIconPath": "/modules/post/images/tabbar/icon-active.png"
     }, {
       "text": "消息",
-      "pagePath": "pages/notices/index/index",
-      "iconPath": "/assets/images/tabbar/notice.png",
-      "selectedIconPath": "/assets/images/tabbar/notice-active.png"
+      "pagePath": "modules/notice/pages/index/index",
+      "iconPath": "/modules/notice/images/tabbar/icon.png",
+      "selectedIconPath": "/modules/notice/images/tabbar/icon-active.png"
     }, {
       "text": "我的",
-      "pagePath": "pages/users/index/index",
-      "iconPath": "/assets/images/tabbar/user.png",
-      "selectedIconPath": "/assets/images/tabbar/user-active.png"
+      "pagePath": "modules/user/pages/index/index",
+      "iconPath": "/modules/user/images/tabbar/icon.png",
+      "selectedIconPath": "/modules/user/images/tabbar/icon-active.png"
     }]
   },
   "useExtendedLib": {

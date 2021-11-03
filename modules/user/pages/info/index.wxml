@@ -1,0 +1,50 @@
+<view class="container-full">
+  <view>
+    <view class="cu-form-group margie-top" bind:tap="updateAvatarOrCoverHandler" data-type="avatar" data-type-name="头像">
+      <view class="title">头像</view>
+      <view class="cu-avatar radius bg-gray" style="background-image:url('{{ userInfo.avatar }}');"></view>
+    </view>
+    <view class="cu-form-group" bind:tap="updateAvatarOrCoverHandler" data-type="cover" data-type-name="封面">
+      <view class="title">封面图</view>
+      <view class="cu-avatar radius bg-gray" style="background-image:url('{{ userInfo.cover }}');"></view>
+    </view>
+  </view>
+
+  <form bind:submit="updateInfoHandler">
+    <view class="margin-top">
+      <view class="cu-form-group">
+        <view class="title">昵称</view>
+        <input class="text-right" placeholder="你的名字" name="nickname" value="{{ userInfo.nickname }}"></input>
+      </view>
+      <view class="cu-form-group">
+        <view class="title">签名</view>
+        <input class="text-right" placeholder="一句话介绍自己" name="bio" value="{{ userInfo.bio }}"></input>
+      </view>
+      <view class="cu-form-group">
+        <view class="title">性别</view>
+        <picker bind:change="genderPickerChange" name="gender" value="{{ userInfo.gender }}" range="{{ genderRange }}">
+          <view class="picker" wx:if="{{ genderIndex }}">{{ genderRange[genderIndex] }}</view>
+          <view class="picker" wx:elif="{{ userInfo.gender }}">{{ genderRange[userInfo.gender] }}</view>
+          <view class="picker" wx:else>请选择</view>
+        </picker>
+      </view>
+      <view class="cu-form-group">
+        <view class="title">手机号码</view>
+        <input class="text-right" placeholder="请输入手机号码" name="phone" value="{{ userInfo.phone }}"></input>
+      </view>
+      <view class="cu-form-group">
+        <view class="title">电子邮箱</view>
+        <input class="text-right" placeholder="请输入电子邮箱" name="email" value="{{ userInfo.email }}"></input>
+      </view>
+
+      <view class="cu-form-group align-start">
+        <view class="title">个人简介</view>
+        <textarea class="text-right" maxlength="300" placeholder="请输入你的个人简介" name="intro" value="{{ userInfo.intro }}"></textarea>
+      </view>
+    </view>
+
+    <view class="margin-lg">
+      <button form-type="submit" class="cu-btn block lg bg-blue">更新</button>
+    </view>
+  </form>
+</view>

@@ -1,0 +1,31 @@
+<view class="container">
+  <view class="margin-xs bg-white padding-xl">
+    <view class="margin-top-sm margin-bottom-sm">
+      <view class="text-center" style="font-size:50rpx; line-height:1.2em;">社区协议</view>
+    </view>
+    <view class="margin-top-lg">
+      <text user-select>用户可在平台自由发布有价值有意义的内容。但不得制作、上载、复制、发布、传播或者转载如下内容：</text>
+      <view class="margin-top-xs">
+        <text user-select>1. 反对宪法所确定的基本原则的；
+          2. 危害国家安全，泄露国家秘密，颠覆国家政权，破坏国家统一的；
+          3. 损害国家荣誉和利益的；
+          4. 煽动民族仇恨、民族歧视，破坏民族团结的；
+          5. 侮辱、滥用英烈形象，否定英烈事迹，美化粉饰侵略战争行为的；
+          6. 破坏国家宗教政策，宣扬邪教和封建迷信的；
+          7. 散布谣言，扰乱社会秩序，破坏社会稳定的；
+          8. 散布淫秽、色情、赌博、暴力、凶杀、恐怖或者教唆犯罪的；
+          9. 侮辱或者诽谤他人，侵害他人合法权益的；
+          10. 含有法律、行政法规禁止的其他内容的信息。
+        </text>
+      </view>
+    </view>
+
+    <view class="margin-top">
+      <view></view>
+    </view>
+
+    <view class="margin-top-lg text-center">
+      ©2021 {{ appGlobalData.wxappName }}
+    </view>
+  </view>
+</view>

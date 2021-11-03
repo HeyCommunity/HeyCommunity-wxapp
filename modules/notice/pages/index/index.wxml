@@ -1,0 +1,56 @@
+<view id="page-notices-index" class="container-full" bind:tap="noticeTouchResetHandler">
+  <van-notify id="van-notify"></van-notify>
+
+  <!-- 顶部下拉菜单 -->
+  <van-sticky wx:if="{{ appGlobalData.isAuth }}">
+    <van-dropdown-menu active-color="#0081ff">
+      <van-dropdown-item id="dropdown-subscribe" title="订阅">
+        <van-cell bind:tap="subscribePostMessagesHandler" icon="bullhorn-o" title="订阅动态通知" value="点赞 | 评论 | 回复" is-link></van-cell>
+      </van-dropdown-item>
+      <van-dropdown-item id="dropdown-action" title="操作">
+        <van-cell bind:tap="batchNoticeActionHandler" data-action="set-isread" icon="passed" title="全部已读" is-link></van-cell>
+        <!-- <van-cell bind:tap="batchNoticeActionHandler" data-action="set-unread" icon="info-o" title="全部未读" is-link></van-cell> -->
+        <van-cell bind:tap="batchNoticeActionHandler" data-action="delete" icon="close" title="删除全部" is-link></van-cell>
+      </van-dropdown-item>
+    </van-dropdown-menu>
+  </van-sticky>
+
+  <view wx:if="{{ appGlobalData.isAuth }}">
+    <view wx:if="{{ notices.length }}" class="margin-top margin-bottom-xs items-notice cu-list menu-avatar">
+      <view class="item-notice cu-item {{ notice.is_read ? 'read' : 'unread' }} {{ noticeTouchClass == 'item-notice-' + noticeIndex ? 'move-cur' : '' }}" data-target="item-notice-{{ noticeIndex }}"
+            wx:for="{{ notices }}" wx:for-item="notice" wx:key="id" wx:for-index="noticeIndex"
+            catch:tap="gotoEntityPage" data-notice="{{ notice }}" data-notice-index="{{ noticeIndex }}" data-class="{{ 'item-notice-' + noticeIndex }}"
+            bind:touchstart="noticeTouchStartHandler" bind:touchmove="noticeTouchMoveHandler" bind:touchend="noticeTouchEndHandler">
+        <view class="date text-grey text-xs">{{ notice.created_at_for_humans }}</view>
+        <navigator url="/pages/users/detail/index?id={{ notice.sender.id }}" class="avatar cu-avatar round lg" style="background-image:url({{ notice.sender.avatar }});">
+          <view wx:if="{{ ! notice.is_read }}" class="cu-tag badge">未读</view>
+        </navigator>
+        <view class="content padding-bottom-xs solid-bottom">
+          <view class="text-grey">
+            <navigator url="/pages/users/detail/index?id={{ notice.sender.id }}" class="nickname">{{ notice.sender.nickname }}</navigator>
+            <view class="notice-action margin-left-xs text-gray">{{ notice.type_name }}</view>
+          </view>
+          <view class="text-gray text-sm flex">
+            <text class="text-cut">{{ notice.content }}</text>
+          </view>
+        </view>
+        <view class="move">
+          <view wx:if="{{ notice.is_read }}" catch:tap="noticeActionHandler" data-id="{{ notice.id }}" data-action="set-unread" data-index="{{ noticeIndex }}" class="bg-grey">标为未读</view>
+          <view wx:else catch:tap="noticeActionHandler" data-id="{{ notice.id }}" data-action="set-isread" data-index="{{ noticeIndex }}" class="bg-blue">标为已读</view>
+          <view catch:tap="noticeActionHandler" data-id="{{ notice.id }}" data-action="delete" data-index="{{ noticeIndex }}" class="bg-red">删除</view>
+        </view>
+      </view>
+    </view>
+
+    <view wx:else style="padding-top:100px;">
+      <van-empty description="没有消息"></van-empty>
+    </view>
+  </view>
+
+  <view wx:else style="padding-top:100px;">
+    <van-empty description="登录后才能查看消息"></van-empty>
+    <view class="text-center">
+      <navigator url="/pages/users/auth/index" class="cu-btn line-grey text-black">立即登录</navigator>
+    </view>
+  </view>
+</view>

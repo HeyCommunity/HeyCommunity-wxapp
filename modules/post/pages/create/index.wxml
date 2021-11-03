@@ -1,0 +1,52 @@
+<view class="container-full" id="page-posts-create">
+  <form d-bind:submit="createPost">
+    <!-- 文本 -->
+    <view class="cu-form-group bg-gray">
+      <textarea class="input-content" name="content" d-model:value="{{ content }}" placeholder="有什么有趣的事物与大家分享 ~ "
+                auto-focus="true"
+                maxlength="-1"
+                auto-height="{{ true }}"
+                bind:input="setInputValue" data-field="content">
+      </textarea>
+    </view>
+
+    <!-- 图片或视频 -->
+    <view id="section-assets" class="cu-form-group padding-top" style="border:none;">
+      <view class="grid col-4 grid-square flex-sub">
+        <view class="item-image bg-img" wx:for="{{ images }}" wx:key="index" bind:tap="previewImage" data-url="{{ images[index].tempFilePath }}">
+          <image src="{{ images[index].tempFilePath }}" mode="aspectFill"></image>
+          <view class="cu-tag bg-red" catch:tap="deleteImage" data-index="{{ index }}">
+            <text class="cuIcon-close"></text>
+          </view>
+        </view>
+
+        <view class="item-video" wx:if="{{ video }}">
+          <video id="video" class="video" src="{{ video.file_path }}" title="{{ content }}"
+                 bind:play="videoPlayHandler" bind:fullscreenchange="videoFullScreenChangeHandler"
+                 show-center-play-btn="{{ true || videoPlayBtnVisible }}" controls="{{ true || videoControlVisible }}"
+                 vslide-gesture-in-fullscreen="{{ false }}"
+                 enable-progress-gesture="{{ true }}" enable-play-gesture="{{ true }}"></video>
+          <view class="cu-tag bg-red" catch:tap="deleteVideo">
+            <text class="cuIcon-close"></text>
+          </view>
+        </view>
+
+        <!-- pickImage -->
+        <view class="solids" bind:tap="pickImages" wx:if="{{ !uploading && !video && images.length <= 9 }}">
+          <text class="cuIcon-cameraadd"></text>
+        </view>
+        <!-- pickVideo -->
+        <view wx:if="{{ !uploading && !video && !images.length }}" class="solids" bind:tap="pickVideo">
+          <text class="cuIcon-record"></text>
+        </view>
+        <view wx:if="{{ uploading }}" class="solids">
+          <text class="cuIcon-loading2"></text>
+        </view>
+      </view>
+    </view>
+
+    <view id="section-options">
+      <button class="btn-submit cu-btn bg-blue lg round margin-top-sm" d-form-type="submit" bind:tap="createPost">发布</button>
+    </view>
+  </form>
+</view>
