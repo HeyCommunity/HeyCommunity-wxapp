@@ -1,7 +1,8 @@
 .DS_Store
 .idea
 *.map
-node_modules
 
-envs
+node_modules
+miniprogram_npm
+
 env.local.js
