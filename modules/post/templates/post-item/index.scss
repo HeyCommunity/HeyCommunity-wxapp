@@ -1,0 +1,50 @@
+.item-post {
+  .post-card {
+    .part-header {
+      .content {
+        width: calc(100% - 96rpx - 60rpx - 20rpx - 60rpx) !important;
+      }
+
+      .btn-more {
+        right: 20rpx;
+        font-size: 32rpx;
+        font-weight: bold;
+      }
+    }
+
+    .part-content {
+      .text-content {
+        padding: 0 30rpx 0;
+        // max-height: 6.4em;
+        overflow: hidden;
+        font-size: 30rpx;
+        margin-bottom: 20rpx;
+      }
+
+      .items-image {}
+
+      .item-video {
+        .video {
+          width: 100%;
+        }
+      }
+    }
+
+    .part-actions {
+      .item-action {
+        .item-action-btn {
+          width: auto;
+
+          .text-value {
+            font-weight: normal;
+          }
+        }
+      }
+
+      &.solids-bottom::after {
+        border-bottom: 4rpx solid #e1e1e1;
+      }
+    }
+  }
+}
+

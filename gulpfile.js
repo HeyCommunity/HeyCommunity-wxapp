@@ -9,19 +9,12 @@ const watchSass = require("gulp-watch-sass");
  * @param cb
  */
 function sassTask(cb) {
-  gulp.src('./components/**/*.scss')
+  gulp.src('./modules/**/*.scss')
     .pipe(sass().on('error', sass.logError))
     .pipe(rename({
       extname: '.wxss'
     }))
-    .pipe(gulp.dest('./components'));
-
-  gulp.src('./pages/**/*.scss')
-    .pipe(sass().on('error', sass.logError))
-    .pipe(rename({
-      extname: '.wxss'
-    }))
-    .pipe(gulp.dest('./pages'));
+    .pipe(gulp.dest('./modules'));
 
   cb();
 }
@@ -32,19 +25,12 @@ function sassTask(cb) {
  * @param cb
  */
 function sassWatchTask(cb) {
-  watchSass(['./components/**/*.scss'])
+  watchSass(['./modules/**/*.scss'])
     .pipe(sass().on('error', sass.logError))
     .pipe(rename({
       extname: '.wxss'
     }))
-    .pipe(gulp.dest('./components'));
-
-  watchSass(['./pages/**/*.scss'])
-    .pipe(sass().on('error', sass.logError))
-    .pipe(rename({
-      extname: '.wxss'
-    }))
-    .pipe(gulp.dest('./pages'));
+    .pipe(gulp.dest('./modules'));
 
   cb();
 }

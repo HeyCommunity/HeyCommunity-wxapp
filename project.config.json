@@ -1,7 +1,20 @@
 {
   "description": "项目配置文件",
   "packOptions": {
-    "ignore": []
+    "ignore": [
+      {
+        "type": "regexp",
+        "value": "\\.scss$"
+      },
+      {
+        "type": "file",
+        "value": "package-lock.json"
+      },
+      {
+        "type": "file",
+        "value": "gulpfile.js"
+      }
+    ]
   },
   "setting": {
     "urlCheck": false,
