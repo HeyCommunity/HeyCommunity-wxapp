@@ -1,3 +1,5 @@
+<import src="/modules/common/comment/templates/comment-list/index.wxml"></import>
+
 <template name="post-item">
   <view class="item-post" wx:if="{{ post }}">
     <view class="post-card cu-card dynamic no-card">
@@ -72,7 +74,7 @@
               </button>
             </view>
             <view class="item-action cu-item flex-sub padding-tb-sm margin-right-sm text-grey text-center">
-              <navigator url="/pages/posts/detail/index?id={{ post.id }}" class="item-action-btn cu-btn bg-white padding-lr-xl">
+              <navigator url="/modules/post/pages/detail/index?id={{ post.id }}" class="item-action-btn cu-btn bg-white padding-lr-xl">
                 <text class="cuIcon-newsfill margin-lr-xs"></text>
                 <text class="text-value text-sm">详情</text>
               </navigator>
@@ -81,7 +83,9 @@
         </block>
 
         <!-- 评论列表 -->
-        <!-- TODO: import comment-list template -->
+        <block wx:if="{{ commentListVisible }}">
+          <template is="comment-list" data="{{ comments: post.comments }}"></template>
+        </block>
       </view>
     </view>
   </view>
