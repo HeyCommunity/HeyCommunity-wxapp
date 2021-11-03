@@ -13,18 +13,18 @@
     }
 
     .part-content {
-      .text-content {
-        padding: 0 30rpx 0;
-        // max-height: 6.4em;
+      .area-text {
         overflow: hidden;
         font-size: 30rpx;
-        margin-bottom: 20rpx;
+        // max-height: 6.4em;
       }
 
-      .items-image {}
+      .area-images {
+      }
 
-      .item-video {
+      .area-video {
         .video {
+          display: block;
           width: 100%;
         }
       }

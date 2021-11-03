@@ -20,28 +20,35 @@
 
         <!-- 内容与图片 -->
         <view class="part-content">
-          <view class="text-content">
+          <view wx:if="{{ post.content_preview }}" class="area-text padding-lr margin-bottom-sm">
             <text user-select="true">{{ post.content_preview }}</text>
           </view>
 
+          <!-- 动态图片 -->
+          <view wx:if="{{ post.images.length > 0 }}" class="area-images padding-lr margin-bottom-sm">
+            <view wx:if="{{ post.images.length === 1 }}" class="items-image grid flex-sub col-1">
+              <view class="item-image bg-img only-img" style="background-image:url('{{ post.images[0].file_path }}');"
+                    bind:tap="previewImage" data-images="{{ post.images }}" data-current-image="{{ post.images[0].file_path }}">
+              </view>
+            </view>
+
+            <!-- TODO: 写多种图片排列规则 -->
+            <view wx:else class="items-image grid flex-sub grid-square {{ post.images.length === 2 || post.images.length === 4 ? 'col-2' : 'col-3' }}">
+              <view class="item-image bg-img" style="background-image:url('{{ image.file_path }}');"
+                    wx:for="{{ post.images }}" wx:for-item="image" wx:for-index="imageIndex" wx:key="id"
+                    bind:tap="previewImage" data-images="{{ post.images }}" data-current-image="{{ post.images[0].file_path }}">
+              </view>
+            </view>
+          </view>
+
           <!-- 动态视频 -->
-          <view wx:if="{{ post.video }}" class="item-video">
+          <view wx:if="{{ post.video }}" class="area-video">
             <video id="video-{{ post.id }}" class="video" src="{{ post.video.file_path }}" title="{{ post.content }}"
                    bind:play="videoPlayHandler" show-mute-btn="{{ true }}"
                    controls="{{ true || currentVideoId === ('video-' + post.id) }}"
                    vslide-gesture-in-fullscreen="{{ false }}"
                    enable-progress-gesture="{{ true }}" enable-play-gesture="{{ true }}" enable-auto-rotation="{{ false }}">
             </video>
-          </view>
-
-          <!-- 动态图片 -->
-          <view wx:if="{{ post.images.length > 0 }}"
-                class="items-image grid flex-sub padding-lr {{ post.images.length > 1 ? 'col-3 grid-square' : 'col-1' }}">
-            <view class="item-image bg-img {{ post.images.length > 1 ? '' : 'only-img' }}"
-                  style="background-image:url('{{ image.file_path }}');"
-                  wx:for="{{ post.images }}" wx:for-item="image" wx:for-index="imageIndex" wx:key="id"
-                  bind:tap="previewImage" data-image-index="{{ imageIndex }}">
-            </view>
           </view>
         </view>
 

@@ -28,7 +28,20 @@ Page({
    */
   onShow() {
     this.setData({appGlobalData: APP.globalData});
-    MODEL.getFirstPageModels();
+    // MODEL.getFirstPageModels();
+  },
+
+  /**
+   * 预览图片
+   */
+  previewImage(event) {
+    let images = event.currentTarget.dataset.images;
+    let currentImage = event.currentTarget.dataset.currentImage;
+
+    wx.previewImage({
+      urls: images.map(image => image.file_path),
+      current: currentImage,
+    });
   },
 
   /**

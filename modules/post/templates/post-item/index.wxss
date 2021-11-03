@@ -6,13 +6,12 @@
   font-size: 32rpx;
   font-weight: bold; }
 
-.item-post .post-card .part-content .text-content {
-  padding: 0 30rpx 0;
+.item-post .post-card .part-content .area-text {
   overflow: hidden;
-  font-size: 30rpx;
-  margin-bottom: 20rpx; }
+  font-size: 30rpx; }
 
-.item-post .post-card .part-content .item-video .video {
+.item-post .post-card .part-content .area-video .video {
+  display: block;
   width: 100%; }
 
 .item-post .post-card .part-actions .item-action .item-action-btn {
