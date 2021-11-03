@@ -6,8 +6,5 @@
   "backgroundTextStyle": "light",
   "enablePullDownRefresh": true,
   "usingComponents": {
-    "post-item": "/comps/posts/post-item/index",
-    "comment-list": "/comps/common/comments/comment-list/index",
-    "comment-modal": "/comps/common/comments/comment-modal/index"
   }
 }

@@ -1,4 +1,4 @@
-<view id="section-list" class="margin-top-sm">
+<view id="section-tabs" class="margin-top-sm">
   <scroll-view scroll-x class="bg-white nav">
     <view class="flex text-center">
       <view class="cu-item flex-sub {{ tabType === 'comment' ? 'text-black cur' : '' }}" bind:tap="tabSelectHandler" data-type="comment">
@@ -13,14 +13,10 @@
   </scroll-view>
 
   <!-- 评论列表 -->
+  <import src="/modules/common/comment/templates/comment-list/index.wxml"></import>
   <view wx:if="{{ tabType === 'comment' }}" id="section-comment-list" class="bg-white padding-top-sm">
     <view wx:if="{{ model.comments.length }}">
-      <comment-list id="comp-comment-list" bind:updateEntityDataEvent="updatePostDataHandler"
-                    model:entity-comment-num="{{ postCommentNum }}"
-                    entity-class="\\Modules\\Post\\Entities\\Post" entity="{{ model }}" entity-id="{{ model.id }}"
-                    bind:thumbUpEvent="thumbUpHandler"
-                    bind:showCommentModalEvent="showCommentModal"
-                    bind:showCommentActionSheetEvent="showCommentActionSheet" />
+      <template is="comment-list" data="{{ comments: model.comments }}"></template>
     </view>
 
     <view wx:else>
