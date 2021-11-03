@@ -1,4 +1,4 @@
-const ENV = require('../../../../libs/env.js');
+const ENV = require('../../../../libraries/env.js');
 const APP = getApp();
 
 Page({

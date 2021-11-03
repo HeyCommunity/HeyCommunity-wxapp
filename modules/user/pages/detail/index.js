@@ -1,6 +1,6 @@
 const APP = getApp();
 const MODEL = require('../../../../utils/model-old.js');
-const ENV = require('../../../../libs/env.js');
+const ENV = require('../../../../libraries/env.js');
 
 Page({
   data: {

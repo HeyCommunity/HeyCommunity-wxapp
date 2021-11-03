@@ -1,4 +1,4 @@
-const {apiDomain, apiProHost} = require('../libs/env');
+const {apiDomain, apiProHost} = require('../libraries/env');
 const httpTimeout = 1000 * 10;
 
 /**
