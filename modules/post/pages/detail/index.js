@@ -105,6 +105,16 @@ Page({
   },
 
   /**
+   * 更新 PostComments 处理
+   */
+  updatePostCommentsDataHandler(event) {
+    let post = this.data.model;
+    post.comments = event.detail.comments;
+
+    this.setData({model: post});
+  },
+
+  /**
    * 下拉刷新
    */
   onPullDownRefresh() {
