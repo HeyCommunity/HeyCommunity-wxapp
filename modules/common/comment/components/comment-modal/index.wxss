@@ -1,0 +1,7 @@
+.modal-comment .cu-dialog {
+  vertical-align: top;
+  top: 200rpx; }
+
+.modal-comment .input-content {
+  min-height: 6em;
+  max-height: 6em; }

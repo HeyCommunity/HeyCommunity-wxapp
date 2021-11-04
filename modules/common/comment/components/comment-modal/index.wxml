@@ -1,0 +1,35 @@
+<!-- 评论模态框 -->
+<view class="modal-comment cu-modal {{ modalVisible ? 'show' : '' }}">
+  <view class="cu-dialog">
+    <form bind:submit="commentHandler">
+      <view class="cu-bar cu-white justify-end">
+        <view class="content" wx:if="{{ commentTargetUserNickname }}">回复{{ commentTargetUserNickname }}</view>
+        <view class="content" wx:else>评论</view>
+        <view bind:tap="hideCommentModal" class="action">
+          <text class="cuIcon-close text-red"></text>
+        </view>
+      </view>
+      <view class="padding bg-gray text-left">
+        <textarea name="content" class="input-content" placeholder="说说你的看法 ~" value="{{ commentTextareaContent }}"
+                  auto-height="true"
+                  maxlength="500"
+                  fixed="{{ true }}"
+                  adjust-position="{{ false }}"
+                  show-confirm-bar="{{ false }}"
+                  focus="{{ commentTextareaFocus }}">
+        </textarea>
+      </view>
+
+      <view class="cu-white padding">
+        <view class="flex">
+          <view class="flex-sub">
+            <button form-type="reset" class="cu-btn bg-gray block">清空</button>
+          </view>
+          <view class="flex-treble margin-left">
+            <button form-type="submit" class="cu-btn bg-black block">提交</button>
+          </view>
+        </view>
+      </view>
+    </form>
+  </view>
+</view>

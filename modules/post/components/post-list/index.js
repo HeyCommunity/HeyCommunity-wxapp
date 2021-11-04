@@ -57,24 +57,34 @@ Component({
     },
 
     /**
-     * 显示 评论模态框
+     * 显示 动态的评论模态框
      */
-    showCommentModal(event) {
-      console.log('showCommentModal dataset:', event.currentTarget.dataset);
-      wx.showModal({content: 'call showCommentModal'});
-      /*
+    showPostCommentModal(event) {
+      console.log('showPostCommentModal dataset:', event.currentTarget.dataset);
+
+      let postIndex = event.currentTarget.dataset.postIndex;
+      let post = this.data.posts[postIndex];
+
       this.selectComponent('#comp-comment-modal').showCommentModal({
-        entity: event.detail.post,
-        entityIndex: event.detail.postIndex,
+        entity: post,
+        entityIndex: postIndex,
+        entityClass: this.data.entityClass,
       });
-       */
     },
 
     /**
-     * 隐藏评论模态框
+     * 评论成功处理
      */
-    hideCommentModal() {
-      wx.showModal({content: 'call hideCommentModal'});
+    commentSuccessfulHandler(event) {
+      console.log('commentSuccessfulHandler event:', event);
+
+      let post = event.detail.entity;
+      let postIndex = event.detail.entityIndex;
+
+      let postKey = 'posts[' + postIndex + ']';
+      this.setData({[postKey]: post});
+
+      this.triggerUpdatePostDataEvent(post, postIndex);
     },
 
     /**

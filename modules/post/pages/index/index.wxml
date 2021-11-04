@@ -17,10 +17,6 @@
   <navigator wx:else url="/modules/user/pages/auth/index" class="btn-create cu-btn bg-blue round"><view class="icon cuIcon-post"></view></navigator>
 </view>
 
-<!-- 动态评论模态框 -->
-<comment-modal id="comp-comment-modal" bind:commentSuccessfulEvent="commentSuccessfulHandler"
-               entity-class="\\Modules\\Post\\Entities\\Post"></comment-modal>
-
 <!-- 动态 ActionSheet -->
 <mp-actionSheet bind:actiontap="postActionSheetHandler" title="动态操作"
                 show="{{ postActionSheetVisible }}" actions="{{ postActionSheetActions }}"></mp-actionSheet>
