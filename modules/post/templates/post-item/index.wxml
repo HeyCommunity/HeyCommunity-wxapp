@@ -38,7 +38,7 @@
             <view wx:else class="items-image grid flex-sub grid-square {{ post.images.length === 2 || post.images.length === 4 ? 'col-2' : 'col-3' }}">
               <view class="item-image bg-img" style="background-image:url('{{ image.file_path }}');"
                     wx:for="{{ post.images }}" wx:for-item="image" wx:for-index="imageIndex" wx:key="id"
-                    bind:tap="previewImage" data-images="{{ post.images }}" data-current-image="{{ post.images[0].file_path }}">
+                    bind:tap="previewImage" data-images="{{ post.images }}" data-current-image="{{ post.images[imageIndex].file_path }}">
               </view>
             </view>
           </view>
