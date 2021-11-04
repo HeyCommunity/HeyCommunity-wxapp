@@ -2,18 +2,18 @@
   <view wx:if="{{ comments.length > 1 }}" class="section-comments cu-list menu-avatar comment">
     <view class="item-comment cu-item solid-bottom" wx:for="{{ comments }}" wx:key="id" wx:for-item="comment" wx:for-index="commentIndex">
       <!-- 头像 -->
-      <navigator url="/pages/users/detail/index?id={{ comment.user_id }}" class="cu-avatar round" style="background-image:url('{{ comment.user_avatar }}');"></navigator>
+      <navigator url="/modules/user/pages/detail/index?id={{ comment.user_id }}" class="cu-avatar round" style="background-image:url('{{ comment.user_avatar }}');"></navigator>
 
       <!-- 内容 -->
       <view class="part-content flex-sub">
-        <navigator url="/pages/users/detail/index?id={{ comment.user_id }}" class="d-inline-block text-nickname">{{ comment.user_nickname }}</navigator>
+        <navigator url="/modules/user/pages/detail/index?id={{ comment.user_id }}" class="d-inline-block text-nickname">{{ comment.user_nickname }}</navigator>
         <view>
           <text user-select class="text-content text-df">{{ comment.content }}</text>
         </view>
 
         <!-- 引用的评论 -->
         <view wx:if="{{ comment.parent }}" class="area-quote-comment bg-gray light padding-tb-xs padding-lr-sm radius margin-top-sm text-sm">
-          <navigator class="d-inline text-nickname" url="/pages/users/detail/index?id={{ comment.parent.user_id }}">{{ comment.parent.user.nickname }}</navigator>
+          <navigator class="d-inline text-nickname" url="/modules/user/pages/detail/index?id={{ comment.parent.user_id }}">{{ comment.parent.user.nickname }}</navigator>
           <text class="text-bold margin-right-xs">:</text>
           <!-- TODO: text user-select 会强制按 inline-block 显示，使得多行内容被独立成块 -->
           <text selectable="{{ true }}">{{ comment.parent.content }}</text>

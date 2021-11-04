@@ -7,9 +7,9 @@
         <!-- Header -->
         <view class="part-header cu-list menu-avatar">
           <view class="cu-item">
-            <navigator class="cu-avatar round lg" url="/pages/users/detail/index?id={{ post.user_id }}" style="background-image:url('{{ post.user_avatar }}');"></navigator>
+            <navigator class="cu-avatar round lg" url="/modules/user/pages/detail/index?id={{ post.user_id }}" style="background-image:url('{{ post.user_avatar }}');"></navigator>
             <view class="content flex-sub">
-              <view><navigator url="/pages/users/detail/index?id={{ post.user_id }}">{{ post.user_nickname }}</navigator></view>
+              <view><navigator url="/modules/user/pages/detail/index?id={{ post.user_id }}">{{ post.user_nickname }}</navigator></view>
               <view class="text-gray text-sm flex justify-between">{{ post.created_at_for_humans }}</view>
             </view>
             <view>

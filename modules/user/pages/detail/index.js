@@ -30,7 +30,7 @@ Page({
 
     this.getUserInfo();
 
-    MODEL.init(this, 'posts/user-posts?user_id=1');
+    MODEL.init(this, 'posts/user-posts?user_id=' + this.data.userId);
     MODEL.getFirstPageModels();
   },
 
