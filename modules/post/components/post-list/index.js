@@ -1,9 +1,14 @@
+const THUMB = require('../../../common/thumb/index.js');
+
 Component({
   options: {
     addGlobalClass: true,
   },
   properties: {
     posts: Array,
+  },
+  data: {
+    entityClass: 'Modules\\Post\\Entities\\Post',
   },
   methods: {
     /**
@@ -27,9 +32,35 @@ Component({
     },
 
     /**
+     * 点赞处理
+     */
+    thumbUpHandler(event) {
+      console.log('thumbUpHandler dataset:', event.currentTarget.dataset);
+
+      let _this = this;
+      let postIndex = event.currentTarget.dataset.postIndex;
+      let post = this.data.posts[postIndex];
+
+      let params = {
+        entity_id: post.id,
+        entity_class: this.data.entityClass,
+        type: 'thumb_up',
+        value: event.currentTarget.dataset.value,
+      };
+
+      THUMB.thumbHandler(params, post).then(function() {
+        let postKey = 'posts[' + postIndex + ']';
+        _this.setData({[postKey]: post});
+
+        _this.triggerUpdatePostDataEvent(post, postIndex);
+      });
+    },
+
+    /**
      * 显示 评论模态框
      */
     showCommentModal(event) {
+      console.log('showCommentModal dataset:', event.currentTarget.dataset);
       wx.showModal({content: 'call showCommentModal'});
       /*
       this.selectComponent('#comp-comment-modal').showCommentModal({
@@ -47,23 +78,18 @@ Component({
     },
 
     /**
-     * 点赞处理
-     */
-    thumbUpHandler() {
-      wx.showModal({content: 'call thumbUpHandler'});
-    },
-
-    /**
      * 显示动态 ActionSheet
      */
-    showPostActionSheet() {
+    showPostActionSheet(event) {
+      console.log('showPostActionSheet dataset:', event.currentTarget.dataset);
       wx.showModal({content: 'call showPostActionSheet'});
     },
 
     /**
      * 显示评论 ActionSheet
      */
-    showCommentActionSheet() {
+    showCommentActionSheet(event) {
+      console.log('showCommentActionSheet dataset:', event.currentTarget.dataset);
       wx.showModal({content: 'call showCommentActionSheet'});
     },
   },

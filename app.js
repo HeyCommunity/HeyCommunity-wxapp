@@ -71,7 +71,7 @@ App({
     if (this.globalData.isAuth) {
       return false;
     } else {
-      wx.navigateTo({url: '/pages/users/auth/index'});
+      wx.navigateTo({url: '/modules/user/pages/auth/index'});
       return true;
     }
   },
