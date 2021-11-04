@@ -1,0 +1,11 @@
+<import src="../../templates/post-item/index.wxml"></import>
+
+<view wx:if="{{ posts.length > 0 }}" class="items-post">
+  <block wx:for="{{ posts }}" wx:key="id" wx:for-item="post" wx:for-index="postIndex">
+    <template is="post-item" data="{{ post, postIndex, actionBarVisible: true, commentListVisible: true }}"></template>
+  </block>
+</view>
+
+<view wx:else style="padding-top:100px;">
+  <van-empty description="暂无动态"></van-empty>
+</view>

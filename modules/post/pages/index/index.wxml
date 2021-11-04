@@ -9,16 +9,7 @@
 
   <!-- 动态列表 -->
   <view id="section-posts">
-    <import src="../../templates/post-item/index.wxml"></import>
-    <view wx:if="{{ models.length > 0 }}" class="items-post">
-      <block wx:for="{{ models }}" wx:key="id" wx:for-item="post" wx:for-index="postIndex">
-        <template is="post-item" data="{{ post, postIndex, actionBarVisible: true, commentListVisible: true }}"></template>
-      </block>
-    </view>
-
-    <view wx:else style="padding-top:100px;">
-      <van-empty description="暂无动态"></van-empty>
-    </view>
+    <post-list posts="{{ models }}" bind:updatePostDataEvent="updatePostDataHandler"></post-list>
   </view>
 
   <!-- 创建动态按钮 -->

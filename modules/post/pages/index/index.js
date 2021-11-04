@@ -32,16 +32,14 @@ Page({
   },
 
   /**
-   * 预览图片
+   * 更新 Post 数据处理方法
    */
-  previewImage(event) {
-    let images = event.currentTarget.dataset.images;
-    let currentImage = event.currentTarget.dataset.currentImage;
+  updatePostDataHandler(event) {
+    let postIndex = event.detail.postIndex;
+    let postKey = 'models[' + postIndex + ']';      // TODO: 使用 models => posts
+    let post = event.detail.post;
 
-    wx.previewImage({
-      urls: images.map(image => image.file_path),
-      current: currentImage,
-    });
+    this.setData({[postKey]: post});
   },
 
   /**
@@ -51,44 +49,6 @@ Page({
     let url = event.currentTarget.dataset.url;
 
     wx.navigateTo({url: url});
-  },
-
-  /**
-   * 显示 评论模态框
-   */
-  showCommentModal(event) {
-    this.selectComponent('#comp-comment-modal').showCommentModal({
-      entity: event.detail.post,
-      entityIndex: event.detail.postIndex,
-    });
-  },
-
-  /**
-   * 隐藏评论模态框
-   */
-  hideCommentModal() {
-    wx.showModal({content: 'call hideCommentModal'});
-  },
-
-  /**
-   * 点赞处理
-   */
-  thumbUpHandler() {
-    wx.showModal({content: 'call thumbUpHandler'});
-  },
-
-  /**
-   * 显示动态 ActionSheet
-   */
-  showPostActionSheet() {
-    wx.showModal({content: 'call showPostActionSheet'});
-  },
-
-  /**
-   * 显示评论 ActionSheet
-   */
-  showCommentActionSheet() {
-    wx.showModal({content: 'call showCommentActionSheet'});
   },
 
   /**
