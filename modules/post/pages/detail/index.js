@@ -4,9 +4,11 @@ const THUMB = require('../../../../components/common/thumb/script/index.js');
 
 Page({
   data: {
+    // TODO: model => post
     model: null,
 
     tabType: 'comment',
+    entityClass: 'Modules\\Post\\Entities\\Post',
   },
 
   /**
@@ -42,33 +44,10 @@ Page({
   },
 
   /**
-   * 进入用户主页
-   */
-  gotoUserDetailPage(event) {
-    let userId = event.currentTarget.dataset.id;
-
-    wx.navigateTo({url: '/modules/user/pages/detail/index?id=' + userId});
-  },
-
-  /**
    * Tab 切换处理
    */
   tabSelectHandler(event) {
     this.setData({tabType: event.currentTarget.dataset.type});
-  },
-
-  /**
-   * 显示动态 ActionSheet
-   */
-  showPostActionSheet() {
-    wx.showModal({content: 'call showPostActionSheet'});
-  },
-
-  /**
-   * 显示评论 ActionSheet
-   */
-  showCommentActionSheet() {
-    wx.showModal({content: 'call showCommentActionSheet'});
   },
 
   /**
@@ -85,17 +64,44 @@ Page({
   },
 
   /**
-   * 打开评论弹出层
+   * 显示动态评论模态框
    */
-  showCommentModal(event) {
-    this.selectComponent('#comp-comment-modal').showCommentModal(event);
+  showPostCommentFormModal(event) {
+    let post = this.data.model;
+    let entityClass = this.data.entityClass;
+
+    this.selectComponent('#comp-comment-form-modal').showCommentModal({
+      entity: post,
+      entityClass: entityClass,
+    });
   },
 
   /**
-   * 更新 Post 数据
+   * 评论成功处理
    */
-  updatePostDataHandler: function (event) {
+  commentSuccessfulHandler: function (event) {
     this.setData({model: event.detail.entity});
+
+    // TODO: 订阅微信消息通知
+  },
+
+  /**
+   * 显示动态评论回复模态框
+   */
+  showReplyCommentFormModal(event) {
+    console.log('call showReplyCommentFormModal', event);
+
+    let post = this.data.model;
+    let entityClass = this.data.entityClass;
+    let commentIndex = event.detail.commentIndex;
+    let targetUserNickname = event.detail.targetUserNickname;
+
+    this.selectComponent('#comp-comment-form-modal').showCommentModal({
+      entity: post,
+      entityClass: entityClass,
+      commentIndex: commentIndex,
+      targetUserNickname: targetUserNickname,
+    });
   },
 
   /**
@@ -107,15 +113,6 @@ Page({
       wx.hideLoading();
       wx.stopPullDownRefresh();
     });
-  },
-
-  /**
-   * 评论成功处理
-   */
-  commentSuccessfulHandler: function (event) {
-    this.setData({model: event.detail.entity});
-
-    // TODO: 订阅微信消息通知
   },
 
   /**

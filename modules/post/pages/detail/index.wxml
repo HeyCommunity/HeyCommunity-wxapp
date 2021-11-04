@@ -2,8 +2,7 @@
 
 <view id="page-posts-detail" class="container-full" wx:if="{{ model }}">
   <!-- 动态卡片 -->
-  <import src="../../templates/post-item/index.wxml"></import>
-  <template is="post-item" data="{{ post: model }}"></template>
+  <post-item post="{{ model }}" action-bar-visible="{{ false }}" />
 
   <!-- 点赞和评论列表 -->
   <include src="subview/_comments-and-thumbs.wxml"></include>
@@ -16,12 +15,10 @@
       <text wx:else class="cuIcon-appreciate"></text>
     </button>
     <view class="item box-input">
-      <button class="el-input cu-btn shadow" bind:tap="showCommentModal"
-              data-action-type="comment" data-entity-id="{{ model.id }}" data-entity-class="\\Modules\\Post\\Entities\\Post">说说你的看法 ~</button>
+      <button class="el-input cu-btn shadow" bind:tap="showPostCommentFormModal">说说你的看法 ~</button>
     </view>
   </view>
 </view>
 
-<!-- 动态评论模态框 -->
-<comment-modal id="comp-comment-modal" bind:commentSuccessfulEvent="commentSuccessfulHandler"
-               entity-class="\\Modules\\Post\\Entities\\Post" entity="{{ model }}"></comment-modal>
+<!-- 评论模态框 -->
+<comment-form-modal id="comp-comment-form-modal" bind:commentSuccessfulEvent="commentSuccessfulHandler" />
