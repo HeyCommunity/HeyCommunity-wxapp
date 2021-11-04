@@ -23,14 +23,14 @@
         <view class="part-footer margin-top-sm flex justify-between">
           <view class="text-gray text-df">{{ comment.created_at_for_humans }}</view>
           <view class="items-btn">
-            <button class="item-btn text-gray cu-btn sm bg-white" bind:tap="thumbUpHandler"
+            <button class="item-btn text-gray cu-btn sm bg-white" bind:tap="commentThumbUpHandler"
                     data-comment-index="{{ commentIndex }}" data-comment="{{ comment }}"
                     data-entity-id="{{ comment.id }}" data-entity-class="\\App\\Models\\Common\\Comment" data-type="thumb_up" data-value="{{ !comment.i_have_thumb_up }}">
               <text wx:if="{{ comment.i_have_thumb_up }}" class="cuIcon-appreciatefill"></text>
               <text wx:else class="cuIcon-appreciate"></text>
               <text class="margin-left-xs" wx:if="{{ comment.thumb_up_num }}">{{ comment.thumb_up_num }}</text>
             </button>
-            <button class="item-btn text-gray cu-btn sm bg-white" bind:tap="showCommentModal"
+            <button class="item-btn text-gray cu-btn sm bg-white" bind:tap="showReplyCommentModal"
                     data-target-user-nickname="{{ comment.user_nickname }}" data-comment-index="{{ commentIndex }}">
               <text wx:if="{{ comment.i_have_comment }}" class="cuIcon-communityfill"></text>
               <text wx:else class="cuIcon-community"></text>

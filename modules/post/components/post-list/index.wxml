@@ -10,5 +10,5 @@
   <van-empty description="暂无动态"></van-empty>
 </view>
 
-<!-- 动态评论模态框 -->
+<!-- 评论模态框 -->
 <comment-modal id="comp-comment-modal" bind:commentSuccessfulEvent="commentSuccessfulHandler" />

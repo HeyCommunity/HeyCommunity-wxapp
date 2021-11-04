@@ -1,4 +1,13 @@
 #page-posts-index {
+  .items-post {
+    padding-top: 20rpx;
+    padding-bottom: 10rpx;
+
+    .item-post {
+      margin-bottom: 20rpx;
+    }
+  }
+
   /**
    * 右下角创建按钮
    */

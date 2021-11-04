@@ -40,12 +40,13 @@ Component({
       let _this = this;
       let postIndex = event.currentTarget.dataset.postIndex;
       let post = this.data.posts[postIndex];
+      let value = event.currentTarget.dataset.value;
 
-      let params = {
+        let params = {
         entity_id: post.id,
         entity_class: this.data.entityClass,
         type: 'thumb_up',
-        value: event.currentTarget.dataset.value,
+        value: value,
       };
 
       THUMB.thumbHandler(params, post).then(function() {
@@ -93,6 +94,43 @@ Component({
     showPostActionSheet(event) {
       console.log('showPostActionSheet dataset:', event.currentTarget.dataset);
       wx.showModal({content: 'call showPostActionSheet'});
+    },
+
+    /**
+     * 评论 点赞处理
+     */
+    commentThumbUpHandler(event) {
+      console.log('commentThumbUpHandler dataset:', event.currentTarget.dataset);
+
+      let _this = this;
+      let postIndex = event.currentTarget.dataset.entityIndex;
+      let post = this.data.posts[postIndex];
+      let commentIndex = event.currentTarget.dataset.commentIndex;
+      let comment = post.comments[commentIndex];
+      let entityClass = 'App\\Models\\Common\\Comment';
+      let value = event.currentTarget.dataset.value;
+
+      let params = {
+        entity_id: comment.id,
+        entity_class: entityClass,
+        type: 'thumb_up',
+        value: value,
+      };
+
+      THUMB.thumbHandler(params, comment).then(function() {
+        let postKey = 'posts[' + postIndex + ']';
+        _this.setData({[postKey]: post});
+
+        _this.triggerUpdatePostDataEvent(post, postIndex);
+      });
+    },
+
+    /**
+     * 显示 回复评论模态框
+     */
+    showReplyCommentModal(event) {
+      console.log('showReplyCommentModal dataset:', event.currentTarget.dataset);
+      wx.showModal({content: 'call showReplyCommentModal'});
     },
 
     /**

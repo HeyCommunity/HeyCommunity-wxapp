@@ -4,7 +4,10 @@ const MODEL = require('../../../../utils/model-old.js');
 Page({
   data: {
     appGlobalData: null,
+    // TODO: models => posts
     models: [],
+
+    entityClass: 'Modules\\Post\\Entities\\Post',
   },
 
   /**
@@ -32,12 +35,24 @@ Page({
   },
 
   /**
-   * 更新 Post 数据处理方法
+   * 更新 Post 处理
    */
   updatePostDataHandler(event) {
     let postIndex = event.detail.postIndex;
-    let postKey = 'models[' + postIndex + ']';      // TODO: 使用 models => posts
+    let postKey = 'models[' + postIndex + ']';
     let post = event.detail.post;
+
+    this.setData({[postKey]: post});
+  },
+
+  /**
+   * 更新 PostComments 处理
+   */
+  updatePostCommentsDataHandler(event) {
+    let postIndex = event.detail.entityIndex;
+    let postKey = 'models[' + postIndex + ']';
+    let post = this.data.models[postIndex];
+    post.comments = event.detail.comments;
 
     this.setData({[postKey]: post});
   },
@@ -58,6 +73,57 @@ Page({
     MODEL.getFirstPageModels().finally(function() {
       wx.stopPullDownRefresh();
     });
+  },
+
+  /**
+   * 显示动态评论模态框
+   */
+  showPostCommentFormModal(event) {
+    console.log('call showPostCommentFormModal', event);
+
+    let postIndex = event.detail.postIndex;
+    let post = this.data.models[postIndex];
+    let entityClass = this.data.entityClass;
+
+    this.selectComponent('#comp-comment-form-modal').showCommentModal({
+      entity: post,
+      entityIndex: postIndex,
+      entityClass: entityClass,
+    });
+  },
+
+  /**
+   * 显示动态评论回复模态框
+   */
+  showReplyCommentFormModal(event) {
+    console.log('call showReplyCommentFormModal', event);
+
+    let postIndex = event.detail.entityIndex;
+    let post = this.data.models[postIndex];
+    let entityClass = this.data.entityClass;
+    let commentIndex = event.detail.commentIndex;
+    let targetUserNickname = event.detail.targetUserNickname;
+
+    this.selectComponent('#comp-comment-form-modal').showCommentModal({
+      entity: post,
+      entityIndex: postIndex,
+      entityClass: entityClass,
+      commentIndex: commentIndex,
+      targetUserNickname: targetUserNickname,
+    });
+  },
+
+  /**
+   * 评论成功处理
+   */
+  commentSuccessfulHandler(event) {
+    console.log('commentSuccessfulHandler event:', event);
+
+    let post = event.detail.entity;
+    let postIndex = event.detail.entityIndex;
+
+    let postKey = 'models[' + postIndex + ']';
+    this.setData({[postKey]: post});
   },
 
   /**

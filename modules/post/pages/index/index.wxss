@@ -3,6 +3,11 @@
   /**
    * 右下角创建按钮
    */ }
+  #page-posts-index .items-post {
+    padding-top: 20rpx;
+    padding-bottom: 10rpx; }
+    #page-posts-index .items-post .item-post {
+      margin-bottom: 20rpx; }
   #page-posts-index .btn-create {
     z-index: 99;
     position: fixed;

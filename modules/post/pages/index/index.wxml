@@ -9,13 +9,33 @@
 
   <!-- 动态列表 -->
   <view id="section-posts">
-    <post-list posts="{{ models }}" bind:updatePostDataEvent="updatePostDataHandler"></post-list>
+    <!-- <post-list posts="{{ models }}" bind:updatePostDataEvent="updatePostDataHandler"></post-list> -->
+
+    <view wx:if="{{ models.length > 0 }}" class="items-post">
+      <block wx:for="{{ models }}" wx:key="id" wx:for-item="post" wx:for-index="postIndex">
+        <post-item post="{{ post }}" post-index="{{ postIndex }}"
+                   bind:showCommentFormModalEvent="showPostCommentFormModal"
+                   bind:updatePostDataEvent="updatePostDataHandler">
+          <!-- 评论列表组件，显示最近的 3 条评论，如不需要可注释或删除它 -->
+          <comment-list slot="comment-list" entity-index="{{ postIndex }}" comments="{{ post.comments }}"
+                        bind:showCommentFormModalEvent="showReplyCommentFormModal"
+                        bind:updateCommentsDataEvent="updatePostCommentsDataHandler" />
+        </post-item>
+      </block>
+    </view>
+
+    <view wx:else style="padding-top:100px;">
+      <van-empty description="暂无动态"></van-empty>
+    </view>
   </view>
 
   <!-- 创建动态按钮 -->
   <navigator wx:if="{{ appGlobalData.isAuth }}" url="../create/index" class="btn-create cu-btn bg-blue round"><view class="icon cuIcon-post"></view></navigator>
   <navigator wx:else url="/modules/user/pages/auth/index" class="btn-create cu-btn bg-blue round"><view class="icon cuIcon-post"></view></navigator>
 </view>
+
+<!-- 评论模态框 -->
+<comment-form-modal id="comp-comment-form-modal" bind:commentSuccessfulEvent="commentSuccessfulHandler" />
 
 <!-- 动态 ActionSheet -->
 <mp-actionSheet bind:actiontap="postActionSheetHandler" title="动态操作"
