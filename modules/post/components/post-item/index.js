@@ -71,8 +71,8 @@ Component({
      * 显示 ActionSheet
      */
     showActionSheet(event) {
-      console.log('showPostActionSheet dataset:', event.currentTarget.dataset);
-      wx.showModal({content: 'call showPostActionSheet'});
+      console.log('showActionSheet dataset:', event.currentTarget.dataset);
+      wx.showModal({content: 'call showActionSheet'});
     },
   },
 });

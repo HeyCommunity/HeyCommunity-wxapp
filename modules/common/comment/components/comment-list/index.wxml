@@ -34,7 +34,7 @@
             <text wx:else class="cuIcon-community"></text>
             <text class="margin-left-xs" wx:if="{{ comment.comment_num }}">{{ comment.comment_num }}</text>
           </button>
-          <button class="item-btn text-gray cu-btn sm bg-white" bind:tap="showCommentActionSheet" data-comment-index="{{ commentIndex }}">
+          <button class="item-btn text-gray cu-btn sm bg-white" bind:tap="showActionSheet" data-comment-index="{{ commentIndex }}">
             <text class="cuIcon-moreandroid"></text>
           </button>
         </view>

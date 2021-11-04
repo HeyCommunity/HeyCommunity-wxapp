@@ -54,5 +54,13 @@ Component({
         targetUserNickname: event.currentTarget.dataset.targetUserNickname,
       });
     },
+
+    /**
+     * 显示 ActionSheet
+     */
+    showActionSheet(event) {
+      console.log('showActionSheet dataset:', event.currentTarget.dataset);
+      wx.showModal({content: 'call showActionSheet'});
+    },
   },
 });
