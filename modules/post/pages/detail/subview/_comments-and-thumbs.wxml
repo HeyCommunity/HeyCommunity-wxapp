@@ -13,7 +13,6 @@
   </scroll-view>
 
   <!-- 评论列表 -->
-  <import src="/modules/common/comment/templates/comment-list/index.wxml"></import>
   <view wx:if="{{ tabType === 'comment' }}" id="section-comment-list" class="bg-white padding-top-sm">
     <view wx:if="{{ model.comments.length }}">
       <comment-list slot="comment-list" comments="{{ model.comments }}"
@@ -40,4 +39,3 @@
     </view>
   </view>
 </view>
-
