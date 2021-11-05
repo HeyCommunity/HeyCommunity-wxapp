@@ -1,4 +1,5 @@
 const THUMB = require('../../../common/thumb/index.js');
+const PostActionSheet = require('./_post-action-sheet.js');
 
 Component({
   options: {
@@ -72,7 +73,15 @@ Component({
      */
     showActionSheet(event) {
       console.log('showActionSheet dataset:', event.currentTarget.dataset);
-      wx.showModal({content: 'call showActionSheet'});
+
+      PostActionSheet.showActionSheet(this);
+    },
+
+    /**
+     * PostActionSheet 处理
+     */
+    postActionSheetHandler(event) {
+      PostActionSheet.actionSheetHandler(event);
     },
   },
 });
