@@ -36,7 +36,3 @@
 
 <!-- 评论模态框 -->
 <comment-form-modal id="comp-comment-form-modal" bind:commentSuccessfulEvent="commentSuccessfulHandler" />
-
-<!-- 动态 ActionSheet -->
-<mp-actionSheet bind:actiontap="postActionSheetHandler" title="动态操作"
-                show="{{ postActionSheetVisible }}" actions="{{ postActionSheetActions }}"></mp-actionSheet>

@@ -42,3 +42,6 @@
     </view>
   </view>
 </view>
+
+<!-- 评论 ActionSheet -->
+<mp-actionSheet title="评论操作" bind:actiontap="actionSheetHandler" show="{{ commentActionSheetVisible }}" actions="{{ commentActionSheetActions }}" />

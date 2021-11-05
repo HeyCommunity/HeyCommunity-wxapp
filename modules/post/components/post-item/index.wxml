@@ -85,5 +85,4 @@
   </view>
 </view>
 
-<mp-actionSheet bind:actiontap="postActionSheetHandler" title="动态操作"
-                show="{{ postActionSheetVisible }}" actions="{{ postActionSheetActions }}"></mp-actionSheet>
+<mp-actionSheet title="动态操作" bind:actiontap="actionSheetHandler" show="{{ postActionSheetVisible }}" actions="{{ postActionSheetActions }}" />

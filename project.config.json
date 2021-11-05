@@ -53,7 +53,7 @@
     "useCompilerPlugins": false
   },
   "compileType": "miniprogram",
-  "libVersion": "2.20.0",
+  "libVersion": "2.20.1",
   "appid": "wxbfb0f224688b7291",
   "projectname": "HEY社区",
   "debugOptions": {

@@ -78,9 +78,9 @@ Component({
     },
 
     /**
-     * PostActionSheet 处理
+     * ActionSheet 处理
      */
-    postActionSheetHandler(event) {
+    actionSheetHandler(event) {
       PostActionSheet.actionSheetHandler(event);
     },
   },

@@ -1,6 +1,7 @@
 const APP = getApp();
 const REQUEST = require('../../../../../libraries/request.js');
 const THUMB = require('../../../../common/thumb/index.js');
+const CommentActionSheet = require('./_comment-action-sheet.js');
 
 Component({
   options: {
@@ -18,8 +19,6 @@ Component({
      * 点赞处理
      */
     thumbUpHandler(event) {
-      console.log('thumbUpHandler dataset:', event.currentTarget.dataset);
-
       let _this = this;
 
       let commentIndex = event.currentTarget.dataset.commentIndex;
@@ -59,8 +58,14 @@ Component({
      * 显示 ActionSheet
      */
     showActionSheet(event) {
-      console.log('showActionSheet dataset:', event.currentTarget.dataset);
-      wx.showModal({content: 'call showActionSheet'});
+      CommentActionSheet.showActionSheet(this, event);
+    },
+
+    /**
+     * ActionSheet 处理
+     */
+    actionSheetHandler(event) {
+      CommentActionSheet.actionSheetHandler(event);
     },
   },
 });

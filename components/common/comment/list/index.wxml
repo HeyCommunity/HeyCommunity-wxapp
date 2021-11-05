@@ -49,6 +49,6 @@
                entity-class="{{ entityClass }}" entity="{{ entity }}">
 </comment-modal>
 
-<!-- 评论 ActionSheet -->
-<mp-actionSheet bind:actiontap="commentActionSheetHandler" title="评论操作"
-                show="{{ commentActionSheetVisible }}" actions="{{ commentActionSheetActions }}"></mp-actionSheet>
+<!-- 评论 actionsheet -->
+<mp-actionsheet bind:actiontap="commentactionsheethandler" title="评论操作"
+                show="{{ commentactionsheetvisible }}" actions="{{ commentactionsheetactions }}"></mp-actionsheet>
