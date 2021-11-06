@@ -1,11 +1,10 @@
 const APP = getApp();
-const MODEL = require('../../../../utils/model-old.js');
+const MODEL = require('../../../../libraries/model.js');
 
 Page({
   data: {
     appGlobalData: null,
-    // TODO: models => posts
-    models: [],
+    posts: [],
 
     entityClass: 'Modules\\Post\\Entities\\Post',
   },
@@ -16,14 +15,16 @@ Page({
   onLoad() {
     let _this = this;
 
-    MODEL.init(_this, 'posts');
+    MODEL.init({
+      apiPath: 'posts',
+      dataKeyName: 'posts',
+      pageThis: this,
+    });
 
-    // 延后 1 秒，以便 app.js 中获取 token 后再请求动态
-    setTimeout(function() {
+    APP.authInitedCallback = function() {
       _this.setData({appGlobalData: APP.globalData});
-
       MODEL.getFirstPageModels();
-    }, 1000);
+    };
 
     // 订阅创建页面的 newPost 事件，把新创建的动态添加到动态列表中
     APP.OnFire.on('newPost', function(post) {

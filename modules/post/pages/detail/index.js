@@ -1,11 +1,10 @@
 const APP = getApp();
-const MODEL = require('../../../../utils/model-old.js');
+const MODEL = require('../../../../libraries/model.js');
 const THUMB = require('../../../../components/common/thumb/script/index.js');
 
 Page({
   data: {
-    // TODO: model => post
-    model: null,
+    post: null,
 
     tabType: 'comment',
     entityClass: 'Modules\\Post\\Entities\\Post',
@@ -15,23 +14,10 @@ Page({
    * onLoad
    */
   onLoad(options) {
-    this.setData({modelId: options.id});
+    this.setData({postId: options.id});
 
     wx.showLoading({title: '加载中'});
-    MODEL.getModel(this, 'posts/' + this.data.modelId, {}, {showRequestFailModal: false}).catch(function(res) {
-      if (APP.REQUEST.wxRequestIsOk(res)) {
-        wx.showModal({
-          title: '提示',
-          content: '内容不存在或已被删除',
-          showCancel: false,
-          complete() {
-            wx.switchTab({url: '../index/index'});
-          }
-        });
-      } else {
-        APP.REQUEST.showRequestFailModal(res);
-      }
-    }).finally(function() {
+    this.getPostData().finally(function() {
       wx.hideLoading();
     });
   },
@@ -40,7 +26,7 @@ Page({
    * onShow
    */
   onShow() {
-    MODEL.getModel(this, 'posts/' + this.data.modelId, {}, {showRequestFailModal: false});
+    this.getPostData();
   },
 
   /**
@@ -119,9 +105,42 @@ Page({
    */
   onPullDownRefresh() {
     wx.showLoading({title: '加载中'});
-    MODEL.getModel(this, 'posts/' + this.data.modelId).finally(function() {
+
+    this.getPostData().finally(function() {
       wx.hideLoading();
       wx.stopPullDownRefresh();
+    });
+  },
+
+  /**
+   * 获取 post 数据
+   */
+  getPostData() {
+    let config = {
+      apiPath: 'posts/' + this.data.postId,
+      dataKeyName: 'post',
+      pageThis: this,
+    }
+
+    return new Promise(function(resolve, reject) {
+      MODEL.getModel(config, {}, {showRequestFailModal: false}).then(function(result) {
+        resolve(result);
+      }).catch(function(res) {
+        if (APP.REQUEST.wxRequestIsOk(res)) {
+          wx.showModal({
+            title: '提示',
+            content: '内容不存在或已被删除',
+            showCancel: false,
+            complete() {
+              wx.switchTab({url: '../index/index'});
+            }
+          });
+        } else {
+          APP.REQUEST.showRequestFailModal(res);
+        }
+
+        reject(res);
+      });
     });
   },
 

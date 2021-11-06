@@ -9,10 +9,10 @@
 
   <!-- 动态列表 -->
   <view id="section-posts">
-    <!-- <post-list posts="{{ models }}" bind:updatePostDataEvent="updatePostDataHandler"></post-list> -->
+    <!-- <post-list posts="{{ posts }}" bind:updatePostDataEvent="updatePostDataHandler"></post-list> -->
 
-    <view wx:if="{{ models.length > 0 }}" class="items-post">
-      <block wx:for="{{ models }}" wx:key="id" wx:for-item="post" wx:for-index="postIndex">
+    <view wx:if="{{ posts.length > 0 }}" class="items-post">
+      <block wx:for="{{ posts }}" wx:key="id" wx:for-item="post" wx:for-index="postIndex">
         <post-item post="{{ post }}" post-index="{{ postIndex }}"
                    bind:showCommentFormModalEvent="showPostCommentFormModal"
                    bind:updatePostDataEvent="updatePostDataHandler">
