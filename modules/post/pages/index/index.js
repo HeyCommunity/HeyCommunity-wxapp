@@ -28,8 +28,8 @@ Page({
 
     // 订阅创建页面的 newPost 事件，把新创建的动态添加到动态列表中
     APP.OnFire.on('newPost', function(post) {
-      _this.data.models.unshift(post);
-      _this.setData({models: _this.data.models});
+      _this.data.posts.unshift(post);
+      _this.setData({posts: _this.data.posts});
     });
   },
 
@@ -38,30 +38,17 @@ Page({
    */
   onShow() {
     this.setData({appGlobalData: APP.globalData});
-    // MODEL.getFirstPageModels();
   },
 
   /**
-   * 更新 Post 处理
+   * 监听 Post 数据更新事件
    */
-  updatePostDataHandler(event) {
-    let postIndex = event.detail.postIndex;
-    let postKey = 'models[' + postIndex + ']';
+  listenUpdatePostDataEvent(event) {
     let post = event.detail.post;
+    let postIndex = event.detail.postIndex;
+    let dataKeyName = 'posts[' + postIndex + ']';
 
-    this.setData({[postKey]: post});
-  },
-
-  /**
-   * 更新 PostComments 处理
-   */
-  updatePostCommentsDataHandler(event) {
-    let postIndex = event.detail.entityIndex;
-    let postKey = 'models[' + postIndex + ']';
-    let post = this.data.models[postIndex];
-    post.comments = event.detail.comments;
-
-    this.setData({[postKey]: post});
+    this.setData({[dataKeyName]: post});
   },
 
   /**
@@ -80,57 +67,6 @@ Page({
     MODEL.getFirstPageModels().finally(function() {
       wx.stopPullDownRefresh();
     });
-  },
-
-  /**
-   * 显示动态评论模态框
-   */
-  showPostCommentFormModal(event) {
-    console.log('call showPostCommentFormModal', event);
-
-    let postIndex = event.detail.postIndex;
-    let post = this.data.models[postIndex];
-    let entityClass = this.data.entityClass;
-
-    this.selectComponent('#comp-comment-form-modal').showCommentModal({
-      entity: post,
-      entityIndex: postIndex,
-      entityClass: entityClass,
-    });
-  },
-
-  /**
-   * 显示动态评论回复模态框
-   */
-  showReplyCommentFormModal(event) {
-    console.log('call showReplyCommentFormModal', event);
-
-    let postIndex = event.detail.entityIndex;
-    let post = this.data.models[postIndex];
-    let entityClass = this.data.entityClass;
-    let commentIndex = event.detail.commentIndex;
-    let targetUserNickname = event.detail.targetUserNickname;
-
-    this.selectComponent('#comp-comment-form-modal').showCommentModal({
-      entity: post,
-      entityIndex: postIndex,
-      entityClass: entityClass,
-      commentIndex: commentIndex,
-      targetUserNickname: targetUserNickname,
-    });
-  },
-
-  /**
-   * 评论成功处理
-   */
-  commentSuccessfulHandler(event) {
-    console.log('commentSuccessfulHandler event:', event);
-
-    let post = event.detail.entity;
-    let postIndex = event.detail.entityIndex;
-
-    let postKey = 'models[' + postIndex + ']';
-    this.setData({[postKey]: post});
   },
 
   /**

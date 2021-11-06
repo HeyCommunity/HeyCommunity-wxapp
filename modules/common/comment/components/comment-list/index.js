@@ -1,5 +1,3 @@
-const APP = getApp();
-const REQUEST = require('../../../../../libraries/request.js');
 const THUMB = require('../../../../common/thumb/index.js');
 const CommentActionSheet = require('./_comment-action-sheet.js');
 
@@ -34,8 +32,6 @@ Component({
       };
 
       THUMB.thumbHandler(params, comment).then(function() {
-        // _this.setData({comments: _this.data.comments});
-
         _this.triggerEvent('updateCommentsDataEvent', {
           entityIndex: _this.data.entityIndex,
           comments: _this.data.comments,

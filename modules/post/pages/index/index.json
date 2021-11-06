@@ -9,6 +9,7 @@
   "usingComponents": {
     "van-notice-bar": "@vant/weapp/notice-bar/index",
     "post-item": "../../components/post-item/index",
+    "post-list": "../../components/post-list/index",
     "comment-list": "../../../common/comment/components/comment-list/index",
     "comment-form-modal": "../../../common/comment/components/comment-form-modal/index"
   }

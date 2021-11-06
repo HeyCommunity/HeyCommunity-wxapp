@@ -1,0 +1,23 @@
+.item-post .post-card .part-header .content {
+  width: calc(100% - 96rpx - 60rpx - 20rpx - 60rpx) !important; }
+
+.item-post .post-card .part-header .btn-more {
+  right: 20rpx;
+  font-size: 32rpx;
+  font-weight: bold; }
+
+.item-post .post-card .part-content .area-text {
+  overflow: hidden;
+  font-size: 30rpx; }
+
+.item-post .post-card .part-content .area-video .video {
+  display: block;
+  width: 100%; }
+
+.item-post .post-card .part-actions .item-action .item-action-btn {
+  width: auto; }
+  .item-post .post-card .part-actions .item-action .item-action-btn .text-value {
+    font-weight: normal; }
+
+.item-post .post-card .part-actions.solids-bottom::after {
+  border-bottom: 4rpx solid #e1e1e1; }
