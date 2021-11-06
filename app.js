@@ -40,7 +40,7 @@ App({
 
     // 恢复用户及登录状态
     AUTH.restoreLogin(_this).then(function(result) {
-      _this.showNotify(result.data.nickname + ', 欢迎回来', 'primary');
+      _this.Notify({message: result.data.nickname + ', 欢迎回来', type: 'primary'});
     }).catch(function(res) {
       wx.login({
         success: function(res) {

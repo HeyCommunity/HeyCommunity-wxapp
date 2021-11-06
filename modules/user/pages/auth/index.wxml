@@ -29,7 +29,7 @@
 
     <view class="text-center text-grey">
       登录即代表您同意我们的
-      <navigator class="d-inline text-underline" url="/posts/systems/term/index">《用户协议》</navigator>
+      <navigator class="d-inline text-underline" url="/modules/system/pages/term/index">《用户协议》</navigator>
     </view>
   </view>
 </view>
