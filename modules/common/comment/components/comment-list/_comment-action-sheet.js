@@ -1,4 +1,4 @@
-const HTTP = require('../../../../../utils/http.js');
+const REQUEST = require('../../../../../libraries/request.js');
 const REPORT = require('../../../report/index.js');
 
 let pageThis;
@@ -82,7 +82,7 @@ let deleteActionHandler = function() {
       if (res.confirm) {
         wx.showLoading({title: '请稍后'});
 
-        HTTP.POST(deleteActionApiPath, {id: entity.id}).then(function() {
+        REQUEST.POST(deleteActionApiPath, {id: entity.id}).then(function() {
           entity = null;
           setEntityData();
 

@@ -37,8 +37,8 @@
 
   <!-- posts -->
   <view class="margin-top-sm">
-    <view wx:if="{{ models.length > 0 }}" class="items-post">
-      <block wx:for="{{ models }}" wx:key="id" wx:for-item="post" wx:for-index="postIndex">
+    <view wx:if="{{ posts.length > 0 }}" class="items-post">
+      <block wx:for="{{ posts }}" wx:key="id" wx:for-item="post" wx:for-index="postIndex">
         <post-item post="{{ post }}" post-index="{{ postIndex }}"
                    bind:thumbUpEvent="thumbUpHandler"
                    bind:showCommentModalEvent="showCommentModal"
@@ -50,14 +50,6 @@
                         bind:showCommentActionSheetEvent="showCommentActionSheet" />
         </post-item>
       </block>
-    </view>
-
-    <!-- tips -->
-    <view id="section-more-loading-tip" wx:if="{{ moreLoading }}" class="text-center padding-tb">
-      <van-loading type="spinner">加载中...</van-loading>
-    </view>
-    <view id="section-more-loading-disabled-tip" class="padding-lr-xl padding-tb-lg" wx:if="{{ posts.length && currentPage >= lastPage }}">
-      <van-divider contentPosition="center" customStyle="margin:0;">没有更多动态了</van-divider>
     </view>
   </view>
 </view>

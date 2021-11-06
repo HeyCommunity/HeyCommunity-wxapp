@@ -1,8 +1,0 @@
-{
-  "component": true,
-  "usingComponents": {
-    "comment-list": "/components/common/comment/list/index",
-    "comment-modal": "/components/common/comment/modal/index",
-    "mp-actionSheet": "weui-miniprogram/actionsheet/actionsheet"
-  }
-}

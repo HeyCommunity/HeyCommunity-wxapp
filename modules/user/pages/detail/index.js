@@ -1,11 +1,10 @@
 const APP = getApp();
-const MODEL = require('../../../../utils/model-old.js');
+const MODEL = require('../../../../libraries/model.js');
 const ENV = require('../../../../libraries/env.js');
 
 Page({
   data: {
     appGlobalData: null,
-    models: [],
     posts: [],
 
     userId: null,
@@ -30,7 +29,11 @@ Page({
 
     this.getUserInfo();
 
-    MODEL.init(this, 'posts/user-posts?user_id=' + this.data.userId);
+    MODEL.init({
+      apiPath: 'posts/user-posts?user_id=' + this.data.userId,
+      dataKeyName: 'posts',
+      pageThis: this,
+    });
     MODEL.getFirstPageModels();
   },
 
