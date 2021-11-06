@@ -53,6 +53,17 @@ Page({
   },
 
   /**
+   * 监听 Post 数据更新事件
+   */
+  listenUpdatePostDataEvent(event) {
+    let post = event.detail.post;
+    let postIndex = event.detail.postIndex;
+    let dataKeyName = 'posts[' + postIndex + ']';
+
+    this.setData({[dataKeyName]: post});
+  },
+
+  /**
    * 下拉刷新
    */
   onPullDownRefresh() {

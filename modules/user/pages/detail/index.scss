@@ -43,12 +43,14 @@
     }
   }
 
-  .items-post {
-    padding-top: 20rpx;
-    padding-bottom: 10rpx;
+  #section-posts {
+    .items-post {
+      padding-top: 20rpx;
+      padding-bottom: 10rpx;
 
-    .item-post {
-      margin-bottom: 20rpx;
+      .item-post {
+        margin-bottom: 20rpx;
+      }
     }
   }
 }

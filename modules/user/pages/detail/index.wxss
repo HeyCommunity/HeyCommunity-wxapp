@@ -26,8 +26,8 @@
     mix-blend-mode: screen;
     height: 100rpx; }
 
-#page-users-detail .items-post {
+#page-users-detail #section-posts .items-post {
   padding-top: 20rpx;
   padding-bottom: 10rpx; }
-  #page-users-detail .items-post .item-post {
+  #page-users-detail #section-posts .items-post .item-post {
     margin-bottom: 20rpx; }

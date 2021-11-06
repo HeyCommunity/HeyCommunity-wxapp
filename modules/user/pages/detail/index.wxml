@@ -36,20 +36,9 @@
   </view>
 
   <!-- posts -->
-  <view class="margin-top-sm">
-    <view wx:if="{{ posts.length > 0 }}" class="items-post">
-      <block wx:for="{{ posts }}" wx:key="id" wx:for-item="post" wx:for-index="postIndex">
-        <post-item post="{{ post }}" post-index="{{ postIndex }}"
-                   bind:thumbUpEvent="thumbUpHandler"
-                   bind:showCommentModalEvent="showCommentModal"
-                   bind:showPostActionSheetEvent="showPostActionSheet">
-          <!-- 评论列表 -->
-          <comment-list slot="comment-list" class="comp-comment-list" entity-class="\\Modules\\Post\\Entities\\Post" entity="{{ post }}" entity-id="{{ post.id }}"
-                        bind:thumbUpEvent="thumbUpHandler"
-                        bind:showCommentModalEvent="showCommentModal"
-                        bind:showCommentActionSheetEvent="showCommentActionSheet" />
-        </post-item>
-      </block>
+  <view id="section-posts">
+    <view wx:if="{{ posts.length > 0 }}">
+      <post-list posts="{{ posts }}" bind:updatePostDataEvent="listenUpdatePostDataEvent" />
     </view>
   </view>
 </view>
