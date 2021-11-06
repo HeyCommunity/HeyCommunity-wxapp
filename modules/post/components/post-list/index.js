@@ -124,7 +124,7 @@ Component({
      * 显示 ActionSheet
      */
     showActionSheet(event) {
-      PostActionSheet.showActionSheet(this);
+      PostActionSheet.showActionSheet(this, event);
     },
 
     /**

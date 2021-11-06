@@ -4,6 +4,7 @@ const REPORT = require('../../../common/report/index.js');
 let pageThis;
 let entity;
 let entityId;
+let entityIndex;
 let entityClass = '\\Modules\\Post\\Entities\\Post';
 
 let hiddenActionApiPath = 'posts/hidden';
@@ -23,18 +24,14 @@ let userRoleActionSheetActionMaps = {
   admin: ['detail', 'report', 'hidden']
 };
 
-let setEntityData = function(entityData) {
-  entity = entityData;
-  if (pageThis) pageThis.setData({post: entity});
-}
-
 /**
  * 显示 ActionSheet
  */
-let showActionSheet = function(pt) {
+let showActionSheet = function(pt, event) {
   pageThis = pt;
-  entity = pageThis.data.post;
-  entityId = pageThis.data.post.id;
+  entityIndex = event.currentTarget.dataset.postIndex;
+  entity = pageThis.data.posts[entityIndex];
+  entityId = entity.id;
 
   pageThis.setData({
     postActionSheetVisible: true,
@@ -110,20 +107,9 @@ let hiddenAndDeleteActionHandler = function(actionType) {
     REQUEST.POST(apiPath, {id: entityId}).then(function() {
       wx.hideLoading();
 
-      if (entity.isDetailPage) {
-        wx.showModal({
-          title: '操作成功',
-          content: successfulMessage,
-          showCancel: false,
-          success(res) {
-            // TODO: goBack or gotoHomePage
-            if (res.confirm) wx.switchTab({url: '/pages/posts/index/index'});
-          }
-        });
-      } else {
-        setEntityData(null);
-        wx.showToast({title: successfulMessage});
-      }
+      entity = null;
+      pageThis.triggerUpdatePostDataEvent(entity, entityIndex);
+      wx.showToast({title: successfulMessage});
     }).catch(function() {
       wx.hideLoading();
     });

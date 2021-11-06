@@ -11,17 +11,6 @@
   <view id="section-posts">
     <view wx:if="{{ posts.length > 0 }}">
       <post-list posts="{{ posts }}" bind:updatePostDataEvent="listenUpdatePostDataEvent" />
-      <!--
-      <block wx:for="{{ posts }}" wx:key="id" wx:for-item="post" wx:for-index="postIndex">
-        <post-item post="{{ post }}" post-index="{{ postIndex }}"
-                   bind:showCommentFormModalEvent="showPostCommentFormModal"
-                   bind:updatePostDataEvent="updatePostDataHandler">
-          <comment-list slot="comment-list" entity-index="{{ postIndex }}" comments="{{ post.comments }}"
-                        bind:showCommentFormModalEvent="showReplyCommentFormModal"
-                        bind:updateCommentsDataEvent="updatePostCommentsDataHandler" />
-        </post-item>
-      </block>
-      -->
     </view>
 
     <view wx:else style="padding-top:100px;">
