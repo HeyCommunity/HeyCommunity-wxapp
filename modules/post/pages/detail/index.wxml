@@ -2,10 +2,51 @@
 
 <view id="page-posts-detail" class="container-full" wx:if="{{ post }}">
   <!-- 动态卡片 -->
+  <!-- TODO: 重构 PostItem 组件 -->
   <post-item post="{{ post }}" action-bar-visible="{{ false }}" />
 
   <!-- 点赞和评论列表 -->
-  <include src="subview/_comments-and-thumbs.wxml"></include>
+  <view id="section-tabs" class="margin-top-sm">
+    <scroll-view scroll-x class="bg-white nav">
+      <view class="flex text-center">
+        <view class="cu-item flex-sub {{ tabType === 'comment' ? 'text-black cur' : '' }}" bind:tap="tabSelectHandler" data-type="comment">
+          评论
+          <view wx:if="{{ post.comment_num }}" class="cu-tag sm round">{{ postCommentNum ? postCommentNum : post.comment_num }}</view>
+        </view>
+        <view class="cu-item flex-sub {{ tabType === 'thumb' ? 'text-black cur' : '' }}" bind:tap="tabSelectHandler" data-type="thumb">
+          点赞
+          <view wx:if="{{ post.thumb_up_num }}" class="cu-tag sm round">{{ post.thumb_up_num }}</view>
+        </view>
+      </view>
+    </scroll-view>
+
+    <!-- 评论列表 -->
+    <view wx:if="{{ tabType === 'comment' }}" id="section-comment-list" class="bg-white padding-top-sm">
+      <block wx:if="{{ post.comments.length }}">
+        <comment-list comments="{{ post.comments }}"
+                      bind:showCommentFormModalEvent="listenShowReplyCommentFormModalEvent"
+                      bind:updateCommentsDataEvent="listenUpdateCommentsDataEvent" />
+      </block>
+
+      <block wx:else>
+        <van-empty description="没有评论"></van-empty>
+      </block>
+    </view>
+
+    <!-- 点赞列表 -->
+    <view wx:if="{{ tabType === 'thumb' }}" id="section-thumb-list" class="bg-white padding padding-bottom-xs">
+      <view wx:if="{{ post.thumbs.length > 0 }}" class="grid col-5 text-center">
+        <view class="item-user margin-bottom-sm" wx:for="{{ post.thumbs }}" wx:key="id" wx:for-item="thumb">
+          <navigator url="/modules/user/pages/detail/index?id={{ thumb.user_id }}" class="cu-avatar lg round margin-lr-xs" style="background-image:url({{ thumb.user_avatar }});"></navigator>
+          <view><navigator url="/modules/user/pages/detail/index?id={{ thumb.user_id }}">{{ thumb.user_nickname }}</navigator></view>
+        </view>
+      </view>
+
+      <view wx:else>
+        <van-empty description="没有点赞"></van-empty>
+      </view>
+    </view>
+  </view>
 
   <!-- 底部 -->
   <view id="footer">
@@ -15,10 +56,10 @@
       <text wx:else class="cuIcon-appreciate"></text>
     </button>
     <view class="item box-input">
-      <button class="el-input cu-btn shadow" bind:tap="showPostCommentFormModal">说说你的看法 ~</button>
+      <button class="el-input cu-btn shadow" bind:tap="showCommentFormModal">说说你的看法 ~</button>
     </view>
   </view>
 </view>
 
 <!-- 评论模态框 -->
-<comment-form-modal id="comp-comment-form-modal" bind:commentSuccessfulEvent="commentSuccessfulHandler" />
+<comment-form-modal id="comp-comment-form-modal" bind:commentSuccessfulEvent="listenCommentSuccessfulEvent" />

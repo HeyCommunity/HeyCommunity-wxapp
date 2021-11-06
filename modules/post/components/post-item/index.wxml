@@ -9,11 +9,13 @@
             <view><navigator url="/modules/user/pages/detail/index?id={{ post.user_id }}">{{ post.user_nickname }}</navigator></view>
             <view class="text-gray text-sm flex justify-between">{{ post.created_at_for_humans }}</view>
           </view>
+          <!-- TODO: 先禁用 ActionSheet
           <view>
             <button class="btn-more cu-btn bg-white icon" bind:tap="showActionSheet">
               <text class="cuIcon-unfold"></text>
             </button>
           </view>
+          -->
         </view>
       </view>
 

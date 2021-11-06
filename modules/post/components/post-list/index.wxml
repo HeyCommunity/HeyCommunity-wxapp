@@ -90,7 +90,7 @@
 </view>
 
 <!-- 评论模态框 -->
-<comment-form-modal id="comp-comment-form-modal" bind:commentSuccessfulEvent="commentSuccessfulHandler" />
+<comment-form-modal id="comp-comment-form-modal" bind:commentSuccessfulEvent="listenCommentSuccessfulEvent" />
 
 <!-- 动态操作 ActionSheet -->
 <mp-actionSheet title="动态操作" bind:actiontap="actionSheetHandler" show="{{ postActionSheetVisible }}" actions="{{ postActionSheetActions }}" />

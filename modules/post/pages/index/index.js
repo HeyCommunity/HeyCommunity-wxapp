@@ -21,6 +21,7 @@ Page({
       pageThis: this,
     });
 
+    MODEL.getFirstPageModels();
     APP.authInitedCallback = function() {
       _this.setData({appGlobalData: APP.globalData});
       MODEL.getFirstPageModels();

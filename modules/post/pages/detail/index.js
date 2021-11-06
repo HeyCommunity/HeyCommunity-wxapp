@@ -40,20 +40,27 @@ Page({
    * 点赞处理
    */
   thumbHandler(event) {
-    if (getApp().needAuth()) return;
-
     let _this = this;
 
-    THUMB.thumbHandler(event, this.data.model).then(function() {
-      _this.setData({model: _this.data.model});
+    let params = {
+      entity_id: this.data.post.id,
+      entity_class: this.data.entityClass,
+      type: 'thumb_up',
+      value: event.currentTarget.dataset.value,
+    };
+
+    THUMB.thumbHandler(params, this.data.post).then(function() {
+      _this.setData({post: _this.data.post});
+      _this.getPostData();
     });
   },
 
+
   /**
-   * 显示动态评论模态框
+   * 显示评论模态框
    */
-  showPostCommentFormModal(event) {
-    let post = this.data.model;
+  showCommentFormModal() {
+    let post = this.data.post;
     let entityClass = this.data.entityClass;
 
     this.selectComponent('#comp-comment-form-modal').showCommentModal({
@@ -63,21 +70,10 @@ Page({
   },
 
   /**
-   * 评论成功处理
+   * 监听 显示评论回复模态框 事件
    */
-  commentSuccessfulHandler: function (event) {
-    this.setData({model: event.detail.entity});
-
-    // TODO: 订阅微信消息通知
-  },
-
-  /**
-   * 显示动态评论回复模态框
-   */
-  showReplyCommentFormModal(event) {
-    console.log('call showReplyCommentFormModal', event);
-
-    let post = this.data.model;
+  listenShowReplyCommentFormModalEvent(event) {
+    let post = this.data.post;
     let entityClass = this.data.entityClass;
     let commentIndex = event.detail.commentIndex;
     let targetUserNickname = event.detail.targetUserNickname;
@@ -91,13 +87,24 @@ Page({
   },
 
   /**
-   * 更新 PostComments 处理
+   * 监听 评论成功 事件
    */
-  updatePostCommentsDataHandler(event) {
-    let post = this.data.model;
-    post.comments = event.detail.comments;
+  listenCommentSuccessfulEvent(event) {
+    let post = event.detail.entity;
 
-    this.setData({model: post});
+    this.setData({post: post});
+  },
+
+  /**
+   * 监听 comments 数据更新事件
+   */
+  listenUpdateCommentsDataEvent(event) {
+    let post = this.data.post;
+    let comments = event.detail.comments;
+
+    post.comments = comments;
+
+    this.setData({post: post});
   },
 
   /**

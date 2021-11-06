@@ -51,8 +51,6 @@ Component({
      * 点赞处理
      */
     thumbUpHandler(event) {
-      console.log('thumbUpHandler dataset:', event.currentTarget.dataset);
-
       let _this = this;
       let postIndex = event.currentTarget.dataset.postIndex;
       let post = this.data.posts[postIndex];
@@ -74,8 +72,6 @@ Component({
      * 显示评论模态框
      */
     showCommentFormModal(event) {
-      console.log(event.type, event);
-
       let postIndex = event.currentTarget.dataset.postIndex;
       let post = this.data.posts[postIndex];
       let entityClass = this.data.entityClass;
@@ -97,8 +93,6 @@ Component({
       let commentIndex = event.detail.commentIndex;
       let targetUserNickname = event.detail.targetUserNickname;
 
-      console.log(event.type, event);
-
       this.selectComponent('#comp-comment-form-modal').showCommentModal({
         entity: post,
         entityIndex: postIndex,
@@ -109,11 +103,9 @@ Component({
     },
 
     /**
-     * 评论成功处理
+     * 监听 评论成功 事件
      */
-    commentSuccessfulHandler(event) {
-      console.log('commentSuccessfulHandler event:', event);
-
+    listenCommentSuccessfulEvent(event) {
       let post = event.detail.entity;
       let postIndex = event.detail.entityIndex;
 
