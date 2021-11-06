@@ -24,6 +24,12 @@ Page({
 
       MODEL.getFirstPageModels();
     }, 1000);
+
+    // 订阅创建页面的 newPost 事件，把新创建的动态添加到动态列表中
+    APP.OnFire.on('newPost', function(post) {
+      _this.data.models.unshift(post);
+      _this.setData({models: _this.data.models});
+    });
   },
 
   /**
