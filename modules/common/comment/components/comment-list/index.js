@@ -14,6 +14,18 @@ Component({
   },
   methods: {
     /**
+     * 触发更新 comments 事件
+     */
+    triggerUpdateCommentsDataEvent(comments) {
+      if (comments === undefined) comments = this.data.comments;
+
+      this.triggerEvent('updateCommentsDataEvent', {
+        entityIndex: this.data.entityIndex,
+        comments: comments,
+      });
+    },
+
+    /**
      * 点赞处理
      */
     thumbUpHandler(event) {
@@ -32,10 +44,7 @@ Component({
       };
 
       THUMB.thumbHandler(params, comment).then(function() {
-        _this.triggerEvent('updateCommentsDataEvent', {
-          entityIndex: _this.data.entityIndex,
-          comments: _this.data.comments,
-        });
+        _this.triggerUpdateCommentsDataEvent();
       });
     },
 

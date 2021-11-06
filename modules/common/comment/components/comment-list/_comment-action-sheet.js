@@ -83,8 +83,8 @@ let deleteActionHandler = function() {
         wx.showLoading({title: '请稍后'});
 
         REQUEST.POST(deleteActionApiPath, {id: entity.id}).then(function() {
-          entity = null;
-          setEntityData();
+          pageThis.data.comments.splice(pageThis.data.comments.indexOf(entity), 1);
+          pageThis.triggerUpdateCommentsDataEvent();
 
           wx.showToast({icon: 'none', title: '评论删除成功'});
         }).finally(function() {
@@ -115,7 +115,6 @@ let makeActionSheetActions = function() {
   if (APP.globalData.isAuth && APP.globalData.userInfo.id === entity.user_id) userRole = 'author';
 
   let keys = userRoleActionSheetActionMaps[userRole].slice();
-  if (pageThis.properties.isDetailPage) keys.splice(keys.indexOf('detail'), 1);          // 如果是详情页，则不显示查看详情 Action
 
   keys.forEach(function(key) {
     actionSheetActions.push(actionSheetActionList[key]);
