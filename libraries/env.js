@@ -9,7 +9,7 @@
 // 设置 HeyCommunity 信息
 // ==================================================
 let hcInfo = {
-  version: 'v.0.1-beta.3.x',
+  version: 'v.0.1.x',
 };
 
 
