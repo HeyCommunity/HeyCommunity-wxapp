@@ -1,7 +1,8 @@
 const APP = getApp();
-const MODEL = require('../../../../libraries/model.js');
+const PAGINATION = require('../../../../libraries/pagination.js');
 
 Page({
+  pagination: null,
   data: {
     appGlobalData: null,
     notices: [],
@@ -15,7 +16,7 @@ Page({
   onLoad() {
     let _this = this;
 
-    MODEL.init({
+    this.pagination = new PAGINATION({
       apiPath: 'notices',
       dataKeyName: 'notices',
       pageThis: this,
@@ -217,7 +218,7 @@ Page({
    */
   onPullDownRefresh() {
     if (this.data.appGlobalData.isAuth) {
-      MODEL.getFirstPageModels().finally(function () {
+      this.pagination.getFirstPageData().finally(function () {
         wx.stopPullDownRefresh();
       });
     } else {
@@ -232,7 +233,7 @@ Page({
    * 下拉加载更多
    */
   onReachBottom() {
-    MODEL.getNextPageModels();
+    this.pagination.getNextPageData();
   },
 
   /**

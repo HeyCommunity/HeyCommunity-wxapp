@@ -1,7 +1,9 @@
 const APP = getApp();
 const MODEL = require('../../../../libraries/model.js');
+const PAGINATION = require('../../../../libraries/pagination.js');
 
 Page({
+  pagination: null,
   data: {
     appGlobalData: null,
     posts: [],
@@ -15,16 +17,17 @@ Page({
   onLoad() {
     let _this = this;
 
-    MODEL.init({
+    this.pagination = new PAGINATION({
       apiPath: 'posts',
       dataKeyName: 'posts',
       pageThis: this,
     });
 
-    MODEL.getFirstPageModels();
+    this.pagination.getFirstPageData();
+
     APP.authInitedCallback = function() {
       _this.setData({appGlobalData: APP.globalData});
-      MODEL.getFirstPageModels();
+      _this.pagination.getFirstPageData();
     };
 
     // 订阅创建页面的 newPost 事件，把新创建的动态添加到动态列表中
@@ -42,7 +45,7 @@ Page({
   },
 
   /**
-   * 监听 Post 数据更新事件
+   * 监听 post 数据更新事件
    */
   listenUpdatePostDataEvent(event) {
     let post = event.detail.post;
@@ -65,7 +68,7 @@ Page({
    * 下拉刷新
    */
   onPullDownRefresh() {
-    MODEL.getFirstPageModels().finally(function() {
+    this.pagination.getFirstPageData().finally(function() {
       wx.stopPullDownRefresh();
     });
   },
@@ -74,7 +77,7 @@ Page({
    * 下拉加载更多
    */
   onReachBottom() {
-    MODEL.getNextPageModels();
+    this.pagination.getNextPageData();
   },
 
   /**
