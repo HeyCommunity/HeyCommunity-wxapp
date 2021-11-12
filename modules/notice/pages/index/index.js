@@ -70,6 +70,14 @@ Page({
   },
 
   /**
+   * goto 用户详情页
+   */
+  gotoUserDetailPage(event) {
+    let pageUrl = '/modules/user/pages/detail/index?id=' + event.currentTarget.dataset.userId;
+    wx.navigateTo({url: pageUrl});
+  },
+
+  /**
    * 订阅动态通知处理
    *
    * TODO: 需求整理和优化
