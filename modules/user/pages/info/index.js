@@ -16,13 +16,13 @@ Page({
    */
   onLoad() {
     this.setData({userInfo: APP.globalData.userInfo});
+    this.getUserInfo();
   },
 
   /**
    * onShow
    */
   onShow() {
-    this.getUserInfo();
   },
 
   /**
@@ -39,7 +39,7 @@ Page({
   updateInfoHandler(event) {
     let data = event.detail.value;
 
-    APP.REQUEST.POST('users/mine', data, {showRequestFailModal: false}).then(function(result) {
+    APP.REQUEST.POST('users/mine', data, {requestFailModalTitle: '更新资料失败'}).then(function(result) {
       wx.showToast({
         icon: 'success',
         title: '更新资料成功',
@@ -51,15 +51,6 @@ Page({
           }, 1500);
         },
       });
-    }).catch(function(res) {
-      let errorMessage = '未知错误';
-      if (res.data.errors) errorMessage = res.data.errors[Object.keys(res.data.errors)[0]][0];
-
-      wx.showModal({
-        title: '更新资料失败',
-        content: errorMessage,
-        showCancel: false,
-      });
     });
   },
 
@@ -70,6 +61,7 @@ Page({
     let _this = this;
     let type = event.currentTarget.dataset.type;
     let typeName = event.currentTarget.dataset.typeName;
+    let apiPath = 'users/mine-' + type;
 
     wx.chooseImage({
       count: 1,
@@ -80,18 +72,9 @@ Page({
 
         wx.showLoading({title: typeName + '上传中'});
 
-        APP.REQUEST.uploadFile('users/mine-' + type, tempFilePath).then(function(result) {
+        APP.REQUEST.uploadFile(apiPath, tempFilePath, {requestFailModalTitle: '更新' + typeName + '失败'}).then(function(result) {
           _this.setData({userInfo: result.data});
           wx.showToast({icon: 'success', title: typeName + '更新成功'});
-        }).catch(function(res) {
-          let modalContent = '未知错误';
-          if (res.data.message) modalContent = res.data.message;
-
-          wx.showModal({
-            title: typeName + '更新失败',
-            content: modalContent,
-            showCancel: false,
-          });
         }).finally(function() {
           wx.hideLoading();
         });

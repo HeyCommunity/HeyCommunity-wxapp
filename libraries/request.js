@@ -41,6 +41,7 @@ const request = function(type, path, params, configs) {
       timeout: httpTimeout,
       success: function(res) {
         if (httpRequestIsOk(res)) {
+          // TODO: 移除 statusCode，貌似只服务于 Thumb 功能
           if (typeof res.data === 'object') {
             res.data.statusCode = res.statusCode;
           } else {
@@ -50,7 +51,7 @@ const request = function(type, path, params, configs) {
           resolve(res.data);
           console.debug('[HTTP-' + type + '][' + res.statusCode + ']: /' + path, res);
         } else {
-          if (configs.showRequestFailModal) showRequestFailModal(res);
+          showRequestFailModal(res, configs);
 
           reject(res);
           console.error('[HTTP-' + type + '][' + res.statusCode + ']: /' + path, res);
@@ -59,7 +60,7 @@ const request = function(type, path, params, configs) {
       fail: function(res) {
         APP.Notify({message: '网络请求失败', type: 'danger'});
 
-        if (configs.showRequestFailModal) showRequestFailModal(res);
+        showRequestFailModal(res, configs);
 
         reject(res);
         console.error('[HTTP-' + type + '][WX.REQUEST-FAIL]: /' + path, res);
@@ -73,29 +74,32 @@ const request = function(type, path, params, configs) {
  */
 const uploadFile = function(apiPath, filePath, params, configs) {
   let APP = getApp();
-  let apiToken = APP ? APP.globalData.apiToken : '';
 
   // configs
   let defaultConfigs = {showRequestFailModal: true};
   if (configs === undefined) configs = {};
   configs = Object.assign(defaultConfigs, configs);
 
+  let apiToken = APP ? APP.globalData.apiToken : '';
+  if (configs.apiToken) apiToken = configs.apiToken;
+
   return new Promise(function(resolve, reject) {
     wx.uploadFile({
       header: {
         'Authorization': 'Bearer ' + apiToken,
+        'Accept': 'application/json',
       },
       url: makeApiPath(apiPath),
       filePath: filePath,
       name: 'file',
       formData: params,
       success: function(res) {
-        res.data = JSON.parse(res.data);
-
         if (httpRequestIsOk(res)) {
           resolve(res.data);
           console.debug('[HTTP-UploadFile] ' + filePath + ' successful', res);
         } else {
+          showRequestFailModal(res, configs);
+
           reject(res);
           console.error('[HTTP-UploadFile] ' + filePath + ' fail', res);
         }
@@ -103,13 +107,7 @@ const uploadFile = function(apiPath, filePath, params, configs) {
       fail: function(res) {
         APP.Notify({message: '网络请求失败', type: 'danger'});
 
-        if (configs.showRequestFailModal) {
-          wx.showModal({
-            title: '网络请求失败',
-            content: res.errMsg,
-            showCancel: false,
-          });
-        }
+        showRequestFailModal(res, configs);
 
         reject(res);
         console.error('[HTTP-UploadFile] ' + apiPath + ' wx.uploadFile fail', res);
@@ -150,31 +148,82 @@ const wxRequestIsOk = function(res) {
 }
 
 /**
+ * 获取请求失败的标题
+ */
+const getRequestFailTitle = function(res, title) {
+  if (! title) {
+    title = '发生错误';
+    if (wxRequestIsOk(res) && res.data && res.data.errors) title = '请求数据不合法';
+    if (! wxRequestIsOk(res)) title = '网络请求失败';
+  }
+
+  return title;
+}
+
+/**
  * 获取请求失败的返回消息
  * TODO: 重定义，把 res.errMsg 转为本地语言
  * TODO: 404 res.data.message 为空
  */
 const getRequestFailMessage = function(res) {
-  return (wxRequestIsOk(res)) ? res.data.message : res.errMsg;
+  let message = res.errMsg;
+
+  if (wxRequestIsOk(res)) {
+    if (res.data && res.data.errors) {
+      message = res.data.errors[Object.keys(res.data.errors)[0]][0];
+    } else {
+      message = res.data.message;
+    }
+  }
+
+  // 重写
+  if (message.startsWith('request:fail')) message = '网络请求失败';
+  if (message.startsWith('uploadFile:fail')) message = '文件上传失败';
+
+  return message;
 }
 
 /**
  * 显示请求失败的模态框通知
  */
-const showRequestFailModal = function(res) {
-  let title = wxRequestIsOk(res) ? '发生错误' : '网络请求失败';
+const showRequestFailModal = function(res, configs) {
+  // configs
+  let defaultConfigs = {
+    showRequestFailModal: true,
+    requestFailModalTitle: null,
+    requestFailModalContent: null,
+  };
+  if (configs === undefined) configs = {};
+  configs = Object.assign(defaultConfigs, configs);
+
+  if (configs.showRequestFailModal) {
+    wx.showModal({
+      title: getRequestFailTitle(res, configs.requestFailModalTitle),
+      content: getRequestFailMessage(res),
+      showCancel: false,
+    })
+  }
+}
+
+/**
+ * 显示 Laravel 表单校验失败的模态框
+ */
+const showLaravelValidateFailModal = function(res, title) {
+  if (title === undefined) title = '请求数据不合法';
+  let message = res.data.message;
+  if (res.data && res.data.errors) message = res.data.errors[Object.keys(res.data.errors)[0]][0];
 
   wx.showModal({
     title: title,
-    content: getRequestFailMessage(res),
+    content: message,
     showCancel: false,
-  })
+  });
 }
 
 //
 // module exports
 module.exports = {
   makeApiPath, makeWebPagePath,
-  httpRequestIsOk, wxRequestIsOk, getRequestFailMessage, showRequestFailModal,
+  httpRequestIsOk, wxRequestIsOk, getRequestFailMessage, showRequestFailModal, showLaravelValidateFailModal,
   GET, POST, uploadFile,
 };
