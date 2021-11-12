@@ -24,10 +24,13 @@
         }
 
         .info {
-          .nickname {
-          }
+          max-width: calc(100% - 60rpx - 160rpx);
 
-          .bio {}
+          .nickname, .bio {
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+          }
         }
       }
 

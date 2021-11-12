@@ -17,6 +17,12 @@
       border-radius: 50%;
       height: 160rpx;
       width: 160rpx; }
+    #page-users-detail #section-user-card .UCenter-bg .box .info {
+      max-width: calc(100% - 60rpx - 160rpx); }
+      #page-users-detail #section-user-card .UCenter-bg .box .info .nickname, #page-users-detail #section-user-card .UCenter-bg .box .info .bio {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden; }
   #page-users-detail #section-user-card .UCenter-bg .gif-wave {
     position: absolute;
     width: 100%;
