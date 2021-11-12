@@ -39,8 +39,8 @@ Page({
         APP.globalData.userInfo = result.data;
         _this.setData({appGlobalData: APP.globalData});
 
-        // TODO: 更新 NoticeTabBarBadge
-        APP.resetTabBarBadge();
+        // 更新 NoticeBadge
+        APP.resetNoticeBadgeAtTabBar();
       }).catch(function() {
         APP.AUTH.userLogout();
         _this.setData({appGlobalData: APP.globalData});

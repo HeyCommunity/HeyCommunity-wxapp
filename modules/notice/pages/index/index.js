@@ -212,7 +212,7 @@ Page({
           }
         }
 
-        APP.resetNoticeTabBarBadge(true);
+        APP.resetNoticeBadgeAtTabBar(true);
 
         resolve(result);
       }).catch(function(res) {

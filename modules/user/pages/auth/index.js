@@ -80,16 +80,14 @@ Page({
         wx.showLoading({title: '登录中'});
 
         // 通过 wx.login res.code 发送到后台, 从而完成用户的注册和登录
-        APP.AUTH.userLogin(res.code).then(function(result) {
+        APP.AUTH.userLogin(res.code, wechatUserInfo).then(function() {
+          // APP.AUTH.syncWechatUserInfo(wechatUserInfo);        // 不要同步用户资料
+
           wx.navigateBack({
             success(res) {
               APP.Notify({message: '登录成功', type: 'primary'});
-              APP.resetTabBarBadge();
             }
           });
-
-          // TODO: 不要自动更新用户资料，而是在我的页面让用户手动触发
-          APP.AUTH.userUpdateInfo(wechatUserInfo);        // 登录成功后更新用户资料
         }).catch(function(res) {
           APP.WXLog.addFilterMsg('AUTH-ERR');
 

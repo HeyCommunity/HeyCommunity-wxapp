@@ -12,6 +12,11 @@ App({
   OnFire: OnFire,
   Notify: Notify,
   WXLog: WXLog,
+
+  // 通知数角标在 TabBar 的位置
+  noticeBadgeAtTabBarIndex: 1,
+  noticeTabBarPageUrl: 'modules/notice/index/index',
+
   globalData: {
     hcInfo: null,
     wxappAccountInfo: null,
@@ -77,85 +82,32 @@ App({
   },
 
   /**
-   * UserPingHandler
+   * 重设通知角标
    */
-  userPingHandler(result) {
-    console.debug('gotUserPingData', result);
-
-    if (result.data && result.data.unread_notice_num) {
-      let beforeUnReadNoticeNum = this.globalData.userInfo.unread_notice_num;
-      let currentUnReadNoticeNum = result.data.unread_notice_num;
-      let newNoticeNum = currentUnReadNoticeNum - beforeUnReadNoticeNum;
-
-      if (newNoticeNum > 0) {
-        this.Notify({
-          message: '收到 ' + newNoticeNum + ' 条新通知 \n 点击查看',
-          type: 'primary',
-          duration: 6000,
-          onClick: function() {
-            wx.switchTab({url: '/pages/notices/index/index'});
-          },
-        });
-
-        this.globalData.userInfo.unread_notice_num = currentUnReadNoticeNum;
-
-        this.resetNoticeTabBarBadge();
-      }
-    }
-  },
-
-  /**
-   * Reset TabBar Badge
-   */
-  resetTabBarBadge() {
-    let pages = getCurrentPages();
-    let currentPage = pages[pages.length - 1];
-    let currentPageUrl = currentPage.route;
-
-    let tabPages = [
-      'pages/posts/index/index',
-      'pages/notices/index/index',
-      'pages/users/index/index',
-    ];
-
-    if (this.globalData.isAuth) {
-      if (tabPages.includes(currentPageUrl)) {
-        this.resetNoticeTabBarBadge(false);      // 设置通知页面的 TabBarBadge
-      } else {
-        console.debug('resetTabBarBadge: 当前页面为非 TabBar 页面，跳过设置');
-      }
-    } else {
-      // 删除所有 TabBarBadge
-      wx.removeTabBarBadge({index: 1});
-      // wx.removeTabBarBadge({index: 0});
-      // wx.removeTabBarBadge({index: 2});
-
-      console.debug('resetTabBarBadge: 用户未登录，移除所有 TabBarBadge');
-    }
-  },
-
-  /**
-   * resetNoticeTabBarBadge
-   */
-  resetNoticeTabBarBadge(forceReset) {
-    if (this.globalData.userInfo.unread_notice_num) {
+  resetNoticeBadgeAtTabBar() {
+    // 获取当前页面 URL
+    let getCurrentPageUrl = function() {
       let pages = getCurrentPages();
       let currentPage = pages[pages.length - 1];
-      let currentPageUrl = currentPage.route;
 
-      let noticeTabBadgeText = String(this.globalData.userInfo.unread_notice_num);
+      return currentPage.route;
+    }
+
+    // 如果已登录且未读通知数大于 0
+    if (this.globalData.isAuth && this.globalData.userInfo.unread_notice_num) {
       wx.setTabBarBadge({
         index: 1,
-        text: noticeTabBadgeText,
+        text: String(this.globalData.userInfo.unread_notice_num),
       });
-      console.debug('resetNoticeTabBarBadge: unread_notice_num => ' + this.globalData.userInfo.unread_notice_num);
+      console.debug('resetNoticeBadgeAtTabBar: unread_notice_num => ' + this.globalData.userInfo.unread_notice_num);
 
-      if (currentPageUrl === 'pages/notices/index/index') {
+      // 如果当前正处于通知 TabBar 页面，则触发 noticeRefresh 事件，以更新页面中的通知数据
+      if (getCurrentPageUrl() === this.noticeTabBarPageUrl) {
         this.OnFire.fire('noticeRefresh');
-        console.debug('resetNoticeTabBarBadge: noticeRefresh');
+        console.debug('resetNoticeBadgeAtTabBar: noticeRefresh');
       }
     } else {
-      wx.removeTabBarBadge({index: 1});
+      wx.removeTabBarBadge({index: this.noticeBadgeAtTabBarIndex});
     }
   },
 })
