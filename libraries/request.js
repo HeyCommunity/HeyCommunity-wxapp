@@ -94,6 +94,8 @@ const uploadFile = function(apiPath, filePath, params, configs) {
       name: 'file',
       formData: params,
       success: function(res) {
+        res.data = JSON.parse(res.data);
+        
         if (httpRequestIsOk(res)) {
           resolve(res.data);
           console.debug('[HTTP-UploadFile] ' + filePath + ' successful', res);

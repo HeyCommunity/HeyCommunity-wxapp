@@ -43,7 +43,7 @@ Page({
               }]),
             });
           }).catch(function(res) {
-            if (res.data.message) {
+            if (res.data && res.data.message) {
               wx.showModal({
                 title: '图片上传失败',
                 content: res.data.message,
