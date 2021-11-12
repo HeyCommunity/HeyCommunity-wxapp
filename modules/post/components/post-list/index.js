@@ -30,6 +30,7 @@ Component({
       let comments = event.detail.comments;
 
       post.comments = comments;
+      post.comment_num = comments.length;
 
       this.triggerUpdatePostDataEvent(post, postIndex);
     },
