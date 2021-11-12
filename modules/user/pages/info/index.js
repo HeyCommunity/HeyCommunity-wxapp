@@ -39,7 +39,7 @@ Page({
   updateInfoHandler(event) {
     let data = event.detail.value;
 
-    APP.REQUEST.POST('users/mine-info', data).then(function(result) {
+    APP.REQUEST.POST('users/mine', data, {showRequestFailModal: false}).then(function(result) {
       wx.showToast({
         icon: 'success',
         title: '更新资料成功',
