@@ -20,6 +20,11 @@
       }
 
       .area-images {
+        .items-image {
+          &.col-2 .item-image {
+            padding-bottom: calc((100% - 20rpx) / 3) !important;
+          }
+        }
       }
 
       .area-video {

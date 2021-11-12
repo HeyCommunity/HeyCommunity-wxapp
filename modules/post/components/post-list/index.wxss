@@ -10,6 +10,9 @@
   overflow: hidden;
   font-size: 30rpx; }
 
+.item-post .post-card .part-content .area-images .items-image.col-2 .item-image {
+  padding-bottom: calc((100% - 20rpx) / 3) !important; }
+
 .item-post .post-card .part-content .area-video .video {
   display: block;
   width: 100%; }

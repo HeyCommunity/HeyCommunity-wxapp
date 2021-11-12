@@ -27,18 +27,19 @@
 
             <!-- 动态图片 -->
             <view wx:if="{{ post.images.length > 0 }}" class="area-images padding-lr margin-bottom-sm">
-              <view wx:if="{{ post.images.length === 1 }}" class="items-image grid flex-sub col-1">
-                <view class="item-image bg-img only-img" style="background-image:url('{{ post.images[0].file_path }}');"
-                      bind:tap="previewImage" data-images="{{ post.images }}" data-current-image="{{ post.images[0].file_path }}">
+              <template name="item-image">
+                <view class="item-image bg-img {{ images.length === 1 ? 'only-img' : '' }}" style="background-image:url('{{ image.file_path }}');"
+                      wx:for="{{ images }}" wx:for-item="image" wx:for-index="imageIndex" wx:key="id"
+                      bind:tap="previewImage" data-images="{{ images }}" data-current-image="{{ images[imageIndex].file_path }}">
                 </view>
+              </template>
+
+              <view wx:if="{{ post.images.length === 1 }}" class="items-image grid flex-sub col-1">
+                <template is="item-image" data="{{ images: post.images }}"></template>
               </view>
 
-              <!-- TODO: 写多种图片排列规则 -->
-              <view wx:else class="items-image grid flex-sub grid-square {{ post.images.length === 2 || post.images.length === 4 ? 'col-2' : 'col-3' }}">
-                <view class="item-image bg-img" style="background-image:url('{{ image.file_path }}');"
-                      wx:for="{{ post.images }}" wx:for-item="image" wx:for-index="imageIndex" wx:key="id"
-                      bind:tap="previewImage" data-images="{{ post.images }}" data-current-image="{{ post.images[imageIndex].file_path }}">
-                </view>
+              <view wx:else class="items-image grid flex-sub grid-square col-{{ utility.getColumnNum(post.images.length) }}">
+                <template is="item-image" data="{{ images: post.images }}"></template>
               </view>
             </view>
 
@@ -94,3 +95,16 @@
 
 <!-- 动态操作 ActionSheet -->
 <mp-actionSheet title="动态操作" bind:actiontap="actionSheetHandler" show="{{ postActionSheetVisible }}" actions="{{ postActionSheetActions }}" />
+
+<!-- 工具方法 -->
+<wxs module="utility">
+  function getColumnNum(length) {
+    if (length === 2 || length === 4) return 2;
+    if (length === 3 || length === 5 || length === 6 || length === 9) return 3;
+    if (length === 7 || length === 8) return 4;
+
+    return length === 3;
+  }
+
+  module.exports.getColumnNum = getColumnNum;
+</wxs>
