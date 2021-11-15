@@ -18,12 +18,16 @@ let hcInfo = {
 // 如果存在 env.local.js，则使用这个文件的 appName
 // ==================================================
 let wxappName = 'HEY社区';
+let wxappSlogan = '简单交流十分美好';
 try {
   let envLocal = require('../env.local.js');
   wxappName = envLocal.wxappName;
+  wxappSlogan = envLocal.wxappSlogan;
   console.debug('使用 env.local.js wxappName: ' + wxappName);
+  console.debug('使用 env.local.js wxappSlogan: ' + wxappSlogan);
 } catch (exception) {
   console.debug('使用 /utils/env.js wxappName: ' + wxappName);
+  console.debug('使用 /utils/env.js wxappSlogan: ' + wxappSlogan);
 }
 
 
@@ -51,7 +55,7 @@ const apiProHost =  apiDomain + '/api';
 // module exports
 // ==================================================
 module.exports = {
-  wxappName,
   hcInfo,
+  wxappName, wxappSlogan,
   apiDomain, apiProHost,
 };

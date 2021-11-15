@@ -39,6 +39,7 @@ App({
     // 初始化小程序信息
     this.globalData.hcInfo = ENV.hcInfo;                                                          // HeyCommunity 信息
     this.globalData.wxappName = ENV.wxappName;                                                    // 当前小程序名称
+    this.globalData.wxappSlogan = ENV.wxappSlogan;                                                // 当前小程序口号
     this.globalData.wxappAccountInfo = wx.getAccountInfoSync();                                   // 当前小程序帐号信息
     this.globalData.wxappVersion = this.globalData.wxappAccountInfo.miniProgram.version;          // 当前小程序版本号
     if (! this.globalData.wxappVersion) this.globalData.wxappVersion = this.globalData.wxappAccountInfo.miniProgram.envVersion;

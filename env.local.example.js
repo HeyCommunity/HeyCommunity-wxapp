@@ -1,7 +1,8 @@
 //
-// 微信小程序名称
+// 微信小程序名称和口号
 // ==================================================
 const wxappName = 'HEY社区';
+const wxappSlogan = '简单交流十分美好';
 
 
 //
@@ -20,6 +21,6 @@ apiDomain = prodApiDomain;
 // module exports
 // ==================================================
 module.exports = {
-  appName,
+  wxappName, wxappSlogan,
   apiDomain,
 };
