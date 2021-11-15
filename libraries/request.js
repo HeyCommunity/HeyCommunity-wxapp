@@ -95,7 +95,7 @@ const uploadFile = function(apiPath, filePath, params, configs) {
       formData: params,
       success: function(res) {
         res.data = JSON.parse(res.data);
-        
+
         if (httpRequestIsOk(res)) {
           resolve(res.data);
           console.debug('[HTTP-UploadFile] ' + filePath + ' successful', res);
@@ -156,7 +156,7 @@ const getRequestFailTitle = function(res, title) {
   if (! title) {
     title = '发生错误';
     if (wxRequestIsOk(res) && res.data && res.data.errors) title = '请求数据不合法';
-    if (! wxRequestIsOk(res)) title = '网络请求失败';
+    if (! wxRequestIsOk(res)) title = '网络故障';
   }
 
   return title;
