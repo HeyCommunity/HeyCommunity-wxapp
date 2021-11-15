@@ -1,5 +1,4 @@
 const APP = getApp();
-const MODEL = require('../../../../libraries/model.js');
 const PAGINATION = require('../../../../libraries/pagination.js');
 
 Page({
@@ -85,7 +84,7 @@ Page({
    */
   onShareAppMessage() {
     return {
-      title: this.data.appGlobalData.wxappName + '动态列表',
+      title: this.data.appGlobalData.wxappName + ': ' + this.data.appGlobalData.wxappSlogan,
     }
   },
 
@@ -93,10 +92,8 @@ Page({
    * 分享到朋友圈
    */
   onShareTimeline() {
-    let imageUrl = null;
-
     return {
-      title: this.data.appGlobalData.wxappName + '动态列表',
+      title: this.data.appGlobalData.wxappName + ': ' + this.data.appGlobalData.wxappSlogan,
     };
   },
 });

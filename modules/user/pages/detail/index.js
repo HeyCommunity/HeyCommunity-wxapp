@@ -85,8 +85,11 @@ Page({
    * 分享到聊天
    */
   onShareAppMessage() {
+    let title = this.data.userInfo.nickname + '的' + this.data.appGlobalData.wxappName + '主页';
+    if (this.data.userInfo.bio) title = this.data.userInfo.nickname + ': ' + this.data.userInfo.bio;
+
     return {
-      title: this.data.userInfo.nickname + '的主页',
+      title: title,
     }
   },
 
@@ -94,8 +97,10 @@ Page({
    * 分享到朋友圈
    */
   onShareTimeline() {
+    let title = this.data.userInfo.nickname + '的' + this.data.appGlobalData.wxappName + '主页';
+
     return {
-      title: this.data.userInfo.nickname + '的主页',
+      title: title,
       imageUrl: this.data.userInfo.avatar,
     };
   },

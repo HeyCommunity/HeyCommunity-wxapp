@@ -155,8 +155,14 @@ Page({
    * 分享到聊天
    */
   onShareAppMessage() {
+    let imageUrl = null;
+    if (this.data.post.images.length) imageUrl = this.data.post.images[0].file_path;
+
+    let title = this.data.post.user_nickname + ': ' + this.data.post.content;
+
     return {
-      title: this.data.post.user_nickname + '发布的动态',
+      title: title,
+      imageUrl: imageUrl,
     }
   },
 
@@ -167,8 +173,10 @@ Page({
     let imageUrl = null;
     if (this.data.post.images.length) imageUrl = this.data.post.images[0].file_path;
 
+    let title = this.data.post.user_nickname + ': ' + this.data.post.content;
+
     return {
-      title: this.data.post.user_nickname + '发布的动态',
+      title: title,
       imageUrl: imageUrl,
     };
   },
