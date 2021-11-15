@@ -4,7 +4,7 @@ class SubscribeMessage {
   /**
    * 订阅指定的模板
    */
-  static specifyTemplates(...temps) {
+  static specifyTemplates(temps) {
     let tempIds = this.getTempIds(temps);
 
     // 订阅消息
@@ -17,10 +17,12 @@ class SubscribeMessage {
         wx.requestSubscribeMessage({
           tmplIds: tempIds,
           complete: function(res) {
+            console.debug('SubscribeMessage complete', res);
             resolve(res);
           },
         });
       } else {
+        console.debug('SubscribeMessage temps is null: ', temps);
         reject();
       }
     });

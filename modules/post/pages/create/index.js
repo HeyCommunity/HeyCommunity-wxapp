@@ -193,7 +193,7 @@ Page({
     wx.showLoading({mask: true, title: '发布中'});
     APP.REQUEST.POST('posts', params, {requestFailModalTitle: '动态发布失败'}).then((result) => {
       // 订阅微信通知
-      SubscribeMessage.specifyTemplates('thumb_up', 'comment', 'reply').finally(function() {
+      SubscribeMessage.specifyTemplates(['thumb_up', 'comment', 'reply']).finally(function() {
         wx.navigateBack({
           success() {
             if (result.data.status) {

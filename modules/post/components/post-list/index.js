@@ -77,7 +77,9 @@ Component({
       let post = this.data.posts[postIndex];
       let entityClass = this.data.entityClass;
 
-      this.selectComponent('#comp-comment-form-modal').showCommentModal({
+      let commentFormModal = this.selectComponent('#comp-comment-form-modal');
+      commentFormModal.properties.subscribeMessageTemps = ['thumb_up', 'comment', 'reply'];
+      commentFormModal.showCommentModal({
         entity: post,
         entityIndex: postIndex,
         entityClass: entityClass,
@@ -94,7 +96,9 @@ Component({
       let commentIndex = event.detail.commentIndex;
       let targetUserNickname = event.detail.targetUserNickname;
 
-      this.selectComponent('#comp-comment-form-modal').showCommentModal({
+      let commentFormModal = this.selectComponent('#comp-comment-form-modal');
+      commentFormModal.properties.subscribeMessageTemps = ['thumb_up', 'comment', 'reply'];
+      commentFormModal.showCommentModal({
         entity: post,
         entityIndex: postIndex,
         entityClass: entityClass,

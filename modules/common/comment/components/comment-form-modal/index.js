@@ -1,9 +1,16 @@
 const APP = getApp();
 const REQUEST = require('../../../../../libraries/request.js');
+const SubscribeMessage = require('../../../../../libraries/subscribe-message.js');
 
 Component({
   options: {
     addGlobalClass: true,
+  },
+  properties: {
+    subscribeMessageTemps: {
+      type: Array,
+      value: [],
+    }
   },
   data: {
     modalVisible: false,
@@ -57,14 +64,21 @@ Component({
     },
 
     /**
+     * 设置评论框内容
+     */
+    setCommentTextareaContentValue(event) {
+      this.data.commentTextareaContent = event.detail.value;
+    },
+
+    /**
      * 评论处理
      */
-    commentHandler(event) {
+    commentHandler() {
       if (getApp().needAuth()) return;
 
       let _this = this;
 
-      let content = event.detail.value.content;
+      let content = this.data.commentTextareaContent;
       if (! content) {
         wx.showModal({
           title: '提示',
@@ -106,6 +120,9 @@ Component({
         } else {
           APP.Notify({message: '评论创建成功 \n 管理员审核通过后将发布', type: 'warning'});
         }
+
+        // 订阅微信通知
+        SubscribeMessage.specifyTemplates(_this.data.subscribeMessageTemps);
 
         // 触发评论成功事件
         _this.triggerEvent('commentSuccessfulEvent', {
