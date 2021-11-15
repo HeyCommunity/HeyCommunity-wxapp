@@ -40,7 +40,7 @@
           <text class="cuIcon-record"></text>
         </view>
         <view wx:if="{{ uploading }}" class="solids">
-          <text class="cuIcon-loading2"></text>
+          <text class="cuIcon-loading2 iconfont-spin"></text>
         </view>
       </view>
     </view>

@@ -42,19 +42,6 @@ Page({
                 'imageFilePath': null,
               }]),
             });
-          }).catch(function(res) {
-            if (res.data && res.data.message) {
-              wx.showModal({
-                title: '图片上传失败',
-                content: res.data.message,
-                showCancel: false,
-              });
-            } else {
-              wx.showModal({
-                title: '图片上传失败',
-                showCancel: false,
-              })
-            }
           }).finally(function() {
             _this.setData({uploading: false});
           });
