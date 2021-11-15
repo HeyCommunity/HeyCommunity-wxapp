@@ -1,4 +1,5 @@
 const APP = getApp();
+const SubscribeMessage = require('../../../../libraries/subscribe-message.js');
 
 Page({
   data: {
@@ -149,11 +150,10 @@ Page({
   /**
    * 发布动态
    */
-  createPost(event) {
+  createPostHandler(event) {
     wx.hideKeyboard();
 
     let _this = this;
-    // let formData = event.detail.value;       // 获取表单数据
 
     // 内容不能为空
     if (! _this.data.content) {
@@ -162,78 +162,7 @@ Page({
         showCancel: false,
       });
 
-      throw 'Post content can\'t be null';
-    }
-
-    // 封装处理方法
-    let handler = function() {
-      let httpRequest = function() {
-        wx.showLoading({
-          mask: true,
-          title: '发布中'
-        });
-
-        let params = {
-          content: _this.data.content,
-          image_ids: [],
-        };
-
-        _this.data.images.forEach(function(image) {
-          params.image_ids.push(image.imageId);
-        });
-
-        if (_this.data.video) {
-          params.video_id = _this.data.video.id;
-        }
-
-        APP.REQUEST.POST('posts', params).then((result) => {
-          wx.navigateBack({
-            success() {
-              if (result.data.status) {
-                APP.OnFire.fire('newPost', result.data);
-                APP.Notify({message: '动态发布成功', type: 'primary'});
-              } else {
-                APP.Notify({message: '动态创建成功 \n 管理审核通过后将发布', type: 'warning'});
-              }
-            }
-          });
-        }).catch(function(res) {
-          if (res.data.message) {
-            wx.showModal({
-              title: '动态创建失败',
-              content: res.data.message,
-              showCancel: false,
-            });
-          } else {
-            wx.showModal({
-              title: '动态创建失败',
-              content: '请稍后再试',
-              showCancel: false,
-            });
-          }
-        }).finally(() => {
-          wx.hideLoading();
-        });
-      };
-
-      // 订阅消息
-      if (APP.globalData.systemSettings
-        && APP.globalData.systemSettings.wxapp_subscribe_message
-        && APP.globalData.systemSettings.wxapp_subscribe_message.enable
-      ) {
-        wx.requestSubscribeMessage({
-          tmplIds: [
-            APP.globalData.systemSettings.wxapp_subscribe_message.thumb_up_temp_id,
-            APP.globalData.systemSettings.wxapp_subscribe_message.comment_temp_id,
-            APP.globalData.systemSettings.wxapp_subscribe_message.reply_temp_id,
-          ] ,
-          complete: function() {
-            httpRequest();
-          },
-        });
-      } else {
-        httpRequest();
-      }
+      throw 'post content can\'t be null';
     }
 
     // 如果正在上传
@@ -241,19 +170,43 @@ Page({
       wx.showModal({
         title: '正在上传',
         content: '请等待图片或视频上传完成后再发布动态',
-        cancelText: '立即发布',
+        showCancel: false,
         confirmText: '再等等',
-        success: function(res) {
-          if (res.confirm) return false;
-          if (res.cancel) {
-            // TODO: 停止 HTTP 上传请求，并清空图片和视频
-            // _this.setData({images: [], video: null});
-            handler();
-          }
-        }
-      })
-    } else {
-      handler();
+      });
+
+      throw '请等待图片或视频上传完成后再发布动态';
     }
+
+    let params = {
+      content: _this.data.content,
+      image_ids: [],
+    };
+
+    _this.data.images.forEach(function(image) {
+      params.image_ids.push(image.imageId);
+    });
+
+    if (_this.data.video) {
+      params.video_id = _this.data.video.id;
+    }
+
+    wx.showLoading({mask: true, title: '发布中'});
+    APP.REQUEST.POST('posts', params, {requestFailModalTitle: '动态发布失败'}).then((result) => {
+      // 订阅微信通知
+      SubscribeMessage.specifyTemplates('thumb_up', 'comment', 'reply').finally(function() {
+        wx.navigateBack({
+          success() {
+            if (result.data.status) {
+              APP.OnFire.fire('newPost', result.data);
+              APP.Notify({message: '动态发布成功', type: 'primary'});
+            } else {
+              APP.Notify({message: '动态创建成功 \n 管理审核通过后将发布', type: 'warning'});
+            }
+          }
+        });
+      });
+    }).finally(() => {
+      wx.hideLoading();
+    });
   },
 });

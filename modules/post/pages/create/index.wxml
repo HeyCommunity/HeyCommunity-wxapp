@@ -46,7 +46,7 @@
     </view>
 
     <view id="section-options">
-      <button class="btn-submit cu-btn bg-blue lg round margin-top-sm" d-form-type="submit" bind:tap="createPost">发布</button>
+      <button class="btn-submit cu-btn bg-blue lg round margin-top-sm" d-form-type="submit" bind:tap="createPostHandler">发布</button>
     </view>
   </form>
 </view>
