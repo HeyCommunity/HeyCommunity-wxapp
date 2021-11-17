@@ -73,8 +73,8 @@
           "scene": null
         },
         {
-          "name": "[SYSTEM] 社区协议",
-          "pathName": "modules/system/pages/term/index",
+          "name": "[SYSTEM] 社区准则",
+          "pathName": "modules/system/pages/regulation/index",
           "query": "",
           "scene": null
         }

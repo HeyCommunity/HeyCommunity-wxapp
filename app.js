@@ -41,8 +41,13 @@ App({
     this.globalData.wxappName = ENV.wxappName;                                                    // 当前小程序名称
     this.globalData.wxappSlogan = ENV.wxappSlogan;                                                // 当前小程序口号
     this.globalData.wxappAccountInfo = wx.getAccountInfoSync();                                   // 当前小程序帐号信息
-    this.globalData.wxappVersion = this.globalData.wxappAccountInfo.miniProgram.version;          // 当前小程序版本号
-    if (! this.globalData.wxappVersion) this.globalData.wxappVersion = this.globalData.wxappAccountInfo.miniProgram.envVersion;
+    this.globalData.wxappVersion = this.globalData.wxappAccountInfo.miniProgram.envVersion;       // 当前小程序版本号
+    if (this.globalData.envVersion === 'release') this.globalData.wxappVersion = 'v' + this.globalData.wxappAccountInfo.miniProgram.version;
+
+    // SystemSettings
+    this.REQUEST.GET('system/settings', {}, {showRequestFailModal: false}).then(function(result) {
+      _this.globalData.systemSettings = result.data;
+    });
 
     // 恢复用户及登录状态
     AUTH.restoreLogin(_this).then(function(result) {
@@ -62,11 +67,6 @@ App({
       });
     }).finally(function() {
       if (_this.authInitedCallback) _this.authInitedCallback();
-    });
-
-    // SystemSettings
-    this.REQUEST.GET('system/settings', {}, {showRequestFailModal: false}).then(function(result) {
-      _this.globalData.systemSettings = result.data;
     });
   },
 

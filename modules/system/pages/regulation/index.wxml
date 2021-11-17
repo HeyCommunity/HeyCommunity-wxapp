@@ -1,0 +1,18 @@
+<view class="container">
+  <view wx:if="{{ regulation }}" class="margin-xs bg-white padding-xl">
+    <view class="margin-top-sm margin-bottom-sm">
+      <view class="text-center" style="font-size:50rpx; line-height:1.2em;">{{ regulation.title }}</view>
+    </view>
+    <view class="margin-top-lg">
+      <rich-text user-select nodes="{{ regulation.content }}"></rich-text>
+    </view>
+
+    <view class="margin-top">
+      <view></view>
+    </view>
+
+    <view class="margin-top-lg text-center">
+      ©2021 {{ appGlobalData.wxappName }}
+    </view>
+  </view>
+</view>
