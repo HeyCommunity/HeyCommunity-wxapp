@@ -13,7 +13,7 @@
 
     "modules/system/pages/heycommunity/index",
     "modules/system/pages/about/index",
-    "modules/system/pages/term/index",
+    "modules/system/pages/regulation/index",
     "modules/system/pages/web-page/index"
   ],
   "tabBar": {

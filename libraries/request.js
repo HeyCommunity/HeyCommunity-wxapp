@@ -174,7 +174,7 @@ const getRequestFailMessage = function(res) {
     if (res.data && res.data.errors) {
       message = res.data.errors[Object.keys(res.data.errors)[0]][0];
     } else {
-      message = res.data.message;
+      message = res.data.message ? res.data.message : '未知错误，请稍后再试';
     }
   }
 

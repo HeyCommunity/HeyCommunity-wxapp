@@ -98,22 +98,22 @@
         <text class="text-gray text-sm">{{ appGlobalData.wxappVersion }}</text>
       </view>
     </navigator>
-    <navigator class="cu-item arrow" url="/modules/system/pages/term/index">
+    <navigator class="cu-item arrow" url="/modules/system/pages/regulation/index">
       <view class="content">
         <text class="cuIcon-formfill text-brown"></text>
-        <text class="text-grey">社区协议</text>
+        <text class="text-grey">社区准则</text>
       </view>
       <view class="action">
-        <text class="text-gray text-sm">社区规章制度</text>
+        <text class="text-gray text-sm">社交行为规范</text>
       </view>
     </navigator>
     <button class="cu-item arrow" open-type="contact">
       <view class="content">
         <text class="cuIcon-servicefill text-green"></text>
-        <text class="text-grey">联系客服</text>
+        <text class="text-grey">联系我们</text>
       </view>
       <view class="action">
-        <text class="text-gray text-sm">7x24 小时在线</text>
+        <text class="text-gray text-sm">在线</text>
       </view>
     </button>
     <button class="cu-item arrow" open-type="feedback">
@@ -143,9 +143,7 @@
     </navigator>
   </view>
 
-  <!-- 版权和版本信息 -->
-  <!-- 开源不易，请保留版权信息 -->
-  <!-- 官方网站: www.heycommunity.com -->
+  <!-- 版权和版本信息，开源不易，请保留版权信息。官方网站: www.heycommunity.com -->
   <view id="section-copyright">
     <navigator class="text-center text-gray padding-bottom-xl padding-top-lg" url="/modules/system/pages/heycommunity/index">
       <view>HeyCommunity {{ appGlobalData.hcInfo.version }}</view>
