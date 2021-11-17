@@ -44,6 +44,11 @@ App({
     this.globalData.wxappVersion = this.globalData.wxappAccountInfo.miniProgram.version;          // 当前小程序版本号
     if (! this.globalData.wxappVersion) this.globalData.wxappVersion = this.globalData.wxappAccountInfo.miniProgram.envVersion;
 
+    // SystemSettings
+    this.REQUEST.GET('system/settings', {}, {showRequestFailModal: false}).then(function(result) {
+      _this.globalData.systemSettings = result.data;
+    });
+
     // 恢复用户及登录状态
     AUTH.restoreLogin(_this).then(function(result) {
       _this.Notify({message: result.data.nickname + ', 欢迎回来', type: 'primary'});
@@ -62,11 +67,6 @@ App({
       });
     }).finally(function() {
       if (_this.authInitedCallback) _this.authInitedCallback();
-    });
-
-    // SystemSettings
-    this.REQUEST.GET('system/settings', {}, {showRequestFailModal: false}).then(function(result) {
-      _this.globalData.systemSettings = result.data;
     });
   },
 
