@@ -5,43 +5,62 @@
 // ===
 // ===========================================================================================
 
+
 //
 // 设置 HeyCommunity 信息
 // ==================================================
 let hcInfo = {
-  version: 'v.0.1.x',
+  version: 'v.0.2.x',
 };
 
 
 //
-// 设置 wxappName
-// 如果存在 env.local.js，则使用这个文件的 appName
+// 配置源，默认使用当前文件
+// 优先级: (/ext.json) > (/env.local.js) > (/libraries/env.js)
+// ==================================================
+let extConfig = wx.getExtConfigSync();
+let envLocal = {};
+try {
+  envLocal = require('../env.local.js');
+  console.debug('启用 /env.local.js 文件配置');
+} catch (exception) {
+  console.debug('/env.local.js 不存在，启用 /libraries/env.js 文件配置');
+}
+
+
+//
+// 设置 wxappName 和 wxappSlogan
 // ==================================================
 let wxappName = 'HEY社区';
 let wxappSlogan = '简单交流十分美好';
-try {
-  let envLocal = require('../env.local.js');
+if (extConfig.wxappName) {
+  wxappName = extConfig.wxappName;
+  wxappSlogan = extConfig.wxappSlogan;
+  console.debug('使用 /ext.json wxappName: ' + wxappName);
+  console.debug('使用 /ext.json wxappSlogan: ' + wxappSlogan);
+} else if (envLocal && envLocal.wxappName) {
   wxappName = envLocal.wxappName;
   wxappSlogan = envLocal.wxappSlogan;
-  console.debug('使用 env.local.js wxappName: ' + wxappName);
-  console.debug('使用 env.local.js wxappSlogan: ' + wxappSlogan);
-} catch (exception) {
-  console.debug('使用 /utils/env.js wxappName: ' + wxappName);
-  console.debug('使用 /utils/env.js wxappSlogan: ' + wxappSlogan);
+  console.debug('使用 /env.local.js wxappName: ' + wxappName);
+  console.debug('使用 /env.local.js wxappSlogan: ' + wxappSlogan);
+} else {
+  console.debug('使用 /libraries/env.js wxappName: ' + wxappName);
+  console.debug('使用 /libraries/env.js wxappSlogan: ' + wxappSlogan);
 }
 
 
 //
 // 设置 apiDomain
-// 如果存在 env.local.js，则使用这个文件的 apiDomain
 // ==================================================
 let apiDomain = 'https://dev.api.heycommunity.com';
-try {
-  let envLocal = require('../env.local.js');
+if (extConfig.apiDomain) {
+  apiDomain = extConfig.apiDomain;
+  console.debug('使用 /ext.json apiDomain: ' + apiDomain);
+} else if (envLocal && envLocal.apiDomain) {
   apiDomain = envLocal.apiDomain;
-  console.debug('使用 env.local.js apiDomain: ' + apiDomain);
-} catch (exception) {
-  console.debug('使用 /utils/env.js apiDomain: ' + apiDomain);
+  console.debug('使用 /env.local.js apiDomain: ' + apiDomain);
+} else {
+  console.debug('使用 /libraries/env.js apiDomain: ' + apiDomain);
 }
 
 

@@ -1,0 +1,10 @@
+{
+  "extEnable": false,
+  "extAppid": "wxbfb0f224688b7291",
+  "directCommit": false,
+  "ext": {
+    "wxappName": "HEY社区",
+    "wxappSlogan": "简单交流十分美好",
+    "apiDomain": "https://dev.api.heycommunity.com"
+  }
+}
