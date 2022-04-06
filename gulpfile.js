@@ -29,6 +29,7 @@ function sassTask(cb) {
 function sassWatchTask(cb) {
   watchSass(['./modules/**/*.scss'])
     .pipe(sass().on('error', sass.logError))
+    .pipe(cleanCSS({compatibility: 'ie8'}))
     .pipe(rename({
       extname: '.wxss'
     }))
@@ -40,4 +41,4 @@ function sassWatchTask(cb) {
 
 exports.default = sassTask;
 exports.sass = sassTask;
-exports.sassWatch = sassWatchTask;
+exports['sass:watch'] = sassWatchTask;
