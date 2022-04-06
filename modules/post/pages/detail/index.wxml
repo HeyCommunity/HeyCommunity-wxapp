@@ -3,7 +3,7 @@
 <view id="page-posts-detail" class="container-full" wx:if="{{ post }}">
   <!-- 动态卡片 -->
   <!-- TODO: 重构 PostItem 组件 -->
-  <post-item post="{{ post }}" action-bar-visible="{{ false }}" />
+  <post-item post="{{ post }}" contentFullText="{{ true }}" action-bar-visible="{{ false }}" />
 
   <!-- 点赞和评论列表 -->
   <view id="section-tabs" class="margin-top-sm">

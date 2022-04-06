@@ -22,7 +22,8 @@
       <!-- 内容与图片 -->
       <view class="part-content">
         <view wx:if="{{ post.content_preview }}" class="area-text padding-lr margin-bottom-sm">
-          <text user-select="true">{{ post.content_preview }}</text>
+          <text wx:if="{{ ! contentFullText }}" user-select="true">{{ post.content_preview }}</text>
+          <text wx:else user-select="true">{{ post.content }}</text>
         </view>
 
         <!-- 动态图片 -->

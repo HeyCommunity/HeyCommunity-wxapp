@@ -10,6 +10,10 @@ Component({
     post: Object,
     postIndex: Number,
 
+    contentFullText: {
+      type: Boolean,
+      value: false,
+    },
     actionBarVisible: {
       type: Boolean,
       value: true,
