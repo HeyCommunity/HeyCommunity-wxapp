@@ -11,8 +11,8 @@
     "gulp-clean-css": "^4.3.0",
     "gulp-rename": "^2.0.0",
     "gulp-sass": "^5.1.0",
-    "gulp-util": "^3.0.8",
-    "gulp-watch-sass": "^1.4.1",
+    "gulp-tap": "^2.0.0",
+    "path": "^0.12.7",
     "sass": "^1.49.11"
   },
   "scripts": {
