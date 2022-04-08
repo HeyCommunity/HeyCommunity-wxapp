@@ -1,41 +1,54 @@
 const gulp = require('gulp');
-const sass = require('gulp-sass');
+const path = require('path');
+
+const sass = require('gulp-sass')(require('sass'));
+
+const cleanCSS = require('gulp-clean-css');
 const rename = require('gulp-rename');
-const watchSass = require("gulp-watch-sass");
+const tap = require('gulp-tap');
 
 /**
- * sassTask
+ * sass globs
+ */
+const sassGlobs = ['./modules/**/*.scss'];
+
+/**
+ * sassSpecifyFile
  *
- * @param cb
+ * sass 编译指定的文件
+ */
+function sassSpecifyFile(filePath) {
+  let dirPath = path.dirname(filePath);
+
+  return gulp.src(filePath)
+    .pipe(sass().on('error', sass.logError))
+    .pipe(cleanCSS({compatibility: 'ie8'}))
+    .pipe(rename({extname: '.wxss'}))
+    .pipe(gulp.dest(dirPath));
+}
+
+/**
+ * sass (所有文件)编译任务
  */
 function sassTask(cb) {
-  gulp.src('./modules/**/*.scss')
-    .pipe(sass().on('error', sass.logError))
-    .pipe(rename({
-      extname: '.wxss'
-    }))
-    .pipe(gulp.dest('./modules'));
+  gulp.src(sassGlobs).pipe(tap(function(file, t) { return sassSpecifyFile(file.path); }));
 
   cb();
 }
 
 /**
- * sassWatchTask
- *
- * @param cb
+ * sass 新增和更改监听任务
  */
 function sassWatchTask(cb) {
-  watchSass(['./modules/**/*.scss'])
-    .pipe(sass().on('error', sass.logError))
-    .pipe(rename({
-      extname: '.wxss'
-    }))
-    .pipe(gulp.dest('./modules'));
+  let sassWatcher = gulp.watch(sassGlobs);
+
+  sassWatcher.on('add', function(path) { sassSpecifyFile(path); });
+  sassWatcher.on('change', function(path) { sassSpecifyFile(path); });
 
   cb();
 }
 
 
-exports.default = sassWatchTask;
+exports.default = sassTask;
 exports.sass = sassTask;
-exports.sassWatch = sassWatchTask;
+exports['sass:watch'] = sassWatchTask;
