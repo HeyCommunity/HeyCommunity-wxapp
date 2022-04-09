@@ -1,7 +1,7 @@
 {
   "name": "heycommunity-wxapp",
   "version": "1.0.0",
-  "description": "",
+  "description": "HeyCommunity wechat mini program",
   "main": "app.js",
   "dependencies": {
     "@vant/weapp": "^1.6.8"
