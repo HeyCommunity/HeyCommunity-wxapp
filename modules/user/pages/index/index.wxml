@@ -107,6 +107,20 @@
         <text class="text-gray text-sm">社交行为规范</text>
       </view>
     </navigator>
+    <!-- 微信客服: https://developer.work.weixin.qq.com/document/path/94739 -->
+    <!-- 如果没有企业微信，可以使用下方的小程序客服 -->
+    <button class="cu-item arrow" bind:tap="gotoCustomerServicePage">
+      <view class="content">
+        <text class="cuIcon-servicefill text-green"></text>
+        <text class="text-grey">微信客服</text>
+      </view>
+      <view class="action">
+        <text class="text-gray text-sm">在线</text>
+      </view>
+    </button>
+    <!-- 小程序客服, 使用上方微信客服替代 -->
+    <!-- 如果没有企业微信，那么可以使用此小程序客服 -->
+    <!--
     <button class="cu-item arrow" open-type="contact">
       <view class="content">
         <text class="cuIcon-servicefill text-green"></text>
@@ -116,6 +130,7 @@
         <text class="text-gray text-sm">在线</text>
       </view>
     </button>
+    -->
     <button class="cu-item arrow" open-type="feedback">
       <view class="content">
         <text class="cuIcon-writefill text-cyan"></text>

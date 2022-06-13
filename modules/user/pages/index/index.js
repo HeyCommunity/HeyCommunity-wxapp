@@ -56,6 +56,16 @@ Page({
   },
 
   /**
+   * goto 微信客服页
+   */
+  gotoCustomerServicePage() {
+    wx.openCustomerServiceChat({
+      extInfo: {url: 'https://work.weixin.qq.com/kfid/kfc7c6ec02919b92d1b'},
+      corpId: 'wwe1ddc5c6a7b1f32b',
+    });
+  },
+
+  /**
    * logoutHandler
    */
   logoutHandler() {
