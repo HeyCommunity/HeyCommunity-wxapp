@@ -1,0 +1,25 @@
+<view class="container">
+  <view class="margin-xs bg-white padding-xl">
+    <view class="margin-top-sm margin-bottom-sm">
+      <view class="text-center" style="font-size:50rpx; line-height:1.2em;">产品交流群</view>
+    </view>
+
+    <view class="text-center margin-top-xs">
+      <view>长按下方二维码保存或转发给朋友</view>
+      <view>然后在微信中识别打开</view>
+    </view>
+
+    <view class="margin-top">
+      <image mode="aspectFit" show-menu-by-longpress="{{ true }}" src="images/HeyCommunity-chat-group-qrcode-wxapp.png"></image>
+    </view>
+
+    <view class="margin-top-lg text-center">
+      <view>电子邮箱: supgeek.rod@gmail.com</view>
+      <view>官方网站: www.heycommunity.com</view>
+    </view>
+
+    <view class="margin-top-lg text-center">
+      ©2021 HeyCommunity
+    </view>
+  </view>
+</view>

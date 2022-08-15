@@ -131,6 +131,15 @@
       </view>
     </button>
     -->
+    <navigator class="cu-item arrow" url="/modules/system/pages/chat-group/index">
+      <view class="content">
+        <text class="cuIcon-group_fill text-orange"></text>
+        <text class="text-grey">产品交流</text>
+      </view>
+      <view class="action">
+        <text class="text-gray text-sm">加入官方产品交流群</text>
+      </view>
+    </navigator>
     <button class="cu-item arrow" open-type="feedback">
       <view class="content">
         <text class="cuIcon-writefill text-cyan"></text>
