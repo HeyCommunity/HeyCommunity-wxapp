@@ -29,11 +29,14 @@ const request = function(type, path, params, configs) {
   let apiToken = APP ? APP.globalData.apiToken : '';
   if (configs.apiToken) apiToken = configs.apiToken;
 
+  let apiTrackToken = APP ? APP.globalData.apiTrackToken : '';
+
   return new Promise(function(resolve, reject) {
     wx.request({
       method: type,
       header: {
         'Authorization': 'Bearer ' + apiToken,
+        'TrackToken': '' + apiTrackToken,
         'Accept': 'application/json',
       },
       url: makeApiPath(path),

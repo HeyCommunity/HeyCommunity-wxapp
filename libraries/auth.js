@@ -4,6 +4,34 @@
 const userPingTimeout = 1000 * 30;
 
 /**
+ * 启用用户追踪
+ */
+const enableUserTrack = function() {
+  let handler = function (code) {
+    let APP = getApp();
+
+    return new Promise(function(resolve, reject) {
+      // 获取 token
+      APP.REQUEST.POST('users/wxapp-signup', {code: code}).then(function(result) {
+        APP.globalData.apiTrackToken = result.data.token;
+
+        console.debug('启用 UserTrack:', result.data.token);
+        resolve(result);
+      }).catch(function(result, res) {
+        console.error('启用 UserTrack: 失败', result, res);
+        reject(result, res);
+      });
+    });
+  }
+
+  wx.login({
+    success: function (res) {
+      return handler(res.code);
+    }
+  });
+}
+
+/**
  * 用户登录
   */
 const userLogin = function(code, userInfo) {
@@ -11,7 +39,7 @@ const userLogin = function(code, userInfo) {
 
   return new Promise(function(resolve, reject) {
     // 获取 token
-    APP.REQUEST.GET('users/login', {code: code, user_info: userInfo}).then(function(result) {
+    APP.REQUEST.POST('users/wxapp-login', {code: code, user_info: userInfo}).then(function(result) {
       APP.globalData.apiToken = result.data.token;
       APP.globalData.isAuth = true;
       APP.globalData.userInfo = result.data;
@@ -22,9 +50,10 @@ const userLogin = function(code, userInfo) {
         data: APP.globalData.apiToken,
       });
 
-      userPingRun();
-      APP.resetNoticeBadgeAtTabBar();
       console.debug('登录成功: ' + APP.globalData.userInfo.nickname + '(' + APP.globalData.userInfo.id + ')', APP.globalData.userInfo);
+      startUserPing();                      // 恢复登录成功，开始 UserPing
+      APP.resetNoticeBadgeAtTabBar();       // 重置 TabBar 中的通知角标数
+
       resolve(result);
     }).catch(function(result, res) {
       console.debug('登录失败', result, res);
@@ -43,19 +72,20 @@ const restoreLogin = function(APP) {
   return new Promise(function(resolve, reject) {
     if (apiToken) {
       APP.globalData.apiToken = apiToken;
-      APP.REQUEST.GET('users/mine', {}, {
+      APP.REQUEST.POST('users/wxapp-restore-login', {}, {
         apiToken: apiToken,
-        showRequestFailModal: false
+        showRequestFailModal: false,
       }).then(function(result) {
         APP.globalData.isAuth = true;
         APP.globalData.userInfo = result.data;
 
-        userPingRun();
-        APP.resetNoticeBadgeAtTabBar();
-        console.debug('恢复登录状态: ' + result.data.nickname + '(' + result.data.id + ')', APP.globalData.userInfo);
+        console.debug('恢复登录状态成功: ' + result.data.nickname + '(' + result.data.id + ')', APP.globalData.userInfo);
+        startUserPing();                      // 恢复登录成功，开始 UserPing
+        APP.resetNoticeBadgeAtTabBar();       // 重置 TabBar 中的通知角标数
+
         resolve(result);
       }).catch(function(res) {
-        console.debug('恢复登录状态失败', res);
+        console.debug('恢复登录状态失败:', res);
         reject(res);
       });
     } else {
@@ -76,8 +106,8 @@ const userLogout = function() {
     APP.globalData.userInfo = null;
     wx.removeStorage({key: 'apiToken'});
 
-    userPingStop();
-    APP.resetNoticeBadgeAtTabBar();
+    stopUserPing();                       // 停止 UserPing
+    APP.resetNoticeBadgeAtTabBar();       // 重置 TabBar 中的通知角标数
 
     APP.REQUEST.POST('users/logout').then(function(result, res) {
       resolve(result, res);
@@ -107,9 +137,9 @@ const syncWechatUserInfo = function(wechatUserInfo) {
 };
 
 /**
- * UserPing Run
+ * UserPing
  */
-const userPingRun = function() {
+const startUserPing = function() {
   let APP = getApp();
 
   APP.userPingInterval = setInterval(function() {
@@ -119,7 +149,7 @@ const userPingRun = function() {
     });
   }, userPingTimeout);
 
-  console.debug('UserPing Run');
+  console.debug('start UserPing');
 }
 
 /**
@@ -155,19 +185,20 @@ const userPingHandler = function(result) {
 }
 
 /**
- * UserPing Stop
+ * Stop UserPing
  */
-const userPingStop = function() {
+const stopUserPing = function() {
   let APP = getApp();
 
   if (APP.userPingInterval) {
     clearInterval(APP.userPingInterval);
   }
 
-  console.debug('UserPing Stop');
+  console.debug('stop UserPing');
 }
 
 module.exports = {
+  enableUserTrack,
   userLogin, userLogout,
   restoreLogin, syncWechatUserInfo,
 };
