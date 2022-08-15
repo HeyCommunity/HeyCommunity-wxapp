@@ -9,8 +9,8 @@ const wxappSlogan = '简单交流十分美好';
 // API Domain
 // ==================================================
 let apiDomain;
-const prodApiDomain = 'https://dev.api.heycommunity.com';
-const devApiDomain = 'https://dev.api.heycommunity.com';
+const prodApiDomain = 'https://demo.heycommunity.com';
+const devApiDomain = 'https://dev.heycommunity.com';
 const localApiDomain = 'http://127.0.0.1:8000';
 
 // 自定义 apiDomain
