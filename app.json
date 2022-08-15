@@ -46,10 +46,11 @@
     "van-button": "@vant/weapp/button/index"
   },
   "window": {
-    "backgroundTextStyle":"light",
-    "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "HeyCommunity",
-    "navigationBarTextStyle":"black"
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTextStyle":"black",
+    "backgroundColor": "#eeeeee",
+    "backgroundTextStyle": "light"
   },
   "sitemapLocation": "sitemap.json"
 }
