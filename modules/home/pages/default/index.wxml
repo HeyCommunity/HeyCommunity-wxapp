@@ -18,9 +18,9 @@
     <view id="part-menu" class="cu-list grid col-5">
       <navigator class="cu-item" url="/modules/system/pages/about/index"><view class="cuIcon-news text-blue"><text>社区介绍</text></view></navigator>
       <navigator class="cu-item" url="/modules/system/pages/regulation/index"><view class="cuIcon-read text-yellow"><text>社区准则</text></view></navigator>
-      <navigator class="cu-item" url="/modules/system/pages/about/index"><view class="cuIcon-friend text-cyan"><text>所有成员</text></view></navigator>
-      <navigator class="cu-item" url="/modules/system/pages/regulation/index"><view class="cuIcon-shop text-brown"><text>门店导航</text></view></navigator>
-      <button class="cu-item" open-type="contact"><view class="cuIcon-service text-green"><text>联系我们</text></view></button>
+      <view class="cu-item" bind:tap="switchTab" data-url="/modules/article/pages/index/index"><view class="cuIcon-form text-cyan"><text>文章</text></view></view>
+      <view class="cu-item" bind:tap="switchTab" data-url="/modules/post/pages/index/index"><view class="cuIcon-album text-brown"><text>动态</text></view></view>
+      <view class="cu-item" bind:tap="switchTab" data-url="/modules/activity/pages/index/index"><view class="cuIcon-calendar text-green"><text>活动</text></view></view>
     </view>
   </view>
 

@@ -117,4 +117,14 @@ Page({
 
     wx.navigateTo({url: url});
   },
+
+  /**
+   * 切换 Tab
+   */
+  switchTab(event) {
+    console.log(event);
+    wx.switchTab({
+      url: event.currentTarget.dataset.url,
+    });
+  },
 });
