@@ -7,6 +7,9 @@
     "modules/article/pages/index/index",
     "modules/article/pages/detail/index",
 
+    "modules/activity/pages/index/index",
+    "modules/activity/pages/detail/index",
+
     "modules/notice/pages/index/index",
 
     "modules/user/pages/index/index",
@@ -33,6 +36,11 @@
       "pagePath": "modules/article/pages/index/index",
       "iconPath": "/modules/article/assets/images/icon.png",
       "selectedIconPath": "/modules/article/assets/images/icon-active.png"
+    }, {
+      "text": "活动",
+      "pagePath": "modules/activity/pages/index/index",
+      "iconPath": "/modules/activity/assets/images/icon.png",
+      "selectedIconPath": "/modules/activity/assets/images/icon-active.png"
     }, {
       "text": "消息",
       "pagePath": "modules/notice/pages/index/index",
