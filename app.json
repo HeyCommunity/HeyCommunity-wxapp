@@ -4,6 +4,9 @@
     "modules/post/pages/detail/index",
     "modules/post/pages/create/index",
 
+    "modules/article/pages/index/index",
+    "modules/article/pages/detail/index",
+
     "modules/notice/pages/index/index",
 
     "modules/user/pages/index/index",
@@ -25,6 +28,11 @@
       "pagePath": "modules/post/pages/index/index",
       "iconPath": "/modules/post/assets/images/icon.png",
       "selectedIconPath": "/modules/post/assets/images/icon-active.png"
+    }, {
+      "text": "文章",
+      "pagePath": "modules/article/pages/index/index",
+      "iconPath": "/modules/article/assets/images/icon.png",
+      "selectedIconPath": "/modules/article/assets/images/icon-active.png"
     }, {
       "text": "消息",
       "pagePath": "modules/notice/pages/index/index",

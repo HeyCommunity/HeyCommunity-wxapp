@@ -1,0 +1,17 @@
+.item-article {
+  background-color: red;
+  .title {
+  }
+
+  .content {
+    height: 6.4em;
+    overflow: hidden;
+
+    .desc {
+      display: block !important;
+
+      .area-tags {
+      }
+    }
+  }
+}
