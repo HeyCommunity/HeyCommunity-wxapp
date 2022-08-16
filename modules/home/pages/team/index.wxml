@@ -132,4 +132,57 @@
       <view class="cu-btn block bg-blue round">我要加入</view>
     </view>
   </view>
+
+  <!-- 优秀成员 -->
+  <view id="section-good-members" class="margin-top">
+    <van-sticky container="{{ sectionGoodMembersElem }}">
+      <view class="cu-bar bg-white solids-bottom">
+        <view class="action">
+          <text class="cuIcon-titles text-blue"></text>
+          <text class="text text-black">优秀成员</text>
+        </view>
+        <view bind:tap="gotoArticleIndexPage" class="action">全部成员</view>
+      </view>
+    </van-sticky>
+  </view>
+  <view class="bg-white padding">
+    <view class="grid col-5 text-center">
+      <view class="item-user margin-bottom-sm" wx:for="{{ community.new_members }}" wx:key="id" wx:for-item="member">
+        <navigator url="/modules/user/pages/detail/index?id={{ member.id }}" class="cu-avatar lg round margin-lr-xs" style="background-image:url({{ member.user_avatar }});"></navigator>
+        <view><navigator url="/modules/user/pages/detail/index?id={{ member.id }}">{{ member.user_nickname }}</navigator></view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 新成员 -->
+  <view id="section-new-members" class="margin-top">
+    <van-sticky container="{{ sectionNewMembersElem }}">
+      <view class="cu-bar bg-white solids-bottom">
+        <view class="action">
+          <text class="cuIcon-titles text-blue"></text>
+          <text class="text text-black">新成员</text>
+        </view>
+        <view bind:tap="gotoArticleIndexPage" class="action">全部成员</view>
+      </view>
+    </van-sticky>
+  </view>
+  <view class="bg-white padding">
+    <view class="cu-avatar-group text-center d-block padding-0">
+      <block wx:for="{{ community.new_members }}" wx:for-item="member" wx:key="id">
+        <view class="cu-avatar round lg" style="background-image:url({{ member.user_avatar }});"></view>
+      </block>
+      <block wx:if="{{ community && community.new_members }}">
+      </block>
+    </view>
+  </view>
+
+  <!-- 操作项 -->
+  <view class="flex margin-top-xl padding-bottom-xl padding-lr">
+    <view class="flex-sub margin-right">
+      <view class="cu-btn block bg-gray round">社区介绍</view>
+    </view>
+    <view class="flex-twice">
+      <view class="cu-btn block bg-blue round">我要加入</view>
+    </view>
+  </view>
 </view>

@@ -1,6 +1,0 @@
-{
-  "navigationBarTitleText": "首页",
-  "usingComponents": {
-    "article-item": "/modules/article/components/article-item/index"
-  }
-}

@@ -1,10 +1,22 @@
 {
   "setting": {
-    "compileHotReLoad": true
+    "compileHotReLoad": false
   },
   "condition": {
     "miniprogram": {
       "list": [
+        {
+          "name": "[HOME] 首页 - 默认",
+          "pathName": "modules/home/pages/default/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "[HOME] 首页 - TEAM",
+          "pathName": "modules/home/pages/team/index",
+          "query": "",
+          "scene": null
+        },
         {
           "name": "[POST] 动态列表页",
           "pathName": "modules/post/pages/index/index",
