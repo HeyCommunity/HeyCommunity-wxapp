@@ -31,64 +31,41 @@
       <view class="cu-bar bg-white solids-bottom">
         <view class="action">
           <text class="cuIcon-titles text-blue"></text>
-          <text class="text text-black">最近动态和活动</text>
+          <text class="text text-black">推荐阅读</text>
         </view>
         <view class="action">
         </view>
       </view>
     </van-sticky>
 
-    <view class="item-post margin-bottom-sm">
-      <post-item post="{{ post1 }}" />
-      <comment-list comments="{{ post1.comments }}" bind:showCommentFormModalEvent="listenShowReplyCommentFormModalEvent" bind:updateCommentsDataEvent="listenUpdateCommentsDataEvent" />
-    </view>
-    <view class="item-post margin-bottom-sm">
-      <post-item post="{{ post2 }}" />
-      <comment-list comments="{{ post2.comments }}" bind:showCommentFormModalEvent="listenShowReplyCommentFormModalEvent" bind:updateCommentsDataEvent="listenUpdateCommentsDataEvent" />
-    </view>
-    <view class="item-post margin-bottom-sm">
-      <post-item post="{{ post3 }}" />
-      <comment-list comments="{{ post3.comments }}" bind:showCommentFormModalEvent="listenShowReplyCommentFormModalEvent" bind:updateCommentsDataEvent="listenUpdateCommentsDataEvent" />
-    </view>
-
-    <view class="item-activity margin-bottom-sm">
-      <!-- Header -->
-      <view class="part-header cu-list menu-avatar">
-        <view class="cu-item">
-          <navigator class="cu-avatar round lg" url="/modules/user/pages/detail/index?id={{ post.user_id }}" style="background-image:url('{{ post.user_avatar }}');"></navigator>
-          <view class="content flex-sub">
-            <view><navigator url="/modules/user/pages/detail/index?id={{ post.user_id }}">{{ post.user_nickname }}</navigator></view>
-            <view class="text-gray text-sm flex justify-between">{{ post.created_at_for_humans }}</view>
-          </view>
-          <!-- TODO: 先禁用 ActionSheet
-          <view>
-            <button class="btn-more cu-btn bg-white icon" bind:tap="showActionSheet">
-              <text class="cuIcon-unfold"></text>
-            </button>
-          </view>
-          -->
-        </view>
+    <block wx:for="{{ feeds }}" wx:key="id" wx:for-item="feed" wx:for-index="feedIndex">
+      <view wx:if="{{ feed.id < 10 }}" class="item-post margin-bottom-sm">
+        <post-item post="{{ feed }}" />
+        <comment-list comments="{{ feed.comments }}" bind:showCommentFormModalEvent="listenShowReplyCommentFormModalEvent" bind:updateCommentsDataEvent="listenUpdateCommentsDataEvent" />
       </view>
-      <view class="cu-card no-card case activity-card">
-        <navigator url="/modules/activity/pages/detail/index?id={{ activity.id }}" class="cu-item shadow">
-          <view class="image" style="margin-top:10rpx">
-            <image class="img-cover" style="max-height:300rpx" src="{{ activity.cover }}" mode="aspectFill" lazy-load></image>
-            <view class="cu-tag {{ activity.is_expired ? 'bg-gray' : 'bg-blue' }}">{{ activity.countdown_for_humans }}</view>
-            <view class="cu-bar bg-shadeBottom">
-              <text class="text-cut"></text>
-            </view>
-          </view>
-          <view class="cu-list">
-            <view class="cu-item padding-lr padding-tb-sm">
-              <view class="t-title text-lg text-black text-bold">{{ activity.title }}</view>
-              <view class="text-sm flex justify-between">
-                <view class="t-address"><text class="cuIcon-location"></text> {{ activity.address_name }}</view>
-                <view class="t-time"><text class="cuIcon-time"></text> {{ activity.started_at }}</view>
+
+      <view wx:if="{{ feed.id >= 20 }}" class="item-activity margin-bottom-sm">
+        <view class="cu-card no-card case activity-card solids-top">
+          <navigator url="/modules/activity/pages/detail/index?id={{ feed.id }}" class="cu-item shadow">
+            <view class="image margin-top-sm" style="margin:0; margin-left:0; margin-right:0; border-radius:0;">
+              <image class="img-cover" style="max-height:400rpx" src="{{ feed.cover }}" mode="aspectFill" lazy-load></image>
+              <view class="cu-tag {{ activity.is_expired ? 'bg-gray' : 'bg-blue' }}">{{ feed.countdown_for_humans }}</view>
+              <view class="cu-bar bg-shadeBottom">
+                <text class="text-cut"></text>
               </view>
             </view>
-          </view>
-        </navigator>
+            <view class="cu-list">
+              <view class="cu-item padding-lr padding-tb-sm">
+                <view class="t-title text-lg text-black text-bold">{{ feed.title }}</view>
+                <view class="text-sm flex justify-between">
+                  <view class="t-address"><text class="cuIcon-location"></text> {{ feed.address_name }}</view>
+                  <view class="t-time"><text class="cuIcon-time"></text> {{ feed.started_at }}</view>
+                </view>
+              </view>
+            </view>
+          </navigator>
+        </view>
       </view>
-    </view>
+    </block>
   </view>
 </view>

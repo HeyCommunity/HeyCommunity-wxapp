@@ -6,6 +6,7 @@ Page({
     sectionHeaderElem: null,
     sectionContentElem: null,
 
+    feeds: [],
     banners: [
       {id: 1, imagePath: APP.ENV.apiDomain + '/images/wxapp/banners/1.png', url: null},
       {id: 2, imagePath: APP.ENV.apiDomain + '/images/wxapp/banners/2.png', url: null},
@@ -29,7 +30,15 @@ Page({
     }
 
     // 获取动态用于测试
-    APP.REQUEST.GET('posts/1').then(function(result) { _this.setData({post: result.data}); });
+    APP.REQUEST.GET('posts/1').then(function(result) { _this.setData({feeds: _this.data.feeds.concat(result.data)}); });
+    APP.REQUEST.GET('articles/11').then(function(result) { _this.setData({feeds: _this.data.feeds.concat(result.data)}); });
+    APP.REQUEST.GET('posts/2').then(function(result) { _this.setData({feeds: _this.data.feeds.concat(result.data)}); });
+    APP.REQUEST.GET('activities/20').then(function(result) { _this.setData({feeds: _this.data.feeds.concat(result.data)}); });
+    APP.REQUEST.GET('posts/3').then(function(result) { _this.setData({feeds: _this.data.feeds.concat(result.data)}); });
+    APP.REQUEST.GET('articles/12').then(function(result) { _this.setData({feeds: _this.data.feeds.concat(result.data)}); });
+    APP.REQUEST.GET('activities/20').then(function(result) { _this.setData({feeds: _this.data.feeds.concat(result.data)}); });
+    APP.REQUEST.GET('posts/4').then(function(result) { _this.setData({feeds: _this.data.feeds.concat(result.data)}); });
+
     APP.REQUEST.GET('posts/1').then(function(result) { _this.setData({post1: result.data}); });
     APP.REQUEST.GET('posts/13').then(function(result) { _this.setData({post2: result.data}); });
     APP.REQUEST.GET('posts/10').then(function(result) { _this.setData({post3: result.data}); });
