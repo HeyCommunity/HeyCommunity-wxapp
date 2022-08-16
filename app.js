@@ -14,7 +14,7 @@ App({
   WXLog: WXLog,
 
   // 通知数角标在 TabBar 的位置
-  noticeBadgeAtTabBarIndex: 1,
+  noticeBadgeAtTabBarIndex: 4,
   noticeTabBarPageUrl: 'modules/notice/index/index',
 
   globalData: {
@@ -88,7 +88,7 @@ App({
     // 如果已登录且未读通知数大于 0
     if (this.globalData.isAuth && this.globalData.userInfo.unread_notice_num) {
       wx.setTabBarBadge({
-        index: 1,
+        index: this.noticeBadgeAtTabBarIndex,
         text: String(this.globalData.userInfo.unread_notice_num),
       });
       console.debug('resetNoticeBadgeAtTabBar: unread_notice_num => ' + this.globalData.userInfo.unread_notice_num);
