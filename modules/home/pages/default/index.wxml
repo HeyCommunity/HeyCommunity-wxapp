@@ -38,34 +38,46 @@
       </view>
     </van-sticky>
 
+    <block wx:if="{{ feeds.length <= 0 }}">
+      <van-empty description="没有内容"></van-empty>
+    </block>
     <block wx:for="{{ feeds }}" wx:key="id" wx:for-item="feed" wx:for-index="feedIndex">
-      <view wx:if="{{ feed.id < 10 }}" class="item-post margin-bottom-sm">
-        <post-item post="{{ feed }}" />
-        <comment-list comments="{{ feed.comments }}" bind:showCommentFormModalEvent="listenShowReplyCommentFormModalEvent" bind:updateCommentsDataEvent="listenUpdateCommentsDataEvent" />
-      </view>
+      <block wx:if="{{ feed.entity_class === 'Modules\\Post\\Entities\\Post' }}">
+        <view class="item-post margin-bottom-sm">
+          <post-item post="{{ feed.entity }}" contentFullText="{{ false }}" action-bar-visible="{{ true }}" />
+        </view>
+      </block>
 
-      <view wx:if="{{ feed.id >= 20 }}" class="item-activity margin-bottom-sm">
-        <view class="cu-card no-card case activity-card solids-top">
-          <navigator url="/modules/activity/pages/detail/index?id={{ feed.id }}" class="cu-item shadow">
-            <view class="image margin-top-sm" style="margin:0; margin-left:0; margin-right:0; border-radius:0;">
-              <image class="img-cover" style="max-height:400rpx" src="{{ feed.cover }}" mode="aspectFill" lazy-load></image>
-              <view class="cu-tag {{ activity.is_expired ? 'bg-gray' : 'bg-blue' }}">{{ feed.countdown_for_humans }}</view>
-              <view class="cu-bar bg-shadeBottom">
-                <text class="text-cut"></text>
-              </view>
-            </view>
-            <view class="cu-list">
-              <view class="cu-item padding-lr padding-tb-sm">
-                <view class="t-title text-lg text-black text-bold">{{ feed.title }}</view>
-                <view class="text-sm flex justify-between">
-                  <view class="t-address"><text class="cuIcon-location"></text> {{ feed.address_name }}</view>
-                  <view class="t-time"><text class="cuIcon-time"></text> {{ feed.started_at }}</view>
+      <block wx:if="{{ feed.entity_class === 'Modules\\Article\\Entities\\Article' }}">
+        <view class="item-article margin-bottom-sm">
+          <article-item article="{{ feed.entity }}"></article-item>
+        </view>
+      </block>
+
+      <block wx:if="{{ feed.entity_class === 'Modules\\Activity\\Entities\\Activity' }}">
+        <view class="item-activity margin-bottom-sm">
+          <view class="cu-card no-card case activity-card solids-top">
+            <navigator url="/modules/activity/pages/detail/index?id={{ feed.entity.id }}" class="cu-item shadow">
+              <view class="image margin-top-sm" style="margin:0; margin-left:0; margin-right:0; border-radius:0;">
+                <image class="img-cover" style="max-height:400rpx" src="{{ feed.entity.cover }}" mode="aspectFill" lazy-load></image>
+                <view class="cu-tag {{ feed.entity.is_expired ? 'bg-gray' : 'bg-blue' }}">{{ feed.entity.countdown_for_humans }}</view>
+                <view class="cu-bar bg-shadeBottom">
+                  <text class="text-cut"></text>
                 </view>
               </view>
-            </view>
-          </navigator>
+              <view class="cu-list">
+                <view class="cu-item padding-lr padding-tb-sm">
+                  <view class="t-title text-lg text-black text-bold">{{ feed.entity.title }}</view>
+                  <view class="text-sm flex justify-between">
+                    <view class="t-address"><text class="cuIcon-location"></text> {{ feed.entity.address_name }}</view>
+                    <view class="t-time"><text class="cuIcon-time"></text> {{ feed.entity.started_at }}</view>
+                  </view>
+                </view>
+              </view>
+            </navigator>
+          </view>
         </view>
-      </view>
+      </block>
     </block>
   </view>
 </view>

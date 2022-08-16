@@ -1,17 +1,19 @@
 const APP = getApp();
+const PAGINATION = require('../../../../libraries/pagination.js');
 
 Page({
+  pagination: null,
   data: {
     appGlobalData: null,
     sectionHeaderElem: null,
     sectionContentElem: null,
 
-    feeds: [],
     banners: [
       {id: 1, imagePath: APP.ENV.apiDomain + '/images/wxapp/banners/1.png', url: null},
       {id: 2, imagePath: APP.ENV.apiDomain + '/images/wxapp/banners/2.png', url: null},
       {id: 3, imagePath: APP.ENV.apiDomain + '/images/wxapp/banners/3.png', url: null},
     ],
+    feeds: [],
   },
 
   /**
@@ -20,37 +22,22 @@ Page({
   onLoad() {
     let _this = this;
 
-    APP.authInitedCallback = function() {
-      _this.setData({appGlobalData: APP.globalData});
-    };
+    this.pagination = new PAGINATION({
+      apiPath: 'feeds',
+      dataKeyName: 'feeds',
+      pageThis: this,
+    });
 
     APP.getSystemSettingsSuccessCallback = function() {
       _this.setData({appGlobalData: APP.globalData});
       wx.setNavigationBarTitle({title: APP.globalData.wxappName});
     }
 
-    // 获取动态用于测试
-    APP.REQUEST.GET('posts/1').then(function(result) { _this.setData({feeds: _this.data.feeds.concat(result.data)}); });
-    APP.REQUEST.GET('articles/11').then(function(result) { _this.setData({feeds: _this.data.feeds.concat(result.data)}); });
-    APP.REQUEST.GET('posts/2').then(function(result) { _this.setData({feeds: _this.data.feeds.concat(result.data)}); });
-    APP.REQUEST.GET('activities/20').then(function(result) { _this.setData({feeds: _this.data.feeds.concat(result.data)}); });
-    APP.REQUEST.GET('posts/3').then(function(result) { _this.setData({feeds: _this.data.feeds.concat(result.data)}); });
-    APP.REQUEST.GET('articles/12').then(function(result) { _this.setData({feeds: _this.data.feeds.concat(result.data)}); });
-    APP.REQUEST.GET('activities/20').then(function(result) { _this.setData({feeds: _this.data.feeds.concat(result.data)}); });
-    APP.REQUEST.GET('posts/4').then(function(result) { _this.setData({feeds: _this.data.feeds.concat(result.data)}); });
+    APP.authInitedCallback = function() {
+      _this.setData({appGlobalData: APP.globalData});
 
-    APP.REQUEST.GET('posts/1').then(function(result) { _this.setData({post1: result.data}); });
-    APP.REQUEST.GET('posts/13').then(function(result) { _this.setData({post2: result.data}); });
-    APP.REQUEST.GET('posts/10').then(function(result) { _this.setData({post3: result.data}); });
-
-    APP.REQUEST.GET('activities/1').then(function(result) {
-      _this.setData({activity: result.data});
-    });
-
-    // 获取数据用于测试
-    APP.REQUEST.GET('users/1').then(function(result) {
-      _this.setData({userInfo: result.data});
-    });
+      _this.pagination.getFirstPageData();
+    };
   },
 
   /**
@@ -87,5 +74,21 @@ Page({
     wx.switchTab({
       url: event.currentTarget.dataset.url,
     });
+  },
+
+  /**
+   * 下拉刷新
+   */
+  onPullDownRefresh() {
+    this.pagination.getFirstPageData().finally(function() {
+      wx.stopPullDownRefresh();
+    });
+  },
+
+  /**
+   * 下拉加载更多
+   */
+  onReachBottom() {
+    this.pagination.getNextPageData();
   },
 });
