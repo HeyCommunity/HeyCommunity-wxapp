@@ -1,5 +1,9 @@
 {
   "pages":[
+    "modules/home/pages/index-club/index",
+    "modules/home/pages/home-club/index",
+    "modules/home/pages/index/index",
+
     "modules/post/pages/index/index",
     "modules/post/pages/detail/index",
     "modules/post/pages/create/index",

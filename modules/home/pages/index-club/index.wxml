@@ -1,0 +1,148 @@
+<van-notify id="van-notify"></van-notify>
+
+<view id="page-home-index-club" class="container-full">
+  <!-- 头部 -->
+  <view id="section-header">
+    <van-sticky container="{{ sectionHeaderElem }}">
+      <van-notice-bar wx:if="{{ appGlobalData.systemSettings.wxapp_index_page_marquee && appGlobalData.systemSettings.wxapp_index_page_marquee.enable }}"
+                      mode="link" delay="3" speed="30" color="#000000" background="#ffffff" left-icon="volume-o" text="{{ appGlobalData.systemSettings.wxapp_index_page_marquee.text }}"
+                      bind:click="gotoPage" data-url="{{ appGlobalData.systemSettings.wxapp_index_page_marquee.url }}">
+      </van-notice-bar>
+    </van-sticky>
+
+    <swiper class="screen-swiper square-dot" style="min-height:320rpx;" indicator-dots="true" circular="true" autoplay="true" interval="5000" duration="500">
+      <swiper-item wx:for="{{ banners }}" wx:for-item="banner" wx:key="*this">
+        <image src="{{ banner.imagePath }}" mode="aspectFit"></image>
+      </swiper-item>
+    </swiper>
+    <view id="part-menu" class="cu-list grid col-5">
+      <navigator class="cu-item" url="/modules/system/pages/about/index"><view class="cuIcon-news text-blue"><text>社区介绍</text></view></navigator>
+      <navigator class="cu-item" url="/modules/system/pages/regulation/index"><view class="cuIcon-read text-yellow"><text>社区准则</text></view></navigator>
+      <navigator class="cu-item" url="/modules/system/pages/about/index"><view class="cuIcon-friend text-cyan"><text>所有成员</text></view></navigator>
+      <navigator class="cu-item" url="/modules/system/pages/regulation/index"><view class="cuIcon-shop text-brown"><text>门店导航</text></view></navigator>
+      <button class="cu-item" open-type="contact"><view class="cuIcon-service text-green"><text>联系我们</text></view></button>
+    </view>
+  </view>
+
+  <!-- 最近动态和活动 -->
+  <view id="section-content" class="margin-top">
+    <van-sticky container="{{ sectionContentElem }}">
+      <view class="cu-bar bg-white solids-bottom">
+        <view class="action">
+          <text class="cuIcon-titles text-blue"></text>
+          <text class="text text-black">最近动态和活动</text>
+        </view>
+        <view class="action">
+        </view>
+      </view>
+    </van-sticky>
+
+    <view class="item-post margin-bottom-sm">
+      <post-item post="{{ post1 }}" />
+      <comment-list comments="{{ post1.comments }}" bind:showCommentFormModalEvent="listenShowReplyCommentFormModalEvent" bind:updateCommentsDataEvent="listenUpdateCommentsDataEvent" />
+    </view>
+    <view class="item-post margin-bottom-sm">
+      <post-item post="{{ post2 }}" />
+      <comment-list comments="{{ post2.comments }}" bind:showCommentFormModalEvent="listenShowReplyCommentFormModalEvent" bind:updateCommentsDataEvent="listenUpdateCommentsDataEvent" />
+    </view>
+    <view class="item-post margin-bottom-sm">
+      <post-item post="{{ post3 }}" />
+      <comment-list comments="{{ post3.comments }}" bind:showCommentFormModalEvent="listenShowReplyCommentFormModalEvent" bind:updateCommentsDataEvent="listenUpdateCommentsDataEvent" />
+    </view>
+
+    <view class="item-activity solids-top">
+      <!-- Header -->
+      <view class="part-header cu-list menu-avatar">
+        <view class="cu-item">
+          <navigator class="cu-avatar round lg" url="/modules/user/pages/detail/index?id={{ post.user_id }}" style="background-image:url('{{ post.user_avatar }}');"></navigator>
+          <view class="content flex-sub">
+            <view><navigator url="/modules/user/pages/detail/index?id={{ post.user_id }}">{{ post.user_nickname }}</navigator></view>
+            <view class="text-gray text-sm flex justify-between">{{ post.created_at_for_humans }}</view>
+          </view>
+          <!-- TODO: 先禁用 ActionSheet
+          <view>
+            <button class="btn-more cu-btn bg-white icon" bind:tap="showActionSheet">
+              <text class="cuIcon-unfold"></text>
+            </button>
+          </view>
+          -->
+        </view>
+      </view>
+      <view class="cu-card no-card case activity-card">
+        <navigator url="/modules/activity/pages/detail/index?id={{ activity.id }}" class="cu-item shadow">
+          <view class="image" style="margin-top:10rpx">
+            <image class="img-cover"
+                   style="max-height:300rpx"
+                   src="https://template.api.heycommunity.com/uploads/activities/covers/jfNYs3sPDobriLuNUOdnQqOCkR0AVGwzAgCOMhov.jpg" mode="aspectFill" lazy-load></image>
+            <view class="cu-tag {{ activity.is_expired ? 'bg-gray' : 'bg-blue' }}">3周后</view>
+            <view class="cu-bar bg-shadeBottom">
+              <text class="text-cut"></text>
+            </view>
+          </view>
+          <view class="cu-list">
+            <view class="cu-item padding-lr padding-tb-sm">
+              <view class="t-title text-lg text-black text-bold">{{ '壬寅虎年欢乐春节' }}</view>
+              <view class="text-sm flex justify-between">
+                <view class="t-address"><text class="cuIcon-location"></text> {{ '神州大地' }}</view>
+                <view class="t-time"><text class="cuIcon-time"></text> {{ '2022-01-31 00:00:00' }}</view>
+              </view>
+            </view>
+          </view>
+        </navigator>
+      </view>
+    </view>
+  </view>
+
+  <!-- 优秀成员 -->
+  <view id="section-good-members" class="margin-top">
+    <van-sticky container="{{ sectionGoodMembersElem }}">
+      <view class="cu-bar bg-white solids-bottom">
+        <view class="action">
+          <text class="cuIcon-titles text-blue"></text>
+          <text class="text text-black">优秀成员</text>
+        </view>
+        <view bind:tap="gotoArticleIndexPage" class="action">全部成员</view>
+      </view>
+    </van-sticky>
+  </view>
+  <view class="bg-white padding">
+    <view class="grid col-5 text-center">
+      <view class="item-user margin-bottom-sm" wx:for="{{ community.new_members }}" wx:key="id" wx:for-item="member">
+        <navigator url="/modules/user/pages/detail/index?id={{ member.id }}" class="cu-avatar lg round margin-lr-xs" style="background-image:url({{ member.user_avatar }});"></navigator>
+        <view><navigator url="/modules/user/pages/detail/index?id={{ member.id }}">{{ member.user_nickname }}</navigator></view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 新成员 -->
+  <view id="section-new-members" class="margin-top">
+    <van-sticky container="{{ sectionNewMembersElem }}">
+      <view class="cu-bar bg-white solids-bottom">
+        <view class="action">
+          <text class="cuIcon-titles text-blue"></text>
+          <text class="text text-black">新成员</text>
+        </view>
+        <view bind:tap="gotoArticleIndexPage" class="action">全部成员</view>
+      </view>
+    </van-sticky>
+  </view>
+  <view class="bg-white padding">
+    <view class="cu-avatar-group text-center d-block padding-0">
+      <block wx:for="{{ community.new_members }}" wx:for-item="member" wx:key="id">
+        <view class="cu-avatar round lg" style="background-image:url({{ member.user_avatar }});"></view>
+      </block>
+      <block wx:if="{{ community && community.new_members }}">
+      </block>
+    </view>
+  </view>
+
+  <!-- 操作项 -->
+  <view class="flex margin-top-xl padding-bottom-xl padding-lr">
+    <view class="flex-sub margin-right">
+      <view class="cu-btn block bg-gray round">社区介绍</view>
+    </view>
+    <view class="flex-twice">
+      <view class="cu-btn block bg-blue round">我要加入</view>
+    </view>
+  </view>
+</view>

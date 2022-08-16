@@ -1,0 +1,27 @@
+<van-notify id="van-notify"></van-notify>
+<view id="page-home-index" class="container-full">
+  <swiper class="screen-swiper square-dot" style="min-height:320rpx;" indicator-dots="true" circular="true" autoplay="true" interval="5000" duration="500">
+    <swiper-item wx:for="{{ banners }}" wx:for-item="banner" wx:key="id" bind:tap="gotoBannerDetailPage" data-url="{{ banner.url }}">
+      <image src="{{ banner.imagePath }}" mode="aspectFit"></image>
+    </swiper-item>
+  </swiper>
+
+  <view id="section-article" class="margin-top">
+    <view class="cu-bar bg-white solids-bottom">
+      <view class="action">
+        <text class="cuIcon-titles text-blue"></text>
+        <text class="text text-black">最新文章</text>
+      </view>
+      <view bind:tap="gotoArticleIndexPage" class="action">全部</view>
+    </view>
+
+    <!-- 文章列表 -->
+    <block wx:for="{{ articles }}" wx:key="id" wx:for-item="article">
+      <article-item article="{{ article }}"></article-item>
+    </block>
+
+    <view class="margin-lr padding-tb-lg padding-lr-xl">
+      <view bind:tap="gotoArticleIndexPage" class="cu-btn lg bg-blue block round">查看全部文章</view>
+    </view>
+  </view>
+</view>
