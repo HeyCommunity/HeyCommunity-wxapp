@@ -15,6 +15,7 @@
         <image src="{{ banner.imagePath }}" mode="aspectFit"></image>
       </swiper-item>
     </swiper>
+
     <view id="part-menu" class="cu-list grid col-5">
       <navigator class="cu-item" url="/modules/system/pages/about/index"><view class="cuIcon-news text-blue"><text>社区介绍</text></view></navigator>
       <navigator class="cu-item" url="/modules/system/pages/regulation/index"><view class="cuIcon-read text-yellow"><text>社区准则</text></view></navigator>

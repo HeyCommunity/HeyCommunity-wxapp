@@ -17,6 +17,10 @@ App({
   noticeBadgeAtTabBarIndex: 4,
   noticeTabBarPageUrl: 'modules/notice/index/index',
 
+  // callback
+  getSystemSettingsSuccessCallback: null,
+  authInitedCallback: null,
+
   globalData: {
     hcInfo: null,
     wxappAccountInfo: null,
@@ -48,6 +52,8 @@ App({
     // SystemSettings
     this.REQUEST.GET('system/settings', {}, {showRequestFailModal: false}).then(function(result) {
       _this.globalData.systemSettings = result.data;
+
+      if (_this.getSystemSettingsSuccessCallback) _this.getSystemSettingsSuccessCallback();
     });
 
     // 恢复用户及登录状态
