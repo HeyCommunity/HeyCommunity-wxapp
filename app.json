@@ -65,7 +65,7 @@
     "van-button": "@vant/weapp/button/index"
   },
   "window": {
-    "navigationBarTitleText": "HeyCommunity",
+    "navigationBarTitleText": "HEY社区",
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTextStyle":"black",
     "backgroundColor": "#eeeeee",
