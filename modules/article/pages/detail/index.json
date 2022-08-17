@@ -1,7 +1,6 @@
 {
   "navigationBarTitleText": "文章详情",
   "enablePullDownRefresh": true,
-  "onReachBottomDistance": 200,
   "usingComponents": {
     "van-divider": "@vant/weapp/divider/index",
     "comment-list": "../../../common/comment/components/comment-list/index",

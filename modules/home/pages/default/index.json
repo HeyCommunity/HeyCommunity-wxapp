@@ -1,7 +1,6 @@
 {
   "navigationBarTitleText": "首页",
   "enablePullDownRefresh": true,
-  "onReachBottomDistance": 200,
   "usingComponents": {
     "van-notice-bar": "@vant/weapp/notice-bar/index",
     "van-sticky": "@vant/weapp/sticky/index",

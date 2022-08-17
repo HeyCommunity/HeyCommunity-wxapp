@@ -1,9 +1,5 @@
 {
-  "navigationBarBackgroundColor": "#ffffff",
-  "navigationBarTextStyle": "black",
   "navigationBarTitleText": "活动详情",
-  "backgroundColor": "#eeeeee",
-  "backgroundTextStyle": "light",
   "enablePullDownRefresh": true,
   "usingComponents": {
     "comment-list": "../../../common/comment/components/comment-list/index",

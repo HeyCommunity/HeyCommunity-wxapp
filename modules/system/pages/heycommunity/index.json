@@ -1,9 +1,5 @@
 {
-  "navigationBarBackgroundColor": "#ffffff",
-  "navigationBarTextStyle": "black",
   "navigationBarTitleText": "HEY社区",
-  "backgroundColor": "#eeeeee",
-  "backgroundTextStyle": "light",
   "usingComponents": {
   }
 }

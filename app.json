@@ -69,7 +69,8 @@
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTextStyle":"black",
     "backgroundColor": "#eeeeee",
-    "backgroundTextStyle": "light"
+    "backgroundTextStyle": "light",
+    "onReachBottomDistance": 200
   },
   "sitemapLocation": "sitemap.json"
 }

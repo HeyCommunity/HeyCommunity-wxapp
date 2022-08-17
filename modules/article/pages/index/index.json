@@ -1,7 +1,6 @@
 {
   "navigationBarTitleText": "文章",
   "enablePullDownRefresh": true,
-  "onReachBottomDistance": 200,
   "usingComponents": {
     "van-sticky": "@vant/weapp/sticky/index",
     "article-item": "/modules/article/components/article-item/index"
