@@ -47,7 +47,7 @@ Page({
       _this.setData({userInfo: result.data});
 
       wx.setNavigationBarTitle({
-        title: result.data.nickname,
+        title: result.data.nickname + '的主页',
       });
     });
   },

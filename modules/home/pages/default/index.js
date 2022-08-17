@@ -91,4 +91,22 @@ Page({
   onReachBottom() {
     this.pagination.getNextPageData();
   },
+
+  /**
+   * 分享到聊天
+   */
+  onShareAppMessage() {
+    return {
+      title: APP.globalData.wxappName + ': ' + APP.globalData.wxappSlogan,
+    };
+  },
+
+  /**
+   * 分享到朋友圈
+   */
+  onShareTimeline() {
+    return {
+      title: APP.globalData.wxappName + ': ' + APP.globalData.wxappSlogan,
+    };
+  },
 });
