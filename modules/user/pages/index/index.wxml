@@ -184,7 +184,7 @@
   <view id="section-copyright">
     <navigator class="text-center text-gray padding-bottom-xl padding-top-lg" url="/modules/system/pages/heycommunity/index">
       <view>HeyCommunity {{ appGlobalData.hcInfo.version }}</view>
-      <view>Produced by supeRodv2 of ProtobiaTech</view>
+      <view>Made with peace and love by supeRodv2</view>
     </navigator>
   </view>
 </view>
