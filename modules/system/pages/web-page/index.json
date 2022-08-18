@@ -1,9 +1,5 @@
 {
-  "navigationBarBackgroundColor": "#ffffff",
-  "navigationBarTextStyle": "black",
   "navigationBarTitleText": "WebPage",
-  "backgroundColor": "#eeeeee",
-  "backgroundTextStyle": "light",
   "usingComponents": {
   }
 }

@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "文章详情",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "van-divider": "@vant/weapp/divider/index",
+    "comment-list": "../../../common/comment/components/comment-list/index",
+    "comment-form-modal": "../../../common/comment/components/comment-form-modal/index"
+  }
+}

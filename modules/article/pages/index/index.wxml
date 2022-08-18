@@ -1,0 +1,14 @@
+<view id="page-article-list" class="container-full">
+  <scroll-view id="section-nav" class="bg-white nav" scroll-x scroll-with-animation>
+    <block wx:for="{{ tabs }}" wx:for-item="tab" wx:key="id">
+      <view bind:tap="tabSelectHandler" data-id="{{ tab.id }}" class="cu-item {{ tabId === tab.id ? 'text-blue cur' : null }}">{{ tab.name }}</view>
+    </block>
+  </scroll-view>
+
+  <!-- 文章列表 -->
+  <view id="section-articles" class="margin-top-sm margin-bottom">
+    <block wx:for="{{ models }}" wx:key="id" wx:for-item="article">
+      <article-item article="{{ article }}"></article-item>
+    </block>
+  </view>
+</view>

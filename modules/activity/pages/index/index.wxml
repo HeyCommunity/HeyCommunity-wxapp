@@ -1,0 +1,39 @@
+<view id="page-activity-index" class="container-full">
+  <van-notify id="van-notify"></van-notify>
+
+  <van-sticky>
+    <scroll-view scroll-x class="bg-white nav">
+      <view class="flex text-center">
+        <view class="cu-item flex-sub {{ tabType === 'active' ? 'text-blue cur' : '' }}" bind:tap="tabSelectHandler" data-type="active">当前活动</view>
+        <view class="cu-item flex-sub {{ tabType === 'expired' ? 'text-blue cur' : '' }}" bind:tap="tabSelectHandler" data-type="expired">历史活动</view>
+      </view>
+    </scroll-view>
+  </van-sticky>
+
+  <view id="section-body">
+    <view class="cu-card case activity-card" wx:if="{{ models.length }}">
+      <navigator url="/modules/activity/pages/detail/index?id={{ activity.id }}" class="cu-item shadow" wx:for="{{ models }}" wx:key="id" wx:for-item="activity">
+        <view class="image">
+          <image class="img-cover" src="{{ activity.cover }}" mode="aspectFill" lazy-load></image>
+          <view class="cu-tag {{ activity.is_expired ? 'bg-gray' : 'bg-blue' }}">{{ activity.countdown_for_humans }}</view>
+          <view class="cu-bar bg-shadeBottom">
+            <text class="text-cut"></text>
+          </view>
+        </view>
+        <view class="cu-list">
+          <view class="cu-item padding-lr padding-tb-sm">
+            <view class="t-title text-lg text-black text-bold">{{ activity.title }}</view>
+            <view class="text-sm flex justify-between">
+              <view class="t-address"><text class="cuIcon-location"></text> {{ activity.address_name }}</view>
+              <view class="t-time"><text class="cuIcon-time"></text> {{ activity.started_at }}</view>
+            </view>
+          </view>
+        </view>
+      </navigator>
+    </view>
+
+    <view class="padding-top-lg" wx:else>
+      <van-empty description="暂无活动"></van-empty>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,14 @@
+#page-activity-index #section-body .activity-card .img-cover {
+  height: 300rpx;
+  background-color: #dddddd; }
+
+#page-activity-index #section-body .activity-card .t-title {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis; }
+
+#page-activity-index #section-body .activity-card .t-address {
+  max-width: 50%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis; }

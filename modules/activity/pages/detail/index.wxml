@@ -1,0 +1,149 @@
+<view id="page-activity-detail" class="container-full">
+  <van-notify id="van-notify"></van-notify>
+
+  <view wx:if="{{ model }}">
+    <view id="section-header">
+      <swiper class="screen-swiper square-dot" indicator-dots="true" circular="true" autoplay="true" interval="5000" duration="500">
+        <swiper-item wx:for="{{ model.images }}" wx:for-item="image" wx:key="*this"
+                     bind:tap="previewImage" data-images="{{ model.images }}" data-image="{{ image }}">
+          <image class="community-cover" src="{{ image }}" mode="aspectFill"></image>
+        </swiper-item>
+      </swiper>
+      <view class="cu-list">
+        <view class="cu-item padding-tb-sm padding-lr bg-white">
+          <view class="text-lg text-black text-bold">{{ model.title }}</view>
+          <view class="text flex justify-between">
+            <view><text class="text-lg text-bold text-price text-red">{{ model.price }}</text></view>
+            <view>
+              <text class="text-log text-bold text-black">{{ model.total_ticket_num - model.surplus_ticket_num }}</text>
+              <text class="text-lg text-bold text-grey padding-lr-xs">/</text>
+              <text class="text-lg text-bold text-black">{{ model.total_ticket_num }}</text>
+            </view>
+          </view>
+          <view class="text flex justify-between">
+            <view><text class="cuIcon-time"></text> {{ model.started_at }} 至 {{ model.ended_at }}</view>
+          </view>
+          <view class="text flex justify-between" bind:tap="openMap">
+            <view><text class="cuIcon-location"></text> {{ model.address_name }}</view>
+            <view><text class="cuIcon-right"></text></view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view id="section-body" class="margin-top-sm">
+      <scroll-view scroll-x class="bg-white nav">
+        <view class="flex text-center">
+          <view class="cu-item flex-sub {{ tabType === 'detail' ? 'text-black cur' : '' }}" bind:tap="tabSelectHandler" data-type="detail">详情</view>
+          <view class="cu-item flex-sub {{ tabType === 'comment' ? 'text-black cur' : '' }}" bind:tap="tabSelectHandler" data-type="comment">
+            评论
+            <view wx:if="{{ model.comment_num }}" class="cu-tag sm round">{{ model.comment_num }}</view>
+          </view>
+          <view class="cu-item flex-sub {{ tabType === 'member' ? 'text-black cur' : '' }}" bind:tap="tabSelectHandler" data-type="member">
+            已报名
+            <view wx:if="{{ model.surplus_ticket_num < model.total_ticket_num }}" class="cu-tag sm round">{{ model.total_ticket_num - model.surplus_ticket_num }}</view>
+          </view>
+        </view>
+      </scroll-view>
+
+      <view>
+        <!-- 活动描述 -->
+        <view class="text-content bg-white padding" wx:if="{{ tabType === 'detail' }}">
+          <rich-text user-select nodes="{{ model.content }}"></rich-text>
+        </view>
+
+        <!-- 评论列表 -->
+        <view wx:elif="{{ tabType === 'comment' }}" id="section-comment-list" class="bg-white padding-top-sm">
+          <block wx:if="{{ model.comments.length }}">
+            <comment-list comments="{{ model.comments }}"
+                          bind:showCommentFormModalEvent="listenShowReplyCommentFormModalEvent"
+                          bind:updateCommentsDataEvent="listenUpdateCommentsDataEvent" />
+          </block>
+          <block wx:else>
+            <van-empty description="没有评论"></van-empty>
+          </block>
+        </view>
+
+        <!-- 成员列表 -->
+        <view wx:elif="{{ tabType === 'member' }}" id="section-member-list" class="bg-white padding">
+          <view wx:if="{{ model.members.length > 0 }}" class="grid col-5 text-center">
+            <view class="item-user margin-bottom-sm" wx:for="{{ model.members }}" wx:key="id" wx:for-item="member">
+              <navigator url="/modules/user/pages/detail/index?id={{ member.id }}" class="cu-avatar lg round margin-lr-xs" style="background-image:url({{ member.avatar }});"></navigator>
+              <view><navigator url="/modules/user/pages/detail/index?id={{ member.id }}">{{ member.nickname }}</navigator></view>
+            </view>
+          </view>
+          <view wx:else>
+            <van-empty description="还没有人报名"></van-empty>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view id="footer">
+      <button class="item btn-thumb cu-btn icon shadow" bind:tap="thumbHandler" data-value="{{ !model.i_have_thumb_up }}">
+        <text wx:if="{{ model.i_have_thumb_up }}" class="cuIcon-appreciatefill"></text>
+        <text wx:else class="cuIcon-appreciate"></text>
+      </button>
+      <button class="margin-left-xs item btn-thumb cu-btn icon shadow"
+              data-type="comment" data-entity-type="activity" data-entity-id="{{ model.id }}" bind:tap="showCommentFormModal">
+        <text wx:if="{{ model.i_have_comment }}" class="cuIcon-commentfill"></text>
+        <text wx:else class="cuIcon-comment"></text>
+      </button>
+      <view class="item box-input">
+        <button wx:if="{{ model.is_expired }}" class="el-input bg-grey text-center cu-btn shadow">活动已过期</button>
+        <button wx:elif="{{ model.is_registered }}" class="el-input bg-green text-center cu-btn shadow">已报名</button>
+        <button wx:elif="{{ model.surplus_ticket_num <= 0 }}" class="el-input bg-grey text-center cu-btn shadow">活动人数已满</button>
+        <button wx:else="{{ model.is_expired }}" class="el-input bg-blue text-center cu-btn shadow" bind:tap="showRegistrationConfirmModal">立即报名</button>
+      </view>
+    </view>
+  </view>
+</view>
+
+<!-- 报名确认评论框 -->
+<view id="modal-registration-confirm" class="cu-modal {{ registrationConfirmModalVisible ? 'show' : '' }}">
+  <view class="cu-dialog">
+    <view class="cu-bar cu-white justify-end">
+      <view class="content">活动报名</view>
+      <view bind:tap="hideRegistrationConfirmModal" class="action">
+        <text class="cuIcon-close text-red"></text>
+      </view>
+    </view>
+
+    <view class="padding bg-gray text-left body">
+      <view class="flex">
+        <text class="text-bold margin-right-sm captain" user-select>活动名称:</text>
+        <text user-select>{{ model.title }}</text>
+      </view>
+      <view class="flex">
+        <text class="text-bold margin-right-sm captain" user-select>开始时间:</text>
+        <text user-select>{{ model.started_at }}</text>
+      </view>
+      <view class="flex">
+        <text class="text-bold margin-right-sm captain" user-select>结束时间:</text>
+        <text user-select>{{ model.ended_at }}</text>
+      </view>
+      <view class="flex">
+        <text class="text-bold margin-right-sm captain" user-select>活动地点:</text>
+        <text user-select>{{ model.address_name }}</text>
+      </view>
+      <view class="flex">
+        <text class="text-bold margin-right-sm captain" user-select>详细地址:</text>
+        <text user-select>{{ model.address_full }}</text>
+      </view>
+    </view>
+
+    <view class="cu-white padding">
+      <view class="flex">
+        <view class="flex-sub">
+          <button bind:tap="hideRegistrationConfirmModal" class="cu-btn bg-gray block">取消</button>
+        </view>
+        <view class="flex-treble margin-left">
+          <button bind:tap="registerHandler" class="cu-btn bg-blue block">确认报名</button>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<!-- 评论模态框 -->
+<comment-form-modal id="comp-comment-form-modal" bind:commentSuccessfulEvent="listenCommentSuccessfulEvent" />

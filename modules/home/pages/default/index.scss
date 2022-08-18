@@ -1,0 +1,29 @@
+#page-home-index-club {
+  #section-header {
+    #part-menu {
+      .cu-item {
+        padding: 20rpx 0;
+        margin: 0;
+        flex: 1;
+        background-color: transparent;
+        font-size: 48rpx;
+        line-height: 1.6em;
+
+        &:after {
+          border-top: none;
+          border-left: none;
+          border-right: 1px solid rgba(0, 0, 0, 0.1) !important;
+          border-bottom: 1px solid rgba(0, 0, 0, 0.1) !important;
+        }
+
+        [class*=cuIcon] {
+          margin-top: -10rpx;
+
+          text {
+            margin-top: -8rpx;
+          }
+        }
+      }
+    }
+  }
+}

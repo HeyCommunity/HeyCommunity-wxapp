@@ -1,11 +1,6 @@
 {
-  "navigationBarBackgroundColor": "#ffffff",
-  "navigationBarTextStyle": "black",
   "navigationBarTitleText": "消息",
-  "backgroundColor": "#eeeeee",
-  "backgroundTextStyle": "light",
   "enablePullDownRefresh": true,
-  "onReachBottomDistance": 50,
   "usingComponents": {
     "van-sticky": "@vant/weapp/sticky/index",
     "van-dropdown-menu": "@vant/weapp/dropdown-menu/index",

@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "活动",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "van-sticky": "@vant/weapp/sticky/index"
+  }
+}

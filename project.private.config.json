@@ -1,10 +1,34 @@
 {
   "setting": {
-    "compileHotReLoad": true
+    "compileHotReLoad": false
   },
   "condition": {
     "miniprogram": {
       "list": [
+        {
+          "name": "[HOME] 首页 - 默认",
+          "pathName": "modules/home/pages/default/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "[HOME] 首页 - TEAM",
+          "pathName": "modules/home/pages/team/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "[ARTICLE] 文章列表页",
+          "pathName": "modules/article/pages/index/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "[ACTIVITY] 活动列表页",
+          "pathName": "modules/activity/pages/index/index",
+          "query": "",
+          "scene": null
+        },
         {
           "name": "[POST] 动态列表页",
           "pathName": "modules/post/pages/index/index",
@@ -75,6 +99,6 @@
     }
   },
   "description": "项目私有配置文件。此文件中的内容将覆盖 project.config.json 中的相同字段。项目的改动优先同步到此文件中。详见文档：https://developers.weixin.qq.com/miniprogram/dev/devtools/projectconfig.html",
-  "libVersion": "2.25.3",
-  "projectname": "HeyCommunity-wxapp"
+  "libVersion": "2.25.2",
+  "projectname": "HEY社区"
 }
