@@ -25,4 +25,22 @@ Page({
       wx.hideLoading();
     });
   },
+
+  /**
+   * 分享到聊天
+   */
+  onShareAppMessage() {
+    return {
+      title: '关于 - ' + APP.globalData.wxappName,
+    };
+  },
+
+  /**
+   * 分享到朋友圈
+   */
+  onShareTimeline() {
+    return {
+      title: '关于 - ' + APP.globalData.wxappName,
+    };
+  },
 });

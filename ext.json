@@ -5,6 +5,6 @@
   "ext": {
     "wxappName": "HEY社区",
     "wxappSlogan": "简单交流十分美好",
-    "apiDomain": "https://dev.api.heycommunity.com"
+    "apiDomain": "https://demo.heycommunity.com"
   }
 }

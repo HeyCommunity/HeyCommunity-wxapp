@@ -1,0 +1,92 @@
+<view id="page-article-detail" class="container-full">
+  <view id="section-article" class="bg-white text-black padding-tb-sm radius shadow-lg">
+    <view class="area-header solids-bottom">
+      <image mode="aspectFill" class="image-cover" src="{{ model.cover }}"></image>
+
+      <view class="area-header-content padding-tb-sm">
+        <view class="part-title padding-lr">
+          <view class="text-xl">{{ model.title }}</view>
+        </view>
+
+        <view class="part-info flex justify-between margin-top-xs padding-lr">
+          <text>{{ model.author }}</text>
+          <text>{{ model.published_at }}</text>
+        </view>
+      </view>
+    </view>
+
+    <view id="part-body" class="padding-lr margin-top">
+      <rich-text nodes="{{ model.content }}"></rich-text>
+    </view>
+  </view>
+
+  <!-- 点赞 -->
+  <view wx:if="{{ model.thumbs.length }}" class="bg-white padding-top-xs padding-bottom">
+    <view class="padding-lr-lg">
+      <van-divider contentPosition="center">他们为文章点赞</van-divider>
+    </view>
+
+    <block wx:if="{{ model.thumbs.length }}">
+      <view class="cu-avatar-group text-center d-block">
+        <block wx:for="{{ model.thumbs }}" wx:for-item="thumb" wx:key="id">
+          <view class="cu-avatar round lg" style="background-image:url({{ thumb.user_avatar }});"></view>
+        </block>
+      </view>
+    </block>
+    <block wx:else>
+      <view class="text-center">暂无用户点赞</view>
+    </block>
+  </view>
+
+  <!-- 评论 -->
+  <view class="margin-top">
+    <view class="cu-bar bg-white solids-bottom">
+      <view class="action">
+        <text class="cuIcon-titles text-blue"></text>
+        <text class="text text-black">评论</text>
+      </view>
+      <view class="action text-grey">共 {{ model.comment_num }} 条</view>
+    </view>
+
+    <view id="section-comment-list" class="bg-white padding-top-sm">
+      <block wx:if="{{ model.comments.length }}">
+        <comment-list comments="{{ model.comments }}"
+                      bind:showCommentFormModalEvent="listenShowReplyCommentFormModalEvent"
+                      bind:updateCommentsDataEvent="listenUpdateCommentsDataEvent" />
+      </block>
+
+      <block wx:else>
+        <van-empty description="没有评论"></van-empty>
+      </block>
+    </view>
+  </view>
+
+  <!-- 点赞列表 -->
+  <view wx:if="{{ tabType === 'thumb' }}" id="section-thumb-list" class="bg-white padding padding-bottom-xs">
+    <view wx:if="{{ model.thumbs.length > 0 }}" class="grid col-5 text-center">
+      <view class="item-user margin-bottom-sm" wx:for="{{ model.thumbs }}" wx:key="id" wx:for-item="thumb">
+        <navigator url="/modules/user/pages/detail/index?id={{ thumb.user_id }}" class="cu-avatar lg round margin-lr-xs" style="background-image:url({{ thumb.user_avatar }});"></navigator>
+        <view><navigator url="/modules/user/pages/detail/index?id={{ thumb.user_id }}">{{ thumb.user_nickname }}</navigator></view>
+      </view>
+    </view>
+
+    <view wx:else>
+      <van-empty description="没有点赞"></van-empty>
+    </view>
+  </view>
+
+  <!-- 底部 -->
+  <view id="section-footer">
+    <button class="item btn-thumb cu-btn icon shadow" bind:tap="thumbHandler"
+            data-entity-id="{{ model.id }}" data-entity-class="{{ model.entity_class }}" data-type="thumb_up" data-value="{{ !model.i_have_thumb_up }}">
+      <text wx:if="{{ model.i_have_thumb_up }}" class="cuIcon-appreciatefill"></text>
+      <text wx:else class="cuIcon-appreciate"></text>
+    </button>
+    <view class="item box-input">
+      <button class="el-input cu-btn shadow" bind:tap="showCommentFormModal">说说你的看法 ~</button>
+    </view>
+  </view>
+</view>
+
+<!-- 评论模态框 -->
+<comment-form-modal id="comp-comment-form-modal" bind:commentSuccessfulEvent="listenCommentSuccessfulEvent" />

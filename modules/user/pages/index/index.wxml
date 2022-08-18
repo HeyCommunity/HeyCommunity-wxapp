@@ -46,8 +46,21 @@
     </view>
   </view>
 
-  <!-- 我的主页 -->
   <view wx:if="{{ appGlobalData.isAuth }}" class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg radius">
+    <!-- 通知 -->
+    <navigator class="cu-item arrow" url="/modules/notice/pages/index/index">
+      <view class="content">
+        <text wx:if="{{ appGlobalData.isAuth && appGlobalData.userInfo.unread_notice_num }}" class="cuIcon-noticefill text-red"></text>
+        <text wx:else class="cuIcon-noticefill text-grey"></text>
+        <text class="text-grey">通知</text>
+      </view>
+      <view class="action">
+        <text wx:if="{{ appGlobalData.isAuth && appGlobalData.userInfo.unread_notice_num }}" class="text-sm text-red">{{ appGlobalData.userInfo.unread_notice_num }} 条未读</text>
+        <text wx:else class="text-sm text-grey">无未读</text>
+      </view>
+    </navigator>
+
+    <!-- 我的主页 -->
     <navigator class="cu-item arrow" url="../detail/index?id={{ appGlobalData.userInfo.id }}">
       <view class="content">
         <text class="cuIcon-homefill text-blue"></text>
@@ -171,7 +184,7 @@
   <view id="section-copyright">
     <navigator class="text-center text-gray padding-bottom-xl padding-top-lg" url="/modules/system/pages/heycommunity/index">
       <view>HeyCommunity {{ appGlobalData.hcInfo.version }}</view>
-      <view>Produced by supeRodv2 of ProtobiaTech</view>
+      <view>Made with peace and love by supeRodv2</view>
     </navigator>
   </view>
 </view>

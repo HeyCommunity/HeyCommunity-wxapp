@@ -1,0 +1,83 @@
+<van-notify id="van-notify"></van-notify>
+
+<view id="page-home-index-club" class="container-full">
+  <!-- 头部 -->
+  <view id="section-header">
+    <van-sticky container="{{ sectionHeaderElem }}">
+      <van-notice-bar wx:if="{{ appGlobalData.systemSettings.wxapp_index_page_marquee && appGlobalData.systemSettings.wxapp_index_page_marquee.enable }}"
+                      mode="link" delay="3" speed="30" color="#000000" background="#ffffff" left-icon="volume-o" text="{{ appGlobalData.systemSettings.wxapp_index_page_marquee.text }}"
+                      bind:click="gotoPage" data-url="{{ appGlobalData.systemSettings.wxapp_index_page_marquee.url }}">
+      </van-notice-bar>
+    </van-sticky>
+
+    <swiper class="screen-swiper square-dot" style="min-height:320rpx;" indicator-dots="true" circular="true" autoplay="true" interval="5000" duration="500">
+      <swiper-item wx:for="{{ banners }}" wx:for-item="banner" wx:key="*this">
+        <image src="{{ banner.imagePath }}" mode="aspectFit"></image>
+      </swiper-item>
+    </swiper>
+
+    <view id="part-menu" class="cu-list grid col-5">
+      <navigator class="cu-item" url="/modules/system/pages/about/index"><view class="cuIcon-news text-blue"><text>社区介绍</text></view></navigator>
+      <navigator class="cu-item" url="/modules/system/pages/regulation/index"><view class="cuIcon-read text-yellow"><text>社区准则</text></view></navigator>
+      <view class="cu-item" bind:tap="switchTab" data-url="/modules/article/pages/index/index"><view class="cuIcon-form text-cyan"><text>文章</text></view></view>
+      <view class="cu-item" bind:tap="switchTab" data-url="/modules/post/pages/index/index"><view class="cuIcon-album text-brown"><text>动态</text></view></view>
+      <view class="cu-item" bind:tap="switchTab" data-url="/modules/activity/pages/index/index"><view class="cuIcon-calendar text-green"><text>活动</text></view></view>
+    </view>
+  </view>
+
+  <!-- 最近动态和活动 -->
+  <view id="section-content" class="margin-top padding-bottom-sm">
+    <van-sticky container="{{ sectionContentElem }}">
+      <view class="cu-bar bg-white solids-bottom">
+        <view class="action">
+          <text class="cuIcon-titles text-blue"></text>
+          <text class="text text-black">推荐阅读</text>
+        </view>
+        <view class="action">
+        </view>
+      </view>
+    </van-sticky>
+
+    <block wx:if="{{ feeds.length <= 0 }}">
+      <van-empty description="没有内容"></van-empty>
+    </block>
+    <block wx:for="{{ feeds }}" wx:key="id" wx:for-item="feed" wx:for-index="feedIndex">
+      <block wx:if="{{ feed.entity_class === 'Modules\\Post\\Entities\\Post' }}">
+        <view class="item-post margin-bottom-sm">
+          <post-item post="{{ feed.entity }}" contentFullText="{{ false }}" action-bar-visible="{{ true }}" />
+        </view>
+      </block>
+
+      <block wx:if="{{ feed.entity_class === 'Modules\\Article\\Entities\\Article' }}">
+        <view class="item-article margin-bottom-sm">
+          <article-item article="{{ feed.entity }}"></article-item>
+        </view>
+      </block>
+
+      <block wx:if="{{ feed.entity_class === 'Modules\\Activity\\Entities\\Activity' }}">
+        <view class="item-activity margin-bottom-sm">
+          <view class="cu-card no-card case activity-card solids-top">
+            <navigator url="/modules/activity/pages/detail/index?id={{ feed.entity.id }}" class="cu-item shadow">
+              <view class="image margin-top-sm" style="margin:0; margin-left:0; margin-right:0; border-radius:0;">
+                <image class="img-cover" style="max-height:400rpx" src="{{ feed.entity.cover }}" mode="aspectFill" lazy-load></image>
+                <view class="cu-tag {{ feed.entity.is_expired ? 'bg-gray' : 'bg-blue' }}">{{ feed.entity.countdown_for_humans }}</view>
+                <view class="cu-bar bg-shadeBottom">
+                  <text class="text-cut"></text>
+                </view>
+              </view>
+              <view class="cu-list">
+                <view class="cu-item padding-lr padding-tb-sm">
+                  <view class="t-title text-lg text-black text-bold">{{ feed.entity.title }}</view>
+                  <view class="text-sm flex justify-between">
+                    <view class="t-address"><text class="cuIcon-location"></text> {{ feed.entity.address_name }}</view>
+                    <view class="t-time"><text class="cuIcon-time"></text> {{ feed.entity.started_at }}</view>
+                  </view>
+                </view>
+              </view>
+            </navigator>
+          </view>
+        </view>
+      </block>
+    </block>
+  </view>
+</view>

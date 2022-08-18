@@ -25,4 +25,22 @@ Page({
       wx.hideLoading();
     });
   },
+
+  /**
+   * 分享到聊天
+   */
+  onShareAppMessage() {
+    return {
+      title: APP.globalData.wxappName + '《社区准则》',
+    };
+  },
+
+  /**
+   * 分享到朋友圈
+   */
+  onShareTimeline() {
+    return {
+      title: APP.globalData.wxappName + '《社区准则》',
+    };
+  },
 });

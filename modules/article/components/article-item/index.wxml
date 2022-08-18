@@ -1,0 +1,18 @@
+<navigator url="/modules/article/pages/detail/index?id={{ article.id }}" class="cu-card article no-card solid-bottom">
+  <view class="item-article cu-item">
+    <view class="title">
+      <view class="text-cut">{{ article.title }}</view>
+    </view>
+    <view class="content">
+      <image mode="aspectFill" src="{{ article.cover }}"></image>
+      <view class="desc">
+        <view class="part-content text-content">{{ article.intro }}</view>
+        <view class="area-tags">
+          <block wx:for="{{ article.tags }}" wx:for-item="tag" wx:key="id">
+            <view class="cu-tag bg-blue light sm round">{{ tag.name }}</view>
+          </block>
+        </view>
+      </view>
+    </view>
+  </view>
+</navigator>

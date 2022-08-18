@@ -1,9 +1,5 @@
 {
-  "navigationBarBackgroundColor": "#ffffff",
-  "navigationBarTextStyle": "black",
   "navigationBarTitleText": "动态详情",
-  "backgroundColor": "#eeeeee",
-  "backgroundTextStyle": "light",
   "enablePullDownRefresh": true,
   "usingComponents": {
     "post-item": "../../components/post-item/index",

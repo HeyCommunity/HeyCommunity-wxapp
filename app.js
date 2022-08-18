@@ -14,8 +14,12 @@ App({
   WXLog: WXLog,
 
   // 通知数角标在 TabBar 的位置
-  noticeBadgeAtTabBarIndex: 1,
+  noticeBadgeAtTabBarIndex: 4,
   noticeTabBarPageUrl: 'modules/notice/index/index',
+
+  // callback
+  getSystemSettingsSuccessCallback: null,
+  authInitedCallback: null,
 
   globalData: {
     hcInfo: null,
@@ -24,6 +28,7 @@ App({
     wxappVersion: null,
 
     isAuth: false,
+    apiTrackToken: null,
     apiToken: null,
     userInfo: null,
     wechatUserInfo: null,
@@ -47,27 +52,19 @@ App({
     // SystemSettings
     this.REQUEST.GET('system/settings', {}, {showRequestFailModal: false}).then(function(result) {
       _this.globalData.systemSettings = result.data;
+
+      if (_this.getSystemSettingsSuccessCallback) _this.getSystemSettingsSuccessCallback();
     });
 
     // 恢复用户及登录状态
     AUTH.restoreLogin(_this).then(function(result) {
-      _this.Notify({message: result.data.nickname + ', 欢迎回来', type: 'primary'});
+      _this.Notify({message: _this.globalData.userInfo.nickname + ', 欢迎回来', type: 'primary'});
     }).catch(function(res) {
-      wx.login({
-        success: function(res) {
-          let loginCode = res.code;
-          _this.REQUEST.GET('users/login', {code: loginCode}, {showRequestFailModal: false}).then(function(result) {
-            _this.globalData.apiToken = result.data.token;
-            console.debug('未登录用户在后台进行注册，获取 apiToken => ' + result.data.token);
-          }).catch(function(res) {
-            _this.WXLog.addFilterMsg('AUTH-ERR');
-            _this.WXLog.warn('用户半登录失败 code => ' + loginCode);
-          });
-        },
-      });
     }).finally(function() {
       if (_this.authInitedCallback) _this.authInitedCallback();
     });
+
+    AUTH.enableUserTrack();     // 启用用户追踪
   },
 
   /**
@@ -97,7 +94,7 @@ App({
     // 如果已登录且未读通知数大于 0
     if (this.globalData.isAuth && this.globalData.userInfo.unread_notice_num) {
       wx.setTabBarBadge({
-        index: 1,
+        index: this.noticeBadgeAtTabBarIndex,
         text: String(this.globalData.userInfo.unread_notice_num),
       });
       console.debug('resetNoticeBadgeAtTabBar: unread_notice_num => ' + this.globalData.userInfo.unread_notice_num);

@@ -1,11 +1,6 @@
 {
-  "navigationBarBackgroundColor": "#ffffff",
-  "navigationBarTextStyle": "black",
   "navigationBarTitleText": "用户主页",
-  "backgroundColor": "#eeeeee",
-  "backgroundTextStyle": "light",
   "enablePullDownRefresh": true,
-  "onReachBottomDistance": 200,
   "usingComponents": {
     "post-list": "/modules/post/components/post-list/index",
     "comment-list": "/modules/common/comment/components/comment-list/index"

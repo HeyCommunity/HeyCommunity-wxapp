@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "首页",
+  "usingComponents": {
+    "van-sticky": "@vant/weapp/sticky/index"
+  }
+}

@@ -5,4 +5,4 @@
 node_modules
 miniprogram_npm
 
-env.local.js
+env.js

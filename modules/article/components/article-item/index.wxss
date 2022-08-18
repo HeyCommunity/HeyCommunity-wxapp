@@ -1,0 +1,1 @@
+.item-article{background-color:red}.item-article .content{height:6.4em;overflow:hidden}.item-article .content .desc{display:block!important}

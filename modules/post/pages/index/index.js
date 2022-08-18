@@ -84,7 +84,7 @@ Page({
    */
   onShareAppMessage() {
     return {
-      title: this.data.appGlobalData.wxappName + ': ' + this.data.appGlobalData.wxappSlogan,
+      title: '动态 - ' + APP.globalData.wxappName,
     }
   },
 
@@ -93,7 +93,7 @@ Page({
    */
   onShareTimeline() {
     return {
-      title: this.data.appGlobalData.wxappName + ': ' + this.data.appGlobalData.wxappSlogan,
+      title: '动态 - ' + APP.globalData.wxappName,
     };
   },
 });

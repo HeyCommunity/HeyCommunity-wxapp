@@ -1,0 +1,11 @@
+{
+  "navigationBarTitleText": "首页",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "van-notice-bar": "@vant/weapp/notice-bar/index",
+    "van-sticky": "@vant/weapp/sticky/index",
+    "post-item": "/modules/post/components/post-item/index",
+    "article-item": "/modules/article/components/article-item/index",
+    "comment-list": "/modules/common/comment/components/comment-list/index"
+  }
+}
