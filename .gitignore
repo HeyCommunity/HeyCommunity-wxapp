@@ -3,6 +3,5 @@
 *.map
 
 node_modules
-miniprogram_npm
 
 env.js
