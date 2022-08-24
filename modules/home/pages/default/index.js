@@ -28,14 +28,13 @@ Page({
       pageThis: this,
     });
 
+    this.pagination.getFirstPageData();
+
     APP.getSystemSettingsSuccessCallback = function() {
-      _this.setData({appGlobalData: APP.globalData});
       wx.setNavigationBarTitle({title: APP.globalData.wxappName});
     }
 
     APP.authInitedCallback = function() {
-      _this.setData({appGlobalData: APP.globalData});
-
       _this.pagination.getFirstPageData();
     };
   },
@@ -74,6 +73,14 @@ Page({
     wx.switchTab({
       url: event.currentTarget.dataset.url,
     });
+  },
+
+  /**
+   * 刷新 feeds
+   */
+  refreshFeedsHandler() {
+    this.setData({feeds: []});
+    this.pagination.getFirstPageData();
   },
 
   /**
