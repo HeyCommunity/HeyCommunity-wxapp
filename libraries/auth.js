@@ -12,7 +12,7 @@ const enableUserTrack = function() {
 
     return new Promise(function(resolve, reject) {
       // 获取 token
-      APP.REQUEST.POST('users/wxapp-signup', {code: code}).then(function(result) {
+      APP.REQUEST.POST('users/wxapp-signup', {code: code}, {showRequestFailModal: false}).then(function(result) {
         APP.globalData.apiTrackToken = result.data.token;
 
         console.debug('启用 UserTrack:', result.data.token);
