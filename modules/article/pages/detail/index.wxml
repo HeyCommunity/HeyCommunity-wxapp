@@ -16,7 +16,7 @@
     </view>
 
     <view id="part-body" class="padding-lr margin-top">
-      <rich-text nodes="{{ model.content }}"></rich-text>
+      <rich-text id="richtext" space="nbsp" nodes="{{ model.content }}"></rich-text>
     </view>
   </view>
 

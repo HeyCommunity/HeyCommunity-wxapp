@@ -26,6 +26,17 @@
         }
       }
     }
+
+    #part-body {
+      #richtext {
+        word-break: break-all;
+        font-size: 30rpx;
+
+        .tiny-p {
+          margin-bottom: 1rem;
+        }
+      }
+    }
   }
 
   #section-tabs {
